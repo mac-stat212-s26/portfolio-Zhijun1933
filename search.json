@@ -131,6 +131,94 @@
     ]
   },
   {
+    "objectID": "ica/adv_data_viz_ica.html",
+    "href": "ica/adv_data_viz_ica.html",
+    "title": "Advanced Data Visualization: Recreating the NYTimes Temperature Plot",
+    "section": "",
+    "text": "Introduction\nThis assignment challenges us to recreate the New York Times 2015 Temperature Visualization using San Francisco weather data from 2011. The NYTimes visualization is a masterclass in data storytelling—it transforms abstract climate data into an immediately comprehensible narrative about our warming planet. Through this exercise, I aim to develop not only technical proficiency with ggplot2 but also a deeper appreciation for how design choices serve communicative intent.\nlibrary(tidyverse)\nweather &lt;- read_csv(\"https://mac-stat.github.io/data/sfo_weather.csv\")",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span>"
+    ]
+  },
+  {
+    "objectID": "ica/adv_data_viz_ica.html#exercise-1-data-storytelling-analysis",
+    "href": "ica/adv_data_viz_ica.html#exercise-1-data-storytelling-analysis",
+    "title": "Advanced Data Visualization: Recreating the NYTimes Temperature Plot",
+    "section": "Exercise 1: Data Storytelling Analysis",
+    "text": "Exercise 1: Data Storytelling Analysis\nWhat key message does NYTimes want readers to explore?\nThe introduction—“Scientists declared that 2015 was Earth’s hottest year on record”—immediately establishes the narrative frame. The visualization isn’t merely presenting temperature data; it’s inviting readers to experience the claim that our planet is warming. The key message is both empirical and visceral: 2015 wasn’t just statistically warmer—it felt anomalous when placed against historical context.\nHow did this goal inform the visualization design?\nThe design choices flow directly from this communicative intent:\n\nLayered comparison: By displaying record ranges, normal ranges, and actual temperatures simultaneously, readers can see at a glance where 2015 sits relative to historical norms. The choice to layer rather than use facets keeps all comparisons in immediate visual proximity.\nColor hierarchy: The visual emphasis (through color saturation and hue) draws attention to deviations from the norm, particularly warm anomalies. This isn’t neutral data presentation—it’s visual rhetoric that supports the narrative.\nTemporal continuity: The continuous x-axis preserves the cyclical, seasonal nature of temperature while allowing readers to scan for patterns across the entire year.\nAesthetic Mapping Analysis\n\n\n\n\n\n\nVariable\nAesthetic Mapping\n\n\n\ndateInYear\nx-position (horizontal placement)\n\n\n\nRecordLow, RecordHigh\n\ny-position endpoints (record temperature band)\n\n\n\nNormalLow, NormalHigh\n\ny-position endpoints (normal temperature band)\n\n\n\nLow, High\n\ny-position endpoints (actual temperature band)\n\n\nTemperature category\nfill color (distinguishing record/normal/actual)",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span>"
+    ]
+  },
+  {
+    "objectID": "ica/adv_data_viz_ica.html#exercise-2-identifying-appropriate-geoms",
+    "href": "ica/adv_data_viz_ica.html#exercise-2-identifying-appropriate-geoms",
+    "title": "Advanced Data Visualization: Recreating the NYTimes Temperature Plot",
+    "section": "Exercise 2: Identifying Appropriate Geoms",
+    "text": "Exercise 2: Identifying Appropriate Geoms\nAfter reviewing the ggplot2 reference page, several geoms emerge as candidates:\n\n\ngeom_linerange: Draws vertical lines from ymin to ymax—ideal for temperature ranges at each date point\n\ngeom_ribbon: Creates filled areas between ymin and ymax—could work but better suited for continuous shaded regions\n\ngeom_rect: Draws rectangles with precise positioning—offers finer control over width\n\nFor this visualization, geom_linerange provides the cleanest implementation since we want discrete vertical bars for each day, not continuous ribbons. The geom_rect offers more control over bar width if needed.\n\nggplot(weather) +\n  geom_linerange(\n    aes(x = dateInYear, ymin = RecordLow, ymax = RecordHigh),\n    color = \"#ECEBE3\",\n    linewidth = 0.5\n  ) +\n  labs(\n    x = \"Day of Year\",\n    y = \"Temperature (°F)\",\n    title = \"San Francisco Weather Records (2011)\"\n  ) +\n  theme_classic()\n\n\n\nSFO Weather Records in 2011\n\n\n\nReflection: The initial plot reveals the envelope of historical temperature extremes. The light tan color (#ECEBE3) establishes this as background context—a canvas against which more salient information will be layered. This design choice follows Tufte’s principle of using visual hierarchy to guide attention.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span>"
+    ]
+  },
+  {
+    "objectID": "ica/adv_data_viz_ica.html#exercise-3-layering-temperature-ranges",
+    "href": "ica/adv_data_viz_ica.html#exercise-3-layering-temperature-ranges",
+    "title": "Advanced Data Visualization: Recreating the NYTimes Temperature Plot",
+    "section": "Exercise 3: Layering Temperature Ranges",
+    "text": "Exercise 3: Layering Temperature Ranges\nNow I add the typical temperature range and the actual 2011 temperatures. The key insight here is that ggplot2 layers are drawn in order—later geoms overlay earlier ones. This means the most important information (actual temperatures) should come last.\n\nggplot(weather) +\n  # Layer 1: Record temperature range (background)\n  geom_linerange(\n    aes(x = dateInYear, ymin = RecordLow, ymax = RecordHigh),\n    color = \"#ECEBE3\",\n    linewidth = 2.5\n  ) +\n  # Layer 2: Normal/typical temperature range (middle ground)\n  geom_linerange(\n    aes(x = dateInYear, ymin = NormalLow, ymax = NormalHigh),\n    color = \"#C8B8BA\",\n    linewidth = 2.5\n  ) +\n  # Layer 3: Actual 2011 temperatures (foreground)\n  geom_linerange(\n    aes(x = dateInYear, ymin = Low, ymax = High),\n    color = \"#A90248\",\n    linewidth = 2.5\n  ) +\n  labs(\n    x = \"Day of Year\",\n    y = \"Temperature (°F)\",\n    title = \"San Francisco Daily Temperatures (2011)\",\n    subtitle = \"Comparing actual temperatures against historical norms and records\"\n  ) +\n  theme_classic()\n\n\n\nSFO Observed, Average, and Record Daily Temperatures in 2011\n\n\n\nReflection: The layered structure now tells a richer story. The pink/magenta bars showing actual temperatures sit atop the neutral bands, making it immediately visible where 2011 deviated from norms. Days where the actual temperatures extend beyond the normal range demand attention—they’re anomalies worth investigating.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span>"
+    ]
+  },
+  {
+    "objectID": "ica/adv_data_viz_ica.html#exercise-4-adding-month-demarcations",
+    "href": "ica/adv_data_viz_ica.html#exercise-4-adding-month-demarcations",
+    "title": "Advanced Data Visualization: Recreating the NYTimes Temperature Plot",
+    "section": "Exercise 4: Adding Month Demarcations",
+    "text": "Exercise 4: Adding Month Demarcations\nTo add vertical lines separating months, I need to identify where each month begins. This requires creating a subset of the data containing only the first day of each month.\n\n# Create data for month dividers\nmonth_starts &lt;- weather |&gt;\n  filter(Day == 1) |&gt;\n  select(dateInYear, Month)\n\nggplot(weather) +\n  # Temperature layers\n  geom_linerange(\n    aes(x = dateInYear, ymin = RecordLow, ymax = RecordHigh),\n    color = \"#ECEBE3\",\n    linewidth = 2.5\n  ) +\n  geom_linerange(\n    aes(x = dateInYear, ymin = NormalLow, ymax = NormalHigh),\n    color = \"#C8B8BA\",\n    linewidth = 2.5\n  ) +\n  geom_linerange(\n    aes(x = dateInYear, ymin = Low, ymax = High),\n    color = \"#A90248\",\n    linewidth = 2.5\n  ) +\n  # Month dividers\n  geom_vline(\n    data = month_starts,\n    aes(xintercept = dateInYear),\n    color = \"gray70\",\n    linetype = \"dashed\",\n    linewidth = 0.3\n  ) +\n  labs(\n    x = \"Day of Year\",\n    y = \"Temperature (°F)\",\n    title = \"San Francisco Daily Temperatures (2011)\"\n  ) +\n  theme_classic()\n\n\n\nSFO Daily Temperatures with Month Demarcations\n\n\n\nReflection: The vertical lines provide crucial temporal anchoring. Without them, the continuous stream of days blurs together. With them, readers can quickly locate specific months and compare seasonal patterns. This demonstrates an important principle: good visualization often requires adding structure that isn’t inherent in the data itself.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span>"
+    ]
+  },
+  {
+    "objectID": "ica/adv_data_viz_ica.html#exercise-5-custom-x-axis-labels",
+    "href": "ica/adv_data_viz_ica.html#exercise-5-custom-x-axis-labels",
+    "title": "Advanced Data Visualization: Recreating the NYTimes Temperature Plot",
+    "section": "Exercise 5: Custom X-Axis Labels",
+    "text": "Exercise 5: Custom X-Axis Labels\nThe default numeric x-axis (1-365) is technically accurate but semantically opaque. Replacing it with month names centered within each month’s span transforms raw numbers into meaningful temporal markers.\nSearch Process Documentation:\nI searched Google for “ggplot2 custom axis labels at specific positions” which led me to scale_x_continuous() with the breaks and labels arguments. The key insight is that we need to calculate the midpoint of each month.\n\n# Calculate month midpoints for label positioning\nmonth_midpoints &lt;- weather |&gt;\n  group_by(Month) |&gt;\n  summarize(\n    mid = mean(dateInYear),\n    .groups = \"drop\"\n  )\n\nggplot(weather) +\n  geom_linerange(\n    aes(x = dateInYear, ymin = RecordLow, ymax = RecordHigh),\n    color = \"#ECEBE3\",\n    linewidth = 2.5\n  ) +\n  geom_linerange(\n    aes(x = dateInYear, ymin = NormalLow, ymax = NormalHigh),\n    color = \"#C8B8BA\",\n    linewidth = 2.5\n  ) +\n  geom_linerange(\n    aes(x = dateInYear, ymin = Low, ymax = High),\n    color = \"#A90248\",\n    linewidth = 2.5\n  ) +\n  geom_vline(\n    data = month_starts,\n    aes(xintercept = dateInYear),\n    color = \"gray70\",\n    linetype = \"dashed\",\n    linewidth = 0.3\n  ) +\n  scale_x_continuous(\n    breaks = month_midpoints$mid,\n    labels = month.abb\n  ) +\n  labs(\n    x = NULL,\n    y = \"Temperature (°F)\",\n    title = \"San Francisco Daily Temperatures (2011)\",\n    subtitle = \"Observed temperatures compared to historical averages and records\"\n  ) +\n  theme_classic() +\n  theme(\n    axis.ticks.x = element_blank(),\n    panel.grid.major.x = element_blank()\n  )\n\n\n\nSFO Daily Temperatures with Month Labels\n\n\n\nReflection: This transformation—from numbers to names—seems minor but fundamentally changes how readers interact with the visualization. “Day 180” requires mental arithmetic; “July” is immediately meaningful. Good visualization meets readers where they are.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span>"
+    ]
+  },
+  {
+    "objectID": "ica/adv_data_viz_ica.html#exercise-6-precipitation-visualization",
+    "href": "ica/adv_data_viz_ica.html#exercise-6-precipitation-visualization",
+    "title": "Advanced Data Visualization: Recreating the NYTimes Temperature Plot",
+    "section": "Exercise 6: Precipitation Visualization",
+    "text": "Exercise 6: Precipitation Visualization\nThe precipitation plot requires different visual encodings: bars for daily precipitation, triangles for record-breaking days, and text annotations for monthly totals.\n\n# Calculate monthly precipitation totals\nmonthly_precip &lt;- weather |&gt;\n  group_by(Month) |&gt;\n  summarize(\n    total = sum(Precip, na.rm = TRUE),\n    mid_day = mean(dateInYear),\n    .groups = \"drop\"\n  )\n\n# Maximum precipitation for positioning text\nmax_precip &lt;- max(weather$Precip, na.rm = TRUE)\n\nggplot(weather) +\n  # Daily precipitation bars\n  geom_col(\n    aes(x = dateInYear, y = Precip),\n    fill = \"#32a3d8\",\n    width = 1\n  ) +\n  # Month dividers\n  geom_vline(\n    data = month_starts,\n    aes(xintercept = dateInYear),\n    color = \"gray70\",\n    linetype = \"dashed\",\n    linewidth = 0.3\n  ) +\n  # Record precipitation markers (triangles)\n  geom_point(\n    data = weather |&gt; filter(RecordP == TRUE),\n    aes(x = dateInYear, y = Precip),\n    shape = 17,  # triangle\n    color = \"#32a3d8\",\n    size = 3\n  ) +\n  # Monthly total annotations\n  geom_text(\n    data = monthly_precip,\n    aes(x = mid_day, y = max_precip * 0.95, label = round(total, 2)),\n    size = 3,\n    hjust = 0.5,\n    vjust = 1,\n    color = \"gray40\"\n  ) +\n  scale_x_continuous(\n    breaks = month_midpoints$mid,\n    labels = month.abb\n  ) +\n  labs(\n    x = NULL,\n    y = \"Precipitation (inches)\",\n    title = \"San Francisco Precipitation (2011)\",\n    subtitle = \"Daily rainfall with monthly totals; triangles indicate record-breaking days\"\n  ) +\n  theme_classic() +\n  theme(\n    axis.ticks.x = element_blank(),\n    panel.background = element_rect(fill = \"#ebeae2\", color = NA),\n    plot.background = element_rect(fill = \"#ebeae2\", color = NA)\n  )\n\n\n\nSFO Precipitation in 2011\n\n\n\nReflection: The precipitation plot uses different visual vocabulary than the temperature plot—appropriately so, since precipitation is fundamentally different data. Temperature has natural ranges (low to high each day); precipitation is a single value per day. The triangular markers for record days provide a secondary narrative layer without cluttering the primary visualization.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span>"
+    ]
+  },
+  {
+    "objectID": "ica/adv_data_viz_ica.html#concluding-reflection",
+    "href": "ica/adv_data_viz_ica.html#concluding-reflection",
+    "title": "Advanced Data Visualization: Recreating the NYTimes Temperature Plot",
+    "section": "Concluding Reflection",
+    "text": "Concluding Reflection\nThis exercise illuminated several principles that extend beyond technical ggplot2 proficiency:\n\nDesign serves story: Every aesthetic choice—color, layer order, axis labels—should advance the communicative intent. The NYTimes visualization succeeds because its design choices aren’t arbitrary; they’re rhetorical.\nLayering creates hierarchy: The human eye naturally perceives layered elements as having different importance levels. By placing records at the back and actuals at the front, we guide attention toward the most meaningful comparisons.\nContext enables interpretation: Raw data (temperatures, precipitation amounts) becomes meaningful only when contextualized against norms, records, and temporal structure. Visualization isn’t just displaying data—it’s constructing interpretive frameworks.\nDocumentation is exploration: The process of searching documentation, experimenting with parameters, and iterating toward solutions is itself a form of learning. The “answer” matters less than the capacity to navigate toward it.\n\nAs someone working on institutional capacity analysis in development contexts, I’m struck by the parallel: just as good visualization requires layering context to enable interpretation, good policy analysis requires understanding the institutional scaffolding that gives interventions meaning. Data, like policy, speaks only within frameworks of interpretation.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span>"
+    ]
+  },
+  {
     "objectID": "ica/ica-sample1.html",
     "href": "ica/ica-sample1.html",
     "title": "ICA Sample 1",
@@ -138,7 +226,7 @@
     "text": "Add content here",
     "crumbs": [
       "In-Class Activities",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ICA Sample 1</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>ICA Sample 1</span>"
     ]
   },
   {
@@ -149,7 +237,7 @@
     "text": "Add content here",
     "crumbs": [
       "In-Class Activities",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>ICA Sample 2</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>ICA Sample 2</span>"
     ]
   },
   {
@@ -160,7 +248,7 @@
     "text": "Add content here",
     "crumbs": [
       "Extras",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Extra Sample 1</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Extra Sample 1</span>"
     ]
   },
   {
@@ -171,7 +259,7 @@
     "text": "Add content here",
     "crumbs": [
       "Extras",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Extra Sample 2</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Extra Sample 2</span>"
     ]
   }
 ]
