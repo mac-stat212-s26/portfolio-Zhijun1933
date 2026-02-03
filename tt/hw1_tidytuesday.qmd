@@ -329,6 +329,7 @@ This chart reveals capital inequality through multiple lenses:
 The visualization reveals a stark **capital paradox** in Brazil's corporate structure:
 
 - **Micro-enterprises** constitute the largest share of registered companies yet control a disproportionately small fraction of total capital stock
+- **Medium/Large firms** show the inverse pattern—fewer in number but commanding the majority of capital
 - The "capital gap" (the difference between company share and capital share) is most pronounced for micro-enterprises
 
 This pattern persists even after filtering for firms with capital above 150,000 BRL, suggesting that the barriers to capital accumulation for small firms are structural rather than simply a function of including marginal businesses.
