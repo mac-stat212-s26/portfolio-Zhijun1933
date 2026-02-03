@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "COMP/STAT212 Portfolio",
     "section": "",
-    "text": "Welcome to my online portfolio for COMP/STAT212 course taken at Macalester College. Please, use the side bar on the left for navigation.",
+    "text": "Welcome to my online portfolio for COMP/STAT112 course taken at Macalester College. Please, use the side bar on the left for navigation.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span>"
     ]
@@ -21,6 +21,72 @@
     ]
   },
   {
+    "objectID": "tt/hw1_tidytuesday.html",
+    "href": "tt/hw1_tidytuesday.html",
+    "title": "The Paradox of Brazil’s Micro-Enterprises",
+    "section": "",
+    "text": "Research Question\nDo micro-enterprises in Brazil face a “capital trap”—where they constitute the majority of registered firms yet control a disproportionately small share of total capital stock?\nThis question matters for development economics: if the smallest formal businesses cannot accumulate capital at rates proportional to their numbers, it suggests structural barriers to firm growth that may perpetuate economic inequality and limit broad-based development.",
+    "crumbs": [
+      "TidyTuesday",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>The Paradox of Brazil's Micro-Enterprises</span>"
+    ]
+  },
+  {
+    "objectID": "tt/hw1_tidytuesday.html#background",
+    "href": "tt/hw1_tidytuesday.html#background",
+    "title": "The Paradox of Brazil’s Micro-Enterprises",
+    "section": "Background",
+    "text": "Background\nBrazil’s CNPJ registry provides a rare window into the formal business sector of Latin America’s largest economy. The dataset contains companies filtered to those with capital stock exceeding 150,000 BRL (~$30,000 USD), meaning we’re examining firms that have already crossed a meaningful capitalization threshold. If capital concentration exists even within this subset of more substantial businesses, it points to deeper structural patterns in how Brazilian firms accumulate resources.",
+    "crumbs": [
+      "TidyTuesday",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>The Paradox of Brazil's Micro-Enterprises</span>"
+    ]
+  },
+  {
+    "objectID": "tt/hw1_tidytuesday.html#data-analysis",
+    "href": "tt/hw1_tidytuesday.html#data-analysis",
+    "title": "The Paradox of Brazil’s Micro-Enterprises",
+    "section": "Data & Analysis",
+    "text": "Data & Analysis\n\nShow codelibrary(dplyr)\nlibrary(tidyr)\nlibrary(ggplot2)\nlibrary(readr)\nlibrary(scales)\nlibrary(stringr)\nlibrary(showtext)\n\n# Load Google Font for professional typography\nfont_add_google(\"Source Sans Pro\", \"source\")\nshowtext_auto()\n\n\n\nShow code# Load data (comma-delimited)\ncompanies &lt;- read_csv(\n  'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-01-27/companies.csv',\n  show_col_types = FALSE\n)\n\n# Prepare summary data\nsize_summary &lt;- companies |&gt;\n  dplyr::filter(!is.na(company_size), !is.na(capital_stock)) |&gt;\n  dplyr::group_by(company_size) |&gt;\n  dplyr::summarise(\n    n_companies = n(),\n    total_capital = sum(capital_stock, na.rm = TRUE),\n    mean_capital = mean(capital_stock, na.rm = TRUE),\n    median_capital = median(capital_stock, na.rm = TRUE),\n    .groups = \"drop\"\n  ) |&gt;\n  dplyr::mutate(\n    pct_companies = n_companies / sum(n_companies) * 100,\n    pct_capital = total_capital / sum(total_capital) * 100,\n    capital_gap = pct_companies - pct_capital,\n    company_size = dplyr::case_when(\n      company_size == \"micro-enterprise\" ~ \"Micro\",\n      company_size == \"small-enterprise\" ~ \"Small\",\n      TRUE ~ \"Medium/Large\"\n    ),\n    company_size = factor(company_size, levels = c(\"Micro\", \"Small\", \"Medium/Large\"))\n  )\n\n\n\nShow code# Reshape for visualization\nplot_data &lt;- size_summary |&gt;\n  dplyr::select(company_size, pct_companies, pct_capital) |&gt;\n  tidyr::pivot_longer(\n    cols = c(pct_companies, pct_capital),\n    names_to = \"metric\",\n    values_to = \"percentage\"\n  ) |&gt;\n  dplyr::mutate(\n    metric = dplyr::if_else(metric == \"pct_companies\", \"Share of Companies\", \"Share of Capital\"),\n    metric = factor(metric, levels = c(\"Share of Companies\", \"Share of Capital\"))\n  )\n\n# Define colors\ncolors &lt;- c(\"Share of Companies\" = \"#264653\", \"Share of Capital\" = \"#e76f51\")\n\n# Create the visualization\nggplot(plot_data, aes(x = company_size, y = percentage, fill = metric)) +\n  geom_col(position = position_dodge(width = 0.75), width = 0.65, alpha = 0.9) +\n  geom_text(\n    aes(label = sprintf(\"%.1f%%\", percentage)),\n    position = position_dodge(width = 0.75),\n    vjust = -0.5,\n    size = 4.5,\n    fontface = \"bold\",\n    family = \"source\"\n  ) +\n  # Add annotation for the key insight\n  annotate(\n    \"segment\",\n    x = 0.65, xend = 0.65,\n    y = plot_data |&gt; dplyr::filter(company_size == \"Micro\", metric == \"Share of Capital\") |&gt; dplyr::pull(percentage),\n    yend = plot_data |&gt; dplyr::filter(company_size == \"Micro\", metric == \"Share of Companies\") |&gt; dplyr::pull(percentage),\n    color = \"#2a9d8f\",\n    linewidth = 1.5,\n    arrow = arrow(ends = \"both\", length = unit(0.15, \"inches\"))\n  ) +\n  annotate(\n    \"text\",\n    x = 0.45,\n    y = (plot_data |&gt; dplyr::filter(company_size == \"Micro\", metric == \"Share of Capital\") |&gt; dplyr::pull(percentage) +\n         plot_data |&gt; dplyr::filter(company_size == \"Micro\", metric == \"Share of Companies\") |&gt; dplyr::pull(percentage)) / 2,\n    label = \"Capital\\nGap\",\n    hjust = 1,\n    size = 3.5,\n    color = \"#2a9d8f\",\n    fontface = \"bold\",\n    family = \"source\"\n  ) +\n  scale_fill_manual(values = colors, name = NULL) +\n  scale_y_continuous(\n    limits = c(0, 85),\n    breaks = seq(0, 80, 20),\n    labels = label_percent(scale = 1),\n    expand = expansion(mult = c(0, 0.05))\n  ) +\n  labs(\n    title = \"Brazil's Micro-Enterprise Capital Trap\",\n    subtitle = \"Micro-enterprises dominate firm counts but control far less capital,\\nwhile medium/large firms show the opposite pattern\",\n    x = NULL,\n    y = NULL,\n    caption = \"Source: Brazilian CNPJ Registry (Receita Federal) via TidyTuesday 2026 Week 4\\nNote: Dataset filtered to companies with capital stock &gt; 150,000 BRL\"\n  ) +\n  theme_minimal(base_size = 14, base_family = \"source\") +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 20, color = \"#264653\", margin = margin(b = 5)),\n    plot.subtitle = element_text(size = 13, color = \"gray40\", margin = margin(b = 20), lineheight = 1.2),\n    plot.caption = element_text(size = 9, color = \"gray50\", hjust = 0, margin = margin(t = 15)),\n    legend.position = \"top\",\n    legend.justification = \"left\",\n    legend.text = element_text(size = 12),\n    legend.margin = margin(b = 10),\n    axis.text = element_text(size = 12, color = \"gray30\"),\n    axis.text.x = element_text(face = \"bold\", size = 13),\n    panel.grid.major.x = element_blank(),\n    panel.grid.minor = element_blank(),\n    panel.grid.major.y = element_line(color = \"gray90\"),\n    plot.margin = margin(20, 20, 20, 20)\n  )\n\n\n\n\n\n\nFigure 3.1: Brazil’s Capital Paradox: Micro-enterprises make up the majority of firms but control a fraction of total capital",
+    "crumbs": [
+      "TidyTuesday",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>The Paradox of Brazil's Micro-Enterprises</span>"
+    ]
+  },
+  {
+    "objectID": "tt/hw1_tidytuesday.html#visualization-2-capital-inequality-landscape",
+    "href": "tt/hw1_tidytuesday.html#visualization-2-capital-inequality-landscape",
+    "title": "The Paradox of Brazil’s Micro-Enterprises",
+    "section": "Visualization 2: Capital Inequality Landscape",
+    "text": "Visualization 2: Capital Inequality Landscape\nThis advanced visualization combines multiple dimensions: company size, legal nature, and the Gini-like concentration of capital within each category.\n\nShow code# Calculate metrics by company size AND legal nature (top categories)\ntop_legal &lt;- companies |&gt;\n  dplyr::count(legal_nature, sort = TRUE) |&gt;\n  dplyr::slice_head(n = 5) |&gt;\n  dplyr::pull(legal_nature)\n\ncombined_summary &lt;- companies |&gt;\n  dplyr::filter(\n    !is.na(company_size), \n    !is.na(capital_stock),\n    !is.na(legal_nature),\n    legal_nature %in% top_legal\n  ) |&gt;\n  dplyr::group_by(company_size, legal_nature) |&gt;\n  dplyr::summarise(\n    n_companies = dplyr::n(),\n    total_capital = sum(capital_stock, na.rm = TRUE),\n    mean_capital = mean(capital_stock, na.rm = TRUE),\n    median_capital = median(capital_stock, na.rm = TRUE),\n    # Capital concentration ratio (mean/median - higher = more skewed)\n    concentration_ratio = mean_capital / median_capital,\n    .groups = \"drop\"\n  ) |&gt;\n  # Calculate percentages within each legal nature\n  dplyr::group_by(legal_nature) |&gt;\n  dplyr::mutate(\n    pct_companies = n_companies / sum(n_companies) * 100,\n    pct_capital = total_capital / sum(total_capital) * 100,\n    capital_gap = pct_capital - pct_companies  # Positive = capital advantage\n  ) |&gt;\n  dplyr::ungroup() |&gt;\n  dplyr::mutate(\n    company_size = dplyr::case_when(\n      company_size == \"micro-enterprise\" ~ \"Micro\",\n      company_size == \"small-enterprise\" ~ \"Small\",\n      TRUE ~ \"Medium/Large\"\n    ),\n    company_size = factor(company_size, levels = c(\"Micro\", \"Small\", \"Medium/Large\")),\n    # Shorten legal nature names\n    legal_nature_short = dplyr::case_when(\n      stringr::str_detect(legal_nature, \"LLC\") ~ \"LLC\",\n      stringr::str_detect(legal_nature, \"Individual\") ~ \"Individual\\nEntrepreneur\",\n      stringr::str_detect(legal_nature, \"Corporation\") ~ \"Corporation\",\n      stringr::str_detect(legal_nature, \"Simple\") ~ \"Simple\\nCompany\",\n      TRUE ~ stringr::str_trunc(legal_nature, 15)\n    )\n  )\n\n# Create the advanced visualization\nggplot(combined_summary, \n       aes(x = pct_companies, y = pct_capital)) +\n  # Add diagonal reference line (equal distribution)\n  geom_abline(intercept = 0, slope = 1, linetype = \"dashed\", color = \"gray60\", linewidth = 0.8) +\n  # Add segments from point to diagonal (showing the gap)\n  geom_segment(\n    aes(xend = pct_companies, yend = pct_companies, color = company_size),\n    linewidth = 0.8, alpha = 0.5\n  ) +\n  # Add bubbles\n\n  geom_point(\n    aes(size = total_capital / 1e9, fill = company_size),\n    shape = 21, alpha = 0.85, stroke = 1.2, color = \"white\"\n  ) +\n  # Add text labels for concentration ratio\n  geom_text(\n    aes(label = sprintf(\"%.1fx\", concentration_ratio)),\n    size = 2.8, fontface = \"bold\", color = \"gray20\",\n    vjust = -1.8, family = \"source\"\n  ) +\n  # Facet by legal nature\n\n  facet_wrap(~legal_nature_short, nrow = 1) +\n  # Scales\n  scale_x_continuous(\n    limits = c(0, 100),\n    breaks = c(0, 50, 100),\n    labels = function(x) paste0(x, \"%\")\n  ) +\n  scale_y_continuous(\n    limits = c(0, 100),\n    breaks = c(0, 50, 100),\n    labels = function(x) paste0(x, \"%\")\n  ) +\n  scale_size_continuous(\n    range = c(4, 25),\n    labels = scales::label_number(suffix = \"B BRL\"),\n    name = \"Total Capital\",\n    breaks = c(1, 10, 50, 100)\n  ) +\n  scale_fill_manual(\n    values = c(\"Micro\" = \"#e76f51\", \"Small\" = \"#f4a261\", \"Medium/Large\" = \"#264653\"),\n    name = \"Company Size\"\n  ) +\n  scale_color_manual(\n    values = c(\"Micro\" = \"#e76f51\", \"Small\" = \"#f4a261\", \"Medium/Large\" = \"#264653\"),\n    guide = \"none\"\n  ) +\n  # Labels\n  labs(\n    title = \"Where Capital Concentrates: A Multi-Dimensional View\",\n    subtitle = \"Points above the diagonal control more capital than their numbers suggest | Labels show mean/median ratio (higher = more internal inequality)\",\n    x = \"Share of Companies →\",\n    y = \"← Share of Capital\",\n    caption = \"Source: Brazilian CNPJ Registry via TidyTuesday 2026 Week 4 | Bubble size = total capital stock\"\n  ) +\n  # Annotations\n  annotate(\n    \"text\", x = 85, y = 15, \n    label = \"Capital\\nDeficit\\nZone\", \n    color = \"#e76f51\", size = 3.5, fontface = \"italic\",\n    family = \"source\", lineheight = 0.9\n  ) +\n  annotate(\n    \"text\", x = 15, y = 85, \n    label = \"Capital\\nSurplus\\nZone\", \n    color = \"#264653\", size = 3.5, fontface = \"italic\",\n    family = \"source\", lineheight = 0.9\n  ) +\n  # Theme\n  theme_minimal(base_size = 13, base_family = \"source\") +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 18, color = \"#264653\", margin = margin(b = 5)),\n    plot.subtitle = element_text(size = 11, color = \"gray40\", margin = margin(b = 15), lineheight = 1.2),\n    plot.caption = element_text(size = 9, color = \"gray50\", hjust = 0, margin = margin(t = 15)),\n    legend.position = \"bottom\",\n    legend.box = \"horizontal\",\n    legend.margin = margin(t = 10),\n    strip.text = element_text(face = \"bold\", size = 12, color = \"#264653\"),\n    strip.background = element_rect(fill = \"gray95\", color = NA),\n    panel.grid.minor = element_blank(),\n    panel.grid.major = element_line(color = \"gray90\", linewidth = 0.3),\n    panel.spacing = unit(1.5, \"lines\"),\n    axis.title = element_text(size = 11, color = \"gray40\"),\n    plot.margin = margin(20, 20, 20, 20)\n  ) +\n  guides(\n    fill = guide_legend(order = 1, override.aes = list(size = 6)),\n    size = guide_legend(order = 2)\n  )\n\n\n\n\n\n\nFigure 3.2: Capital concentration across Brazil’s corporate landscape: bubble size shows total capital, position reveals the gap between firm count and capital share\n\n\n\n\nReading This Visualization\nThis chart reveals capital inequality through multiple lenses:\n\n\nPosition: Points above the diagonal line control more capital than their share of companies would suggest (capital surplus); points below control less (capital deficit)\n\nVertical lines: Show the magnitude of the gap between expected and actual capital share\n\nBubble size: Represents absolute total capital in billions of BRL\n\nLabels (e.g., “2.5x”): The mean/median ratio—a proxy for internal inequality. Higher values mean a few firms within that category hold most of the capital\n\nFacets: Compare patterns across Brazil’s main legal structures",
+    "crumbs": [
+      "TidyTuesday",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>The Paradox of Brazil's Micro-Enterprises</span>"
+    ]
+  },
+  {
+    "objectID": "tt/hw1_tidytuesday.html#key-finding",
+    "href": "tt/hw1_tidytuesday.html#key-finding",
+    "title": "The Paradox of Brazil’s Micro-Enterprises",
+    "section": "Key Finding",
+    "text": "Key Finding\nThe visualization reveals a stark capital paradox in Brazil’s corporate structure:\n\n\nMicro-enterprises constitute the largest share of registered companies yet control a disproportionately small fraction of total capital stock\n\nMedium/Large firms show the inverse pattern—fewer in number but commanding the majority of capital\nThe “capital gap” (the difference between company share and capital share) is most pronounced for micro-enterprises\n\nThis pattern persists even after filtering for firms with capital above 150,000 BRL, suggesting that the barriers to capital accumulation for small firms are structural rather than simply a function of including marginal businesses.",
+    "crumbs": [
+      "TidyTuesday",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>The Paradox of Brazil's Micro-Enterprises</span>"
+    ]
+  },
+  {
+    "objectID": "tt/hw1_tidytuesday.html#implications",
+    "href": "tt/hw1_tidytuesday.html#implications",
+    "title": "The Paradox of Brazil’s Micro-Enterprises",
+    "section": "Implications",
+    "text": "Implications\nFor development practitioners and policymakers, this finding raises important questions:\n\n\nAccess to finance: Do micro-enterprises face credit constraints that prevent capital accumulation?\n\nRegulatory burden: Are compliance costs disproportionately affecting smaller firms’ ability to reinvest?\n\nMarket structure: Does Brazil’s economic structure favor consolidation over broad-based firm growth?\n\nThe concentration of capital in larger firms—even within a dataset of already-formalized, reasonably capitalized businesses—suggests that Brazil’s development challenge isn’t just about formalizing the informal sector, but about enabling smaller formal firms to grow.",
+    "crumbs": [
+      "TidyTuesday",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>The Paradox of Brazil's Micro-Enterprises</span>"
+    ]
+  },
+  {
     "objectID": "tt/2025-07-08.html",
     "href": "tt/2025-07-08.html",
     "title": "TidyTuesday Sample 1",
@@ -28,7 +94,7 @@
     "text": "Add content here",
     "crumbs": [
       "TidyTuesday",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>TidyTuesday Sample 1</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>TidyTuesday Sample 1</span>"
     ]
   },
   {
@@ -39,7 +105,7 @@
     "text": "Add content here",
     "crumbs": [
       "TidyTuesday",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>TidyTuesday Sample 2</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>TidyTuesday Sample 2</span>"
     ]
   },
   {
@@ -50,7 +116,7 @@
     "text": "R",
     "crumbs": [
       "Pre-Class Learnings",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pre-Class Learning Summaries</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Pre-Class Learning Summaries</span>"
     ]
   },
   {
@@ -61,7 +127,7 @@
     "text": "Quarto\n\n\n\nfrom qmd4sci.njtierney.com",
     "crumbs": [
       "Pre-Class Learnings",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pre-Class Learning Summaries</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Pre-Class Learning Summaries</span>"
     ]
   },
   {
@@ -72,7 +138,7 @@
     "text": "Add content here",
     "crumbs": [
       "In-Class Activities",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ICA Sample 1</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ICA Sample 1</span>"
     ]
   },
   {
@@ -83,7 +149,7 @@
     "text": "Add content here",
     "crumbs": [
       "In-Class Activities",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ICA Sample 2</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>ICA Sample 2</span>"
     ]
   },
   {
@@ -94,7 +160,7 @@
     "text": "Add content here",
     "crumbs": [
       "Extras",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Extra Sample 1</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Extra Sample 1</span>"
     ]
   },
   {
@@ -105,7 +171,7 @@
     "text": "Add content here",
     "crumbs": [
       "Extras",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Extra Sample 2</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Extra Sample 2</span>"
     ]
   }
 ]
