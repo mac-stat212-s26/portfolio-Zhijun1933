@@ -1,0 +1,129 @@
+---
+title: "ICA 6: Advanced Data Wrangling I"
+author: "Zhijun He"
+date: today
+format: html
+---
+
+```{r setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(lubridate)
+library(forcats)
+```
+
+## Data Story Critique
+
+**Source:** [How life has changed for people your age — ABC News Australia](https://www.abc.net.au/news/2018-12-13/how-life-has-changed-for-people-your-age/10303912)
+
+**What is the data story?** The piece explores how key life metrics — housing, income, education, family structure, and employment — have shifted across generations in Australia. Readers can input their age to receive personalized generational comparisons.
+
+**What is effective?** The interactive, personalized design is highly engaging: readers see data relevant to their own generation rather than abstract trends. The visualizations are clean, and the cross-temporal comparisons are intuitive and accessible to a general audience.
+
+**What could be improved?** The story could better contextualize the structural drivers behind the observed changes (e.g., policy shifts, macroeconomic cycles). Some charts would benefit from confidence intervals or sample size indicators to convey uncertainty. The interactivity, while compelling, may also obscure the broader systemic narrative in favor of individual-level framing.
+
+---
+
+## Logicals
+
+```{r}
+data(diamonds)
+diamonds <- diamonds |> 
+    slice_head(n = 1000)
+```
+
+### Exercise 1: Filter by price extremes
+
+Subset to diamonds that cost less than \$400 or more than \$10,000.
+
+```{r}
+diamonds |> 
+    filter(price < 400 | price > 10000)
+```
+
+### Exercise 2: Filter by price range
+
+Subset to diamonds priced between \$500 and \$600 (inclusive).
+
+```{r}
+diamonds |> 
+    filter(price >= 500 & price <= 600)
+```
+
+### Exercise 3: Counting by cut — `==` vs `%in%`
+
+How many diamonds are of Fair, Premium, or Ideal cut? What fraction of the total?
+
+**Wrong way with `==`:**
+
+Using `==` against a length-3 vector triggers vector recycling. Because 1000 (the number of rows) is not a multiple of 3, R raises a warning: *"longer object length is not a multiple of shorter object length."* Beyond the warning, the result is incorrect — R compares element-wise with recycling rather than checking set membership.
+
+```{r}
+diamonds |> 
+    filter(cut == c("Fair", "Premium", "Ideal")) |> 
+    nrow()
+```
+
+**Correct way with `%in%`:**
+
+```{r}
+# Total count
+diamonds |> 
+    filter(cut %in% c("Fair", "Premium", "Ideal")) |> 
+    nrow()
+
+# Fraction
+mean(diamonds$cut %in% c("Fair", "Premium", "Ideal"))
+```
+
+### Exercise 4: `any()` and `all()`
+
+Are there any Fair-cut diamonds above \$3,000? Are all Ideal-cut diamonds above \$2,000?
+
+```{r}
+# Any Fair cut diamonds > $3000?
+fair_prices <- diamonds |> 
+    filter(cut == "Fair") |> 
+    pull(price)
+any(fair_prices > 3000)
+
+# Are ALL Ideal cut diamonds > $2000?
+ideal_prices <- diamonds |> 
+    filter(cut == "Ideal") |> 
+    pull(price)
+all(ideal_prices > 2000)
+```
+
+### Exercise 5: `if_else()` and `case_when()`
+
+Create two categorized versions of price.
+
+```{r}
+diamonds <- diamonds |> 
+    mutate(
+        price_cat1 = if_else(price < 500, "low", "high"),
+        price_cat2 = case_when(
+            price < 500 ~ "low",
+            price >= 500 & price <= 1000 ~ "medium",
+            .default = "high"
+        )
+    )
+
+diamonds |> 
+    select(price, price_cat1, price_cat2)
+```
+
+---
+
+## Factors
+
+### Exercise: Creating an ordered factor
+
+Create a factor version of `ratings` with levels in a sensible order.
+
+```{r}
+ratings <- c("High", "Medium", "Low")
+
+ratings_fct <- factor(ratings, levels = c("Low", "Medium", "High"))
+ratings_fct
+sort(ratings_fct)
+```
