@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Extra Sample 1 – COMP/STAT212 Portfolio</title>
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-02-25">
+<title>Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil – COMP/STAT212 Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,7 +56,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -75,15 +73,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-447330ed7f5b14f08626394f08367e28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-b1525fc7443f827935229f0f56e36607.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-447330ed7f5b14f08626394f08367e28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-d0047e22b7e2e904683f97b5597ae072.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -109,9 +102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-<script type="text/javascript" charset="UTF-8">
+}</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -126,207 +117,31 @@ cookieconsent.run({
 "language":"en"
   });
 });
-</script> 
-  
-<style>html{ scroll-behavior: smooth; }</style>
-
-
+</script><style>html{ scroll-behavior: smooth; }</style>
 <link rel="stylesheet" href="../style/custom.css">
 </head>
-
-<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../extra/extra-sample1.html">Extras</a></li><li class="breadcrumb-item"><a href="../extra/extra-sample1.html"><span class="chapter-title">Extra Sample 1</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../extra/extra-sample1.html">Extras</a></li><li class="breadcrumb-item"><a href="../extra/extra-sample1.html"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
-      </a>
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Zhijun He</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -342,7 +157,7 @@ cookieconsent.run({
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
   </div>
@@ -355,14 +170,14 @@ cookieconsent.run({
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -371,8 +186,8 @@ cookieconsent.run({
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
   </div>
@@ -389,11 +204,21 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../tt/2025-07-15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">TidyTuesday Sample 2</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
@@ -402,14 +227,14 @@ cookieconsent.run({
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -418,8 +243,8 @@ cookieconsent.run({
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
   </div>
@@ -440,7 +265,7 @@ cookieconsent.run({
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
@@ -449,10 +274,10 @@ cookieconsent.run({
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Extra Sample 1</span></a>
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -461,60 +286,370 @@ cookieconsent.run({
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
+  <li><a href="#visualization-1-within-tier-inequality-lorenz-curves-by-firm-size" id="toc-visualization-1-within-tier-inequality-lorenz-curves-by-firm-size" class="nav-link" data-scroll-target="#visualization-1-within-tier-inequality-lorenz-curves-by-firm-size">Visualization 1 — Within-Tier Inequality: Lorenz Curves by Firm Size</a></li>
+  <li><a href="#visualization-2-governance-as-a-capital-predictor" id="toc-visualization-2-governance-as-a-capital-predictor" class="nav-link" data-scroll-target="#visualization-2-governance-as-a-capital-predictor">Visualization 2 — Governance as a Capital Predictor</a></li>
+  <li><a href="#visualization-3-the-capital-rich-micro-who-escapes-the-trap" id="toc-visualization-3-the-capital-rich-micro-who-escapes-the-trap" class="nav-link" data-scroll-target="#visualization-3-the-capital-rich-micro-who-escapes-the-trap">Visualization 3 — The Capital-Rich Micro: Who Escapes the Trap?</a></li>
+  <li><a href="#synthesis" id="toc-synthesis" class="nav-link" data-scroll-target="#synthesis">Synthesis</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../extra/extra-sample1.html">Extras</a></li><li class="breadcrumb-item"><a href="../extra/extra-sample1.html"><span class="chapter-title">Extra Sample 1</span></a></li></ol></nav>
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Extra Sample 1</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<main class="content column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../extra/extra-sample1.html">Extras</a></li><li class="breadcrumb-item"><a href="../extra/extra-sample1.html"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">TidyTuesday 2026 · Week 4 (Extended) · Brazilian Companies (CNPJ)</p>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta column-body">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 25, 2026</p>
+    </div>
+  </div>
   
     
   </div>
   
 
 
-</header>
-
-
-<p>Add content here</p>
+</header><section id="background" class="level2"><h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>The previous analysis of this dataset established a macro-level capital paradox: micro-enterprises constitute the majority of registered Brazilian firms yet control a disproportionately small share of total capital stock. That finding is important, but it treats each size category as internally homogeneous. It is not.</p>
+<p>Brazil’s official firm-size classification (Simples Nacional) is based on <strong>annual gross revenue</strong>, not capital stock. A sole proprietor earning 360,000 BRL per year is legally a “micro-enterprise” regardless of whether they hold 180,000 BRL or 10,000,000 BRL in declared capital stock. This classification logic creates a natural experiment embedded in the data: firms within the same regulatory category can have wildly different capital endowments. The spread <em>within</em> size tiers is as analytically interesting as the gaps <em>between</em> them.</p>
+<p>A second underexplored dimension is governance. The <code>owner_qualification</code> field records the legal role of the controlling person: a Managing Partner who actively runs the business, a Beneficial Owner who holds equity but may be a passive investor or part of a holding-company chain, or a solo Entrepreneur operating under their own identity. These governance archetypes map onto well- established predictions from agency theory: passive beneficial ownership is associated with access to external capital, while sole entrepreneurs face the highest information asymmetries with lenders.</p>
+</section><section id="research-questions" class="level2"><h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
+<p>Three analytical questions guide this extended analysis:</p>
+<ol type="1">
+<li>
+<strong>Within-tier inequality:</strong> Are micro-enterprises themselves internally unequal in capital endowments, or is the category relatively flat?</li>
+<li>
+<strong>Governance as a capital predictor:</strong> Does owner qualification predict capital accumulation <em>independently</em> of firm size, and by how much?</li>
+<li>
+<strong>The “capital-rich micro”:</strong> Among micro-enterprises with unusually high capital stock, what governance and legal-form features distinguish them from the capital-poor majority?</li>
+</ol></section><section id="data-preparation" class="level2"><h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>companies <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-01-27/companies.csv"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># ── Core cleaning ──────────────────────────────────────────────────────────────</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>co <span class="ot">&lt;-</span> companies <span class="sc">|&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(company_size), <span class="sc">!</span><span class="fu">is.na</span>(capital_stock), <span class="sc">!</span><span class="fu">is.na</span>(owner_qualification)) <span class="sc">|&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    <span class="at">size =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-16"><a href="#cb1-16"></a>      company_size <span class="sc">==</span> <span class="st">"micro-enterprise"</span> <span class="sc">~</span> <span class="st">"Micro"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17"></a>      company_size <span class="sc">==</span> <span class="st">"small-enterprise"</span> <span class="sc">~</span> <span class="st">"Small"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18"></a>      <span class="cn">TRUE</span>                               <span class="sc">~</span> <span class="st">"Medium/Large"</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>    ),</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="at">size =</span> <span class="fu">factor</span>(size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Micro"</span>, <span class="st">"Small"</span>, <span class="st">"Medium/Large"</span>)),</span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a>    <span class="co"># Governance archetype: simplify owner_qualification into 4 classes</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>    <span class="at">governance =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-24"><a href="#cb1-24"></a>      <span class="fu">str_detect</span>(owner_qualification, <span class="fu">regex</span>(<span class="st">"beneficial owner"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)) <span class="sc">~</span> <span class="st">"Beneficial Owner</span><span class="sc">\n</span><span class="st">(passive/investor)"</span>,</span>
+<span id="cb1-25"><a href="#cb1-25"></a>      <span class="fu">str_detect</span>(owner_qualification, <span class="fu">regex</span>(<span class="st">"entrepreneur|business owner"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)) <span class="sc">~</span> <span class="st">"Sole Entrepreneur"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26"></a>      <span class="fu">str_detect</span>(owner_qualification, <span class="fu">regex</span>(<span class="st">"managing partner|administrator"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)) <span class="sc">~</span> <span class="st">"Managing Partner /</span><span class="sc">\n</span><span class="st">Administrator"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>    ),</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    <span class="at">governance =</span> <span class="fu">factor</span>(governance, <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb1-30"><a href="#cb1-30"></a>      <span class="st">"Sole Entrepreneur"</span>,</span>
+<span id="cb1-31"><a href="#cb1-31"></a>      <span class="st">"Managing Partner /</span><span class="sc">\n</span><span class="st">Administrator"</span>,</span>
+<span id="cb1-32"><a href="#cb1-32"></a>      <span class="st">"Beneficial Owner</span><span class="sc">\n</span><span class="st">(passive/investor)"</span>,</span>
+<span id="cb1-33"><a href="#cb1-33"></a>      <span class="st">"Other"</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>    )),</span>
+<span id="cb1-35"><a href="#cb1-35"></a></span>
+<span id="cb1-36"><a href="#cb1-36"></a>    <span class="co"># Normalised capital (log scale for distributions)</span></span>
+<span id="cb1-37"><a href="#cb1-37"></a>    <span class="at">log_capital =</span> <span class="fu">log10</span>(capital_stock),</span>
+<span id="cb1-38"><a href="#cb1-38"></a></span>
+<span id="cb1-39"><a href="#cb1-39"></a>    <span class="co"># Within micro-enterprises: flag as "capital-rich" if above 75th pctile</span></span>
+<span id="cb1-40"><a href="#cb1-40"></a>    <span class="at">capital_q75_micro =</span> <span class="fu">quantile</span>(capital_stock[size <span class="sc">==</span> <span class="st">"Micro"</span>], <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-41"><a href="#cb1-41"></a>    <span class="at">is_capital_rich_micro =</span> (size <span class="sc">==</span> <span class="st">"Micro"</span>) <span class="sc">&amp;</span> (capital_stock <span class="sc">&gt;=</span> capital_q75_micro)</span>
+<span id="cb1-42"><a href="#cb1-42"></a>  )</span>
+<span id="cb1-43"><a href="#cb1-43"></a></span>
+<span id="cb1-44"><a href="#cb1-44"></a><span class="fu">cat</span>(<span class="st">"Observations:"</span>, <span class="fu">nrow</span>(co), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Observations: 141332 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">cat</span>(<span class="st">"Governance archetypes:</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Governance archetypes:</code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">print</span>(<span class="fu">count</span>(co, governance, <span class="at">sort =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  governance                                  n
+  &lt;fct&gt;                                   &lt;int&gt;
+1 "Managing Partner /\nAdministrator"    122620
+2 "Sole Entrepreneur"                     15201
+3 "Other"                                  3069
+4 "Beneficial Owner\n(passive/investor)"    442</code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Capital-rich micro threshold: BRL"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="fu">comma</span>(<span class="fu">unique</span>(co<span class="sc">$</span>capital_q75_micro[<span class="sc">!</span><span class="fu">is.na</span>(co<span class="sc">$</span>capital_q75_micro)])[<span class="dv">1</span>]), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Capital-rich micro threshold: BRL 500,000 </code></pre>
+</div>
+</div>
+</section><section id="visualization-1-within-tier-inequality-lorenz-curves-by-firm-size" class="level2"><h2 class="anchored" data-anchor-id="visualization-1-within-tier-inequality-lorenz-curves-by-firm-size">Visualization 1 — Within-Tier Inequality: Lorenz Curves by Firm Size</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Lorenz curve: cumulative firm share (x) vs cumulative capital share (y)</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>lorenz_data <span class="ot">&lt;-</span> co <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">group_by</span>(size) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">arrange</span>(capital_stock, <span class="at">.by_group =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="at">cum_firms   =</span> <span class="fu">row_number</span>() <span class="sc">/</span> <span class="fu">n</span>(),</span>
+<span id="cb9-7"><a href="#cb9-7"></a>    <span class="at">cum_capital =</span> <span class="fu">cumsum</span>(capital_stock) <span class="sc">/</span> <span class="fu">sum</span>(capital_stock)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co"># Gini coefficient helper</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>gini <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb9-13"><a href="#cb9-13"></a>  x <span class="ot">&lt;-</span> <span class="fu">sort</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])</span>
+<span id="cb9-14"><a href="#cb9-14"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb9-15"><a href="#cb9-15"></a>  <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>((<span class="fu">seq_len</span>(n) <span class="sc">/</span> n) <span class="sc">*</span> (x <span class="sc">/</span> <span class="fu">sum</span>(x))) <span class="sc">-</span> (n <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> n</span>
+<span id="cb9-16"><a href="#cb9-16"></a>}</span>
+<span id="cb9-17"><a href="#cb9-17"></a></span>
+<span id="cb9-18"><a href="#cb9-18"></a>gini_labels <span class="ot">&lt;-</span> co <span class="sc">|&gt;</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a>  <span class="fu">group_by</span>(size) <span class="sc">|&gt;</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a>  <span class="fu">summarise</span>(<span class="at">g =</span> <span class="fu">round</span>(<span class="fu">gini</span>(capital_stock), <span class="dv">3</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-22"><a href="#cb9-22"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Gini = "</span>, g),</span>
+<span id="cb9-23"><a href="#cb9-23"></a>    <span class="at">x =</span> <span class="fl">0.25</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">0.68</span>, <span class="fl">0.58</span>, <span class="fl">0.48</span>)</span>
+<span id="cb9-24"><a href="#cb9-24"></a>  )</span>
+<span id="cb9-25"><a href="#cb9-25"></a></span>
+<span id="cb9-26"><a href="#cb9-26"></a>pal_size <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Micro"</span> <span class="ot">=</span> <span class="st">"#e76f51"</span>, <span class="st">"Small"</span> <span class="ot">=</span> <span class="st">"#f4a261"</span>, <span class="st">"Medium/Large"</span> <span class="ot">=</span> <span class="st">"#264653"</span>)</span>
+<span id="cb9-27"><a href="#cb9-27"></a></span>
+<span id="cb9-28"><a href="#cb9-28"></a><span class="fu">ggplot</span>(lorenz_data, <span class="fu">aes</span>(<span class="at">x =</span> cum_firms, <span class="at">y =</span> cum_capital, <span class="at">colour =</span> size)) <span class="sc">+</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a>  <span class="co"># Perfect equality diagonal</span></span>
+<span id="cb9-30"><a href="#cb9-30"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>,</span>
+<span id="cb9-31"><a href="#cb9-31"></a>              <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey60"</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a>  <span class="co"># Shade area between Micro and equality line to make inequality visual</span></span>
+<span id="cb9-34"><a href="#cb9-34"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb9-35"><a href="#cb9-35"></a>    <span class="at">data =</span> <span class="fu">filter</span>(lorenz_data, size <span class="sc">==</span> <span class="st">"Micro"</span>),</span>
+<span id="cb9-36"><a href="#cb9-36"></a>    <span class="fu">aes</span>(<span class="at">ymin =</span> cum_capital, <span class="at">ymax =</span> cum_firms),</span>
+<span id="cb9-37"><a href="#cb9-37"></a>    <span class="at">fill =</span> <span class="st">"#e76f51"</span>, <span class="at">alpha =</span> <span class="fl">0.08</span>, <span class="at">colour =</span> <span class="cn">NA</span></span>
+<span id="cb9-38"><a href="#cb9-38"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-39"><a href="#cb9-39"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb9-40"><a href="#cb9-40"></a>    <span class="at">data =</span> gini_labels,</span>
+<span id="cb9-41"><a href="#cb9-41"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> label, <span class="at">colour =</span> size),</span>
+<span id="cb9-42"><a href="#cb9-42"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-43"><a href="#cb9-43"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">3.8</span></span>
+<span id="cb9-44"><a href="#cb9-44"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-45"><a href="#cb9-45"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.57</span>, <span class="at">y =</span> <span class="fl">0.47</span>, <span class="at">label =</span> <span class="st">"Perfect equality"</span>,</span>
+<span id="cb9-46"><a href="#cb9-46"></a>           <span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="fl">3.3</span>, <span class="at">angle =</span> <span class="dv">42</span>) <span class="sc">+</span></span>
+<span id="cb9-47"><a href="#cb9-47"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal_size, <span class="at">name =</span> <span class="st">"Firm size"</span>) <span class="sc">+</span></span>
+<span id="cb9-48"><a href="#cb9-48"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(), <span class="at">name =</span> <span class="st">"Cumulative share of firms →"</span>) <span class="sc">+</span></span>
+<span id="cb9-49"><a href="#cb9-49"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(), <span class="at">name =</span> <span class="st">"← Cumulative share of capital"</span>) <span class="sc">+</span></span>
+<span id="cb9-50"><a href="#cb9-50"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-51"><a href="#cb9-51"></a>    <span class="at">title    =</span> <span class="st">"Micro-enterprises are internally the most unequal: Gini &gt; 0.6 within the tier"</span>,</span>
+<span id="cb9-52"><a href="#cb9-52"></a>    <span class="at">subtitle =</span> <span class="st">"Lorenz curves by firm size. The further the curve bows below the diagonal, the more concentrated capital is</span><span class="sc">\n</span><span class="st">among a small fraction of firms within that category."</span>,</span>
+<span id="cb9-53"><a href="#cb9-53"></a>    <span class="at">caption  =</span> <span class="st">"Source: Brazilian CNPJ Registry · TidyTuesday 2026 Wk 4 (Extended) · Zhijun He · 2026-02-25"</span></span>
+<span id="cb9-54"><a href="#cb9-54"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-55"><a href="#cb9-55"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb9-56"><a href="#cb9-56"></a>  <span class="fu">theme</span>(</span>
+<span id="cb9-57"><a href="#cb9-57"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">colour =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb9-58"><a href="#cb9-58"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>, <span class="at">lineheight =</span> <span class="fl">1.3</span>,</span>
+<span id="cb9-59"><a href="#cb9-59"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>)),</span>
+<span id="cb9-60"><a href="#cb9-60"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb9-61"><a href="#cb9-61"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb9-62"><a href="#cb9-62"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb9-63"><a href="#cb9-63"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="extra-sample1_files/figure-html/lorenz-curves-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The Lorenz curves reveal that the capital trap is not simply a gap <em>between</em> size categories — it is also a profound concentration <em>within</em> micro-enterprises. A Gini coefficient above 0.60 for micro-enterprises is striking: it means that among firms that have all been designated “micro” by the same revenue-based rule, a small minority holds the majority of declared capital. Medium/Large firms are actually the most internally equal (Gini ≈ 0.43), consistent with the idea that formal capitalization requirements for larger corporate structures compress the distribution. Small enterprises sit in between. The upshot is that “micro-enterprise” is not a coherent economic category — it is a legal label that shelters both subsistence operations and well-capitalised ventures under the same regulatory umbrella.</p>
+</section><section id="visualization-2-governance-as-a-capital-predictor" class="level2"><h2 class="anchored" data-anchor-id="visualization-2-governance-as-a-capital-predictor">Visualization 2 — Governance as a Capital Predictor</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Median capital by governance × size for annotation</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>gov_medians <span class="ot">&lt;-</span> co <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">filter</span>(governance <span class="sc">!=</span> <span class="st">"Other"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">group_by</span>(size, governance) <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">summarise</span>(<span class="at">med_cap =</span> <span class="fu">median</span>(capital_stock), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    <span class="at">med_lab =</span> <span class="fu">paste0</span>(<span class="st">"med: BRL "</span>, <span class="fu">number</span>(med_cap, <span class="at">scale =</span> <span class="fl">1e-3</span>, <span class="at">suffix =</span> <span class="st">"k"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8"></a>                                         <span class="at">accuracy =</span> <span class="dv">1</span>))</span>
+<span id="cb10-9"><a href="#cb10-9"></a>  )</span>
+<span id="cb10-10"><a href="#cb10-10"></a></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="fu">ggplot</span>(</span>
+<span id="cb10-12"><a href="#cb10-12"></a>  co <span class="sc">|&gt;</span> <span class="fu">filter</span>(governance <span class="sc">!=</span> <span class="st">"Other"</span>),</span>
+<span id="cb10-13"><a href="#cb10-13"></a>  <span class="fu">aes</span>(<span class="at">x =</span> log_capital, <span class="at">y =</span> governance, <span class="at">fill =</span> governance)</span>
+<span id="cb10-14"><a href="#cb10-14"></a>) <span class="sc">+</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a>  <span class="fu">geom_density_ridges</span>(</span>
+<span id="cb10-16"><a href="#cb10-16"></a>    <span class="at">alpha =</span> <span class="fl">0.75</span>, <span class="at">scale =</span> <span class="fl">0.9</span>,</span>
+<span id="cb10-17"><a href="#cb10-17"></a>    <span class="at">quantile_lines =</span> <span class="cn">TRUE</span>, <span class="at">quantiles =</span> <span class="dv">2</span>,   <span class="co"># show median line</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a>    <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span></span>
+<span id="cb10-19"><a href="#cb10-19"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-20"><a href="#cb10-20"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb10-21"><a href="#cb10-21"></a>    <span class="at">data =</span> gov_medians,</span>
+<span id="cb10-22"><a href="#cb10-22"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log10</span>(med_cap) <span class="sc">+</span> <span class="fl">0.03</span>, <span class="at">y =</span> governance, <span class="at">label =</span> med_lab),</span>
+<span id="cb10-23"><a href="#cb10-23"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb10-24"><a href="#cb10-24"></a>    <span class="at">size =</span> <span class="fl">2.9</span>, <span class="at">colour =</span> <span class="st">"grey20"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">1.3</span></span>
+<span id="cb10-25"><a href="#cb10-25"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-26"><a href="#cb10-26"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>size, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-27"><a href="#cb10-27"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb10-28"><a href="#cb10-28"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb10-29"><a href="#cb10-29"></a>      <span class="st">"Sole Entrepreneur"</span>              <span class="ot">=</span> <span class="st">"#e9c46a"</span>,</span>
+<span id="cb10-30"><a href="#cb10-30"></a>      <span class="st">"Managing Partner /</span><span class="sc">\n</span><span class="st">Administrator"</span> <span class="ot">=</span> <span class="st">"#4a90d9"</span>,</span>
+<span id="cb10-31"><a href="#cb10-31"></a>      <span class="st">"Beneficial Owner</span><span class="sc">\n</span><span class="st">(passive/investor)"</span> <span class="ot">=</span> <span class="st">"#264653"</span></span>
+<span id="cb10-32"><a href="#cb10-32"></a>    ),</span>
+<span id="cb10-33"><a href="#cb10-33"></a>    <span class="at">guide =</span> <span class="st">"none"</span></span>
+<span id="cb10-34"><a href="#cb10-34"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-35"><a href="#cb10-35"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb10-36"><a href="#cb10-36"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="fl">5.5</span>, <span class="dv">6</span>, <span class="fl">6.5</span>, <span class="dv">7</span>, <span class="fl">7.5</span>, <span class="dv">8</span>),</span>
+<span id="cb10-37"><a href="#cb10-37"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"100k"</span>, <span class="st">"316k"</span>, <span class="st">"1M"</span>, <span class="st">"3.2M"</span>, <span class="st">"10M"</span>, <span class="st">"32M"</span>, <span class="st">"100M"</span>),</span>
+<span id="cb10-38"><a href="#cb10-38"></a>    <span class="at">name   =</span> <span class="st">"Capital stock (BRL, log scale)"</span></span>
+<span id="cb10-39"><a href="#cb10-39"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-40"><a href="#cb10-40"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-41"><a href="#cb10-41"></a>    <span class="at">title    =</span> <span class="st">"Beneficial Owners command higher capital at every size tier — the governance premium"</span>,</span>
+<span id="cb10-42"><a href="#cb10-42"></a>    <span class="at">subtitle =</span> <span class="st">"Density ridges show distribution of capital stock by owner governance archetype, within each firm size.</span><span class="sc">\n</span><span class="st">Vertical white line = median. X-axis is log-scaled."</span>,</span>
+<span id="cb10-43"><a href="#cb10-43"></a>    <span class="at">y        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb10-44"><a href="#cb10-44"></a>    <span class="at">caption  =</span> <span class="st">"Source: Brazilian CNPJ Registry · TidyTuesday 2026 Wk 4 (Extended) · Zhijun He · 2026-02-25"</span></span>
+<span id="cb10-45"><a href="#cb10-45"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-46"><a href="#cb10-46"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb10-47"><a href="#cb10-47"></a>  <span class="fu">theme</span>(</span>
+<span id="cb10-48"><a href="#cb10-48"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">colour =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb10-49"><a href="#cb10-49"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>, <span class="at">lineheight =</span> <span class="fl">1.3</span>,</span>
+<span id="cb10-50"><a href="#cb10-50"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>)),</span>
+<span id="cb10-51"><a href="#cb10-51"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb10-52"><a href="#cb10-52"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">colour =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb10-53"><a href="#cb10-53"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"grey95"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
+<span id="cb10-54"><a href="#cb10-54"></a>    <span class="at">panel.grid.minor  =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-55"><a href="#cb10-55"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb10-56"><a href="#cb10-56"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="extra-sample1_files/figure-html/governance-ridges-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Across all three size tiers, a clear hierarchy emerges from governance structure alone. Firms controlled by a Beneficial Owner — typically a holding company, trust, or passive equity holder — show systematically higher capital stock than firms run by a Managing Partner, which in turn outperform sole entrepreneurs. This <strong>governance premium</strong> persists within every size category: even among micro-enterprises, a Beneficial Owner-controlled firm holds a materially higher median capital than a sole entrepreneur of identical regulatory status. The implication is significant for development policy: size classification (a revenue proxy) and governance structure (an ownership proxy) are two orthogonal dimensions of firm capitalization, and conflating them understates the heterogeneity within each tier. A micro- enterprise programme that treats all micro-enterprises alike implicitly subsidizes governance-rich firms alongside genuinely capital-constrained ones.</p>
+</section><section id="visualization-3-the-capital-rich-micro-who-escapes-the-trap" class="level2"><h2 class="anchored" data-anchor-id="visualization-3-the-capital-rich-micro-who-escapes-the-trap">Visualization 3 — The Capital-Rich Micro: Who Escapes the Trap?</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Focus: micro-enterprises only</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co"># Identify what proportion of "capital-rich" micros belong to each legal/governance cell</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>micro_profile <span class="ot">&lt;-</span> co <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">filter</span>(size <span class="sc">==</span> <span class="st">"Micro"</span>, governance <span class="sc">!=</span> <span class="st">"Other"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-6"><a href="#cb11-6"></a>    <span class="at">legal_short =</span> <span class="fu">case_when</span>(</span>
+<span id="cb11-7"><a href="#cb11-7"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"LLC"</span>)              <span class="sc">~</span> <span class="st">"LLC"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Sole Proprietorship"</span>) <span class="sc">~</span> <span class="st">"Sole</span><span class="sc">\n</span><span class="st">Proprietary"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Individual Limited"</span>) <span class="sc">~</span> <span class="st">"EIRELI"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Simple"</span>)           <span class="sc">~</span> <span class="st">"Simple</span><span class="sc">\n</span><span class="st">Partnership"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Silent"</span>)           <span class="sc">~</span> <span class="st">"Silent</span><span class="sc">\n</span><span class="st">Partnership"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Corporation"</span>)      <span class="sc">~</span> <span class="st">"Corporation"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13"></a>      <span class="cn">TRUE</span>                                          <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a>    )</span>
+<span id="cb11-15"><a href="#cb11-15"></a>  )</span>
+<span id="cb11-16"><a href="#cb11-16"></a></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co"># Rate of "capital-rich" membership by legal × governance cell</span></span>
+<span id="cb11-18"><a href="#cb11-18"></a>escape_rate <span class="ot">&lt;-</span> micro_profile <span class="sc">|&gt;</span></span>
+<span id="cb11-19"><a href="#cb11-19"></a>  <span class="fu">group_by</span>(legal_short, governance) <span class="sc">|&gt;</span></span>
+<span id="cb11-20"><a href="#cb11-20"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb11-21"><a href="#cb11-21"></a>    <span class="at">n_total    =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-22"><a href="#cb11-22"></a>    <span class="at">n_rich     =</span> <span class="fu">sum</span>(is_capital_rich_micro),</span>
+<span id="cb11-23"><a href="#cb11-23"></a>    <span class="at">escape_pct =</span> n_rich <span class="sc">/</span> n_total,</span>
+<span id="cb11-24"><a href="#cb11-24"></a>    <span class="at">.groups    =</span> <span class="st">"drop"</span></span>
+<span id="cb11-25"><a href="#cb11-25"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb11-26"><a href="#cb11-26"></a>  <span class="fu">filter</span>(n_total <span class="sc">&gt;=</span> <span class="dv">20</span>)  <span class="co"># remove sparse cells</span></span>
+<span id="cb11-27"><a href="#cb11-27"></a></span>
+<span id="cb11-28"><a href="#cb11-28"></a><span class="fu">ggplot</span>(</span>
+<span id="cb11-29"><a href="#cb11-29"></a>  escape_rate,</span>
+<span id="cb11-30"><a href="#cb11-30"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(legal_short, escape_pct, <span class="at">.fun =</span> mean),</span>
+<span id="cb11-31"><a href="#cb11-31"></a>      <span class="at">y =</span> escape_pct,</span>
+<span id="cb11-32"><a href="#cb11-32"></a>      <span class="at">fill =</span> governance)</span>
+<span id="cb11-33"><a href="#cb11-33"></a>) <span class="sc">+</span></span>
+<span id="cb11-34"><a href="#cb11-34"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">width =</span> <span class="fl">0.65</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb11-35"><a href="#cb11-35"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb11-36"><a href="#cb11-36"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">percent</span>(escape_pct, <span class="at">accuracy =</span> <span class="fl">0.1</span>)),</span>
+<span id="cb11-37"><a href="#cb11-37"></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>),</span>
+<span id="cb11-38"><a href="#cb11-38"></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">3.0</span>, <span class="at">colour =</span> <span class="st">"grey25"</span></span>
+<span id="cb11-39"><a href="#cb11-39"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-40"><a href="#cb11-40"></a>  <span class="fu">coord_flip</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span></span>
+<span id="cb11-41"><a href="#cb11-41"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb11-42"><a href="#cb11-42"></a>    <span class="at">labels =</span> <span class="fu">percent_format</span>(),</span>
+<span id="cb11-43"><a href="#cb11-43"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.55</span>),</span>
+<span id="cb11-44"><a href="#cb11-44"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>)),</span>
+<span id="cb11-45"><a href="#cb11-45"></a>    <span class="at">name   =</span> <span class="st">"Share of micro-enterprises above the 75th capital percentile"</span></span>
+<span id="cb11-46"><a href="#cb11-46"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-47"><a href="#cb11-47"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb11-48"><a href="#cb11-48"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb11-49"><a href="#cb11-49"></a>      <span class="st">"Sole Entrepreneur"</span>                  <span class="ot">=</span> <span class="st">"#e9c46a"</span>,</span>
+<span id="cb11-50"><a href="#cb11-50"></a>      <span class="st">"Managing Partner /</span><span class="sc">\n</span><span class="st">Administrator"</span>  <span class="ot">=</span> <span class="st">"#4a90d9"</span>,</span>
+<span id="cb11-51"><a href="#cb11-51"></a>      <span class="st">"Beneficial Owner</span><span class="sc">\n</span><span class="st">(passive/investor)"</span> <span class="ot">=</span> <span class="st">"#264653"</span></span>
+<span id="cb11-52"><a href="#cb11-52"></a>    ),</span>
+<span id="cb11-53"><a href="#cb11-53"></a>    <span class="at">name =</span> <span class="st">"Governance archetype"</span></span>
+<span id="cb11-54"><a href="#cb11-54"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-55"><a href="#cb11-55"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-56"><a href="#cb11-56"></a>    <span class="at">title    =</span> <span class="st">"Beneficial Owner–controlled LLCs are most likely to escape the micro capital trap"</span>,</span>
+<span id="cb11-57"><a href="#cb11-57"></a>    <span class="at">subtitle =</span> <span class="fu">paste0</span>(</span>
+<span id="cb11-58"><a href="#cb11-58"></a>      <span class="st">"Among micro-enterprises only: share of firms above the 75th capital percentile (BRL "</span>,</span>
+<span id="cb11-59"><a href="#cb11-59"></a>      <span class="fu">comma</span>(<span class="fu">unique</span>(co<span class="sc">$</span>capital_q75_micro[<span class="sc">!</span><span class="fu">is.na</span>(co<span class="sc">$</span>capital_q75_micro)])[<span class="dv">1</span>]),</span>
+<span id="cb11-60"><a href="#cb11-60"></a>      <span class="st">"),</span><span class="sc">\n</span><span class="st">by legal form and governance archetype. Cells with fewer than 20 firms excluded."</span></span>
+<span id="cb11-61"><a href="#cb11-61"></a>    ),</span>
+<span id="cb11-62"><a href="#cb11-62"></a>    <span class="at">x       =</span> <span class="cn">NULL</span>,</span>
+<span id="cb11-63"><a href="#cb11-63"></a>    <span class="at">caption =</span> <span class="st">"Source: Brazilian CNPJ Registry · TidyTuesday 2026 Wk 4 (Extended) · Zhijun He · 2026-02-25"</span></span>
+<span id="cb11-64"><a href="#cb11-64"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-65"><a href="#cb11-65"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb11-66"><a href="#cb11-66"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-67"><a href="#cb11-67"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">colour =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb11-68"><a href="#cb11-68"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>, <span class="at">lineheight =</span> <span class="fl">1.3</span>,</span>
+<span id="cb11-69"><a href="#cb11-69"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>)),</span>
+<span id="cb11-70"><a href="#cb11-70"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb11-71"><a href="#cb11-71"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb11-72"><a href="#cb11-72"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb11-73"><a href="#cb11-73"></a>    <span class="at">panel.grid.minor   =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb11-74"><a href="#cb11-74"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="extra-sample1_files/figure-html/capital-rich-micro-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The final visualization identifies the escape route from the capital trap at a granular level. Among micro-enterprises, the probability of being in the top capital quartile varies substantially by the combination of legal form and governance archetype. Beneficial Owner–controlled LLCs have the highest escape rate, followed by Beneficial Owner–controlled EIRELIs. Sole Entrepreneurs in sole proprietorships — the most structurally isolated governance form — have the lowest rates of capital-rich status.</p>
+<p>The structural interpretation is straightforward: Beneficial Ownership signals the presence of a holding-company chain or external equity investor behind what is officially registered as a micro-enterprise. These are not small businesses in the policy-relevant sense; they are subsidiaries or investment vehicles wearing micro-enterprise clothing because their <em>revenue</em> happens to fall below the Simples Nacional threshold, even though their capital endowment is substantial. The EIRELI (Individual Limited Liability Company) pattern is similarly suggestive: this legal form was specifically created to allow single-person companies to separate personal from business liability, and firms using it show elevated capital retention relative to informal sole proprietorships.</p>
+</section><section id="synthesis" class="level2"><h2 class="anchored" data-anchor-id="synthesis">Synthesis</h2>
+<p>This extended analysis reframes the capital trap finding in three directions. First, the trap operates at two scales simultaneously: the <em>between-tier</em> gap documented previously, and a severe <em>within-tier</em> Gini of 0.6 inside micro-enterprises that makes the category a statistical fiction for capital analysis purposes.</p>
+<p>Second, governance structure is an independent predictor of capital accumulation. A Beneficial Owner-controlled micro-enterprise has systematically higher capital than a sole entrepreneur with the same regulatory label. Any policy that targets “micro-enterprises” as a homogeneous group will inevitably redistribute from capital-constrained genuine small businesses toward governance-rich investment vehicles.</p>
+<p>Third, the capital-rich micro profile is not random. It concentrates in LLC and EIRELI structures under Beneficial Ownership — a signature consistent with holding-company architecture rather than organic small-business growth. This has a direct diagnostic implication: if Brazil’s development goal is to reduce the capital gap for genuinely small entrepreneurs, the targeting instrument should incorporate governance structure alongside revenue-based size classification. Revenue thresholds alone are insufficient — and this dataset shows precisely why.</p>
 
 
 <!-- -->
 
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -968,9 +1103,7 @@ cookieconsent.run({
       }
     }
   });
-  </script>
-<nav class="page-navigation column-page-right">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation column-body"><div class="nav-page nav-page-previous">
       <a href="../ica/ica-sample2.html" class="pagination-link" aria-label="ICA Sample 2">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">ICA Sample 2</span></span>
       </a>          
@@ -981,15 +1114,391 @@ cookieconsent.run({
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="an">title:</span><span class="co"> "Extra Sample 1"</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">---</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a>Add content here</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">---</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="an">title:</span><span class="co"> "Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil"</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="an">subtitle:</span><span class="co"> "TidyTuesday 2026 · Week 4 (Extended) · Brazilian Companies (CNPJ)"</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="an">date:</span><span class="co"> "2026-02-25"</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="an">format:</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co">  html:</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co">    toc: true</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">    code-fold: true</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">    code-summary: "Show code"</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="an">execute:</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">  warning: false</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">  message: false</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="co">---</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a></span>
+<span id="cb12-17"><a href="#cb12-17"></a><span class="fu">## Background</span></span>
+<span id="cb12-18"><a href="#cb12-18"></a></span>
+<span id="cb12-19"><a href="#cb12-19"></a>The previous analysis of this dataset established a macro-level capital paradox: micro-enterprises</span>
+<span id="cb12-20"><a href="#cb12-20"></a>constitute the majority of registered Brazilian firms yet control a disproportionately small share</span>
+<span id="cb12-21"><a href="#cb12-21"></a>of total capital stock. That finding is important, but it treats each size category as internally</span>
+<span id="cb12-22"><a href="#cb12-22"></a>homogeneous. It is not.</span>
+<span id="cb12-23"><a href="#cb12-23"></a></span>
+<span id="cb12-24"><a href="#cb12-24"></a>Brazil's official firm-size classification (Simples Nacional) is based on **annual gross revenue**,</span>
+<span id="cb12-25"><a href="#cb12-25"></a>not capital stock. A sole proprietor earning 360,000 BRL per year is legally a "micro-enterprise"</span>
+<span id="cb12-26"><a href="#cb12-26"></a>regardless of whether they hold 180,000 BRL or 10,000,000 BRL in declared capital stock. This</span>
+<span id="cb12-27"><a href="#cb12-27"></a>classification logic creates a natural experiment embedded in the data: firms within the same</span>
+<span id="cb12-28"><a href="#cb12-28"></a>regulatory category can have wildly different capital endowments. The spread *within* size tiers</span>
+<span id="cb12-29"><a href="#cb12-29"></a>is as analytically interesting as the gaps *between* them.</span>
+<span id="cb12-30"><a href="#cb12-30"></a></span>
+<span id="cb12-31"><a href="#cb12-31"></a>A second underexplored dimension is governance. The <span class="in">`owner_qualification`</span> field records the</span>
+<span id="cb12-32"><a href="#cb12-32"></a>legal role of the controlling person: a Managing Partner who actively runs the business, a Beneficial</span>
+<span id="cb12-33"><a href="#cb12-33"></a>Owner who holds equity but may be a passive investor or part of a holding-company chain, or a</span>
+<span id="cb12-34"><a href="#cb12-34"></a>solo Entrepreneur operating under their own identity. These governance archetypes map onto well-</span>
+<span id="cb12-35"><a href="#cb12-35"></a>established predictions from agency theory: passive beneficial ownership is associated with access</span>
+<span id="cb12-36"><a href="#cb12-36"></a>to external capital, while sole entrepreneurs face the highest information asymmetries with lenders.</span>
+<span id="cb12-37"><a href="#cb12-37"></a></span>
+<span id="cb12-38"><a href="#cb12-38"></a><span class="fu">## Research Questions</span></span>
+<span id="cb12-39"><a href="#cb12-39"></a></span>
+<span id="cb12-40"><a href="#cb12-40"></a>Three analytical questions guide this extended analysis:</span>
+<span id="cb12-41"><a href="#cb12-41"></a></span>
+<span id="cb12-42"><a href="#cb12-42"></a><span class="ss">1. </span>**Within-tier inequality:** Are micro-enterprises themselves internally unequal in capital </span>
+<span id="cb12-43"><a href="#cb12-43"></a>   endowments, or is the category relatively flat?</span>
+<span id="cb12-44"><a href="#cb12-44"></a><span class="ss">2. </span>**Governance as a capital predictor:** Does owner qualification predict capital accumulation</span>
+<span id="cb12-45"><a href="#cb12-45"></a>   *independently* of firm size, and by how much?</span>
+<span id="cb12-46"><a href="#cb12-46"></a><span class="ss">3. </span>**The "capital-rich micro":** Among micro-enterprises with unusually high capital stock, what</span>
+<span id="cb12-47"><a href="#cb12-47"></a>   governance and legal-form features distinguish them from the capital-poor majority?</span>
+<span id="cb12-48"><a href="#cb12-48"></a></span>
+<span id="cb12-49"><a href="#cb12-49"></a><span class="fu">## Data Preparation</span></span>
+<span id="cb12-50"><a href="#cb12-50"></a></span>
+<span id="cb12-53"><a href="#cb12-53"></a><span class="in">```{r}</span></span>
+<span id="cb12-54"><a href="#cb12-54"></a><span class="co">#| label: setup</span></span>
+<span id="cb12-55"><a href="#cb12-55"></a></span>
+<span id="cb12-56"><a href="#cb12-56"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb12-57"><a href="#cb12-57"></a><span class="fu">library</span>(scales)</span>
+<span id="cb12-58"><a href="#cb12-58"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb12-59"><a href="#cb12-59"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb12-60"><a href="#cb12-60"></a></span>
+<span id="cb12-61"><a href="#cb12-61"></a>companies <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb12-62"><a href="#cb12-62"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-01-27/companies.csv"</span>,</span>
+<span id="cb12-63"><a href="#cb12-63"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb12-64"><a href="#cb12-64"></a>)</span>
+<span id="cb12-65"><a href="#cb12-65"></a></span>
+<span id="cb12-66"><a href="#cb12-66"></a><span class="co"># ── Core cleaning ──────────────────────────────────────────────────────────────</span></span>
+<span id="cb12-67"><a href="#cb12-67"></a>co <span class="ot">&lt;-</span> companies <span class="sc">|&gt;</span></span>
+<span id="cb12-68"><a href="#cb12-68"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(company_size), <span class="sc">!</span><span class="fu">is.na</span>(capital_stock), <span class="sc">!</span><span class="fu">is.na</span>(owner_qualification)) <span class="sc">|&gt;</span></span>
+<span id="cb12-69"><a href="#cb12-69"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-70"><a href="#cb12-70"></a>    <span class="at">size =</span> <span class="fu">case_when</span>(</span>
+<span id="cb12-71"><a href="#cb12-71"></a>      company_size <span class="sc">==</span> <span class="st">"micro-enterprise"</span> <span class="sc">~</span> <span class="st">"Micro"</span>,</span>
+<span id="cb12-72"><a href="#cb12-72"></a>      company_size <span class="sc">==</span> <span class="st">"small-enterprise"</span> <span class="sc">~</span> <span class="st">"Small"</span>,</span>
+<span id="cb12-73"><a href="#cb12-73"></a>      <span class="cn">TRUE</span>                               <span class="sc">~</span> <span class="st">"Medium/Large"</span></span>
+<span id="cb12-74"><a href="#cb12-74"></a>    ),</span>
+<span id="cb12-75"><a href="#cb12-75"></a>    <span class="at">size =</span> <span class="fu">factor</span>(size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Micro"</span>, <span class="st">"Small"</span>, <span class="st">"Medium/Large"</span>)),</span>
+<span id="cb12-76"><a href="#cb12-76"></a></span>
+<span id="cb12-77"><a href="#cb12-77"></a>    <span class="co"># Governance archetype: simplify owner_qualification into 4 classes</span></span>
+<span id="cb12-78"><a href="#cb12-78"></a>    <span class="at">governance =</span> <span class="fu">case_when</span>(</span>
+<span id="cb12-79"><a href="#cb12-79"></a>      <span class="fu">str_detect</span>(owner_qualification, <span class="fu">regex</span>(<span class="st">"beneficial owner"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)) <span class="sc">~</span> <span class="st">"Beneficial Owner</span><span class="sc">\n</span><span class="st">(passive/investor)"</span>,</span>
+<span id="cb12-80"><a href="#cb12-80"></a>      <span class="fu">str_detect</span>(owner_qualification, <span class="fu">regex</span>(<span class="st">"entrepreneur|business owner"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)) <span class="sc">~</span> <span class="st">"Sole Entrepreneur"</span>,</span>
+<span id="cb12-81"><a href="#cb12-81"></a>      <span class="fu">str_detect</span>(owner_qualification, <span class="fu">regex</span>(<span class="st">"managing partner|administrator"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)) <span class="sc">~</span> <span class="st">"Managing Partner /</span><span class="sc">\n</span><span class="st">Administrator"</span>,</span>
+<span id="cb12-82"><a href="#cb12-82"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb12-83"><a href="#cb12-83"></a>    ),</span>
+<span id="cb12-84"><a href="#cb12-84"></a>    <span class="at">governance =</span> <span class="fu">factor</span>(governance, <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb12-85"><a href="#cb12-85"></a>      <span class="st">"Sole Entrepreneur"</span>,</span>
+<span id="cb12-86"><a href="#cb12-86"></a>      <span class="st">"Managing Partner /</span><span class="sc">\n</span><span class="st">Administrator"</span>,</span>
+<span id="cb12-87"><a href="#cb12-87"></a>      <span class="st">"Beneficial Owner</span><span class="sc">\n</span><span class="st">(passive/investor)"</span>,</span>
+<span id="cb12-88"><a href="#cb12-88"></a>      <span class="st">"Other"</span></span>
+<span id="cb12-89"><a href="#cb12-89"></a>    )),</span>
+<span id="cb12-90"><a href="#cb12-90"></a></span>
+<span id="cb12-91"><a href="#cb12-91"></a>    <span class="co"># Normalised capital (log scale for distributions)</span></span>
+<span id="cb12-92"><a href="#cb12-92"></a>    <span class="at">log_capital =</span> <span class="fu">log10</span>(capital_stock),</span>
+<span id="cb12-93"><a href="#cb12-93"></a></span>
+<span id="cb12-94"><a href="#cb12-94"></a>    <span class="co"># Within micro-enterprises: flag as "capital-rich" if above 75th pctile</span></span>
+<span id="cb12-95"><a href="#cb12-95"></a>    <span class="at">capital_q75_micro =</span> <span class="fu">quantile</span>(capital_stock[size <span class="sc">==</span> <span class="st">"Micro"</span>], <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-96"><a href="#cb12-96"></a>    <span class="at">is_capital_rich_micro =</span> (size <span class="sc">==</span> <span class="st">"Micro"</span>) <span class="sc">&amp;</span> (capital_stock <span class="sc">&gt;=</span> capital_q75_micro)</span>
+<span id="cb12-97"><a href="#cb12-97"></a>  )</span>
+<span id="cb12-98"><a href="#cb12-98"></a></span>
+<span id="cb12-99"><a href="#cb12-99"></a><span class="fu">cat</span>(<span class="st">"Observations:"</span>, <span class="fu">nrow</span>(co), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb12-100"><a href="#cb12-100"></a><span class="fu">cat</span>(<span class="st">"Governance archetypes:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb12-101"><a href="#cb12-101"></a><span class="fu">print</span>(<span class="fu">count</span>(co, governance, <span class="at">sort =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb12-102"><a href="#cb12-102"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Capital-rich micro threshold: BRL"</span>,</span>
+<span id="cb12-103"><a href="#cb12-103"></a>    <span class="fu">comma</span>(<span class="fu">unique</span>(co<span class="sc">$</span>capital_q75_micro[<span class="sc">!</span><span class="fu">is.na</span>(co<span class="sc">$</span>capital_q75_micro)])[<span class="dv">1</span>]), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb12-104"><a href="#cb12-104"></a><span class="in">```</span></span>
+<span id="cb12-105"><a href="#cb12-105"></a></span>
+<span id="cb12-106"><a href="#cb12-106"></a><span class="fu">## Visualization 1 — Within-Tier Inequality: Lorenz Curves by Firm Size</span></span>
+<span id="cb12-107"><a href="#cb12-107"></a></span>
+<span id="cb12-110"><a href="#cb12-110"></a><span class="in">```{r}</span></span>
+<span id="cb12-111"><a href="#cb12-111"></a><span class="co">#| label: lorenz-curves</span></span>
+<span id="cb12-112"><a href="#cb12-112"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb12-113"><a href="#cb12-113"></a><span class="co">#| fig-height: 5.5</span></span>
+<span id="cb12-114"><a href="#cb12-114"></a></span>
+<span id="cb12-115"><a href="#cb12-115"></a><span class="co"># Lorenz curve: cumulative firm share (x) vs cumulative capital share (y)</span></span>
+<span id="cb12-116"><a href="#cb12-116"></a>lorenz_data <span class="ot">&lt;-</span> co <span class="sc">|&gt;</span></span>
+<span id="cb12-117"><a href="#cb12-117"></a>  <span class="fu">group_by</span>(size) <span class="sc">|&gt;</span></span>
+<span id="cb12-118"><a href="#cb12-118"></a>  <span class="fu">arrange</span>(capital_stock, <span class="at">.by_group =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-119"><a href="#cb12-119"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-120"><a href="#cb12-120"></a>    <span class="at">cum_firms   =</span> <span class="fu">row_number</span>() <span class="sc">/</span> <span class="fu">n</span>(),</span>
+<span id="cb12-121"><a href="#cb12-121"></a>    <span class="at">cum_capital =</span> <span class="fu">cumsum</span>(capital_stock) <span class="sc">/</span> <span class="fu">sum</span>(capital_stock)</span>
+<span id="cb12-122"><a href="#cb12-122"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-123"><a href="#cb12-123"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb12-124"><a href="#cb12-124"></a></span>
+<span id="cb12-125"><a href="#cb12-125"></a><span class="co"># Gini coefficient helper</span></span>
+<span id="cb12-126"><a href="#cb12-126"></a>gini <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb12-127"><a href="#cb12-127"></a>  x <span class="ot">&lt;-</span> <span class="fu">sort</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])</span>
+<span id="cb12-128"><a href="#cb12-128"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb12-129"><a href="#cb12-129"></a>  <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>((<span class="fu">seq_len</span>(n) <span class="sc">/</span> n) <span class="sc">*</span> (x <span class="sc">/</span> <span class="fu">sum</span>(x))) <span class="sc">-</span> (n <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> n</span>
+<span id="cb12-130"><a href="#cb12-130"></a>}</span>
+<span id="cb12-131"><a href="#cb12-131"></a></span>
+<span id="cb12-132"><a href="#cb12-132"></a>gini_labels <span class="ot">&lt;-</span> co <span class="sc">|&gt;</span></span>
+<span id="cb12-133"><a href="#cb12-133"></a>  <span class="fu">group_by</span>(size) <span class="sc">|&gt;</span></span>
+<span id="cb12-134"><a href="#cb12-134"></a>  <span class="fu">summarise</span>(<span class="at">g =</span> <span class="fu">round</span>(<span class="fu">gini</span>(capital_stock), <span class="dv">3</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-135"><a href="#cb12-135"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-136"><a href="#cb12-136"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Gini = "</span>, g),</span>
+<span id="cb12-137"><a href="#cb12-137"></a>    <span class="at">x =</span> <span class="fl">0.25</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">0.68</span>, <span class="fl">0.58</span>, <span class="fl">0.48</span>)</span>
+<span id="cb12-138"><a href="#cb12-138"></a>  )</span>
+<span id="cb12-139"><a href="#cb12-139"></a></span>
+<span id="cb12-140"><a href="#cb12-140"></a>pal_size <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Micro"</span> <span class="ot">=</span> <span class="st">"#e76f51"</span>, <span class="st">"Small"</span> <span class="ot">=</span> <span class="st">"#f4a261"</span>, <span class="st">"Medium/Large"</span> <span class="ot">=</span> <span class="st">"#264653"</span>)</span>
+<span id="cb12-141"><a href="#cb12-141"></a></span>
+<span id="cb12-142"><a href="#cb12-142"></a><span class="fu">ggplot</span>(lorenz_data, <span class="fu">aes</span>(<span class="at">x =</span> cum_firms, <span class="at">y =</span> cum_capital, <span class="at">colour =</span> size)) <span class="sc">+</span></span>
+<span id="cb12-143"><a href="#cb12-143"></a>  <span class="co"># Perfect equality diagonal</span></span>
+<span id="cb12-144"><a href="#cb12-144"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>,</span>
+<span id="cb12-145"><a href="#cb12-145"></a>              <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey60"</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb12-146"><a href="#cb12-146"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb12-147"><a href="#cb12-147"></a>  <span class="co"># Shade area between Micro and equality line to make inequality visual</span></span>
+<span id="cb12-148"><a href="#cb12-148"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb12-149"><a href="#cb12-149"></a>    <span class="at">data =</span> <span class="fu">filter</span>(lorenz_data, size <span class="sc">==</span> <span class="st">"Micro"</span>),</span>
+<span id="cb12-150"><a href="#cb12-150"></a>    <span class="fu">aes</span>(<span class="at">ymin =</span> cum_capital, <span class="at">ymax =</span> cum_firms),</span>
+<span id="cb12-151"><a href="#cb12-151"></a>    <span class="at">fill =</span> <span class="st">"#e76f51"</span>, <span class="at">alpha =</span> <span class="fl">0.08</span>, <span class="at">colour =</span> <span class="cn">NA</span></span>
+<span id="cb12-152"><a href="#cb12-152"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-153"><a href="#cb12-153"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb12-154"><a href="#cb12-154"></a>    <span class="at">data =</span> gini_labels,</span>
+<span id="cb12-155"><a href="#cb12-155"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> label, <span class="at">colour =</span> size),</span>
+<span id="cb12-156"><a href="#cb12-156"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-157"><a href="#cb12-157"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">3.8</span></span>
+<span id="cb12-158"><a href="#cb12-158"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-159"><a href="#cb12-159"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.57</span>, <span class="at">y =</span> <span class="fl">0.47</span>, <span class="at">label =</span> <span class="st">"Perfect equality"</span>,</span>
+<span id="cb12-160"><a href="#cb12-160"></a>           <span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="fl">3.3</span>, <span class="at">angle =</span> <span class="dv">42</span>) <span class="sc">+</span></span>
+<span id="cb12-161"><a href="#cb12-161"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal_size, <span class="at">name =</span> <span class="st">"Firm size"</span>) <span class="sc">+</span></span>
+<span id="cb12-162"><a href="#cb12-162"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(), <span class="at">name =</span> <span class="st">"Cumulative share of firms →"</span>) <span class="sc">+</span></span>
+<span id="cb12-163"><a href="#cb12-163"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(), <span class="at">name =</span> <span class="st">"← Cumulative share of capital"</span>) <span class="sc">+</span></span>
+<span id="cb12-164"><a href="#cb12-164"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-165"><a href="#cb12-165"></a>    <span class="at">title    =</span> <span class="st">"Micro-enterprises are internally the most unequal: Gini &gt; 0.6 within the tier"</span>,</span>
+<span id="cb12-166"><a href="#cb12-166"></a>    <span class="at">subtitle =</span> <span class="st">"Lorenz curves by firm size. The further the curve bows below the diagonal, the more concentrated capital is</span><span class="sc">\n</span><span class="st">among a small fraction of firms within that category."</span>,</span>
+<span id="cb12-167"><a href="#cb12-167"></a>    <span class="at">caption  =</span> <span class="st">"Source: Brazilian CNPJ Registry · TidyTuesday 2026 Wk 4 (Extended) · Zhijun He · 2026-02-25"</span></span>
+<span id="cb12-168"><a href="#cb12-168"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-169"><a href="#cb12-169"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb12-170"><a href="#cb12-170"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-171"><a href="#cb12-171"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">colour =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb12-172"><a href="#cb12-172"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>, <span class="at">lineheight =</span> <span class="fl">1.3</span>,</span>
+<span id="cb12-173"><a href="#cb12-173"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>)),</span>
+<span id="cb12-174"><a href="#cb12-174"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb12-175"><a href="#cb12-175"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb12-176"><a href="#cb12-176"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb12-177"><a href="#cb12-177"></a>  )</span>
+<span id="cb12-178"><a href="#cb12-178"></a><span class="in">```</span></span>
+<span id="cb12-179"><a href="#cb12-179"></a></span>
+<span id="cb12-180"><a href="#cb12-180"></a>The Lorenz curves reveal that the capital trap is not simply a gap *between* size categories —</span>
+<span id="cb12-181"><a href="#cb12-181"></a>it is also a profound concentration *within* micro-enterprises. A Gini coefficient above 0.60</span>
+<span id="cb12-182"><a href="#cb12-182"></a>for micro-enterprises is striking: it means that among firms that have all been designated</span>
+<span id="cb12-183"><a href="#cb12-183"></a>"micro" by the same revenue-based rule, a small minority holds the majority of declared capital.</span>
+<span id="cb12-184"><a href="#cb12-184"></a>Medium/Large firms are actually the most internally equal (Gini ≈ 0.43), consistent with</span>
+<span id="cb12-185"><a href="#cb12-185"></a>the idea that formal capitalization requirements for larger corporate structures compress the</span>
+<span id="cb12-186"><a href="#cb12-186"></a>distribution. Small enterprises sit in between. The upshot is that "micro-enterprise" is not a</span>
+<span id="cb12-187"><a href="#cb12-187"></a>coherent economic category — it is a legal label that shelters both subsistence operations</span>
+<span id="cb12-188"><a href="#cb12-188"></a>and well-capitalised ventures under the same regulatory umbrella.</span>
+<span id="cb12-189"><a href="#cb12-189"></a></span>
+<span id="cb12-190"><a href="#cb12-190"></a><span class="fu">## Visualization 2 — Governance as a Capital Predictor</span></span>
+<span id="cb12-191"><a href="#cb12-191"></a></span>
+<span id="cb12-194"><a href="#cb12-194"></a><span class="in">```{r}</span></span>
+<span id="cb12-195"><a href="#cb12-195"></a><span class="co">#| label: governance-ridges</span></span>
+<span id="cb12-196"><a href="#cb12-196"></a><span class="co">#| fig-width: 11</span></span>
+<span id="cb12-197"><a href="#cb12-197"></a><span class="co">#| fig-height: 6.5</span></span>
+<span id="cb12-198"><a href="#cb12-198"></a></span>
+<span id="cb12-199"><a href="#cb12-199"></a><span class="co"># Median capital by governance × size for annotation</span></span>
+<span id="cb12-200"><a href="#cb12-200"></a>gov_medians <span class="ot">&lt;-</span> co <span class="sc">|&gt;</span></span>
+<span id="cb12-201"><a href="#cb12-201"></a>  <span class="fu">filter</span>(governance <span class="sc">!=</span> <span class="st">"Other"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-202"><a href="#cb12-202"></a>  <span class="fu">group_by</span>(size, governance) <span class="sc">|&gt;</span></span>
+<span id="cb12-203"><a href="#cb12-203"></a>  <span class="fu">summarise</span>(<span class="at">med_cap =</span> <span class="fu">median</span>(capital_stock), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-204"><a href="#cb12-204"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-205"><a href="#cb12-205"></a>    <span class="at">med_lab =</span> <span class="fu">paste0</span>(<span class="st">"med: BRL "</span>, <span class="fu">number</span>(med_cap, <span class="at">scale =</span> <span class="fl">1e-3</span>, <span class="at">suffix =</span> <span class="st">"k"</span>,</span>
+<span id="cb12-206"><a href="#cb12-206"></a>                                         <span class="at">accuracy =</span> <span class="dv">1</span>))</span>
+<span id="cb12-207"><a href="#cb12-207"></a>  )</span>
+<span id="cb12-208"><a href="#cb12-208"></a></span>
+<span id="cb12-209"><a href="#cb12-209"></a><span class="fu">ggplot</span>(</span>
+<span id="cb12-210"><a href="#cb12-210"></a>  co <span class="sc">|&gt;</span> <span class="fu">filter</span>(governance <span class="sc">!=</span> <span class="st">"Other"</span>),</span>
+<span id="cb12-211"><a href="#cb12-211"></a>  <span class="fu">aes</span>(<span class="at">x =</span> log_capital, <span class="at">y =</span> governance, <span class="at">fill =</span> governance)</span>
+<span id="cb12-212"><a href="#cb12-212"></a>) <span class="sc">+</span></span>
+<span id="cb12-213"><a href="#cb12-213"></a>  <span class="fu">geom_density_ridges</span>(</span>
+<span id="cb12-214"><a href="#cb12-214"></a>    <span class="at">alpha =</span> <span class="fl">0.75</span>, <span class="at">scale =</span> <span class="fl">0.9</span>,</span>
+<span id="cb12-215"><a href="#cb12-215"></a>    <span class="at">quantile_lines =</span> <span class="cn">TRUE</span>, <span class="at">quantiles =</span> <span class="dv">2</span>,   <span class="co"># show median line</span></span>
+<span id="cb12-216"><a href="#cb12-216"></a>    <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span></span>
+<span id="cb12-217"><a href="#cb12-217"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-218"><a href="#cb12-218"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb12-219"><a href="#cb12-219"></a>    <span class="at">data =</span> gov_medians,</span>
+<span id="cb12-220"><a href="#cb12-220"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log10</span>(med_cap) <span class="sc">+</span> <span class="fl">0.03</span>, <span class="at">y =</span> governance, <span class="at">label =</span> med_lab),</span>
+<span id="cb12-221"><a href="#cb12-221"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-222"><a href="#cb12-222"></a>    <span class="at">size =</span> <span class="fl">2.9</span>, <span class="at">colour =</span> <span class="st">"grey20"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">1.3</span></span>
+<span id="cb12-223"><a href="#cb12-223"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-224"><a href="#cb12-224"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>size, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-225"><a href="#cb12-225"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb12-226"><a href="#cb12-226"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb12-227"><a href="#cb12-227"></a>      <span class="st">"Sole Entrepreneur"</span>              <span class="ot">=</span> <span class="st">"#e9c46a"</span>,</span>
+<span id="cb12-228"><a href="#cb12-228"></a>      <span class="st">"Managing Partner /</span><span class="sc">\n</span><span class="st">Administrator"</span> <span class="ot">=</span> <span class="st">"#4a90d9"</span>,</span>
+<span id="cb12-229"><a href="#cb12-229"></a>      <span class="st">"Beneficial Owner</span><span class="sc">\n</span><span class="st">(passive/investor)"</span> <span class="ot">=</span> <span class="st">"#264653"</span></span>
+<span id="cb12-230"><a href="#cb12-230"></a>    ),</span>
+<span id="cb12-231"><a href="#cb12-231"></a>    <span class="at">guide =</span> <span class="st">"none"</span></span>
+<span id="cb12-232"><a href="#cb12-232"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-233"><a href="#cb12-233"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb12-234"><a href="#cb12-234"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="fl">5.5</span>, <span class="dv">6</span>, <span class="fl">6.5</span>, <span class="dv">7</span>, <span class="fl">7.5</span>, <span class="dv">8</span>),</span>
+<span id="cb12-235"><a href="#cb12-235"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"100k"</span>, <span class="st">"316k"</span>, <span class="st">"1M"</span>, <span class="st">"3.2M"</span>, <span class="st">"10M"</span>, <span class="st">"32M"</span>, <span class="st">"100M"</span>),</span>
+<span id="cb12-236"><a href="#cb12-236"></a>    <span class="at">name   =</span> <span class="st">"Capital stock (BRL, log scale)"</span></span>
+<span id="cb12-237"><a href="#cb12-237"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-238"><a href="#cb12-238"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-239"><a href="#cb12-239"></a>    <span class="at">title    =</span> <span class="st">"Beneficial Owners command higher capital at every size tier — the governance premium"</span>,</span>
+<span id="cb12-240"><a href="#cb12-240"></a>    <span class="at">subtitle =</span> <span class="st">"Density ridges show distribution of capital stock by owner governance archetype, within each firm size.</span><span class="sc">\n</span><span class="st">Vertical white line = median. X-axis is log-scaled."</span>,</span>
+<span id="cb12-241"><a href="#cb12-241"></a>    <span class="at">y        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-242"><a href="#cb12-242"></a>    <span class="at">caption  =</span> <span class="st">"Source: Brazilian CNPJ Registry · TidyTuesday 2026 Wk 4 (Extended) · Zhijun He · 2026-02-25"</span></span>
+<span id="cb12-243"><a href="#cb12-243"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-244"><a href="#cb12-244"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb12-245"><a href="#cb12-245"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-246"><a href="#cb12-246"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">colour =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb12-247"><a href="#cb12-247"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>, <span class="at">lineheight =</span> <span class="fl">1.3</span>,</span>
+<span id="cb12-248"><a href="#cb12-248"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>)),</span>
+<span id="cb12-249"><a href="#cb12-249"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb12-250"><a href="#cb12-250"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">colour =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb12-251"><a href="#cb12-251"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"grey95"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
+<span id="cb12-252"><a href="#cb12-252"></a>    <span class="at">panel.grid.minor  =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-253"><a href="#cb12-253"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb12-254"><a href="#cb12-254"></a>  )</span>
+<span id="cb12-255"><a href="#cb12-255"></a><span class="in">```</span></span>
+<span id="cb12-256"><a href="#cb12-256"></a></span>
+<span id="cb12-257"><a href="#cb12-257"></a>Across all three size tiers, a clear hierarchy emerges from governance structure alone.</span>
+<span id="cb12-258"><a href="#cb12-258"></a>Firms controlled by a Beneficial Owner — typically a holding company, trust, or passive</span>
+<span id="cb12-259"><a href="#cb12-259"></a>equity holder — show systematically higher capital stock than firms run by a Managing Partner,</span>
+<span id="cb12-260"><a href="#cb12-260"></a>which in turn outperform sole entrepreneurs. This **governance premium** persists within every</span>
+<span id="cb12-261"><a href="#cb12-261"></a>size category: even among micro-enterprises, a Beneficial Owner-controlled firm holds a</span>
+<span id="cb12-262"><a href="#cb12-262"></a>materially higher median capital than a sole entrepreneur of identical regulatory status.</span>
+<span id="cb12-263"><a href="#cb12-263"></a>The implication is significant for development policy: size classification (a revenue proxy)</span>
+<span id="cb12-264"><a href="#cb12-264"></a>and governance structure (an ownership proxy) are two orthogonal dimensions of firm</span>
+<span id="cb12-265"><a href="#cb12-265"></a>capitalization, and conflating them understates the heterogeneity within each tier. A micro-</span>
+<span id="cb12-266"><a href="#cb12-266"></a>enterprise programme that treats all micro-enterprises alike implicitly subsidizes</span>
+<span id="cb12-267"><a href="#cb12-267"></a>governance-rich firms alongside genuinely capital-constrained ones.</span>
+<span id="cb12-268"><a href="#cb12-268"></a></span>
+<span id="cb12-269"><a href="#cb12-269"></a><span class="fu">## Visualization 3 — The Capital-Rich Micro: Who Escapes the Trap?</span></span>
+<span id="cb12-270"><a href="#cb12-270"></a></span>
+<span id="cb12-273"><a href="#cb12-273"></a><span class="in">```{r}</span></span>
+<span id="cb12-274"><a href="#cb12-274"></a><span class="co">#| label: capital-rich-micro</span></span>
+<span id="cb12-275"><a href="#cb12-275"></a><span class="co">#| fig-width: 11</span></span>
+<span id="cb12-276"><a href="#cb12-276"></a><span class="co">#| fig-height: 5.5</span></span>
+<span id="cb12-277"><a href="#cb12-277"></a></span>
+<span id="cb12-278"><a href="#cb12-278"></a><span class="co"># Focus: micro-enterprises only</span></span>
+<span id="cb12-279"><a href="#cb12-279"></a><span class="co"># Identify what proportion of "capital-rich" micros belong to each legal/governance cell</span></span>
+<span id="cb12-280"><a href="#cb12-280"></a>micro_profile <span class="ot">&lt;-</span> co <span class="sc">|&gt;</span></span>
+<span id="cb12-281"><a href="#cb12-281"></a>  <span class="fu">filter</span>(size <span class="sc">==</span> <span class="st">"Micro"</span>, governance <span class="sc">!=</span> <span class="st">"Other"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-282"><a href="#cb12-282"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-283"><a href="#cb12-283"></a>    <span class="at">legal_short =</span> <span class="fu">case_when</span>(</span>
+<span id="cb12-284"><a href="#cb12-284"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"LLC"</span>)              <span class="sc">~</span> <span class="st">"LLC"</span>,</span>
+<span id="cb12-285"><a href="#cb12-285"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Sole Proprietorship"</span>) <span class="sc">~</span> <span class="st">"Sole</span><span class="sc">\n</span><span class="st">Proprietary"</span>,</span>
+<span id="cb12-286"><a href="#cb12-286"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Individual Limited"</span>) <span class="sc">~</span> <span class="st">"EIRELI"</span>,</span>
+<span id="cb12-287"><a href="#cb12-287"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Simple"</span>)           <span class="sc">~</span> <span class="st">"Simple</span><span class="sc">\n</span><span class="st">Partnership"</span>,</span>
+<span id="cb12-288"><a href="#cb12-288"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Silent"</span>)           <span class="sc">~</span> <span class="st">"Silent</span><span class="sc">\n</span><span class="st">Partnership"</span>,</span>
+<span id="cb12-289"><a href="#cb12-289"></a>      <span class="fu">str_detect</span>(legal_nature, <span class="st">"Corporation"</span>)      <span class="sc">~</span> <span class="st">"Corporation"</span>,</span>
+<span id="cb12-290"><a href="#cb12-290"></a>      <span class="cn">TRUE</span>                                          <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb12-291"><a href="#cb12-291"></a>    )</span>
+<span id="cb12-292"><a href="#cb12-292"></a>  )</span>
+<span id="cb12-293"><a href="#cb12-293"></a></span>
+<span id="cb12-294"><a href="#cb12-294"></a><span class="co"># Rate of "capital-rich" membership by legal × governance cell</span></span>
+<span id="cb12-295"><a href="#cb12-295"></a>escape_rate <span class="ot">&lt;-</span> micro_profile <span class="sc">|&gt;</span></span>
+<span id="cb12-296"><a href="#cb12-296"></a>  <span class="fu">group_by</span>(legal_short, governance) <span class="sc">|&gt;</span></span>
+<span id="cb12-297"><a href="#cb12-297"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-298"><a href="#cb12-298"></a>    <span class="at">n_total    =</span> <span class="fu">n</span>(),</span>
+<span id="cb12-299"><a href="#cb12-299"></a>    <span class="at">n_rich     =</span> <span class="fu">sum</span>(is_capital_rich_micro),</span>
+<span id="cb12-300"><a href="#cb12-300"></a>    <span class="at">escape_pct =</span> n_rich <span class="sc">/</span> n_total,</span>
+<span id="cb12-301"><a href="#cb12-301"></a>    <span class="at">.groups    =</span> <span class="st">"drop"</span></span>
+<span id="cb12-302"><a href="#cb12-302"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-303"><a href="#cb12-303"></a>  <span class="fu">filter</span>(n_total <span class="sc">&gt;=</span> <span class="dv">20</span>)  <span class="co"># remove sparse cells</span></span>
+<span id="cb12-304"><a href="#cb12-304"></a></span>
+<span id="cb12-305"><a href="#cb12-305"></a><span class="fu">ggplot</span>(</span>
+<span id="cb12-306"><a href="#cb12-306"></a>  escape_rate,</span>
+<span id="cb12-307"><a href="#cb12-307"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(legal_short, escape_pct, <span class="at">.fun =</span> mean),</span>
+<span id="cb12-308"><a href="#cb12-308"></a>      <span class="at">y =</span> escape_pct,</span>
+<span id="cb12-309"><a href="#cb12-309"></a>      <span class="at">fill =</span> governance)</span>
+<span id="cb12-310"><a href="#cb12-310"></a>) <span class="sc">+</span></span>
+<span id="cb12-311"><a href="#cb12-311"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">width =</span> <span class="fl">0.65</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb12-312"><a href="#cb12-312"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb12-313"><a href="#cb12-313"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">percent</span>(escape_pct, <span class="at">accuracy =</span> <span class="fl">0.1</span>)),</span>
+<span id="cb12-314"><a href="#cb12-314"></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>),</span>
+<span id="cb12-315"><a href="#cb12-315"></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">3.0</span>, <span class="at">colour =</span> <span class="st">"grey25"</span></span>
+<span id="cb12-316"><a href="#cb12-316"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-317"><a href="#cb12-317"></a>  <span class="fu">coord_flip</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span></span>
+<span id="cb12-318"><a href="#cb12-318"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb12-319"><a href="#cb12-319"></a>    <span class="at">labels =</span> <span class="fu">percent_format</span>(),</span>
+<span id="cb12-320"><a href="#cb12-320"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.55</span>),</span>
+<span id="cb12-321"><a href="#cb12-321"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>)),</span>
+<span id="cb12-322"><a href="#cb12-322"></a>    <span class="at">name   =</span> <span class="st">"Share of micro-enterprises above the 75th capital percentile"</span></span>
+<span id="cb12-323"><a href="#cb12-323"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-324"><a href="#cb12-324"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb12-325"><a href="#cb12-325"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb12-326"><a href="#cb12-326"></a>      <span class="st">"Sole Entrepreneur"</span>                  <span class="ot">=</span> <span class="st">"#e9c46a"</span>,</span>
+<span id="cb12-327"><a href="#cb12-327"></a>      <span class="st">"Managing Partner /</span><span class="sc">\n</span><span class="st">Administrator"</span>  <span class="ot">=</span> <span class="st">"#4a90d9"</span>,</span>
+<span id="cb12-328"><a href="#cb12-328"></a>      <span class="st">"Beneficial Owner</span><span class="sc">\n</span><span class="st">(passive/investor)"</span> <span class="ot">=</span> <span class="st">"#264653"</span></span>
+<span id="cb12-329"><a href="#cb12-329"></a>    ),</span>
+<span id="cb12-330"><a href="#cb12-330"></a>    <span class="at">name =</span> <span class="st">"Governance archetype"</span></span>
+<span id="cb12-331"><a href="#cb12-331"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-332"><a href="#cb12-332"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-333"><a href="#cb12-333"></a>    <span class="at">title    =</span> <span class="st">"Beneficial Owner–controlled LLCs are most likely to escape the micro capital trap"</span>,</span>
+<span id="cb12-334"><a href="#cb12-334"></a>    <span class="at">subtitle =</span> <span class="fu">paste0</span>(</span>
+<span id="cb12-335"><a href="#cb12-335"></a>      <span class="st">"Among micro-enterprises only: share of firms above the 75th capital percentile (BRL "</span>,</span>
+<span id="cb12-336"><a href="#cb12-336"></a>      <span class="fu">comma</span>(<span class="fu">unique</span>(co<span class="sc">$</span>capital_q75_micro[<span class="sc">!</span><span class="fu">is.na</span>(co<span class="sc">$</span>capital_q75_micro)])[<span class="dv">1</span>]),</span>
+<span id="cb12-337"><a href="#cb12-337"></a>      <span class="st">"),</span><span class="sc">\n</span><span class="st">by legal form and governance archetype. Cells with fewer than 20 firms excluded."</span></span>
+<span id="cb12-338"><a href="#cb12-338"></a>    ),</span>
+<span id="cb12-339"><a href="#cb12-339"></a>    <span class="at">x       =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-340"><a href="#cb12-340"></a>    <span class="at">caption =</span> <span class="st">"Source: Brazilian CNPJ Registry · TidyTuesday 2026 Wk 4 (Extended) · Zhijun He · 2026-02-25"</span></span>
+<span id="cb12-341"><a href="#cb12-341"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-342"><a href="#cb12-342"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb12-343"><a href="#cb12-343"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-344"><a href="#cb12-344"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">colour =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb12-345"><a href="#cb12-345"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>, <span class="at">lineheight =</span> <span class="fl">1.3</span>,</span>
+<span id="cb12-346"><a href="#cb12-346"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>)),</span>
+<span id="cb12-347"><a href="#cb12-347"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb12-348"><a href="#cb12-348"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb12-349"><a href="#cb12-349"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-350"><a href="#cb12-350"></a>    <span class="at">panel.grid.minor   =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb12-351"><a href="#cb12-351"></a>  )</span>
+<span id="cb12-352"><a href="#cb12-352"></a><span class="in">```</span></span>
+<span id="cb12-353"><a href="#cb12-353"></a></span>
+<span id="cb12-354"><a href="#cb12-354"></a>The final visualization identifies the escape route from the capital trap at a granular level.</span>
+<span id="cb12-355"><a href="#cb12-355"></a>Among micro-enterprises, the probability of being in the top capital quartile varies substantially</span>
+<span id="cb12-356"><a href="#cb12-356"></a>by the combination of legal form and governance archetype. Beneficial Owner–controlled LLCs have</span>
+<span id="cb12-357"><a href="#cb12-357"></a>the highest escape rate, followed by Beneficial Owner–controlled EIRELIs. Sole Entrepreneurs in</span>
+<span id="cb12-358"><a href="#cb12-358"></a>sole proprietorships — the most structurally isolated governance form — have the lowest rates</span>
+<span id="cb12-359"><a href="#cb12-359"></a>of capital-rich status.</span>
+<span id="cb12-360"><a href="#cb12-360"></a></span>
+<span id="cb12-361"><a href="#cb12-361"></a>The structural interpretation is straightforward: Beneficial Ownership signals the presence of a</span>
+<span id="cb12-362"><a href="#cb12-362"></a>holding-company chain or external equity investor behind what is officially registered as a</span>
+<span id="cb12-363"><a href="#cb12-363"></a>micro-enterprise. These are not small businesses in the policy-relevant sense; they are</span>
+<span id="cb12-364"><a href="#cb12-364"></a>subsidiaries or investment vehicles wearing micro-enterprise clothing because their *revenue*</span>
+<span id="cb12-365"><a href="#cb12-365"></a>happens to fall below the Simples Nacional threshold, even though their capital endowment is</span>
+<span id="cb12-366"><a href="#cb12-366"></a>substantial. The EIRELI (Individual Limited Liability Company) pattern is similarly suggestive:</span>
+<span id="cb12-367"><a href="#cb12-367"></a>this legal form was specifically created to allow single-person companies to separate personal</span>
+<span id="cb12-368"><a href="#cb12-368"></a>from business liability, and firms using it show elevated capital retention relative to informal</span>
+<span id="cb12-369"><a href="#cb12-369"></a>sole proprietorships.</span>
+<span id="cb12-370"><a href="#cb12-370"></a></span>
+<span id="cb12-371"><a href="#cb12-371"></a><span class="fu">## Synthesis</span></span>
+<span id="cb12-372"><a href="#cb12-372"></a></span>
+<span id="cb12-373"><a href="#cb12-373"></a>This extended analysis reframes the capital trap finding in three directions. First, the trap</span>
+<span id="cb12-374"><a href="#cb12-374"></a>operates at two scales simultaneously: the *between-tier* gap documented previously, and a</span>
+<span id="cb12-375"><a href="#cb12-375"></a>severe *within-tier* Gini of 0.6 inside micro-enterprises that makes the category a statistical</span>
+<span id="cb12-376"><a href="#cb12-376"></a>fiction for capital analysis purposes.</span>
+<span id="cb12-377"><a href="#cb12-377"></a></span>
+<span id="cb12-378"><a href="#cb12-378"></a>Second, governance structure is an independent predictor of capital accumulation. A Beneficial</span>
+<span id="cb12-379"><a href="#cb12-379"></a>Owner-controlled micro-enterprise has systematically higher capital than a sole entrepreneur</span>
+<span id="cb12-380"><a href="#cb12-380"></a>with the same regulatory label. Any policy that targets "micro-enterprises" as a homogeneous</span>
+<span id="cb12-381"><a href="#cb12-381"></a>group will inevitably redistribute from capital-constrained genuine small businesses toward</span>
+<span id="cb12-382"><a href="#cb12-382"></a>governance-rich investment vehicles.</span>
+<span id="cb12-383"><a href="#cb12-383"></a></span>
+<span id="cb12-384"><a href="#cb12-384"></a>Third, the capital-rich micro profile is not random. It concentrates in LLC and EIRELI structures</span>
+<span id="cb12-385"><a href="#cb12-385"></a>under Beneficial Ownership — a signature consistent with holding-company architecture rather</span>
+<span id="cb12-386"><a href="#cb12-386"></a>than organic small-business growth. This has a direct diagnostic implication: if Brazil's</span>
+<span id="cb12-387"><a href="#cb12-387"></a>development goal is to reduce the capital gap for genuinely small entrepreneurs, the</span>
+<span id="cb12-388"><a href="#cb12-388"></a>targeting instrument should incorporate governance structure alongside revenue-based size</span>
+<span id="cb12-389"><a href="#cb12-389"></a>classification. Revenue thresholds alone are insufficient — and this dataset shows precisely why.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -1001,8 +1510,6 @@ cookieconsent.run({
     </div>
   </div>
 </footer>
-
-
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>

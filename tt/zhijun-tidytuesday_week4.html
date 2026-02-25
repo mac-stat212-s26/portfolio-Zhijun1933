@@ -204,6 +204,16 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../tt/2025-07-15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">TidyTuesday Sample 2</span></a>
   </div>
 </li>
@@ -267,7 +277,7 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 1</span></a>
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -340,8 +350,7 @@ cookieconsent.run({
 <span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(showtext)</span>
 <span id="cb1-8"><a href="#cb1-8"></a></span>
 <span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Load Google Font for professional typography</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">font_add_google</span>(<span class="st">"Source Sans Pro"</span>, <span class="st">"source"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">showtext_auto</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">showtext_auto</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
@@ -1101,254 +1110,253 @@ Figure&nbsp;3.2
 <span id="cb5-42"><a href="#cb5-42"></a><span class="fu">library</span>(showtext)</span>
 <span id="cb5-43"><a href="#cb5-43"></a></span>
 <span id="cb5-44"><a href="#cb5-44"></a><span class="co"># Load Google Font for professional typography</span></span>
-<span id="cb5-45"><a href="#cb5-45"></a><span class="fu">font_add_google</span>(<span class="st">"Source Sans Pro"</span>, <span class="st">"source"</span>)</span>
-<span id="cb5-46"><a href="#cb5-46"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb5-47"><a href="#cb5-47"></a><span class="in">```</span></span>
-<span id="cb5-48"><a href="#cb5-48"></a></span>
-<span id="cb5-51"><a href="#cb5-51"></a><span class="in">```{r}</span></span>
-<span id="cb5-52"><a href="#cb5-52"></a><span class="co">#| label: load-data</span></span>
-<span id="cb5-53"><a href="#cb5-53"></a></span>
-<span id="cb5-54"><a href="#cb5-54"></a><span class="co"># Load data (comma-delimited)</span></span>
-<span id="cb5-55"><a href="#cb5-55"></a>companies <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb5-56"><a href="#cb5-56"></a>  <span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-01-27/companies.csv'</span>,</span>
-<span id="cb5-57"><a href="#cb5-57"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
-<span id="cb5-58"><a href="#cb5-58"></a>)</span>
-<span id="cb5-59"><a href="#cb5-59"></a></span>
-<span id="cb5-60"><a href="#cb5-60"></a><span class="co"># Prepare summary data</span></span>
-<span id="cb5-61"><a href="#cb5-61"></a>size_summary <span class="ot">&lt;-</span> companies <span class="sc">|&gt;</span></span>
-<span id="cb5-62"><a href="#cb5-62"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(company_size), <span class="sc">!</span><span class="fu">is.na</span>(capital_stock)) <span class="sc">|&gt;</span></span>
-<span id="cb5-63"><a href="#cb5-63"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(company_size) <span class="sc">|&gt;</span></span>
-<span id="cb5-64"><a href="#cb5-64"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
-<span id="cb5-65"><a href="#cb5-65"></a>    <span class="at">n_companies =</span> <span class="fu">n</span>(),</span>
-<span id="cb5-66"><a href="#cb5-66"></a>    <span class="at">total_capital =</span> <span class="fu">sum</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-67"><a href="#cb5-67"></a>    <span class="at">mean_capital =</span> <span class="fu">mean</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-68"><a href="#cb5-68"></a>    <span class="at">median_capital =</span> <span class="fu">median</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-69"><a href="#cb5-69"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb5-70"><a href="#cb5-70"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-71"><a href="#cb5-71"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb5-72"><a href="#cb5-72"></a>    <span class="at">pct_companies =</span> n_companies <span class="sc">/</span> <span class="fu">sum</span>(n_companies) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb5-73"><a href="#cb5-73"></a>    <span class="at">pct_capital =</span> total_capital <span class="sc">/</span> <span class="fu">sum</span>(total_capital) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb5-74"><a href="#cb5-74"></a>    <span class="at">capital_gap =</span> pct_companies <span class="sc">-</span> pct_capital,</span>
-<span id="cb5-75"><a href="#cb5-75"></a>    <span class="at">company_size =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
-<span id="cb5-76"><a href="#cb5-76"></a>      company_size <span class="sc">==</span> <span class="st">"micro-enterprise"</span> <span class="sc">~</span> <span class="st">"Micro"</span>,</span>
-<span id="cb5-77"><a href="#cb5-77"></a>      company_size <span class="sc">==</span> <span class="st">"small-enterprise"</span> <span class="sc">~</span> <span class="st">"Small"</span>,</span>
-<span id="cb5-78"><a href="#cb5-78"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Medium/Large"</span></span>
-<span id="cb5-79"><a href="#cb5-79"></a>    ),</span>
-<span id="cb5-80"><a href="#cb5-80"></a>    <span class="at">company_size =</span> <span class="fu">factor</span>(company_size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Micro"</span>, <span class="st">"Small"</span>, <span class="st">"Medium/Large"</span>))</span>
-<span id="cb5-81"><a href="#cb5-81"></a>  )</span>
-<span id="cb5-82"><a href="#cb5-82"></a><span class="in">```</span></span>
-<span id="cb5-83"><a href="#cb5-83"></a></span>
-<span id="cb5-84"><a href="#cb5-84"></a><span class="fu">## Visualization 1: Micro-Enterprises Hold 80% of Firms but a Fraction of Capital</span></span>
-<span id="cb5-85"><a href="#cb5-85"></a></span>
-<span id="cb5-88"><a href="#cb5-88"></a><span class="in">```{r}</span></span>
-<span id="cb5-89"><a href="#cb5-89"></a><span class="co">#| label: fig-capital-paradox</span></span>
-<span id="cb5-90"><a href="#cb5-90"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb5-91"><a href="#cb5-91"></a><span class="co">#| fig-height: 7</span></span>
-<span id="cb5-92"><a href="#cb5-92"></a></span>
-<span id="cb5-93"><a href="#cb5-93"></a><span class="co"># Reshape for paired bar chart — separate panels by metric per professor's suggestion</span></span>
-<span id="cb5-94"><a href="#cb5-94"></a>plot_data <span class="ot">&lt;-</span> size_summary <span class="sc">|&gt;</span></span>
-<span id="cb5-95"><a href="#cb5-95"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(company_size, pct_companies, pct_capital) <span class="sc">|&gt;</span></span>
-<span id="cb5-96"><a href="#cb5-96"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
-<span id="cb5-97"><a href="#cb5-97"></a>    <span class="at">cols =</span> <span class="fu">c</span>(pct_companies, pct_capital),</span>
-<span id="cb5-98"><a href="#cb5-98"></a>    <span class="at">names_to =</span> <span class="st">"metric"</span>,</span>
-<span id="cb5-99"><a href="#cb5-99"></a>    <span class="at">values_to =</span> <span class="st">"percentage"</span></span>
-<span id="cb5-100"><a href="#cb5-100"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-101"><a href="#cb5-101"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb5-102"><a href="#cb5-102"></a>    <span class="at">metric =</span> dplyr<span class="sc">::</span><span class="fu">if_else</span>(metric <span class="sc">==</span> <span class="st">"pct_companies"</span>, <span class="st">"Share of Companies"</span>, <span class="st">"Share of Capital"</span>),</span>
-<span id="cb5-103"><a href="#cb5-103"></a>    <span class="at">metric =</span> <span class="fu">factor</span>(metric, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Share of Companies"</span>, <span class="st">"Share of Capital"</span>))</span>
-<span id="cb5-104"><a href="#cb5-104"></a>  )</span>
-<span id="cb5-105"><a href="#cb5-105"></a></span>
-<span id="cb5-106"><a href="#cb5-106"></a><span class="co"># Define colors</span></span>
-<span id="cb5-107"><a href="#cb5-107"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Share of Companies"</span> <span class="ot">=</span> <span class="st">"#264653"</span>, <span class="st">"Share of Capital"</span> <span class="ot">=</span> <span class="st">"#e76f51"</span>)</span>
-<span id="cb5-108"><a href="#cb5-108"></a></span>
-<span id="cb5-109"><a href="#cb5-109"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> company_size, <span class="at">y =</span> percentage, <span class="at">fill =</span> metric)) <span class="sc">+</span></span>
-<span id="cb5-110"><a href="#cb5-110"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
-<span id="cb5-111"><a href="#cb5-111"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb5-112"><a href="#cb5-112"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, percentage)),</span>
-<span id="cb5-113"><a href="#cb5-113"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>,</span>
-<span id="cb5-114"><a href="#cb5-114"></a>    <span class="at">size =</span> <span class="fl">4.5</span>,</span>
-<span id="cb5-115"><a href="#cb5-115"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
-<span id="cb5-116"><a href="#cb5-116"></a>    <span class="at">family =</span> <span class="st">"source"</span></span>
-<span id="cb5-117"><a href="#cb5-117"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-118"><a href="#cb5-118"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>metric) <span class="sc">+</span></span>
-<span id="cb5-119"><a href="#cb5-119"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colors, <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb5-120"><a href="#cb5-120"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb5-121"><a href="#cb5-121"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">90</span>),</span>
-<span id="cb5-122"><a href="#cb5-122"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">20</span>),</span>
-<span id="cb5-123"><a href="#cb5-123"></a>    <span class="at">labels =</span> <span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
-<span id="cb5-124"><a href="#cb5-124"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))</span>
-<span id="cb5-125"><a href="#cb5-125"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-126"><a href="#cb5-126"></a>  <span class="fu">labs</span>(</span>
-<span id="cb5-127"><a href="#cb5-127"></a>    <span class="at">title =</span> <span class="st">"Micro-enterprises make up ~80% of firms but hold a small fraction of total capital"</span>,</span>
-<span id="cb5-128"><a href="#cb5-128"></a>    <span class="at">subtitle =</span> <span class="st">"Distribution of company counts and capital stock by firm size, Brazilian CNPJ registry (capital &gt; 150k BRL)"</span>,</span>
-<span id="cb5-129"><a href="#cb5-129"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb5-130"><a href="#cb5-130"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb5-131"><a href="#cb5-131"></a>    <span class="at">caption =</span> <span class="st">"Source: Brazilian CNPJ Registry (Receita Federal) via TidyTuesday 2026 Wk 4 · Zhijun He · 2026-02-11"</span></span>
-<span id="cb5-132"><a href="#cb5-132"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-133"><a href="#cb5-133"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>, <span class="at">base_family =</span> <span class="st">"source"</span>) <span class="sc">+</span></span>
-<span id="cb5-134"><a href="#cb5-134"></a>  <span class="fu">theme</span>(</span>
-<span id="cb5-135"><a href="#cb5-135"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">17</span>, <span class="at">color =</span> <span class="st">"#264653"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">5</span>)),</span>
-<span id="cb5-136"><a href="#cb5-136"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"gray40"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">20</span>), <span class="at">lineheight =</span> <span class="fl">1.2</span>),</span>
-<span id="cb5-137"><a href="#cb5-137"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>)),</span>
-<span id="cb5-138"><a href="#cb5-138"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"gray30"</span>),</span>
-<span id="cb5-139"><a href="#cb5-139"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
-<span id="cb5-140"><a href="#cb5-140"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">13</span>, <span class="at">color =</span> <span class="st">"#264653"</span>),</span>
-<span id="cb5-141"><a href="#cb5-141"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb5-142"><a href="#cb5-142"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-143"><a href="#cb5-143"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-144"><a href="#cb5-144"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray90"</span>),</span>
-<span id="cb5-145"><a href="#cb5-145"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"lines"</span>),</span>
-<span id="cb5-146"><a href="#cb5-146"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">20</span>)</span>
-<span id="cb5-147"><a href="#cb5-147"></a>  )</span>
-<span id="cb5-148"><a href="#cb5-148"></a><span class="in">```</span></span>
-<span id="cb5-149"><a href="#cb5-149"></a></span>
-<span id="cb5-150"><a href="#cb5-150"></a>The side-by-side panels make the paradox visually immediate. On the left, micro-enterprises dominate the count; on the right, their share of capital shrinks dramatically. Medium/Large firms show the exact inverse: a small slice of firms commanding the lion's share of capital. Small enterprises sit in between, roughly proportional on both dimensions.</span>
-<span id="cb5-151"><a href="#cb5-151"></a></span>
-<span id="cb5-152"><a href="#cb5-152"></a><span class="fu">## Visualization 2: Capital Concentration Across Legal Structures</span></span>
-<span id="cb5-153"><a href="#cb5-153"></a></span>
-<span id="cb5-156"><a href="#cb5-156"></a><span class="in">```{r}</span></span>
-<span id="cb5-157"><a href="#cb5-157"></a><span class="co">#| label: fig-advanced-viz</span></span>
-<span id="cb5-158"><a href="#cb5-158"></a><span class="co">#| fig-width: 12</span></span>
-<span id="cb5-159"><a href="#cb5-159"></a><span class="co">#| fig-height: 9</span></span>
-<span id="cb5-160"><a href="#cb5-160"></a></span>
-<span id="cb5-161"><a href="#cb5-161"></a><span class="co"># Calculate metrics by company size AND legal nature (top categories)</span></span>
-<span id="cb5-162"><a href="#cb5-162"></a>top_legal <span class="ot">&lt;-</span> companies <span class="sc">|&gt;</span></span>
-<span id="cb5-163"><a href="#cb5-163"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(legal_nature, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-164"><a href="#cb5-164"></a>  dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-165"><a href="#cb5-165"></a>  dplyr<span class="sc">::</span><span class="fu">pull</span>(legal_nature)</span>
-<span id="cb5-166"><a href="#cb5-166"></a></span>
-<span id="cb5-167"><a href="#cb5-167"></a>combined_summary <span class="ot">&lt;-</span> companies <span class="sc">|&gt;</span></span>
-<span id="cb5-168"><a href="#cb5-168"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(</span>
-<span id="cb5-169"><a href="#cb5-169"></a>    <span class="sc">!</span><span class="fu">is.na</span>(company_size), </span>
-<span id="cb5-170"><a href="#cb5-170"></a>    <span class="sc">!</span><span class="fu">is.na</span>(capital_stock),</span>
-<span id="cb5-171"><a href="#cb5-171"></a>    <span class="sc">!</span><span class="fu">is.na</span>(legal_nature),</span>
-<span id="cb5-172"><a href="#cb5-172"></a>    legal_nature <span class="sc">%in%</span> top_legal</span>
-<span id="cb5-173"><a href="#cb5-173"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-174"><a href="#cb5-174"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(company_size, legal_nature) <span class="sc">|&gt;</span></span>
-<span id="cb5-175"><a href="#cb5-175"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
-<span id="cb5-176"><a href="#cb5-176"></a>    <span class="at">n_companies =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
-<span id="cb5-177"><a href="#cb5-177"></a>    <span class="at">total_capital =</span> <span class="fu">sum</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-178"><a href="#cb5-178"></a>    <span class="at">mean_capital =</span> <span class="fu">mean</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-179"><a href="#cb5-179"></a>    <span class="at">median_capital =</span> <span class="fu">median</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-180"><a href="#cb5-180"></a>    <span class="co"># Capital concentration ratio (mean/median - higher = more skewed)</span></span>
-<span id="cb5-181"><a href="#cb5-181"></a>    <span class="at">concentration_ratio =</span> mean_capital <span class="sc">/</span> median_capital,</span>
-<span id="cb5-182"><a href="#cb5-182"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb5-183"><a href="#cb5-183"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-184"><a href="#cb5-184"></a>  <span class="co"># Calculate percentages within each legal nature</span></span>
-<span id="cb5-185"><a href="#cb5-185"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(legal_nature) <span class="sc">|&gt;</span></span>
-<span id="cb5-186"><a href="#cb5-186"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb5-187"><a href="#cb5-187"></a>    <span class="at">pct_companies =</span> n_companies <span class="sc">/</span> <span class="fu">sum</span>(n_companies) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb5-188"><a href="#cb5-188"></a>    <span class="at">pct_capital =</span> total_capital <span class="sc">/</span> <span class="fu">sum</span>(total_capital) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb5-189"><a href="#cb5-189"></a>    <span class="at">capital_gap =</span> pct_capital <span class="sc">-</span> pct_companies</span>
-<span id="cb5-190"><a href="#cb5-190"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-191"><a href="#cb5-191"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb5-192"><a href="#cb5-192"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb5-193"><a href="#cb5-193"></a>    <span class="at">company_size =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
-<span id="cb5-194"><a href="#cb5-194"></a>      company_size <span class="sc">==</span> <span class="st">"micro-enterprise"</span> <span class="sc">~</span> <span class="st">"Micro"</span>,</span>
-<span id="cb5-195"><a href="#cb5-195"></a>      company_size <span class="sc">==</span> <span class="st">"small-enterprise"</span> <span class="sc">~</span> <span class="st">"Small"</span>,</span>
-<span id="cb5-196"><a href="#cb5-196"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Medium/Large"</span></span>
-<span id="cb5-197"><a href="#cb5-197"></a>    ),</span>
-<span id="cb5-198"><a href="#cb5-198"></a>    <span class="at">company_size =</span> <span class="fu">factor</span>(company_size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Micro"</span>, <span class="st">"Small"</span>, <span class="st">"Medium/Large"</span>)),</span>
-<span id="cb5-199"><a href="#cb5-199"></a>    <span class="at">legal_nature_short =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
-<span id="cb5-200"><a href="#cb5-200"></a>      stringr<span class="sc">::</span><span class="fu">str_detect</span>(legal_nature, <span class="st">"LLC"</span>) <span class="sc">~</span> <span class="st">"LLC"</span>,</span>
-<span id="cb5-201"><a href="#cb5-201"></a>      stringr<span class="sc">::</span><span class="fu">str_detect</span>(legal_nature, <span class="st">"Individual"</span>) <span class="sc">~</span> <span class="st">"Individual</span><span class="sc">\n</span><span class="st">Entrepreneur"</span>,</span>
-<span id="cb5-202"><a href="#cb5-202"></a>      stringr<span class="sc">::</span><span class="fu">str_detect</span>(legal_nature, <span class="st">"Corporation"</span>) <span class="sc">~</span> <span class="st">"Corporation"</span>,</span>
-<span id="cb5-203"><a href="#cb5-203"></a>      stringr<span class="sc">::</span><span class="fu">str_detect</span>(legal_nature, <span class="st">"Simple"</span>) <span class="sc">~</span> <span class="st">"Simple</span><span class="sc">\n</span><span class="st">Company"</span>,</span>
-<span id="cb5-204"><a href="#cb5-204"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> stringr<span class="sc">::</span><span class="fu">str_trunc</span>(legal_nature, <span class="dv">15</span>)</span>
-<span id="cb5-205"><a href="#cb5-205"></a>    )</span>
-<span id="cb5-206"><a href="#cb5-206"></a>  )</span>
-<span id="cb5-207"><a href="#cb5-207"></a></span>
-<span id="cb5-208"><a href="#cb5-208"></a><span class="fu">ggplot</span>(combined_summary, </span>
-<span id="cb5-209"><a href="#cb5-209"></a>       <span class="fu">aes</span>(<span class="at">x =</span> pct_companies, <span class="at">y =</span> pct_capital)) <span class="sc">+</span></span>
-<span id="cb5-210"><a href="#cb5-210"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray60"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb5-211"><a href="#cb5-211"></a>  <span class="fu">geom_segment</span>(</span>
-<span id="cb5-212"><a href="#cb5-212"></a>    <span class="fu">aes</span>(<span class="at">xend =</span> pct_companies, <span class="at">yend =</span> pct_companies, <span class="at">color =</span> company_size),</span>
-<span id="cb5-213"><a href="#cb5-213"></a>    <span class="at">linewidth =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.5</span></span>
-<span id="cb5-214"><a href="#cb5-214"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-215"><a href="#cb5-215"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb5-216"><a href="#cb5-216"></a>    <span class="fu">aes</span>(<span class="at">size =</span> total_capital <span class="sc">/</span> <span class="fl">1e9</span>, <span class="at">fill =</span> company_size),</span>
-<span id="cb5-217"><a href="#cb5-217"></a>    <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>, <span class="at">stroke =</span> <span class="fl">1.2</span>, <span class="at">color =</span> <span class="st">"white"</span></span>
-<span id="cb5-218"><a href="#cb5-218"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-219"><a href="#cb5-219"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb5-220"><a href="#cb5-220"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1fx"</span>, concentration_ratio)),</span>
-<span id="cb5-221"><a href="#cb5-221"></a>    <span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"gray20"</span>,</span>
-<span id="cb5-222"><a href="#cb5-222"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">1.8</span>, <span class="at">family =</span> <span class="st">"source"</span></span>
-<span id="cb5-223"><a href="#cb5-223"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-224"><a href="#cb5-224"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>legal_nature_short, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb5-225"><a href="#cb5-225"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb5-226"><a href="#cb5-226"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
-<span id="cb5-227"><a href="#cb5-227"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>),</span>
-<span id="cb5-228"><a href="#cb5-228"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(x, <span class="st">"%"</span>)</span>
-<span id="cb5-229"><a href="#cb5-229"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-230"><a href="#cb5-230"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb5-231"><a href="#cb5-231"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
-<span id="cb5-232"><a href="#cb5-232"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>),</span>
-<span id="cb5-233"><a href="#cb5-233"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(x, <span class="st">"%"</span>)</span>
-<span id="cb5-234"><a href="#cb5-234"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-235"><a href="#cb5-235"></a>  <span class="fu">scale_size_continuous</span>(</span>
-<span id="cb5-236"><a href="#cb5-236"></a>    <span class="at">range =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">25</span>),</span>
-<span id="cb5-237"><a href="#cb5-237"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(<span class="at">suffix =</span> <span class="st">"B BRL"</span>),</span>
-<span id="cb5-238"><a href="#cb5-238"></a>    <span class="at">name =</span> <span class="st">"Total Capital"</span>,</span>
-<span id="cb5-239"><a href="#cb5-239"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">100</span>)</span>
-<span id="cb5-240"><a href="#cb5-240"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-241"><a href="#cb5-241"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb5-242"><a href="#cb5-242"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Micro"</span> <span class="ot">=</span> <span class="st">"#e76f51"</span>, <span class="st">"Small"</span> <span class="ot">=</span> <span class="st">"#f4a261"</span>, <span class="st">"Medium/Large"</span> <span class="ot">=</span> <span class="st">"#264653"</span>),</span>
-<span id="cb5-243"><a href="#cb5-243"></a>    <span class="at">name =</span> <span class="st">"Company Size"</span></span>
-<span id="cb5-244"><a href="#cb5-244"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-245"><a href="#cb5-245"></a>  <span class="fu">scale_color_manual</span>(</span>
-<span id="cb5-246"><a href="#cb5-246"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Micro"</span> <span class="ot">=</span> <span class="st">"#e76f51"</span>, <span class="st">"Small"</span> <span class="ot">=</span> <span class="st">"#f4a261"</span>, <span class="st">"Medium/Large"</span> <span class="ot">=</span> <span class="st">"#264653"</span>),</span>
-<span id="cb5-247"><a href="#cb5-247"></a>    <span class="at">guide =</span> <span class="st">"none"</span></span>
-<span id="cb5-248"><a href="#cb5-248"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-249"><a href="#cb5-249"></a>  <span class="fu">labs</span>(</span>
-<span id="cb5-250"><a href="#cb5-250"></a>    <span class="at">title =</span> <span class="st">"The capital trap persists across all major legal structures"</span>,</span>
-<span id="cb5-251"><a href="#cb5-251"></a>    <span class="at">subtitle =</span> <span class="st">"Points above the diagonal control more capital than their numbers suggest; labels show mean/median ratio (higher = more internal inequality)"</span>,</span>
-<span id="cb5-252"><a href="#cb5-252"></a>    <span class="at">x =</span> <span class="st">"Share of Companies →"</span>,</span>
-<span id="cb5-253"><a href="#cb5-253"></a>    <span class="at">y =</span> <span class="st">"← Share of Capital"</span>,</span>
-<span id="cb5-254"><a href="#cb5-254"></a>    <span class="at">caption =</span> <span class="st">"Source: Brazilian CNPJ Registry via TidyTuesday 2026 Wk 4 · Bubble size = total capital stock · Zhijun He · 2026-02-11"</span></span>
-<span id="cb5-255"><a href="#cb5-255"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-256"><a href="#cb5-256"></a>  <span class="fu">annotate</span>(</span>
-<span id="cb5-257"><a href="#cb5-257"></a>    <span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">85</span>, <span class="at">y =</span> <span class="dv">15</span>, </span>
-<span id="cb5-258"><a href="#cb5-258"></a>    <span class="at">label =</span> <span class="st">"Capital</span><span class="sc">\n</span><span class="st">Deficit</span><span class="sc">\n</span><span class="st">Zone"</span>, </span>
-<span id="cb5-259"><a href="#cb5-259"></a>    <span class="at">color =</span> <span class="st">"#e76f51"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>,</span>
-<span id="cb5-260"><a href="#cb5-260"></a>    <span class="at">family =</span> <span class="st">"source"</span>, <span class="at">lineheight =</span> <span class="fl">0.9</span></span>
-<span id="cb5-261"><a href="#cb5-261"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-262"><a href="#cb5-262"></a>  <span class="fu">annotate</span>(</span>
-<span id="cb5-263"><a href="#cb5-263"></a>    <span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">15</span>, <span class="at">y =</span> <span class="dv">85</span>, </span>
-<span id="cb5-264"><a href="#cb5-264"></a>    <span class="at">label =</span> <span class="st">"Capital</span><span class="sc">\n</span><span class="st">Surplus</span><span class="sc">\n</span><span class="st">Zone"</span>, </span>
-<span id="cb5-265"><a href="#cb5-265"></a>    <span class="at">color =</span> <span class="st">"#264653"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>,</span>
-<span id="cb5-266"><a href="#cb5-266"></a>    <span class="at">family =</span> <span class="st">"source"</span>, <span class="at">lineheight =</span> <span class="fl">0.9</span></span>
-<span id="cb5-267"><a href="#cb5-267"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-268"><a href="#cb5-268"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>, <span class="at">base_family =</span> <span class="st">"source"</span>) <span class="sc">+</span></span>
-<span id="cb5-269"><a href="#cb5-269"></a>  <span class="fu">theme</span>(</span>
-<span id="cb5-270"><a href="#cb5-270"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">17</span>, <span class="at">color =</span> <span class="st">"#264653"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">5</span>)),</span>
-<span id="cb5-271"><a href="#cb5-271"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fl">10.5</span>, <span class="at">color =</span> <span class="st">"gray40"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>), <span class="at">lineheight =</span> <span class="fl">1.2</span>),</span>
-<span id="cb5-272"><a href="#cb5-272"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>)),</span>
-<span id="cb5-273"><a href="#cb5-273"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb5-274"><a href="#cb5-274"></a>    <span class="at">legend.box =</span> <span class="st">"horizontal"</span>,</span>
-<span id="cb5-275"><a href="#cb5-275"></a>    <span class="at">legend.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>),</span>
-<span id="cb5-276"><a href="#cb5-276"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"#264653"</span>),</span>
-<span id="cb5-277"><a href="#cb5-277"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb5-278"><a href="#cb5-278"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-279"><a href="#cb5-279"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray90"</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>),</span>
-<span id="cb5-280"><a href="#cb5-280"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="fl">1.5</span>, <span class="st">"lines"</span>),</span>
-<span id="cb5-281"><a href="#cb5-281"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">color =</span> <span class="st">"gray40"</span>),</span>
-<span id="cb5-282"><a href="#cb5-282"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">20</span>)</span>
-<span id="cb5-283"><a href="#cb5-283"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-284"><a href="#cb5-284"></a>  <span class="fu">guides</span>(</span>
-<span id="cb5-285"><a href="#cb5-285"></a>    <span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">1</span>, <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>)),</span>
-<span id="cb5-286"><a href="#cb5-286"></a>    <span class="at">size =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">2</span>)</span>
-<span id="cb5-287"><a href="#cb5-287"></a>  )</span>
-<span id="cb5-288"><a href="#cb5-288"></a><span class="in">```</span></span>
-<span id="cb5-289"><a href="#cb5-289"></a></span>
-<span id="cb5-290"><a href="#cb5-290"></a>The capital trap is not an artifact of a single legal form. Across LLCs, Individual Entrepreneurs, Corporations, and Simple Companies, micro-enterprises (orange) consistently sit below the diagonal in the "Capital Deficit Zone"---they account for more firms than their capital share warrants. Medium/Large firms (dark teal) sit above the diagonal in every panel. The mean/median ratio labels reveal that internal inequality is highest within Corporations and LLCs, where a few large firms pull the mean far above the median.</span>
-<span id="cb5-291"><a href="#cb5-291"></a></span>
-<span id="cb5-292"><a href="#cb5-292"></a><span class="fu">## Key Finding</span></span>
-<span id="cb5-293"><a href="#cb5-293"></a></span>
-<span id="cb5-294"><a href="#cb5-294"></a>The visualization reveals a stark capital paradox in Brazil's corporate structure. Micro-enterprises constitute the largest share of registered companies yet control a disproportionately small fraction of total capital stock. Medium/Large firms show the inverse pattern---fewer in number but commanding the majority of capital. This pattern persists even after filtering for firms with capital above 150,000 BRL, suggesting that the barriers to capital accumulation for small firms are structural rather than simply a function of including marginal businesses.</span>
-<span id="cb5-295"><a href="#cb5-295"></a></span>
-<span id="cb5-296"><a href="#cb5-296"></a><span class="fu">## Implications</span></span>
-<span id="cb5-297"><a href="#cb5-297"></a></span>
-<span id="cb5-298"><a href="#cb5-298"></a>For development practitioners and policymakers, this finding raises important questions. First, do micro-enterprises face credit constraints that prevent capital accumulation? Second, are compliance costs disproportionately affecting smaller firms' ability to reinvest? Third, does Brazil's economic structure favor consolidation over broad-based firm growth? The concentration of capital in larger firms---even within a dataset of already-formalized, reasonably capitalized businesses---suggests that Brazil's development challenge is not just about formalizing the informal sector, but about enabling smaller formal firms to grow.</span>
+<span id="cb5-45"><a href="#cb5-45"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb5-46"><a href="#cb5-46"></a><span class="in">```</span></span>
+<span id="cb5-47"><a href="#cb5-47"></a></span>
+<span id="cb5-50"><a href="#cb5-50"></a><span class="in">```{r}</span></span>
+<span id="cb5-51"><a href="#cb5-51"></a><span class="co">#| label: load-data</span></span>
+<span id="cb5-52"><a href="#cb5-52"></a></span>
+<span id="cb5-53"><a href="#cb5-53"></a><span class="co"># Load data (comma-delimited)</span></span>
+<span id="cb5-54"><a href="#cb5-54"></a>companies <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb5-55"><a href="#cb5-55"></a>  <span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-01-27/companies.csv'</span>,</span>
+<span id="cb5-56"><a href="#cb5-56"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-57"><a href="#cb5-57"></a>)</span>
+<span id="cb5-58"><a href="#cb5-58"></a></span>
+<span id="cb5-59"><a href="#cb5-59"></a><span class="co"># Prepare summary data</span></span>
+<span id="cb5-60"><a href="#cb5-60"></a>size_summary <span class="ot">&lt;-</span> companies <span class="sc">|&gt;</span></span>
+<span id="cb5-61"><a href="#cb5-61"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(company_size), <span class="sc">!</span><span class="fu">is.na</span>(capital_stock)) <span class="sc">|&gt;</span></span>
+<span id="cb5-62"><a href="#cb5-62"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(company_size) <span class="sc">|&gt;</span></span>
+<span id="cb5-63"><a href="#cb5-63"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb5-64"><a href="#cb5-64"></a>    <span class="at">n_companies =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-65"><a href="#cb5-65"></a>    <span class="at">total_capital =</span> <span class="fu">sum</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-66"><a href="#cb5-66"></a>    <span class="at">mean_capital =</span> <span class="fu">mean</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-67"><a href="#cb5-67"></a>    <span class="at">median_capital =</span> <span class="fu">median</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-68"><a href="#cb5-68"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb5-69"><a href="#cb5-69"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-70"><a href="#cb5-70"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb5-71"><a href="#cb5-71"></a>    <span class="at">pct_companies =</span> n_companies <span class="sc">/</span> <span class="fu">sum</span>(n_companies) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb5-72"><a href="#cb5-72"></a>    <span class="at">pct_capital =</span> total_capital <span class="sc">/</span> <span class="fu">sum</span>(total_capital) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb5-73"><a href="#cb5-73"></a>    <span class="at">capital_gap =</span> pct_companies <span class="sc">-</span> pct_capital,</span>
+<span id="cb5-74"><a href="#cb5-74"></a>    <span class="at">company_size =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb5-75"><a href="#cb5-75"></a>      company_size <span class="sc">==</span> <span class="st">"micro-enterprise"</span> <span class="sc">~</span> <span class="st">"Micro"</span>,</span>
+<span id="cb5-76"><a href="#cb5-76"></a>      company_size <span class="sc">==</span> <span class="st">"small-enterprise"</span> <span class="sc">~</span> <span class="st">"Small"</span>,</span>
+<span id="cb5-77"><a href="#cb5-77"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Medium/Large"</span></span>
+<span id="cb5-78"><a href="#cb5-78"></a>    ),</span>
+<span id="cb5-79"><a href="#cb5-79"></a>    <span class="at">company_size =</span> <span class="fu">factor</span>(company_size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Micro"</span>, <span class="st">"Small"</span>, <span class="st">"Medium/Large"</span>))</span>
+<span id="cb5-80"><a href="#cb5-80"></a>  )</span>
+<span id="cb5-81"><a href="#cb5-81"></a><span class="in">```</span></span>
+<span id="cb5-82"><a href="#cb5-82"></a></span>
+<span id="cb5-83"><a href="#cb5-83"></a><span class="fu">## Visualization 1: Micro-Enterprises Hold 80% of Firms but a Fraction of Capital</span></span>
+<span id="cb5-84"><a href="#cb5-84"></a></span>
+<span id="cb5-87"><a href="#cb5-87"></a><span class="in">```{r}</span></span>
+<span id="cb5-88"><a href="#cb5-88"></a><span class="co">#| label: fig-capital-paradox</span></span>
+<span id="cb5-89"><a href="#cb5-89"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb5-90"><a href="#cb5-90"></a><span class="co">#| fig-height: 7</span></span>
+<span id="cb5-91"><a href="#cb5-91"></a></span>
+<span id="cb5-92"><a href="#cb5-92"></a><span class="co"># Reshape for paired bar chart — separate panels by metric per professor's suggestion</span></span>
+<span id="cb5-93"><a href="#cb5-93"></a>plot_data <span class="ot">&lt;-</span> size_summary <span class="sc">|&gt;</span></span>
+<span id="cb5-94"><a href="#cb5-94"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(company_size, pct_companies, pct_capital) <span class="sc">|&gt;</span></span>
+<span id="cb5-95"><a href="#cb5-95"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb5-96"><a href="#cb5-96"></a>    <span class="at">cols =</span> <span class="fu">c</span>(pct_companies, pct_capital),</span>
+<span id="cb5-97"><a href="#cb5-97"></a>    <span class="at">names_to =</span> <span class="st">"metric"</span>,</span>
+<span id="cb5-98"><a href="#cb5-98"></a>    <span class="at">values_to =</span> <span class="st">"percentage"</span></span>
+<span id="cb5-99"><a href="#cb5-99"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-100"><a href="#cb5-100"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb5-101"><a href="#cb5-101"></a>    <span class="at">metric =</span> dplyr<span class="sc">::</span><span class="fu">if_else</span>(metric <span class="sc">==</span> <span class="st">"pct_companies"</span>, <span class="st">"Share of Companies"</span>, <span class="st">"Share of Capital"</span>),</span>
+<span id="cb5-102"><a href="#cb5-102"></a>    <span class="at">metric =</span> <span class="fu">factor</span>(metric, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Share of Companies"</span>, <span class="st">"Share of Capital"</span>))</span>
+<span id="cb5-103"><a href="#cb5-103"></a>  )</span>
+<span id="cb5-104"><a href="#cb5-104"></a></span>
+<span id="cb5-105"><a href="#cb5-105"></a><span class="co"># Define colors</span></span>
+<span id="cb5-106"><a href="#cb5-106"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Share of Companies"</span> <span class="ot">=</span> <span class="st">"#264653"</span>, <span class="st">"Share of Capital"</span> <span class="ot">=</span> <span class="st">"#e76f51"</span>)</span>
+<span id="cb5-107"><a href="#cb5-107"></a></span>
+<span id="cb5-108"><a href="#cb5-108"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> company_size, <span class="at">y =</span> percentage, <span class="at">fill =</span> metric)) <span class="sc">+</span></span>
+<span id="cb5-109"><a href="#cb5-109"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb5-110"><a href="#cb5-110"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-111"><a href="#cb5-111"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, percentage)),</span>
+<span id="cb5-112"><a href="#cb5-112"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>,</span>
+<span id="cb5-113"><a href="#cb5-113"></a>    <span class="at">size =</span> <span class="fl">4.5</span>,</span>
+<span id="cb5-114"><a href="#cb5-114"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb5-115"><a href="#cb5-115"></a>    <span class="at">family =</span> <span class="st">"source"</span></span>
+<span id="cb5-116"><a href="#cb5-116"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-117"><a href="#cb5-117"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>metric) <span class="sc">+</span></span>
+<span id="cb5-118"><a href="#cb5-118"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colors, <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb5-119"><a href="#cb5-119"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb5-120"><a href="#cb5-120"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">90</span>),</span>
+<span id="cb5-121"><a href="#cb5-121"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">20</span>),</span>
+<span id="cb5-122"><a href="#cb5-122"></a>    <span class="at">labels =</span> <span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
+<span id="cb5-123"><a href="#cb5-123"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))</span>
+<span id="cb5-124"><a href="#cb5-124"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-125"><a href="#cb5-125"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-126"><a href="#cb5-126"></a>    <span class="at">title =</span> <span class="st">"Micro-enterprises make up ~80% of firms but hold a small fraction of total capital"</span>,</span>
+<span id="cb5-127"><a href="#cb5-127"></a>    <span class="at">subtitle =</span> <span class="st">"Distribution of company counts and capital stock by firm size, Brazilian CNPJ registry (capital &gt; 150k BRL)"</span>,</span>
+<span id="cb5-128"><a href="#cb5-128"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-129"><a href="#cb5-129"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-130"><a href="#cb5-130"></a>    <span class="at">caption =</span> <span class="st">"Source: Brazilian CNPJ Registry (Receita Federal) via TidyTuesday 2026 Wk 4 · Zhijun He · 2026-02-11"</span></span>
+<span id="cb5-131"><a href="#cb5-131"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-132"><a href="#cb5-132"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>, <span class="at">base_family =</span> <span class="st">"source"</span>) <span class="sc">+</span></span>
+<span id="cb5-133"><a href="#cb5-133"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-134"><a href="#cb5-134"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">17</span>, <span class="at">color =</span> <span class="st">"#264653"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">5</span>)),</span>
+<span id="cb5-135"><a href="#cb5-135"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"gray40"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">20</span>), <span class="at">lineheight =</span> <span class="fl">1.2</span>),</span>
+<span id="cb5-136"><a href="#cb5-136"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>)),</span>
+<span id="cb5-137"><a href="#cb5-137"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"gray30"</span>),</span>
+<span id="cb5-138"><a href="#cb5-138"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb5-139"><a href="#cb5-139"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">13</span>, <span class="at">color =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb5-140"><a href="#cb5-140"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb5-141"><a href="#cb5-141"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-142"><a href="#cb5-142"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-143"><a href="#cb5-143"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray90"</span>),</span>
+<span id="cb5-144"><a href="#cb5-144"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"lines"</span>),</span>
+<span id="cb5-145"><a href="#cb5-145"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">20</span>)</span>
+<span id="cb5-146"><a href="#cb5-146"></a>  )</span>
+<span id="cb5-147"><a href="#cb5-147"></a><span class="in">```</span></span>
+<span id="cb5-148"><a href="#cb5-148"></a></span>
+<span id="cb5-149"><a href="#cb5-149"></a>The side-by-side panels make the paradox visually immediate. On the left, micro-enterprises dominate the count; on the right, their share of capital shrinks dramatically. Medium/Large firms show the exact inverse: a small slice of firms commanding the lion's share of capital. Small enterprises sit in between, roughly proportional on both dimensions.</span>
+<span id="cb5-150"><a href="#cb5-150"></a></span>
+<span id="cb5-151"><a href="#cb5-151"></a><span class="fu">## Visualization 2: Capital Concentration Across Legal Structures</span></span>
+<span id="cb5-152"><a href="#cb5-152"></a></span>
+<span id="cb5-155"><a href="#cb5-155"></a><span class="in">```{r}</span></span>
+<span id="cb5-156"><a href="#cb5-156"></a><span class="co">#| label: fig-advanced-viz</span></span>
+<span id="cb5-157"><a href="#cb5-157"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb5-158"><a href="#cb5-158"></a><span class="co">#| fig-height: 9</span></span>
+<span id="cb5-159"><a href="#cb5-159"></a></span>
+<span id="cb5-160"><a href="#cb5-160"></a><span class="co"># Calculate metrics by company size AND legal nature (top categories)</span></span>
+<span id="cb5-161"><a href="#cb5-161"></a>top_legal <span class="ot">&lt;-</span> companies <span class="sc">|&gt;</span></span>
+<span id="cb5-162"><a href="#cb5-162"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(legal_nature, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-163"><a href="#cb5-163"></a>  dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-164"><a href="#cb5-164"></a>  dplyr<span class="sc">::</span><span class="fu">pull</span>(legal_nature)</span>
+<span id="cb5-165"><a href="#cb5-165"></a></span>
+<span id="cb5-166"><a href="#cb5-166"></a>combined_summary <span class="ot">&lt;-</span> companies <span class="sc">|&gt;</span></span>
+<span id="cb5-167"><a href="#cb5-167"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(</span>
+<span id="cb5-168"><a href="#cb5-168"></a>    <span class="sc">!</span><span class="fu">is.na</span>(company_size), </span>
+<span id="cb5-169"><a href="#cb5-169"></a>    <span class="sc">!</span><span class="fu">is.na</span>(capital_stock),</span>
+<span id="cb5-170"><a href="#cb5-170"></a>    <span class="sc">!</span><span class="fu">is.na</span>(legal_nature),</span>
+<span id="cb5-171"><a href="#cb5-171"></a>    legal_nature <span class="sc">%in%</span> top_legal</span>
+<span id="cb5-172"><a href="#cb5-172"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-173"><a href="#cb5-173"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(company_size, legal_nature) <span class="sc">|&gt;</span></span>
+<span id="cb5-174"><a href="#cb5-174"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb5-175"><a href="#cb5-175"></a>    <span class="at">n_companies =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
+<span id="cb5-176"><a href="#cb5-176"></a>    <span class="at">total_capital =</span> <span class="fu">sum</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-177"><a href="#cb5-177"></a>    <span class="at">mean_capital =</span> <span class="fu">mean</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-178"><a href="#cb5-178"></a>    <span class="at">median_capital =</span> <span class="fu">median</span>(capital_stock, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-179"><a href="#cb5-179"></a>    <span class="co"># Capital concentration ratio (mean/median - higher = more skewed)</span></span>
+<span id="cb5-180"><a href="#cb5-180"></a>    <span class="at">concentration_ratio =</span> mean_capital <span class="sc">/</span> median_capital,</span>
+<span id="cb5-181"><a href="#cb5-181"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb5-182"><a href="#cb5-182"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-183"><a href="#cb5-183"></a>  <span class="co"># Calculate percentages within each legal nature</span></span>
+<span id="cb5-184"><a href="#cb5-184"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(legal_nature) <span class="sc">|&gt;</span></span>
+<span id="cb5-185"><a href="#cb5-185"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb5-186"><a href="#cb5-186"></a>    <span class="at">pct_companies =</span> n_companies <span class="sc">/</span> <span class="fu">sum</span>(n_companies) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb5-187"><a href="#cb5-187"></a>    <span class="at">pct_capital =</span> total_capital <span class="sc">/</span> <span class="fu">sum</span>(total_capital) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb5-188"><a href="#cb5-188"></a>    <span class="at">capital_gap =</span> pct_capital <span class="sc">-</span> pct_companies</span>
+<span id="cb5-189"><a href="#cb5-189"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-190"><a href="#cb5-190"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-191"><a href="#cb5-191"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb5-192"><a href="#cb5-192"></a>    <span class="at">company_size =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb5-193"><a href="#cb5-193"></a>      company_size <span class="sc">==</span> <span class="st">"micro-enterprise"</span> <span class="sc">~</span> <span class="st">"Micro"</span>,</span>
+<span id="cb5-194"><a href="#cb5-194"></a>      company_size <span class="sc">==</span> <span class="st">"small-enterprise"</span> <span class="sc">~</span> <span class="st">"Small"</span>,</span>
+<span id="cb5-195"><a href="#cb5-195"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Medium/Large"</span></span>
+<span id="cb5-196"><a href="#cb5-196"></a>    ),</span>
+<span id="cb5-197"><a href="#cb5-197"></a>    <span class="at">company_size =</span> <span class="fu">factor</span>(company_size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Micro"</span>, <span class="st">"Small"</span>, <span class="st">"Medium/Large"</span>)),</span>
+<span id="cb5-198"><a href="#cb5-198"></a>    <span class="at">legal_nature_short =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb5-199"><a href="#cb5-199"></a>      stringr<span class="sc">::</span><span class="fu">str_detect</span>(legal_nature, <span class="st">"LLC"</span>) <span class="sc">~</span> <span class="st">"LLC"</span>,</span>
+<span id="cb5-200"><a href="#cb5-200"></a>      stringr<span class="sc">::</span><span class="fu">str_detect</span>(legal_nature, <span class="st">"Individual"</span>) <span class="sc">~</span> <span class="st">"Individual</span><span class="sc">\n</span><span class="st">Entrepreneur"</span>,</span>
+<span id="cb5-201"><a href="#cb5-201"></a>      stringr<span class="sc">::</span><span class="fu">str_detect</span>(legal_nature, <span class="st">"Corporation"</span>) <span class="sc">~</span> <span class="st">"Corporation"</span>,</span>
+<span id="cb5-202"><a href="#cb5-202"></a>      stringr<span class="sc">::</span><span class="fu">str_detect</span>(legal_nature, <span class="st">"Simple"</span>) <span class="sc">~</span> <span class="st">"Simple</span><span class="sc">\n</span><span class="st">Company"</span>,</span>
+<span id="cb5-203"><a href="#cb5-203"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> stringr<span class="sc">::</span><span class="fu">str_trunc</span>(legal_nature, <span class="dv">15</span>)</span>
+<span id="cb5-204"><a href="#cb5-204"></a>    )</span>
+<span id="cb5-205"><a href="#cb5-205"></a>  )</span>
+<span id="cb5-206"><a href="#cb5-206"></a></span>
+<span id="cb5-207"><a href="#cb5-207"></a><span class="fu">ggplot</span>(combined_summary, </span>
+<span id="cb5-208"><a href="#cb5-208"></a>       <span class="fu">aes</span>(<span class="at">x =</span> pct_companies, <span class="at">y =</span> pct_capital)) <span class="sc">+</span></span>
+<span id="cb5-209"><a href="#cb5-209"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray60"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-210"><a href="#cb5-210"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb5-211"><a href="#cb5-211"></a>    <span class="fu">aes</span>(<span class="at">xend =</span> pct_companies, <span class="at">yend =</span> pct_companies, <span class="at">color =</span> company_size),</span>
+<span id="cb5-212"><a href="#cb5-212"></a>    <span class="at">linewidth =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.5</span></span>
+<span id="cb5-213"><a href="#cb5-213"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-214"><a href="#cb5-214"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb5-215"><a href="#cb5-215"></a>    <span class="fu">aes</span>(<span class="at">size =</span> total_capital <span class="sc">/</span> <span class="fl">1e9</span>, <span class="at">fill =</span> company_size),</span>
+<span id="cb5-216"><a href="#cb5-216"></a>    <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>, <span class="at">stroke =</span> <span class="fl">1.2</span>, <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb5-217"><a href="#cb5-217"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-218"><a href="#cb5-218"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-219"><a href="#cb5-219"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1fx"</span>, concentration_ratio)),</span>
+<span id="cb5-220"><a href="#cb5-220"></a>    <span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"gray20"</span>,</span>
+<span id="cb5-221"><a href="#cb5-221"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">1.8</span>, <span class="at">family =</span> <span class="st">"source"</span></span>
+<span id="cb5-222"><a href="#cb5-222"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-223"><a href="#cb5-223"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>legal_nature_short, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-224"><a href="#cb5-224"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb5-225"><a href="#cb5-225"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
+<span id="cb5-226"><a href="#cb5-226"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>),</span>
+<span id="cb5-227"><a href="#cb5-227"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(x, <span class="st">"%"</span>)</span>
+<span id="cb5-228"><a href="#cb5-228"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-229"><a href="#cb5-229"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb5-230"><a href="#cb5-230"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
+<span id="cb5-231"><a href="#cb5-231"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>),</span>
+<span id="cb5-232"><a href="#cb5-232"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(x, <span class="st">"%"</span>)</span>
+<span id="cb5-233"><a href="#cb5-233"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-234"><a href="#cb5-234"></a>  <span class="fu">scale_size_continuous</span>(</span>
+<span id="cb5-235"><a href="#cb5-235"></a>    <span class="at">range =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">25</span>),</span>
+<span id="cb5-236"><a href="#cb5-236"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(<span class="at">suffix =</span> <span class="st">"B BRL"</span>),</span>
+<span id="cb5-237"><a href="#cb5-237"></a>    <span class="at">name =</span> <span class="st">"Total Capital"</span>,</span>
+<span id="cb5-238"><a href="#cb5-238"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">100</span>)</span>
+<span id="cb5-239"><a href="#cb5-239"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-240"><a href="#cb5-240"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb5-241"><a href="#cb5-241"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Micro"</span> <span class="ot">=</span> <span class="st">"#e76f51"</span>, <span class="st">"Small"</span> <span class="ot">=</span> <span class="st">"#f4a261"</span>, <span class="st">"Medium/Large"</span> <span class="ot">=</span> <span class="st">"#264653"</span>),</span>
+<span id="cb5-242"><a href="#cb5-242"></a>    <span class="at">name =</span> <span class="st">"Company Size"</span></span>
+<span id="cb5-243"><a href="#cb5-243"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-244"><a href="#cb5-244"></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb5-245"><a href="#cb5-245"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Micro"</span> <span class="ot">=</span> <span class="st">"#e76f51"</span>, <span class="st">"Small"</span> <span class="ot">=</span> <span class="st">"#f4a261"</span>, <span class="st">"Medium/Large"</span> <span class="ot">=</span> <span class="st">"#264653"</span>),</span>
+<span id="cb5-246"><a href="#cb5-246"></a>    <span class="at">guide =</span> <span class="st">"none"</span></span>
+<span id="cb5-247"><a href="#cb5-247"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-248"><a href="#cb5-248"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-249"><a href="#cb5-249"></a>    <span class="at">title =</span> <span class="st">"The capital trap persists across all major legal structures"</span>,</span>
+<span id="cb5-250"><a href="#cb5-250"></a>    <span class="at">subtitle =</span> <span class="st">"Points above the diagonal control more capital than their numbers suggest; labels show mean/median ratio (higher = more internal inequality)"</span>,</span>
+<span id="cb5-251"><a href="#cb5-251"></a>    <span class="at">x =</span> <span class="st">"Share of Companies →"</span>,</span>
+<span id="cb5-252"><a href="#cb5-252"></a>    <span class="at">y =</span> <span class="st">"← Share of Capital"</span>,</span>
+<span id="cb5-253"><a href="#cb5-253"></a>    <span class="at">caption =</span> <span class="st">"Source: Brazilian CNPJ Registry via TidyTuesday 2026 Wk 4 · Bubble size = total capital stock · Zhijun He · 2026-02-11"</span></span>
+<span id="cb5-254"><a href="#cb5-254"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-255"><a href="#cb5-255"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb5-256"><a href="#cb5-256"></a>    <span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">85</span>, <span class="at">y =</span> <span class="dv">15</span>, </span>
+<span id="cb5-257"><a href="#cb5-257"></a>    <span class="at">label =</span> <span class="st">"Capital</span><span class="sc">\n</span><span class="st">Deficit</span><span class="sc">\n</span><span class="st">Zone"</span>, </span>
+<span id="cb5-258"><a href="#cb5-258"></a>    <span class="at">color =</span> <span class="st">"#e76f51"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>,</span>
+<span id="cb5-259"><a href="#cb5-259"></a>    <span class="at">family =</span> <span class="st">"source"</span>, <span class="at">lineheight =</span> <span class="fl">0.9</span></span>
+<span id="cb5-260"><a href="#cb5-260"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-261"><a href="#cb5-261"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb5-262"><a href="#cb5-262"></a>    <span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">15</span>, <span class="at">y =</span> <span class="dv">85</span>, </span>
+<span id="cb5-263"><a href="#cb5-263"></a>    <span class="at">label =</span> <span class="st">"Capital</span><span class="sc">\n</span><span class="st">Surplus</span><span class="sc">\n</span><span class="st">Zone"</span>, </span>
+<span id="cb5-264"><a href="#cb5-264"></a>    <span class="at">color =</span> <span class="st">"#264653"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>,</span>
+<span id="cb5-265"><a href="#cb5-265"></a>    <span class="at">family =</span> <span class="st">"source"</span>, <span class="at">lineheight =</span> <span class="fl">0.9</span></span>
+<span id="cb5-266"><a href="#cb5-266"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-267"><a href="#cb5-267"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>, <span class="at">base_family =</span> <span class="st">"source"</span>) <span class="sc">+</span></span>
+<span id="cb5-268"><a href="#cb5-268"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-269"><a href="#cb5-269"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">17</span>, <span class="at">color =</span> <span class="st">"#264653"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">5</span>)),</span>
+<span id="cb5-270"><a href="#cb5-270"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fl">10.5</span>, <span class="at">color =</span> <span class="st">"gray40"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>), <span class="at">lineheight =</span> <span class="fl">1.2</span>),</span>
+<span id="cb5-271"><a href="#cb5-271"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>)),</span>
+<span id="cb5-272"><a href="#cb5-272"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb5-273"><a href="#cb5-273"></a>    <span class="at">legend.box =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb5-274"><a href="#cb5-274"></a>    <span class="at">legend.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>),</span>
+<span id="cb5-275"><a href="#cb5-275"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"#264653"</span>),</span>
+<span id="cb5-276"><a href="#cb5-276"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb5-277"><a href="#cb5-277"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-278"><a href="#cb5-278"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray90"</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>),</span>
+<span id="cb5-279"><a href="#cb5-279"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="fl">1.5</span>, <span class="st">"lines"</span>),</span>
+<span id="cb5-280"><a href="#cb5-280"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">color =</span> <span class="st">"gray40"</span>),</span>
+<span id="cb5-281"><a href="#cb5-281"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">20</span>)</span>
+<span id="cb5-282"><a href="#cb5-282"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-283"><a href="#cb5-283"></a>  <span class="fu">guides</span>(</span>
+<span id="cb5-284"><a href="#cb5-284"></a>    <span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">1</span>, <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>)),</span>
+<span id="cb5-285"><a href="#cb5-285"></a>    <span class="at">size =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">2</span>)</span>
+<span id="cb5-286"><a href="#cb5-286"></a>  )</span>
+<span id="cb5-287"><a href="#cb5-287"></a><span class="in">```</span></span>
+<span id="cb5-288"><a href="#cb5-288"></a></span>
+<span id="cb5-289"><a href="#cb5-289"></a>The capital trap is not an artifact of a single legal form. Across LLCs, Individual Entrepreneurs, Corporations, and Simple Companies, micro-enterprises (orange) consistently sit below the diagonal in the "Capital Deficit Zone"---they account for more firms than their capital share warrants. Medium/Large firms (dark teal) sit above the diagonal in every panel. The mean/median ratio labels reveal that internal inequality is highest within Corporations and LLCs, where a few large firms pull the mean far above the median.</span>
+<span id="cb5-290"><a href="#cb5-290"></a></span>
+<span id="cb5-291"><a href="#cb5-291"></a><span class="fu">## Key Finding</span></span>
+<span id="cb5-292"><a href="#cb5-292"></a></span>
+<span id="cb5-293"><a href="#cb5-293"></a>The visualization reveals a stark capital paradox in Brazil's corporate structure. Micro-enterprises constitute the largest share of registered companies yet control a disproportionately small fraction of total capital stock. Medium/Large firms show the inverse pattern---fewer in number but commanding the majority of capital. This pattern persists even after filtering for firms with capital above 150,000 BRL, suggesting that the barriers to capital accumulation for small firms are structural rather than simply a function of including marginal businesses.</span>
+<span id="cb5-294"><a href="#cb5-294"></a></span>
+<span id="cb5-295"><a href="#cb5-295"></a><span class="fu">## Implications</span></span>
+<span id="cb5-296"><a href="#cb5-296"></a></span>
+<span id="cb5-297"><a href="#cb5-297"></a>For development practitioners and policymakers, this finding raises important questions. First, do micro-enterprises face credit constraints that prevent capital accumulation? Second, are compliance costs disproportionately affecting smaller firms' ability to reinvest? Third, does Brazil's economic structure favor consolidation over broad-based firm growth? The concentration of capital in larger firms---even within a dataset of already-formalized, reasonably capitalized businesses---suggests that Brazil's development challenge is not just about formalizing the informal sector, but about enabling smaller formal firms to grow.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
