@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-18">
+<title>9 — Functions and Control Structures – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/10_base_r.html" rel="next">
+<link href="../ica/08_missing_data.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/09_functions.html"><span class="chapter-title">9 — Functions and Control Structures</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-seeing-how-much-we-ate-over-the-years-flowingdata" id="toc-data-story-critique-seeing-how-much-we-ate-over-the-years-flowingdata" class="nav-link" data-scroll-target="#data-story-critique-seeing-how-much-we-ate-over-the-years-flowingdata">🔥 Data Story Critique — <em>Seeing How Much We Ate Over the Years</em> (FlowingData)</a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story?</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li><a href="#exercise-rescaling-function" id="toc-exercise-rescaling-function" class="nav-link" data-scroll-target="#exercise-rescaling-function">Exercise — Rescaling Function</a></li>
+  <li><a href="#exercise-phone-digit-formatter" id="toc-exercise-phone-digit-formatter" class="nav-link" data-scroll-target="#exercise-phone-digit-formatter">Exercise — Phone-Digit Formatter</a></li>
+  <li><a href="#exercise-diagnosing-the-geom_sf-error" id="toc-exercise-diagnosing-the-geom_sf-error" class="nav-link" data-scroll-target="#exercise-diagnosing-the-geom_sf-error">Exercise — Diagnosing the <code>geom_sf</code> Error</a></li>
+  <li><a href="#exercise-temperature-converter" id="toc-exercise-temperature-converter" class="nav-link" data-scroll-target="#exercise-temperature-converter">Exercise — Temperature Converter</a></li>
+  <li><a href="#exercise-domain-name-extractor" id="toc-exercise-domain-name-extractor" class="nav-link" data-scroll-target="#exercise-domain-name-extractor">Exercise — Domain-Name Extractor</a></li>
+  <li><a href="#exercise-count_prop-with-proportions" id="toc-exercise-count_prop-with-proportions" class="nav-link" data-scroll-target="#exercise-count_prop-with-proportions">Exercise — <code>count_prop()</code> with Proportions</a></li>
+  <li><a href="#exercise-scatterplot-with-both-smoothers" id="toc-exercise-scatterplot-with-both-smoothers" class="nav-link" data-scroll-target="#exercise-scatterplot-with-both-smoothers">Exercise — Scatterplot with Both Smoothers</a></li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/09_functions.html"><span class="chapter-title">9 — Functions and Control Structures</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">9 — Functions and Control Structures</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-seeing-how-much-we-ate-over-the-years-flowingdata" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-seeing-how-much-we-ate-over-the-years-flowingdata">🔥 Data Story Critique — <em>Seeing How Much We Ate Over the Years</em> (FlowingData)</h2>
+<p>Source: <a href="https://flowingdata.com/2021/06/08/seeing-how-much-we-ate-over-the-years/" class="uri">https://flowingdata.com/2021/06/08/seeing-how-much-we-ate-over-the-years/</a></p>
+<section id="what-is-the-data-story" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story?</h3>
+<p>Nathan Yau uses the <strong>USDA Food Availability Data System</strong> (1970–2019, loss-adjusted estimates) to visualize how the composition of the average American diet shifted across five decades. The piece is organized into six alluvial diagrams, one per food category — proteins, fresh vegetables, fruits (with fresh fruit and fruit juice broken out), dairy (subdivided into beverage, food, and frozen), grains, and added fats. The narrative spine is <em>rank-crossings over time</em>: chicken overtaking beef in 2004, whole milk losing its near-monopoly to reduced-fat varieties, bananas and strawberries rising while oranges fall, yogurt and cheese rising within the dairy-food category, and so on. The voice is casual and personal (grapefruit juice is “the best kind of juice”); the methodological notes — that these are loss-adjusted availability estimates, and that the USDA revised its fat methodology in 2000 — are tucked into a single short paragraph at the bottom of the post.</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<p>The <strong>chart choice is genuinely right for the question being asked</strong>. When the question is “how did the composition of a category shift over decades, with multiple items crossing rank relative to one another,” an alluvial diagram makes <em>both the levels</em> (ribbon thickness) and <em>the crossings</em> (ribbon-over-ribbon) visible in a single glance. A stacked bar would hide the crossings; a line chart with fifteen overlapping series would be illegible. The form fits the content, which is the hardest design problem in data journalism and the one many otherwise-competent pieces get wrong.</p>
+<p>The <strong>subdivision of dairy into beverage, food, and frozen is a thoughtful piece of chart hygiene</strong>. These categories use different units (gallons, pounds, pounds) and have different behavioural logics; forcing them onto a shared axis would have produced a technically unified but substantively misleading chart. Separating them is the right editorial call.</p>
+<p>The <strong>casual voice does real work</strong>. “How long will chicken reign supreme?” and “Who wins between lemon and lime?” invite the reader into a dataset that could easily feel bureaucratic. Yau is a designer-journalist, not an advocate, and the tone is calibrated to his claims — descriptive rather than prescriptive.</p>
+</section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<p><strong>The core epistemological problem is that the piece consistently calls this “consumption” while the data is supply-side.</strong> The USDA Food Availability Data System measures domestic production + imports − exports − non-food uses, divided by population. The loss-adjusted variant subtracts modelled estimates of spoilage, plate waste, and preparation loss to approximate consumption, but the operative word is <em>modelled</em> — the loss factors are assumptions, they vary substantially by food type, and the resulting numbers are a consumption <em>proxy</em>, not a measurement of what anyone actually ate. The headline “Seeing How Much We Ate” elides this. The final-paragraph disclaimer (“tries to get closer to what people actually consume”) names the gap but does not represent it visually. For a reader who stops at the charts, the numbers read as observed fact. A brief note in each chart, or a shaded uncertainty band on the flows, would keep the methodological honesty present rather than footnoted.</p>
+<p><strong>The per-capita mean is doing work it cannot carry.</strong> American eating patterns vary enormously by income, region, ethnicity, and age. Many of the shifts the piece identifies are class-coded in specific directions: the yogurt rise has not been evenly distributed across the income distribution, the diversification of fresh vegetables (kale, arugula, salad mixes) correlates with food-access patterns that are themselves uneven, and dairy-beverage shifts are entangled with the racial distribution of lactose tolerance. Aggregating to a national mean is consistent with the data source — but it answers a narrower question (“how did aggregate per-capita availability shift”) than the one the title claims (“how we ate”). The Goalkeepers piece we reviewed earlier had to disaggregate to districts to make its story true; this piece has similar disaggregations available (USDA’s data can be joined to income or regional strata through other instruments) and doesn’t use them.</p>
+<p><strong>The commodity framework is structurally blind to the two biggest dietary transformations since 1970.</strong> Where food is eaten — the rise of restaurant, fast-food, and delivery eating — does not appear, because the commodity data tracks what entered the food system, not where it was plated. And <em>how processed</em> food is — the rise of ultra-processed foods, which NOVA-type classifications have shown to be the dominant structural change in American eating — is invisible because ultra-processed products show up in this dataset decomposed into their raw commodities (flour, sugar, oil, sodium) rather than as the engineered foods people actually buy. The story “how American eating changed since 1970” is in large part these two transformations, and a piece titled accordingly has an obligation to name what the data cannot see.</p>
+<p><strong>One minor craft note.</strong> The 2000 methodology break for added fats is flagged in prose, but the added-fats chart still invites uninterrupted before-and-after visual comparison. A visible chart break — a dashed separator, a small gap, or a colour shift — would reinforce the caveat where the reader encounters the numbers.</p>
+<p><strong>Proportionality.</strong> This is a blog post with modest argumentative ambition, not a policy document. The chart-craft is honest and the methodological notes are present. The critique is therefore about calibration: the data-source caveat deserves to live in the charts rather than beneath them, and the title should match what the underlying series can actually claim.</p>
+<hr></section></section><section id="exercise-rescaling-function" class="level2"><h2 class="anchored" data-anchor-id="exercise-rescaling-function">Exercise — Rescaling Function</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>rescale01 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    rng <span class="ot">&lt;-</span> <span class="fu">range</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="cf">if</span> (<span class="fu">diff</span>(rng) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb2-4"><a href="#cb2-4"></a>        <span class="co"># All values equal → every rescaled value is the same; return 0.5 by convention</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>        <span class="fu">return</span>(<span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="fu">length</span>(x)))</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    }</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    (x <span class="sc">-</span> rng[<span class="dv">1</span>]) <span class="sc">/</span> (rng[<span class="dv">2</span>] <span class="sc">-</span> rng[<span class="dv">1</span>])</span>
+<span id="cb2-8"><a href="#cb2-8"></a>}</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">rescale01</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0 0.5 1.0</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0000000 0.1666667 1.0000000</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">rescale01</span>(<span class="sc">-</span><span class="dv">3</span><span class="sc">:-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0 0.5 1.0</code></pre>
+</div>
+</div>
+<p>Two small refinements over a naive version:</p>
+<ul>
+<li>Call <code><a href="https://rdrr.io/r/base/range.html">range()</a></code> once and re-use, instead of computing <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> and <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> separately (cheaper and makes the NA-handling uniform).</li>
+<li>Guard the degenerate case where <code>min == max</code>. Without the guard, every element evaluates to <code>0/0 = NaN</code>, which silently breaks downstream pipelines.</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Degenerate case</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5 0.5 0.5</code></pre>
+</div>
+</div>
+<hr></section><section id="exercise-phone-digit-formatter" class="level2"><h2 class="anchored" data-anchor-id="exercise-phone-digit-formatter">Exercise — Phone-Digit Formatter</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>format_phone_number <span class="ot">&lt;-</span> <span class="cf">function</span>(nums) {</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    <span class="co"># Strip every non-digit so hyphens, parens, dots, and spaces all normalize</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>    digits <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(nums, <span class="st">"[^0-9]"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4"></a></span>
+<span id="cb10-5"><a href="#cb10-5"></a>    <span class="co"># Sanity check — exactly 10 digits expected</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>    <span class="cf">if</span> (<span class="fu">any</span>(<span class="fu">str_length</span>(digits) <span class="sc">!=</span> <span class="dv">10</span>)) {</span>
+<span id="cb10-7"><a href="#cb10-7"></a>        <span class="fu">warning</span>(<span class="st">"At least one input does not contain exactly 10 digits after cleaning."</span>)</span>
+<span id="cb10-8"><a href="#cb10-8"></a>    }</span>
+<span id="cb10-9"><a href="#cb10-9"></a></span>
+<span id="cb10-10"><a href="#cb10-10"></a>    area  <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(digits, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb10-11"><a href="#cb10-11"></a>    mid3  <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(digits, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    last4 <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(digits, <span class="dv">7</span>, <span class="dv">10</span>)</span>
+<span id="cb10-13"><a href="#cb10-13"></a></span>
+<span id="cb10-14"><a href="#cb10-14"></a>    <span class="fu">str_glue</span>(<span class="st">"({area}) {mid3}-{last4}"</span>)</span>
+<span id="cb10-15"><a href="#cb10-15"></a>}</span>
+<span id="cb10-16"><a href="#cb10-16"></a></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="fu">format_phone_number</span>(<span class="fu">c</span>(<span class="st">"651-330-8661"</span>, <span class="st">"6516966000"</span>, <span class="st">"800 867 5309"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>(651) 330-8661
+(651) 696-6000
+(800) 867-5309</code></pre>
+</div>
+</div>
+<p>I used <code>str_glue()</code> rather than <code>str_c()</code> because the target format <code>(###) ###-####</code> includes a space after the closing paren that’s easy to miss when assembling with <code>str_c(")", mid3, ...)</code>. The glue template reads almost identically to the output format, which closes one class of copy-edit bugs.</p>
+<hr></section><section id="exercise-diagnosing-the-geom_sf-error" class="level2"><h2 class="anchored" data-anchor-id="exercise-diagnosing-the-geom_sf-error">Exercise — Diagnosing the <code>geom_sf</code> Error</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="fu">geom_sf</span>(census_data, <span class="fu">aes</span>(<span class="at">fill =</span> population))</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co"># Error in `layer_sf()`:</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co"># ! `mapping` must be created by `aes()`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Two distinct problems, both arising from positional matching gone wrong:</p>
+<ol type="1">
+<li><p><strong>Wrong composition operator.</strong> <code>ggplot2</code> layers compose with <code>+</code>, not with the base pipe <code>|&gt;</code>. The pipe converts the expression into <code>geom_sf(ggplot(), census_data, aes(fill = population))</code>, silently shifting every argument by one position.</p></li>
+<li><p><strong>Positional mismatch against <code>geom_sf</code>’s signature.</strong> <code>geom_sf()</code>’s first argument is <code>mapping</code>, its second is <code>data</code>. Even without the pipe, writing <code>geom_sf(census_data, aes(...))</code> tells R that <code>census_data</code> <em>is</em> the mapping, which triggers the error message R actually produced: <code>mapping</code> must be created by <code>aes()</code>.</p></li>
+</ol>
+<p>The fix is either of these:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Named arguments — safest:</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> census_data, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> population))</span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co"># Data hoisted into ggplot():</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="fu">ggplot</span>(<span class="at">data =</span> census_data) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> population))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>General lesson.</strong> Positional matching is fine for functions whose signature you know by reflex (<code>ggplot(data, mapping)</code>, <code>mutate(df, ...)</code>). For everything else — and especially for <code>geom_*</code> functions, whose first argument is mapping, not data, against the reader’s expectation — naming arguments is cheap insurance.</p>
+<hr></section><section id="exercise-temperature-converter" class="level2"><h2 class="anchored" data-anchor-id="exercise-temperature-converter">Exercise — Temperature Converter</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>convert_temp <span class="ot">&lt;-</span> <span class="cf">function</span>(temp, unit) {</span>
+<span id="cb14-2"><a href="#cb14-2"></a>    unit <span class="ot">&lt;-</span> <span class="fu">toupper</span>(unit)                       <span class="co"># tolerate "c" / "f"</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>    <span class="cf">if</span> (unit <span class="sc">==</span> <span class="st">"F"</span>) {</span>
+<span id="cb14-4"><a href="#cb14-4"></a>        (temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span>                       <span class="co"># F → C</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>    } <span class="cf">else</span> <span class="cf">if</span> (unit <span class="sc">==</span> <span class="st">"C"</span>) {</span>
+<span id="cb14-6"><a href="#cb14-6"></a>        (temp <span class="sc">*</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">+</span> <span class="dv">32</span>                       <span class="co"># C → F</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>    } <span class="cf">else</span> {</span>
+<span id="cb14-8"><a href="#cb14-8"></a>        <span class="fu">stop</span>(<span class="st">"`unit` must be 'C' or 'F' (case-insensitive); got: "</span>, unit)</span>
+<span id="cb14-9"><a href="#cb14-9"></a>    }</span>
+<span id="cb14-10"><a href="#cb14-10"></a>}</span>
+<span id="cb14-11"><a href="#cb14-11"></a></span>
+<span id="cb14-12"><a href="#cb14-12"></a><span class="fu">convert_temp</span>(<span class="dv">0</span>,   <span class="at">unit =</span> <span class="st">"C"</span>)   <span class="co"># 0°C   →  32°F</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 32</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">convert_temp</span>(<span class="dv">32</span>,  <span class="at">unit =</span> <span class="st">"F"</span>)   <span class="co"># 32°F  →   0°C</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">convert_temp</span>(<span class="dv">100</span>, <span class="at">unit =</span> <span class="st">"C"</span>)   <span class="co"># 100°C → 212°F</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 212</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">convert_temp</span>(<span class="sc">-</span><span class="dv">40</span>, <span class="at">unit =</span> <span class="st">"F"</span>)   <span class="co"># −40°F → −40°C  (the fixed point)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] -40</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">convert_temp</span>(<span class="fl">98.6</span>, <span class="at">unit =</span> <span class="st">"f"</span>)  <span class="co"># lower-case tolerated</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 37</code></pre>
+</div>
+</div>
+<p>Three small choices worth naming:</p>
+<ul>
+<li>
+<strong>Argument semantics.</strong> <code>unit</code> means “the unit the input temperature is <em>in</em>” — so <code>unit = "F"</code> triggers the F → C formula. This is a documentation decision, not an algorithmic one, and it’s where convert-temp functions most often confuse users.</li>
+<li>
+<strong>Input tolerance.</strong> <code><a href="https://rdrr.io/r/base/chartr.html">toupper()</a></code> lets <code>"c"</code> and <code>"f"</code> work; this is cheap and removes a common point of frustration.</li>
+<li>
+<strong>Explicit error on invalid unit.</strong> Without the <code>else stop()</code>, the function silently returns <code>NULL</code> for <code>unit = "K"</code>. Silent <code>NULL</code> returns are a classic source of downstream bugs; failing loudly is better.</li>
+</ul>
+<hr></section><section id="exercise-domain-name-extractor" class="level2"><h2 class="anchored" data-anchor-id="exercise-domain-name-extractor">Exercise — Domain-Name Extractor</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>extract_domain <span class="ot">&lt;-</span> <span class="cf">function</span>(email) {</span>
+<span id="cb24-2"><a href="#cb24-2"></a>    <span class="co"># A valid-enough email has @ followed by at least one char,</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>    <span class="co"># a literal dot, and at least one more char.</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>    is_valid <span class="ot">&lt;-</span> <span class="fu">str_detect</span>(email, <span class="st">"^[^@</span><span class="sc">\\</span><span class="st">s]+@[^@</span><span class="sc">\\</span><span class="st">s]+</span><span class="sc">\\</span><span class="st">.[^@</span><span class="sc">\\</span><span class="st">s]+$"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5"></a></span>
+<span id="cb24-6"><a href="#cb24-6"></a>    <span class="fu">if_else</span>(</span>
+<span id="cb24-7"><a href="#cb24-7"></a>        is_valid,</span>
+<span id="cb24-8"><a href="#cb24-8"></a>        <span class="fu">str_extract</span>(email, <span class="st">"(?&lt;=@).+$"</span>),</span>
+<span id="cb24-9"><a href="#cb24-9"></a>        <span class="st">"Invalid Email"</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a>    )</span>
+<span id="cb24-11"><a href="#cb24-11"></a>}</span>
+<span id="cb24-12"><a href="#cb24-12"></a></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="fu">extract_domain</span>(<span class="st">"les@mac.edu"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "mac.edu"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">extract_domain</span>(<span class="st">"les@mac.net"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "mac.net"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">extract_domain</span>(<span class="st">"les@mac."</span>)          <span class="co"># trailing dot with no TLD → invalid</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "Invalid Email"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">extract_domain</span>(<span class="st">"les@macedu"</span>)        <span class="co"># no dot → invalid</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "Invalid Email"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">extract_domain</span>(<span class="fu">c</span>(<span class="st">"a@b.co"</span>, <span class="st">"nope"</span>))  <span class="co"># vectorised</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "b.co"          "Invalid Email"</code></pre>
+</div>
+</div>
+<p>Design notes:</p>
+<ul>
+<li>The validation regex <code>^[^@\s]+@[^@\s]+\.[^@\s]+$</code> encodes <em>“one or more non-at, non-space characters, then @, then one or more non-at non-space characters, then a literal dot, then one or more non-at non-space characters, end of string”</em>. This rejects <code>les@macedu</code> (no dot), <code>les@mac.</code> (nothing after the dot), and <code>a@b@c.com</code> (two <span class="citation" data-cites="s">@s</span>), while accepting the valid test cases.</li>
+<li>Extraction uses a <strong>lookbehind</strong> <code>(?&lt;=@).+$</code> so the <code>@</code> is matched-but-not-captured, avoiding the <code>str_remove("@")</code> second step. One fewer step means one less place to get it wrong.</li>
+<li>Using <code>if_else()</code> rather than <code>if ... else</code> makes the function vectorised — it handles a vector of emails in a single call, which matches how this would be used inside a <code>mutate()</code>.</li>
+</ul>
+<hr></section><section id="exercise-count_prop-with-proportions" class="level2"><h2 class="anchored" data-anchor-id="exercise-count_prop-with-proportions">Exercise — <code>count_prop()</code> with Proportions</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>count_prop <span class="ot">&lt;-</span> <span class="cf">function</span>(df, count_vars, <span class="at">sort =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb34-2"><a href="#cb34-2"></a>    out <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>        <span class="fu">count</span>(<span class="fu">pick</span>({{ count_vars }})) <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a>        <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb34-5"><a href="#cb34-5"></a></span>
+<span id="cb34-6"><a href="#cb34-6"></a>    <span class="cf">if</span> (sort) out <span class="ot">&lt;-</span> out <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span>
+<span id="cb34-7"><a href="#cb34-7"></a>    out</span>
+<span id="cb34-8"><a href="#cb34-8"></a>}</span>
+<span id="cb34-9"><a href="#cb34-9"></a></span>
+<span id="cb34-10"><a href="#cb34-10"></a><span class="co"># Single grouping variable</span></span>
+<span id="cb34-11"><a href="#cb34-11"></a><span class="fu">count_prop</span>(diamonds, <span class="at">count_vars =</span> cut)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  cut           n   prop
+  &lt;ord&gt;     &lt;int&gt;  &lt;dbl&gt;
+1 Ideal     21551 0.400 
+2 Premium   13791 0.256 
+3 Very Good 12082 0.224 
+4 Good       4906 0.0910
+5 Fair       1610 0.0298</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Multiple grouping variables</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="fu">count_prop</span>(diamonds, <span class="at">count_vars =</span> <span class="fu">c</span>(cut, color)) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   cut       color     n   prop
+   &lt;ord&gt;     &lt;ord&gt; &lt;int&gt;  &lt;dbl&gt;
+ 1 Ideal     G      4884 0.0905
+ 2 Ideal     E      3903 0.0724
+ 3 Ideal     F      3826 0.0709
+ 4 Ideal     H      3115 0.0577
+ 5 Premium   G      2924 0.0542
+ 6 Ideal     D      2834 0.0525
+ 7 Very Good E      2400 0.0445
+ 8 Premium   H      2360 0.0438
+ 9 Premium   E      2337 0.0433
+10 Premium   F      2331 0.0432</code></pre>
+</div>
+</div>
+<p>The <code>pick({{ count_vars }})</code> pattern is the key to getting both single and multi-variable cases to work from the same function body:</p>
+<ul>
+<li>Bare <code>{ count_vars }</code> works for a single variable but fails for <code>c(cut, color)</code> because the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> gets evaluated inside <code>count()</code> and concatenates the columns.</li>
+<li>Wrapping in <code>pick()</code> tells dplyr to treat the <code>{ var }</code> expression the way <code>select()</code> would — as a specification of columns rather than a call returning values.</li>
+</ul>
+<p>I also added a <code>sort</code> argument (default <code>TRUE</code>) because a <code>count_prop</code> result is almost always more useful ordered by proportion. Setting <code>sort = FALSE</code> preserves input order for cases where that matters (e.g., ordered factors being plotted in their original order).</p>
+<hr></section><section id="exercise-scatterplot-with-both-smoothers" class="level2"><h2 class="anchored" data-anchor-id="exercise-scatterplot-with-both-smoothers">Exercise — Scatterplot with Both Smoothers</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>scatter_with_smooths <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x, y, <span class="at">alpha =</span> <span class="fl">0.3</span>) {</span>
+<span id="cb38-2"><a href="#cb38-2"></a>    <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> {{ x }}, <span class="at">y =</span> {{ y }})) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>        <span class="fu">geom_point</span>(<span class="at">alpha =</span> alpha) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb38-5"><a href="#cb38-5"></a>                    <span class="at">colour =</span> <span class="st">"blue"</span>,  <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,    <span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb38-7"><a href="#cb38-7"></a>                    <span class="at">colour =</span> <span class="st">"red"</span>,   <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb38-8"><a href="#cb38-8"></a>        <span class="fu">theme_minimal</span>()</span>
+<span id="cb38-9"><a href="#cb38-9"></a>}</span>
+<span id="cb38-10"><a href="#cb38-10"></a></span>
+<span id="cb38-11"><a href="#cb38-11"></a><span class="fu">scatter_with_smooths</span>(diamonds, <span class="at">x =</span> carat, <span class="at">y =</span> price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="09_functions_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Three refinements over a minimal version:</p>
+<ul>
+<li>
+<strong><code>alpha</code> parameter with a sensible default.</strong> The diamonds dataset has 54,000 rows, so any honest scatterplot needs transparency to reveal density rather than solid ink. Exposing <code>alpha</code> as an argument lets the function handle both small and large datasets gracefully.</li>
+<li>
+<strong>Explicit <code>formula = y ~ x</code> and <code>method = "loess"</code>.</strong> This silences the “geom_smooth() using method = ‘loess’ …” message without hiding the choice — a reader of the code can see what curve is being drawn.</li>
+<li>
+<strong><code>se = FALSE</code> on both smoothers.</strong> With two overlapping smoothing curves, showing both standard-error ribbons creates a visual muddle that obscures the comparison between linear and non-linear fit, which is the whole point of drawing both. Keeping the lines clean preserves the contrast.</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># Quick check on a different pair of variables</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="fu">scatter_with_smooths</span>(diamonds, <span class="at">x =</span> carat, <span class="at">y =</span> depth, <span class="at">alpha =</span> <span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="09_functions_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p>Two themes carry through the exercises:</p>
+<p><strong>Functions are a discipline for naming.</strong> The act of extracting a repeated block of code into a function forces you to decide what the inputs <em>mean</em> (is <code>unit</code> the starting unit or the target unit?), what counts as <em>valid input</em> (what is a valid email? exactly 10 digits? a lowercase “c”?), and what the function should do when an assumption fails (silent <code>NULL</code>, explicit <code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code>, or a warning and sensible default?). These are documentation decisions disguised as programming decisions, and they’re the part of function-writing that gets better with practice.</p>
+<p><strong>Tidy evaluation is the bridge between interactive and programmatic tidyverse use.</strong> The embrace operator <code><a href="https://rdrr.io/r/base/Paren.html">{ }</a></code> and the <code>pick()</code> wrapper are not ornamentation — they are the minimum machinery required to turn the tidyverse’s unquoted-column-name convenience (which makes interactive work fast) into reusable functions (which make pipelines maintainable). Until <code><a href="https://rdrr.io/r/base/Paren.html">{ }</a></code> clicks, every tidyverse function you write will either duplicate logic or quietly do the wrong thing when passed <code>c(var1, var2)</code>. The two-step pattern — embrace the variable, then wrap in <code>pick()</code> if multi-column selection is possible — covers most practical cases.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/08_missing_data.html" class="pagination-link" aria-label="8 — Missing Data: Mechanisms, Exploration, and Imputation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/10_base_r.html" class="pagination-link" aria-label="10 — Base R: Structures, Subsetting, and Debugging">
+        <span class="nav-page-text"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb40-1"><a href="#cb40-1"></a><span class="co">---</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a><span class="an">title:</span><span class="co"> "9 — Functions and Control Structures"</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb40-5"><a href="#cb40-5"></a><span class="an">format:</span></span>
+<span id="cb40-6"><a href="#cb40-6"></a><span class="co">  html:</span></span>
+<span id="cb40-7"><a href="#cb40-7"></a><span class="co">    toc: true</span></span>
+<span id="cb40-8"><a href="#cb40-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb40-9"><a href="#cb40-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb40-10"><a href="#cb40-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb40-11"><a href="#cb40-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb40-12"><a href="#cb40-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb40-13"><a href="#cb40-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb40-14"><a href="#cb40-14"></a><span class="an">execute:</span></span>
+<span id="cb40-15"><a href="#cb40-15"></a><span class="co">  warning: false</span></span>
+<span id="cb40-16"><a href="#cb40-16"></a><span class="co">  message: false</span></span>
+<span id="cb40-17"><a href="#cb40-17"></a><span class="co">---</span></span>
+<span id="cb40-18"><a href="#cb40-18"></a></span>
+<span id="cb40-19"><a href="#cb40-19"></a><span class="fu">## Setup</span></span>
+<span id="cb40-20"><a href="#cb40-20"></a></span>
+<span id="cb40-23"><a href="#cb40-23"></a><span class="in">```{r}</span></span>
+<span id="cb40-24"><a href="#cb40-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb40-25"><a href="#cb40-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb40-26"><a href="#cb40-26"></a><span class="in">```</span></span>
+<span id="cb40-27"><a href="#cb40-27"></a></span>
+<span id="cb40-28"><a href="#cb40-28"></a>------------------------------------------------------------------------</span>
+<span id="cb40-29"><a href="#cb40-29"></a></span>
+<span id="cb40-30"><a href="#cb40-30"></a><span class="fu">## 🔥 Data Story Critique — *Seeing How Much We Ate Over the Years* (FlowingData)</span></span>
+<span id="cb40-31"><a href="#cb40-31"></a></span>
+<span id="cb40-32"><a href="#cb40-32"></a>Source: <span class="ot">&lt;https://flowingdata.com/2021/06/08/seeing-how-much-we-ate-over-the-years/&gt;</span></span>
+<span id="cb40-33"><a href="#cb40-33"></a></span>
+<span id="cb40-34"><a href="#cb40-34"></a><span class="fu">### What is the data story?</span></span>
+<span id="cb40-35"><a href="#cb40-35"></a></span>
+<span id="cb40-36"><a href="#cb40-36"></a>Nathan Yau uses the **USDA Food Availability Data System** (1970–2019, loss-adjusted estimates) to visualize how the composition of the average American diet shifted across five decades. The piece is organized into six alluvial diagrams, one per food category — proteins, fresh vegetables, fruits (with fresh fruit and fruit juice broken out), dairy (subdivided into beverage, food, and frozen), grains, and added fats. The narrative spine is *rank-crossings over time*: chicken overtaking beef in 2004, whole milk losing its near-monopoly to reduced-fat varieties, bananas and strawberries rising while oranges fall, yogurt and cheese rising within the dairy-food category, and so on. The voice is casual and personal (grapefruit juice is "the best kind of juice"); the methodological notes — that these are loss-adjusted availability estimates, and that the USDA revised its fat methodology in 2000 — are tucked into a single short paragraph at the bottom of the post.</span>
+<span id="cb40-37"><a href="#cb40-37"></a></span>
+<span id="cb40-38"><a href="#cb40-38"></a><span class="fu">### What is effective?</span></span>
+<span id="cb40-39"><a href="#cb40-39"></a></span>
+<span id="cb40-40"><a href="#cb40-40"></a>The **chart choice is genuinely right for the question being asked**. When the question is "how did the composition of a category shift over decades, with multiple items crossing rank relative to one another," an alluvial diagram makes *both the levels* (ribbon thickness) and *the crossings* (ribbon-over-ribbon) visible in a single glance. A stacked bar would hide the crossings; a line chart with fifteen overlapping series would be illegible. The form fits the content, which is the hardest design problem in data journalism and the one many otherwise-competent pieces get wrong.</span>
+<span id="cb40-41"><a href="#cb40-41"></a></span>
+<span id="cb40-42"><a href="#cb40-42"></a>The **subdivision of dairy into beverage, food, and frozen is a thoughtful piece of chart hygiene**. These categories use different units (gallons, pounds, pounds) and have different behavioural logics; forcing them onto a shared axis would have produced a technically unified but substantively misleading chart. Separating them is the right editorial call.</span>
+<span id="cb40-43"><a href="#cb40-43"></a></span>
+<span id="cb40-44"><a href="#cb40-44"></a>The **casual voice does real work**. "How long will chicken reign supreme?" and "Who wins between lemon and lime?" invite the reader into a dataset that could easily feel bureaucratic. Yau is a designer-journalist, not an advocate, and the tone is calibrated to his claims — descriptive rather than prescriptive.</span>
+<span id="cb40-45"><a href="#cb40-45"></a></span>
+<span id="cb40-46"><a href="#cb40-46"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb40-47"><a href="#cb40-47"></a></span>
+<span id="cb40-48"><a href="#cb40-48"></a>**The core epistemological problem is that the piece consistently calls this "consumption" while the data is supply-side.** The USDA Food Availability Data System measures domestic production + imports − exports − non-food uses, divided by population. The loss-adjusted variant subtracts modelled estimates of spoilage, plate waste, and preparation loss to approximate consumption, but the operative word is *modelled* — the loss factors are assumptions, they vary substantially by food type, and the resulting numbers are a consumption *proxy*, not a measurement of what anyone actually ate. The headline "Seeing How Much We Ate" elides this. The final-paragraph disclaimer ("tries to get closer to what people actually consume") names the gap but does not represent it visually. For a reader who stops at the charts, the numbers read as observed fact. A brief note in each chart, or a shaded uncertainty band on the flows, would keep the methodological honesty present rather than footnoted.</span>
+<span id="cb40-49"><a href="#cb40-49"></a></span>
+<span id="cb40-50"><a href="#cb40-50"></a>**The per-capita mean is doing work it cannot carry.** American eating patterns vary enormously by income, region, ethnicity, and age. Many of the shifts the piece identifies are class-coded in specific directions: the yogurt rise has not been evenly distributed across the income distribution, the diversification of fresh vegetables (kale, arugula, salad mixes) correlates with food-access patterns that are themselves uneven, and dairy-beverage shifts are entangled with the racial distribution of lactose tolerance. Aggregating to a national mean is consistent with the data source — but it answers a narrower question ("how did aggregate per-capita availability shift") than the one the title claims ("how we ate"). The Goalkeepers piece we reviewed earlier had to disaggregate to districts to make its story true; this piece has similar disaggregations available (USDA's data can be joined to income or regional strata through other instruments) and doesn't use them.</span>
+<span id="cb40-51"><a href="#cb40-51"></a></span>
+<span id="cb40-52"><a href="#cb40-52"></a>**The commodity framework is structurally blind to the two biggest dietary transformations since 1970.** Where food is eaten — the rise of restaurant, fast-food, and delivery eating — does not appear, because the commodity data tracks what entered the food system, not where it was plated. And *how processed* food is — the rise of ultra-processed foods, which NOVA-type classifications have shown to be the dominant structural change in American eating — is invisible because ultra-processed products show up in this dataset decomposed into their raw commodities (flour, sugar, oil, sodium) rather than as the engineered foods people actually buy. The story "how American eating changed since 1970" is in large part these two transformations, and a piece titled accordingly has an obligation to name what the data cannot see.</span>
+<span id="cb40-53"><a href="#cb40-53"></a></span>
+<span id="cb40-54"><a href="#cb40-54"></a>**One minor craft note.** The 2000 methodology break for added fats is flagged in prose, but the added-fats chart still invites uninterrupted before-and-after visual comparison. A visible chart break — a dashed separator, a small gap, or a colour shift — would reinforce the caveat where the reader encounters the numbers.</span>
+<span id="cb40-55"><a href="#cb40-55"></a></span>
+<span id="cb40-56"><a href="#cb40-56"></a>**Proportionality.** This is a blog post with modest argumentative ambition, not a policy document. The chart-craft is honest and the methodological notes are present. The critique is therefore about calibration: the data-source caveat deserves to live in the charts rather than beneath them, and the title should match what the underlying series can actually claim.</span>
+<span id="cb40-57"><a href="#cb40-57"></a></span>
+<span id="cb40-58"><a href="#cb40-58"></a>------------------------------------------------------------------------</span>
+<span id="cb40-59"><a href="#cb40-59"></a></span>
+<span id="cb40-60"><a href="#cb40-60"></a><span class="fu">## Exercise — Rescaling Function</span></span>
+<span id="cb40-61"><a href="#cb40-61"></a></span>
+<span id="cb40-64"><a href="#cb40-64"></a><span class="in">```{r}</span></span>
+<span id="cb40-65"><a href="#cb40-65"></a>rescale01 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb40-66"><a href="#cb40-66"></a>    rng <span class="ot">&lt;-</span> <span class="fu">range</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-67"><a href="#cb40-67"></a>    <span class="cf">if</span> (<span class="fu">diff</span>(rng) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb40-68"><a href="#cb40-68"></a>        <span class="co"># All values equal → every rescaled value is the same; return 0.5 by convention</span></span>
+<span id="cb40-69"><a href="#cb40-69"></a>        <span class="fu">return</span>(<span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="fu">length</span>(x)))</span>
+<span id="cb40-70"><a href="#cb40-70"></a>    }</span>
+<span id="cb40-71"><a href="#cb40-71"></a>    (x <span class="sc">-</span> rng[<span class="dv">1</span>]) <span class="sc">/</span> (rng[<span class="dv">2</span>] <span class="sc">-</span> rng[<span class="dv">1</span>])</span>
+<span id="cb40-72"><a href="#cb40-72"></a>}</span>
+<span id="cb40-73"><a href="#cb40-73"></a></span>
+<span id="cb40-74"><a href="#cb40-74"></a><span class="fu">rescale01</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb40-75"><a href="#cb40-75"></a><span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">5</span>))</span>
+<span id="cb40-76"><a href="#cb40-76"></a><span class="fu">rescale01</span>(<span class="sc">-</span><span class="dv">3</span><span class="sc">:-</span><span class="dv">1</span>)</span>
+<span id="cb40-77"><a href="#cb40-77"></a><span class="in">```</span></span>
+<span id="cb40-78"><a href="#cb40-78"></a></span>
+<span id="cb40-79"><a href="#cb40-79"></a>Two small refinements over a naive version:</span>
+<span id="cb40-80"><a href="#cb40-80"></a></span>
+<span id="cb40-81"><a href="#cb40-81"></a><span class="ss">- </span>Call <span class="in">`range()`</span> once and re-use, instead of computing <span class="in">`min()`</span> and <span class="in">`max()`</span> separately (cheaper and makes the NA-handling uniform).</span>
+<span id="cb40-82"><a href="#cb40-82"></a><span class="ss">- </span>Guard the degenerate case where <span class="in">`min == max`</span>. Without the guard, every element evaluates to <span class="in">`0/0 = NaN`</span>, which silently breaks downstream pipelines.</span>
+<span id="cb40-83"><a href="#cb40-83"></a></span>
+<span id="cb40-86"><a href="#cb40-86"></a><span class="in">```{r}</span></span>
+<span id="cb40-87"><a href="#cb40-87"></a><span class="co"># Degenerate case</span></span>
+<span id="cb40-88"><a href="#cb40-88"></a><span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb40-89"><a href="#cb40-89"></a><span class="in">```</span></span>
+<span id="cb40-90"><a href="#cb40-90"></a></span>
+<span id="cb40-91"><a href="#cb40-91"></a>------------------------------------------------------------------------</span>
+<span id="cb40-92"><a href="#cb40-92"></a></span>
+<span id="cb40-93"><a href="#cb40-93"></a><span class="fu">## Exercise — Phone-Digit Formatter</span></span>
+<span id="cb40-94"><a href="#cb40-94"></a></span>
+<span id="cb40-97"><a href="#cb40-97"></a><span class="in">```{r}</span></span>
+<span id="cb40-98"><a href="#cb40-98"></a>format_phone_number <span class="ot">&lt;-</span> <span class="cf">function</span>(nums) {</span>
+<span id="cb40-99"><a href="#cb40-99"></a>    <span class="co"># Strip every non-digit so hyphens, parens, dots, and spaces all normalize</span></span>
+<span id="cb40-100"><a href="#cb40-100"></a>    digits <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(nums, <span class="st">"[^0-9]"</span>)</span>
+<span id="cb40-101"><a href="#cb40-101"></a></span>
+<span id="cb40-102"><a href="#cb40-102"></a>    <span class="co"># Sanity check — exactly 10 digits expected</span></span>
+<span id="cb40-103"><a href="#cb40-103"></a>    <span class="cf">if</span> (<span class="fu">any</span>(<span class="fu">str_length</span>(digits) <span class="sc">!=</span> <span class="dv">10</span>)) {</span>
+<span id="cb40-104"><a href="#cb40-104"></a>        <span class="fu">warning</span>(<span class="st">"At least one input does not contain exactly 10 digits after cleaning."</span>)</span>
+<span id="cb40-105"><a href="#cb40-105"></a>    }</span>
+<span id="cb40-106"><a href="#cb40-106"></a></span>
+<span id="cb40-107"><a href="#cb40-107"></a>    area  <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(digits, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb40-108"><a href="#cb40-108"></a>    mid3  <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(digits, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb40-109"><a href="#cb40-109"></a>    last4 <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(digits, <span class="dv">7</span>, <span class="dv">10</span>)</span>
+<span id="cb40-110"><a href="#cb40-110"></a></span>
+<span id="cb40-111"><a href="#cb40-111"></a>    <span class="fu">str_glue</span>(<span class="st">"({area}) {mid3}-{last4}"</span>)</span>
+<span id="cb40-112"><a href="#cb40-112"></a>}</span>
+<span id="cb40-113"><a href="#cb40-113"></a></span>
+<span id="cb40-114"><a href="#cb40-114"></a><span class="fu">format_phone_number</span>(<span class="fu">c</span>(<span class="st">"651-330-8661"</span>, <span class="st">"6516966000"</span>, <span class="st">"800 867 5309"</span>))</span>
+<span id="cb40-115"><a href="#cb40-115"></a><span class="in">```</span></span>
+<span id="cb40-116"><a href="#cb40-116"></a></span>
+<span id="cb40-117"><a href="#cb40-117"></a>I used <span class="in">`str_glue()`</span> rather than <span class="in">`str_c()`</span> because the target format <span class="in">`(###) ###-####`</span> includes a space after the closing paren that's easy to miss when assembling with <span class="in">`str_c(")", mid3, ...)`</span>. The glue template reads almost identically to the output format, which closes one class of copy-edit bugs.</span>
+<span id="cb40-118"><a href="#cb40-118"></a></span>
+<span id="cb40-119"><a href="#cb40-119"></a>------------------------------------------------------------------------</span>
+<span id="cb40-120"><a href="#cb40-120"></a></span>
+<span id="cb40-121"><a href="#cb40-121"></a><span class="fu">## Exercise — Diagnosing the `geom_sf` Error</span></span>
+<span id="cb40-122"><a href="#cb40-122"></a></span>
+<span id="cb40-123"><a href="#cb40-123"></a><span class="in">```r</span></span>
+<span id="cb40-124"><a href="#cb40-124"></a><span class="fu">ggplot</span>() <span class="sc">|&gt;</span></span>
+<span id="cb40-125"><a href="#cb40-125"></a>    <span class="fu">geom_sf</span>(census_data, <span class="fu">aes</span>(<span class="at">fill =</span> population))</span>
+<span id="cb40-126"><a href="#cb40-126"></a></span>
+<span id="cb40-127"><a href="#cb40-127"></a><span class="co"># Error in `layer_sf()`:</span></span>
+<span id="cb40-128"><a href="#cb40-128"></a><span class="co"># ! `mapping` must be created by `aes()`</span></span>
+<span id="cb40-129"><a href="#cb40-129"></a><span class="in">```</span></span>
+<span id="cb40-130"><a href="#cb40-130"></a></span>
+<span id="cb40-131"><a href="#cb40-131"></a>Two distinct problems, both arising from positional matching gone wrong:</span>
+<span id="cb40-132"><a href="#cb40-132"></a></span>
+<span id="cb40-133"><a href="#cb40-133"></a><span class="ss">1. </span>**Wrong composition operator.** <span class="in">`ggplot2`</span> layers compose with <span class="in">`+`</span>, not with the base pipe <span class="in">`|&gt;`</span>. The pipe converts the expression into <span class="in">`geom_sf(ggplot(), census_data, aes(fill = population))`</span>, silently shifting every argument by one position.</span>
+<span id="cb40-134"><a href="#cb40-134"></a></span>
+<span id="cb40-135"><a href="#cb40-135"></a><span class="ss">2. </span>**Positional mismatch against `geom_sf`'s signature.** <span class="in">`geom_sf()`</span>'s first argument is <span class="in">`mapping`</span>, its second is <span class="in">`data`</span>. Even without the pipe, writing <span class="in">`geom_sf(census_data, aes(...))`</span> tells R that <span class="in">`census_data`</span> *is* the mapping, which triggers the error message R actually produced: <span class="in">`mapping`</span> must be created by <span class="in">`aes()`</span>.</span>
+<span id="cb40-136"><a href="#cb40-136"></a></span>
+<span id="cb40-137"><a href="#cb40-137"></a>The fix is either of these:</span>
+<span id="cb40-138"><a href="#cb40-138"></a></span>
+<span id="cb40-139"><a href="#cb40-139"></a><span class="in">```r</span></span>
+<span id="cb40-140"><a href="#cb40-140"></a><span class="co"># Named arguments — safest:</span></span>
+<span id="cb40-141"><a href="#cb40-141"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb40-142"><a href="#cb40-142"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> census_data, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> population))</span>
+<span id="cb40-143"><a href="#cb40-143"></a></span>
+<span id="cb40-144"><a href="#cb40-144"></a><span class="co"># Data hoisted into ggplot():</span></span>
+<span id="cb40-145"><a href="#cb40-145"></a><span class="fu">ggplot</span>(<span class="at">data =</span> census_data) <span class="sc">+</span></span>
+<span id="cb40-146"><a href="#cb40-146"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> population))</span>
+<span id="cb40-147"><a href="#cb40-147"></a><span class="in">```</span></span>
+<span id="cb40-148"><a href="#cb40-148"></a></span>
+<span id="cb40-149"><a href="#cb40-149"></a>**General lesson.** Positional matching is fine for functions whose signature you know by reflex (<span class="in">`ggplot(data, mapping)`</span>, <span class="in">`mutate(df, ...)`</span>). For everything else — and especially for <span class="in">`geom_*`</span> functions, whose first argument is mapping, not data, against the reader's expectation — naming arguments is cheap insurance.</span>
+<span id="cb40-150"><a href="#cb40-150"></a></span>
+<span id="cb40-151"><a href="#cb40-151"></a>------------------------------------------------------------------------</span>
+<span id="cb40-152"><a href="#cb40-152"></a></span>
+<span id="cb40-153"><a href="#cb40-153"></a><span class="fu">## Exercise — Temperature Converter</span></span>
+<span id="cb40-154"><a href="#cb40-154"></a></span>
+<span id="cb40-157"><a href="#cb40-157"></a><span class="in">```{r}</span></span>
+<span id="cb40-158"><a href="#cb40-158"></a>convert_temp <span class="ot">&lt;-</span> <span class="cf">function</span>(temp, unit) {</span>
+<span id="cb40-159"><a href="#cb40-159"></a>    unit <span class="ot">&lt;-</span> <span class="fu">toupper</span>(unit)                       <span class="co"># tolerate "c" / "f"</span></span>
+<span id="cb40-160"><a href="#cb40-160"></a>    <span class="cf">if</span> (unit <span class="sc">==</span> <span class="st">"F"</span>) {</span>
+<span id="cb40-161"><a href="#cb40-161"></a>        (temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span>                       <span class="co"># F → C</span></span>
+<span id="cb40-162"><a href="#cb40-162"></a>    } <span class="cf">else</span> <span class="cf">if</span> (unit <span class="sc">==</span> <span class="st">"C"</span>) {</span>
+<span id="cb40-163"><a href="#cb40-163"></a>        (temp <span class="sc">*</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">+</span> <span class="dv">32</span>                       <span class="co"># C → F</span></span>
+<span id="cb40-164"><a href="#cb40-164"></a>    } <span class="cf">else</span> {</span>
+<span id="cb40-165"><a href="#cb40-165"></a>        <span class="fu">stop</span>(<span class="st">"`unit` must be 'C' or 'F' (case-insensitive); got: "</span>, unit)</span>
+<span id="cb40-166"><a href="#cb40-166"></a>    }</span>
+<span id="cb40-167"><a href="#cb40-167"></a>}</span>
+<span id="cb40-168"><a href="#cb40-168"></a></span>
+<span id="cb40-169"><a href="#cb40-169"></a><span class="fu">convert_temp</span>(<span class="dv">0</span>,   <span class="at">unit =</span> <span class="st">"C"</span>)   <span class="co"># 0°C   →  32°F</span></span>
+<span id="cb40-170"><a href="#cb40-170"></a><span class="fu">convert_temp</span>(<span class="dv">32</span>,  <span class="at">unit =</span> <span class="st">"F"</span>)   <span class="co"># 32°F  →   0°C</span></span>
+<span id="cb40-171"><a href="#cb40-171"></a><span class="fu">convert_temp</span>(<span class="dv">100</span>, <span class="at">unit =</span> <span class="st">"C"</span>)   <span class="co"># 100°C → 212°F</span></span>
+<span id="cb40-172"><a href="#cb40-172"></a><span class="fu">convert_temp</span>(<span class="sc">-</span><span class="dv">40</span>, <span class="at">unit =</span> <span class="st">"F"</span>)   <span class="co"># −40°F → −40°C  (the fixed point)</span></span>
+<span id="cb40-173"><a href="#cb40-173"></a><span class="fu">convert_temp</span>(<span class="fl">98.6</span>, <span class="at">unit =</span> <span class="st">"f"</span>)  <span class="co"># lower-case tolerated</span></span>
+<span id="cb40-174"><a href="#cb40-174"></a><span class="in">```</span></span>
+<span id="cb40-175"><a href="#cb40-175"></a></span>
+<span id="cb40-176"><a href="#cb40-176"></a>Three small choices worth naming:</span>
+<span id="cb40-177"><a href="#cb40-177"></a></span>
+<span id="cb40-178"><a href="#cb40-178"></a><span class="ss">- </span>**Argument semantics.** <span class="in">`unit`</span> means "the unit the input temperature is *in*" — so <span class="in">`unit = "F"`</span> triggers the F → C formula. This is a documentation decision, not an algorithmic one, and it's where convert-temp functions most often confuse users.</span>
+<span id="cb40-179"><a href="#cb40-179"></a><span class="ss">- </span>**Input tolerance.** <span class="in">`toupper()`</span> lets <span class="in">`"c"`</span> and <span class="in">`"f"`</span> work; this is cheap and removes a common point of frustration.</span>
+<span id="cb40-180"><a href="#cb40-180"></a><span class="ss">- </span>**Explicit error on invalid unit.** Without the <span class="in">`else stop()`</span>, the function silently returns <span class="in">`NULL`</span> for <span class="in">`unit = "K"`</span>. Silent <span class="in">`NULL`</span> returns are a classic source of downstream bugs; failing loudly is better.</span>
+<span id="cb40-181"><a href="#cb40-181"></a></span>
+<span id="cb40-182"><a href="#cb40-182"></a>------------------------------------------------------------------------</span>
+<span id="cb40-183"><a href="#cb40-183"></a></span>
+<span id="cb40-184"><a href="#cb40-184"></a><span class="fu">## Exercise — Domain-Name Extractor</span></span>
+<span id="cb40-185"><a href="#cb40-185"></a></span>
+<span id="cb40-188"><a href="#cb40-188"></a><span class="in">```{r}</span></span>
+<span id="cb40-189"><a href="#cb40-189"></a>extract_domain <span class="ot">&lt;-</span> <span class="cf">function</span>(email) {</span>
+<span id="cb40-190"><a href="#cb40-190"></a>    <span class="co"># A valid-enough email has @ followed by at least one char,</span></span>
+<span id="cb40-191"><a href="#cb40-191"></a>    <span class="co"># a literal dot, and at least one more char.</span></span>
+<span id="cb40-192"><a href="#cb40-192"></a>    is_valid <span class="ot">&lt;-</span> <span class="fu">str_detect</span>(email, <span class="st">"^[^@</span><span class="sc">\\</span><span class="st">s]+@[^@</span><span class="sc">\\</span><span class="st">s]+</span><span class="sc">\\</span><span class="st">.[^@</span><span class="sc">\\</span><span class="st">s]+$"</span>)</span>
+<span id="cb40-193"><a href="#cb40-193"></a></span>
+<span id="cb40-194"><a href="#cb40-194"></a>    <span class="fu">if_else</span>(</span>
+<span id="cb40-195"><a href="#cb40-195"></a>        is_valid,</span>
+<span id="cb40-196"><a href="#cb40-196"></a>        <span class="fu">str_extract</span>(email, <span class="st">"(?&lt;=@).+$"</span>),</span>
+<span id="cb40-197"><a href="#cb40-197"></a>        <span class="st">"Invalid Email"</span></span>
+<span id="cb40-198"><a href="#cb40-198"></a>    )</span>
+<span id="cb40-199"><a href="#cb40-199"></a>}</span>
+<span id="cb40-200"><a href="#cb40-200"></a></span>
+<span id="cb40-201"><a href="#cb40-201"></a><span class="fu">extract_domain</span>(<span class="st">"les@mac.edu"</span>)</span>
+<span id="cb40-202"><a href="#cb40-202"></a><span class="fu">extract_domain</span>(<span class="st">"les@mac.net"</span>)</span>
+<span id="cb40-203"><a href="#cb40-203"></a><span class="fu">extract_domain</span>(<span class="st">"les@mac."</span>)          <span class="co"># trailing dot with no TLD → invalid</span></span>
+<span id="cb40-204"><a href="#cb40-204"></a><span class="fu">extract_domain</span>(<span class="st">"les@macedu"</span>)        <span class="co"># no dot → invalid</span></span>
+<span id="cb40-205"><a href="#cb40-205"></a><span class="fu">extract_domain</span>(<span class="fu">c</span>(<span class="st">"a@b.co"</span>, <span class="st">"nope"</span>))  <span class="co"># vectorised</span></span>
+<span id="cb40-206"><a href="#cb40-206"></a><span class="in">```</span></span>
+<span id="cb40-207"><a href="#cb40-207"></a></span>
+<span id="cb40-208"><a href="#cb40-208"></a>Design notes:</span>
+<span id="cb40-209"><a href="#cb40-209"></a></span>
+<span id="cb40-210"><a href="#cb40-210"></a><span class="ss">- </span>The validation regex <span class="in">`^[^@\s]+@[^@\s]+\.[^@\s]+$`</span> encodes *"one or more non-at, non-space characters, then @, then one or more non-at non-space characters, then a literal dot, then one or more non-at non-space characters, end of string"*. This rejects <span class="in">`les@macedu`</span> (no dot), <span class="in">`les@mac.`</span> (nothing after the dot), and <span class="in">`a@b@c.com`</span> (two @s), while accepting the valid test cases.</span>
+<span id="cb40-211"><a href="#cb40-211"></a><span class="ss">- </span>Extraction uses a **lookbehind** <span class="in">`(?&lt;=@).+$`</span> so the <span class="in">`@`</span> is matched-but-not-captured, avoiding the <span class="in">`str_remove("@")`</span> second step. One fewer step means one less place to get it wrong.</span>
+<span id="cb40-212"><a href="#cb40-212"></a><span class="ss">- </span>Using <span class="in">`if_else()`</span> rather than <span class="in">`if ... else`</span> makes the function vectorised — it handles a vector of emails in a single call, which matches how this would be used inside a <span class="in">`mutate()`</span>.</span>
+<span id="cb40-213"><a href="#cb40-213"></a></span>
+<span id="cb40-214"><a href="#cb40-214"></a>------------------------------------------------------------------------</span>
+<span id="cb40-215"><a href="#cb40-215"></a></span>
+<span id="cb40-216"><a href="#cb40-216"></a><span class="fu">## Exercise — `count_prop()` with Proportions</span></span>
+<span id="cb40-217"><a href="#cb40-217"></a></span>
+<span id="cb40-220"><a href="#cb40-220"></a><span class="in">```{r}</span></span>
+<span id="cb40-221"><a href="#cb40-221"></a>count_prop <span class="ot">&lt;-</span> <span class="cf">function</span>(df, count_vars, <span class="at">sort =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb40-222"><a href="#cb40-222"></a>    out <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb40-223"><a href="#cb40-223"></a>        <span class="fu">count</span>(<span class="fu">pick</span>({{ count_vars }})) <span class="sc">|&gt;</span></span>
+<span id="cb40-224"><a href="#cb40-224"></a>        <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb40-225"><a href="#cb40-225"></a></span>
+<span id="cb40-226"><a href="#cb40-226"></a>    <span class="cf">if</span> (sort) out <span class="ot">&lt;-</span> out <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span>
+<span id="cb40-227"><a href="#cb40-227"></a>    out</span>
+<span id="cb40-228"><a href="#cb40-228"></a>}</span>
+<span id="cb40-229"><a href="#cb40-229"></a></span>
+<span id="cb40-230"><a href="#cb40-230"></a><span class="co"># Single grouping variable</span></span>
+<span id="cb40-231"><a href="#cb40-231"></a><span class="fu">count_prop</span>(diamonds, <span class="at">count_vars =</span> cut)</span>
+<span id="cb40-232"><a href="#cb40-232"></a></span>
+<span id="cb40-233"><a href="#cb40-233"></a><span class="co"># Multiple grouping variables</span></span>
+<span id="cb40-234"><a href="#cb40-234"></a><span class="fu">count_prop</span>(diamonds, <span class="at">count_vars =</span> <span class="fu">c</span>(cut, color)) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb40-235"><a href="#cb40-235"></a><span class="in">```</span></span>
+<span id="cb40-236"><a href="#cb40-236"></a></span>
+<span id="cb40-237"><a href="#cb40-237"></a>The <span class="in">`pick({{ count_vars }})`</span> pattern is the key to getting both single and multi-variable cases to work from the same function body:</span>
+<span id="cb40-238"><a href="#cb40-238"></a></span>
+<span id="cb40-239"><a href="#cb40-239"></a><span class="ss">- </span>Bare <span class="in">`{ count_vars }`</span> works for a single variable but fails for <span class="in">`c(cut, color)`</span> because the <span class="in">`c()`</span> gets evaluated inside <span class="in">`count()`</span> and concatenates the columns.</span>
+<span id="cb40-240"><a href="#cb40-240"></a><span class="ss">- </span>Wrapping in <span class="in">`pick()`</span> tells dplyr to treat the <span class="in">`{ var }`</span> expression the way <span class="in">`select()`</span> would — as a specification of columns rather than a call returning values.</span>
+<span id="cb40-241"><a href="#cb40-241"></a></span>
+<span id="cb40-242"><a href="#cb40-242"></a>I also added a <span class="in">`sort`</span> argument (default <span class="in">`TRUE`</span>) because a <span class="in">`count_prop`</span> result is almost always more useful ordered by proportion. Setting <span class="in">`sort = FALSE`</span> preserves input order for cases where that matters (e.g., ordered factors being plotted in their original order).</span>
+<span id="cb40-243"><a href="#cb40-243"></a></span>
+<span id="cb40-244"><a href="#cb40-244"></a>------------------------------------------------------------------------</span>
+<span id="cb40-245"><a href="#cb40-245"></a></span>
+<span id="cb40-246"><a href="#cb40-246"></a><span class="fu">## Exercise — Scatterplot with Both Smoothers</span></span>
+<span id="cb40-247"><a href="#cb40-247"></a></span>
+<span id="cb40-250"><a href="#cb40-250"></a><span class="in">```{r}</span></span>
+<span id="cb40-251"><a href="#cb40-251"></a>scatter_with_smooths <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x, y, <span class="at">alpha =</span> <span class="fl">0.3</span>) {</span>
+<span id="cb40-252"><a href="#cb40-252"></a>    <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> {{ x }}, <span class="at">y =</span> {{ y }})) <span class="sc">+</span></span>
+<span id="cb40-253"><a href="#cb40-253"></a>        <span class="fu">geom_point</span>(<span class="at">alpha =</span> alpha) <span class="sc">+</span></span>
+<span id="cb40-254"><a href="#cb40-254"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb40-255"><a href="#cb40-255"></a>                    <span class="at">colour =</span> <span class="st">"blue"</span>,  <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb40-256"><a href="#cb40-256"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,    <span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb40-257"><a href="#cb40-257"></a>                    <span class="at">colour =</span> <span class="st">"red"</span>,   <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb40-258"><a href="#cb40-258"></a>        <span class="fu">theme_minimal</span>()</span>
+<span id="cb40-259"><a href="#cb40-259"></a>}</span>
+<span id="cb40-260"><a href="#cb40-260"></a></span>
+<span id="cb40-261"><a href="#cb40-261"></a><span class="fu">scatter_with_smooths</span>(diamonds, <span class="at">x =</span> carat, <span class="at">y =</span> price)</span>
+<span id="cb40-262"><a href="#cb40-262"></a><span class="in">```</span></span>
+<span id="cb40-263"><a href="#cb40-263"></a></span>
+<span id="cb40-264"><a href="#cb40-264"></a>Three refinements over a minimal version:</span>
+<span id="cb40-265"><a href="#cb40-265"></a></span>
+<span id="cb40-266"><a href="#cb40-266"></a><span class="ss">- </span>**`alpha` parameter with a sensible default.** The diamonds dataset has 54,000 rows, so any honest scatterplot needs transparency to reveal density rather than solid ink. Exposing <span class="in">`alpha`</span> as an argument lets the function handle both small and large datasets gracefully.</span>
+<span id="cb40-267"><a href="#cb40-267"></a><span class="ss">- </span>**Explicit `formula = y ~ x` and `method = "loess"`.** This silences the "geom_smooth() using method = 'loess' ..." message without hiding the choice — a reader of the code can see what curve is being drawn.</span>
+<span id="cb40-268"><a href="#cb40-268"></a><span class="ss">- </span>**`se = FALSE` on both smoothers.** With two overlapping smoothing curves, showing both standard-error ribbons creates a visual muddle that obscures the comparison between linear and non-linear fit, which is the whole point of drawing both. Keeping the lines clean preserves the contrast.</span>
+<span id="cb40-269"><a href="#cb40-269"></a></span>
+<span id="cb40-272"><a href="#cb40-272"></a><span class="in">```{r}</span></span>
+<span id="cb40-273"><a href="#cb40-273"></a><span class="co"># Quick check on a different pair of variables</span></span>
+<span id="cb40-274"><a href="#cb40-274"></a><span class="fu">scatter_with_smooths</span>(diamonds, <span class="at">x =</span> carat, <span class="at">y =</span> depth, <span class="at">alpha =</span> <span class="fl">0.1</span>)</span>
+<span id="cb40-275"><a href="#cb40-275"></a><span class="in">```</span></span>
+<span id="cb40-276"><a href="#cb40-276"></a></span>
+<span id="cb40-277"><a href="#cb40-277"></a>------------------------------------------------------------------------</span>
+<span id="cb40-278"><a href="#cb40-278"></a></span>
+<span id="cb40-279"><a href="#cb40-279"></a><span class="fu">## Reflection</span></span>
+<span id="cb40-280"><a href="#cb40-280"></a></span>
+<span id="cb40-281"><a href="#cb40-281"></a>Two themes carry through the exercises:</span>
+<span id="cb40-282"><a href="#cb40-282"></a></span>
+<span id="cb40-283"><a href="#cb40-283"></a>**Functions are a discipline for naming.** The act of extracting a repeated block of code into a function forces you to decide what the inputs *mean* (is `unit` the starting unit or the target unit?), what counts as *valid input* (what is a valid email? exactly 10 digits? a lowercase "c"?), and what the function should do when an assumption fails (silent <span class="in">`NULL`</span>, explicit <span class="in">`stop()`</span>, or a warning and sensible default?). These are documentation decisions disguised as programming decisions, and they're the part of function-writing that gets better with practice.</span>
+<span id="cb40-284"><a href="#cb40-284"></a></span>
+<span id="cb40-285"><a href="#cb40-285"></a>**Tidy evaluation is the bridge between interactive and programmatic tidyverse use.** The embrace operator <span class="in">`{ }`</span> and the <span class="in">`pick()`</span> wrapper are not ornamentation — they are the minimum machinery required to turn the tidyverse's unquoted-column-name convenience (which makes interactive work fast) into reusable functions (which make pipelines maintainable). Until <span class="in">`{ }`</span> clicks, every tidyverse function you write will either duplicate logic or quietly do the wrong thing when passed <span class="in">`c(var1, var2)`</span>. The two-step pattern — embrace the variable, then wrap in <span class="in">`pick()`</span> if multi-column selection is possible — covers most practical cases.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

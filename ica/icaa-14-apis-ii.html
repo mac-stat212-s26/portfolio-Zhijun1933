@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-18">
+<title>14 — APIs II: Web Requests, XML, and Nested JSON – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/15_web_scraping.html" rel="next">
+<link href="../ica/13_apis_i.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/icaa-14-apis-ii.html"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-how-many-high-school-stars-make-it-in-the-nba-the-pudding-feb-2019" id="toc-data-story-critique-how-many-high-school-stars-make-it-in-the-nba-the-pudding-feb-2019" class="nav-link" data-scroll-target="#data-story-critique-how-many-high-school-stars-make-it-in-the-nba-the-pudding-feb-2019">🔥 Data Story Critique — <em>How many high school stars make it in the NBA?</em> (The Pudding, Feb 2019)</a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story?</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#census-api-building-a-url-with-httr2" id="toc-census-api-building-a-url-with-httr2" class="nav-link" data-scroll-target="#census-api-building-a-url-with-httr2">Census API — Building a URL with <code>httr2</code></a>
+  <ul class="collapse">
+<li><a href="#building-the-request" id="toc-building-the-request" class="nav-link" data-scroll-target="#building-the-request">Building the request</a></li>
+  <li><a href="#performing-the-request-and-parsing-the-response" id="toc-performing-the-request-and-parsing-the-response" class="nav-link" data-scroll-target="#performing-the-request-and-parsing-the-response">Performing the request and parsing the response</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#boardgamegeek-xml-and-xml2" id="toc-boardgamegeek-xml-and-xml2" class="nav-link" data-scroll-target="#boardgamegeek-xml-and-xml2">BoardGameGeek — XML and <code>xml2</code></a>
+  <ul class="collapse">
+<li><a href="#exploring-the-xml-structure" id="toc-exploring-the-xml-structure" class="nav-link" data-scroll-target="#exploring-the-xml-structure">Exploring the XML structure</a></li>
+  <li><a href="#exercise-extract-names-and-ids" id="toc-exercise-extract-names-and-ids" class="nav-link" data-scroll-target="#exercise-extract-names-and-ids">Exercise — extract names and IDs</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#new-york-times-api-function-wrapped-requests-and-nested-json" id="toc-new-york-times-api-function-wrapped-requests-and-nested-json" class="nav-link" data-scroll-target="#new-york-times-api-function-wrapped-requests-and-nested-json">New York Times API — Function-Wrapped Requests and Nested JSON</a>
+  <ul class="collapse">
+<li><a href="#setup-guarded" id="toc-setup-guarded" class="nav-link" data-scroll-target="#setup-guarded">Setup (guarded)</a></li>
+  <li><a href="#a-reusable-request-builder" id="toc-a-reusable-request-builder" class="nav-link" data-scroll-target="#a-reusable-request-builder">A reusable request-builder</a></li>
+  <li><a href="#running-the-query" id="toc-running-the-query" class="nav-link" data-scroll-target="#running-the-query">Running the query</a></li>
+  <li><a href="#exercise-extract-copyright-hits-abstracts-and-lead-paragraphs" id="toc-exercise-extract-copyright-hits-abstracts-and-lead-paragraphs" class="nav-link" data-scroll-target="#exercise-extract-copyright-hits-abstracts-and-lead-paragraphs">Exercise — extract copyright, hits, abstracts, and lead paragraphs</a></li>
+  </ul>
+</li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/icaa-14-apis-ii.html"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(xml2)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(janitor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-how-many-high-school-stars-make-it-in-the-nba-the-pudding-feb-2019" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-how-many-high-school-stars-make-it-in-the-nba-the-pudding-feb-2019">🔥 Data Story Critique — <em>How many high school stars make it in the NBA?</em> (The Pudding, Feb 2019)</h2>
+<p>Source: <a href="https://pudding.cool/2019/03/hype/" class="uri">https://pudding.cool/2019/03/hype/</a></p>
+<p>Authors: Russell Samora &amp; Amber Thomas.</p>
+<section id="what-is-the-data-story" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story?</h3>
+<p>The piece asks whether high-school basketball recruiting rankings predict NBA success, using the Recruiting Services Consensus Index (RSCI) top-100 lists from 1998 to 2013 as the cohort and following those 1,563 players through a funnel of outcomes: college, draft, two-year-rookie-contract survival, and four performance tiers — below average, mediocre, great, superstar — defined by the mean of each player’s top-five-season ranking on combined VORP and Estimated Wins Added metrics. The visual spine is an animated circle-transition where each player is a dot that moves across stages, letting the reader watch the cohort thin out at each filter. The story unfolds through progressive refinement: top-100 overall (27% make the NBA, ~2% become superstars), then top-10 (84% make the NBA), then the 1998–2005 straight-to-NBA cohort (94% past rookie contract despite skipping college), then the 338 <em>drafted but HS-unranked</em> players (whose superstar list includes Wade, Curry, Lillard, Butler, Westbrook, Marc Gasol, and Paul George), and finally the Big-4 college pipeline (Kentucky, Kansas, Duke, UNC) plus a table of the top NBA-producing programs.</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<p><strong>The animated funnel is the right form for the question.</strong> The quantity the piece is communicating is <em>attrition across stages</em> — how many of 1,563 players drop out at each filter, and what shape the surviving population takes. Static bar charts could show the endpoint but not the motion; sankey diagrams could show the flow but not the scale; the dot-transition form preserves both, and the “Replay” affordance acknowledges that the animation is the point.</p>
+<p><strong>Named individuals anchor the statistics.</strong> Donnell Harvey vs.&nbsp;LeBron James in the opening paragraph; Korleone Young as the cautionary case for removing the age limit; the seven unranked-but-superstar names. These are the specific instances that make an abstract rate (“27% reach the NBA”) legible — without them, the piece would be a series of percentages the reader would forget by the next section.</p>
+<p><strong>Methodology transparency is unusual for popular visual journalism.</strong> The bottom note specifies the tier thresholds (Superstar = top 30 by VORP + EWA, Great = top 60, Mediocre = top 120, Below Average = 120+), the time window (1998–2013), sample sizes per view, and the data sources (RSCI, Basketball Reference). Most pieces in this genre hide these decisions; The Pudding shows them, and that’s part of why the argument holds up under scrutiny.</p>
+<p><strong>The structure of progressive refinement is pedagogically sound.</strong> Each “but what about…” view — top 100 → top 10 → straight-to-NBA → unranked-but-drafted → Big 4 — reframes the question more precisely. By the end the reader has a multi-view answer (“HS rank predicts better than chance but there’s a long tail of underranked superstars”) rather than a single headline statistic. This is closer to how an empirical question actually gets answered than most popular treatments manage.</p>
+</section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<p><strong>The framing measures within-pipeline prediction, not talent identification.</strong> The piece asks whether RSCI rank predicts NBA outcome <em>among players who entered the top-100 HS list</em>. That is a narrower question than the title implies. “Do HS rankings identify basketball talent?” would require the denominator to include players who never made the top-100 — all US high-school basketball players, international players, junior-college players — and to ask how well the ranking system would have done against that population. The “unranked but drafted” section partially addresses this, but it still conditions on <em>having been drafted</em>, which is itself a selected outcome. The reader is implicitly invited to conclude that HS rank is a reasonable predictor of NBA success; the tighter conclusion the data actually supports is that HS rank is a reasonable predictor <em>conditional on the player already being in the scouting pipeline</em>.</p>
+<p><strong>RSCI is a constructed instrument whose evaluation heuristics partly overlap with NBA draft heuristics.</strong> The 84% top-10-to-NBA rate looks like strong predictive validity, but it’s confounded by selection: high HS rank gets a player better college offers, which means better NCAA exposure, which means higher draft position, which means more NBA opportunity. Some of what the funnel is measuring is <em>pipeline access</em> (ranked players are placed into environments that produce NBA players) rather than <em>latent talent</em> (ranked players are fundamentally better). Disentangling these would require something like comparing ranked vs.&nbsp;unranked players <em>within</em> the same college program, or looking at late-rising players who weren’t ranked in HS but performed at comparable college levels. The piece doesn’t make this distinction, and without it, “HS ranking works” conflates prediction with construction.</p>
+<p><strong>The 2010–2013 cohort is right-censored.</strong> Players drafted in 2013 had six years of NBA careers by the time of publication (February 2019). The “superstar” tier is defined by the mean of a player’s top-five seasons — but a player whose best seasons will be years 5–9 of their career (Giannis Antetokounmpo was drafted in 2013 and didn’t reach MVP level until 2018–19) hasn’t had time to register as a superstar in this dataset. Later cohorts are therefore systematically undercounted at the top tiers while earlier cohorts have fully resolved. The piece treats the data as complete. A cleaner version would either restrict the cohort to players with at least N seasons of career, or visibly flag the censoring.</p>
+<p><strong>Superstar count is small enough that the specific numbers have substantial uncertainty.</strong> With 31 superstars across 1,563 players (~2%), the 95% confidence interval on the rate is roughly 1.4%–2.8% by normal approximation. This matters because the piece reports rates with two significant digits (“1%”, “2%”, “&lt;1%”) as if they were stable quantities. For tier proportions derived from small integer counts, visualizing or at least mentioning the uncertainty would keep the reader calibrated about what the funnel is and isn’t pinning down.</p>
+<p><strong>The animation-only visual carries accessibility costs.</strong> Dot-transition visualizations are hostile to screen-reader users, keyboard-only navigation, and users with vestibular disorders or motion sensitivity. The “Replay” button shows the designers knew the animation was load-bearing, but there is no “skip / show final state” option — the reader has to sit through the motion to reach the summary. A parallel static-summary view (final positions, counts, percentages in a text table) would add minutes of work for the designers and open the piece to a meaningfully wider audience.</p>
+<p><strong>The NCAA labor question is gestured at, not engaged.</strong> The piece notes “the college funnel is an interesting discussion, especially when it surrounds the lack of pay for NCAA student athletes” — but then pivots to the table of top NBA-producing programs without developing that thread. The data The Pudding collected is directly relevant: Kentucky and Duke convert high HS rankings into NBA pipelines at rates far above other schools, and players whose HS rankings attracted them to those programs generated substantial revenue without compensation during this study window. That is an argumentative opportunity, and the piece walks past it. This is an editorial choice rather than a failure, but worth naming as the choice it is.</p>
+<p><strong>Proportionality.</strong> This is among the best sports data journalism of its year — the methodology is transparent, the question is genuinely well-posed, the visual form fits the quantity being communicated, and the named-individual anchoring works. The critiques above are directed at the piece’s second-order structure (framing, censoring, selection), not at its execution.</p>
+<hr></section></section><section id="census-api-building-a-url-with-httr2" class="level2"><h2 class="anchored" data-anchor-id="census-api-building-a-url-with-httr2">Census API — Building a URL with <code>httr2</code>
+</h2>
+<p>The Census API allows small queries without a key. Large production use requires a (free) key from <a href="https://api.census.gov/data/key_signup.html" class="uri">https://api.census.gov/data/key_signup.html</a>; store it locally in <code>census_api_key.txt</code> and load with <code><a href="https://rdrr.io/r/base/readLines.html">readLines()</a></code>.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>census_api_key <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"census_api_key.txt"</span>)) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="fu">readLines</span>(<span class="st">"census_api_key.txt"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="st">""</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="building-the-request" class="level3"><h3 class="anchored" data-anchor-id="building-the-request">Building the request</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.census.gov"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"data"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"2019"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"acs"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"acs1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="fu">req_url_query</span>(</span>
+<span id="cb3-7"><a href="#cb3-7"></a>        <span class="at">get    =</span> <span class="fu">c</span>(<span class="st">"NAME"</span>, <span class="st">"B02015_009E"</span>, <span class="st">"B02015_009M"</span>),</span>
+<span id="cb3-8"><a href="#cb3-8"></a>        <span class="st">`</span><span class="at">for</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">I</span>(<span class="st">"state:*"</span>),</span>
+<span id="cb3-9"><a href="#cb3-9"></a>        <span class="at">key    =</span> census_api_key,</span>
+<span id="cb3-10"><a href="#cb3-10"></a>        <span class="at">.multi =</span> <span class="st">"comma"</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    )</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a>req</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Three craftsmanship points worth naming:</p>
+<ul>
+<li>
+<strong><code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> around <code>"state:*"</code></strong>. Without the “as-is” wrapper, <code>httr2</code> would percent-encode the <code>:</code> and <code>*</code> into <code>%3A</code> and <code>%2A</code>, which the Census API would then fail to interpret. <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> tells <code>httr2</code> to pass the value through literally. The same pattern applies any time a query value contains characters that look special but are meaningful to the target API.</li>
+<li>
+<strong><code>`for`</code></strong>. Backticks are required because <code>for</code> is a reserved word in R (the for-loop keyword). Any query-parameter name that collides with an R reserved word, or that contains spaces/dashes/dots, needs backtick escaping.</li>
+<li>
+<strong><code>.multi = "comma"</code></strong>. The Census API expects comma-separated lists for multi-valued parameters (<code>get=NAME,B02015_009E,B02015_009M</code>). Other APIs use different conventions — some repeat the key (<code>?tag=red&amp;tag=blue</code>), some use brackets (<code>?tag[]=red&amp;tag[]=blue</code>). <code>.multi</code> is where you configure this per API.</li>
+</ul></section><section id="performing-the-request-and-parsing-the-response" class="level3"><h3 class="anchored" data-anchor-id="performing-the-request-and-parsing-the-response">Performing the request and parsing the response</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>resp_json <span class="ot">&lt;-</span> resp <span class="sc">|&gt;</span> <span class="fu">resp_body_json</span>(<span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">head</span>(resp_json, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>     [,1]       [,2]          [,3]          [,4]   
+[1,] "NAME"     "B02015_009E" "B02015_009M" "state"
+[2,] "Illinois" "655"         "511"         "17"   
+[3,] "Georgia"  "3162"        "1336"        "13"   </code></pre>
+</div>
+</div>
+<p>The response comes back as a matrix with the first row as column headers — Census’s convention, not JSON’s. <code><a href="https://sfirke.github.io/janitor/reference/row_to_names.html">janitor::row_to_names()</a></code> promotes the first row to column names, and then we convert the numeric variables:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>resp_df <span class="ot">&lt;-</span> resp_json <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="fu">row_to_names</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"B"</span>), as.numeric))</span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a>resp_df <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(B02015_009E)) <span class="sc">|&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   NAME           B02015_009E B02015_009M state
+   &lt;chr&gt;                &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;
+ 1 California           95738       10184 06   
+ 2 Minnesota            91051        7256 27   
+ 3 Wisconsin            51816        4827 55   
+ 4 North Carolina       17317        3062 37   
+ 5 Michigan              8955        3337 26   
+ 6 Oklahoma              4967        1497 40   
+ 7 Washington            4601        2651 53   
+ 8 Georgia               3162        1336 13   
+ 9 Oregon                3087        2214 41   
+10 Colorado              3071        1267 08   </code></pre>
+</div>
+</div>
+<p><code>B02015_009E</code> is the estimated count of persons self-identifying as Korean in the 2019 ACS 1-year sample; <code>_009M</code> is the margin of error. The <code>_E</code>/<code>_M</code> convention is pervasive in Census data and worth knowing — every estimate is paired with a margin of error, and responsible analysis respects that pairing.</p>
+<hr></section></section><section id="boardgamegeek-xml-and-xml2" class="level2"><h2 class="anchored" data-anchor-id="boardgamegeek-xml-and-xml2">BoardGameGeek — XML and <code>xml2</code>
+</h2>
+<p>BGG returns XML (not JSON). The request pattern is identical to the Census example, but parsing uses <code>xml2</code> instead of <code>jsonlite</code>.</p>
+<p><strong>Note on reproducibility.</strong> The BoardGameGeek XML API imposes aggressive rate limits and regularly returns 401/429 on automated requests during a book render. To keep this portfolio rendering cleanly regardless of BGG’s mood on any given day, the live call is guarded with two layers: <code>req_error(is_error = \(resp) FALSE)</code> turns HTTP 4xx/5xx responses from exceptions into regular return values so the status code can be inspected, and an outer <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> catches network-layer failures (DNS, timeout) that still throw. Either path falls back to a small cached XML sample, so the downstream parsing code runs identically whether the live call succeeds or not. The same <code>req_error()</code> + <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> + cached-fallback pattern is used for the NYT section below.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>bgg_fallback_xml <span class="ot">&lt;-</span> <span class="st">'&lt;items total="3" termsofuse="https://boardgamegeek.com/xmlapi/termsofuse"&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  &lt;item type="boardgame" id="172216"&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">    &lt;name type="primary" value="Mysterium"/&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">    &lt;yearpublished value="2015"/&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  &lt;/item&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  &lt;item type="boardgame" id="238402"&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">    &lt;name type="primary" value="Forgotten Waters"/&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="st">    &lt;yearpublished value="2020"/&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="st">  &lt;/item&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="st">  &lt;item type="boardgame" id="152208"&gt;</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="st">    &lt;name type="primary" value="Mystery of the Abbey"/&gt;</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="st">  &lt;/item&gt;</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="st">&lt;/items&gt;'</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a></span>
+<span id="cb8-15"><a href="#cb8-15"></a>req_bgg <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://boardgamegeek.com/xmlapi2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"search"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>    <span class="fu">req_url_query</span>(</span>
+<span id="cb8-18"><a href="#cb8-18"></a>        <span class="at">query =</span> <span class="fu">I</span>(<span class="st">"mystery+curse"</span>),</span>
+<span id="cb8-19"><a href="#cb8-19"></a>        <span class="at">type  =</span> <span class="fu">I</span>(<span class="st">"boardgame,boardgameaccessory,boardgameexpansion"</span>)</span>
+<span id="cb8-20"><a href="#cb8-20"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a>    <span class="fu">req_error</span>(<span class="at">is_error =</span> \(resp) <span class="cn">FALSE</span>)  <span class="co"># treat 4xx/5xx as values, not errors</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a></span>
+<span id="cb8-23"><a href="#cb8-23"></a>resp_bgg <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb8-24"><a href="#cb8-24"></a>    {</span>
+<span id="cb8-25"><a href="#cb8-25"></a>        resp_raw <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req_bgg)</span>
+<span id="cb8-26"><a href="#cb8-26"></a>        <span class="cf">if</span> (<span class="fu">resp_status</span>(resp_raw) <span class="sc">&gt;=</span> <span class="dv">400</span>) {</span>
+<span id="cb8-27"><a href="#cb8-27"></a>            <span class="fu">message</span>(<span class="st">"BGG returned HTTP "</span>, <span class="fu">resp_status</span>(resp_raw),</span>
+<span id="cb8-28"><a href="#cb8-28"></a>                    <span class="st">"; using cached sample."</span>)</span>
+<span id="cb8-29"><a href="#cb8-29"></a>            <span class="fu">read_xml</span>(bgg_fallback_xml)</span>
+<span id="cb8-30"><a href="#cb8-30"></a>        } <span class="cf">else</span> {</span>
+<span id="cb8-31"><a href="#cb8-31"></a>            <span class="fu">resp_body_xml</span>(resp_raw)</span>
+<span id="cb8-32"><a href="#cb8-32"></a>        }</span>
+<span id="cb8-33"><a href="#cb8-33"></a>    },</span>
+<span id="cb8-34"><a href="#cb8-34"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb8-35"><a href="#cb8-35"></a>        <span class="co"># Only reaches here for network-layer errors (DNS, timeout, etc.)</span></span>
+<span id="cb8-36"><a href="#cb8-36"></a>        <span class="fu">message</span>(<span class="st">"BGG request failed ("</span>, <span class="fu">conditionMessage</span>(e),</span>
+<span id="cb8-37"><a href="#cb8-37"></a>                <span class="st">"); using cached sample."</span>)</span>
+<span id="cb8-38"><a href="#cb8-38"></a>        <span class="fu">read_xml</span>(bgg_fallback_xml)</span>
+<span id="cb8-39"><a href="#cb8-39"></a>    }</span>
+<span id="cb8-40"><a href="#cb8-40"></a>)</span>
+<span id="cb8-41"><a href="#cb8-41"></a></span>
+<span id="cb8-42"><a href="#cb8-42"></a>resp_bgg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>{xml_document}
+&lt;items total="3" termsofuse="https://boardgamegeek.com/xmlapi/termsofuse"&gt;
+[1] &lt;item type="boardgame" id="172216"&gt;\n  &lt;name type="primary" value="Myster ...
+[2] &lt;item type="boardgame" id="238402"&gt;\n  &lt;name type="primary" value="Forgot ...
+[3] &lt;item type="boardgame" id="152208"&gt;\n  &lt;name type="primary" value="Myster ...</code></pre>
+</div>
+</div>
+<p>The third <code>&lt;item&gt;</code> in the fallback deliberately omits <code>&lt;yearpublished&gt;</code> — so the missing-sub-element edge case discussed below is demonstrable even when the live call doesn’t go through.</p>
+<section id="exploring-the-xml-structure" class="level3"><h3 class="anchored" data-anchor-id="exploring-the-xml-structure">Exploring the XML structure</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">xml_structure</span>(resp_bgg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>&lt;items [total, termsofuse]&gt;
+  &lt;item [type, id]&gt;
+    &lt;name [type, value]&gt;
+    &lt;yearpublished [value]&gt;
+  &lt;item [type, id]&gt;
+    &lt;name [type, value]&gt;
+    &lt;yearpublished [value]&gt;
+  &lt;item [type, id]&gt;
+    &lt;name [type, value]&gt;</code></pre>
+</div>
+</div>
+<p>Each <code>&lt;item&gt;</code> node has attributes (<code>type</code>, <code>id</code>) and child nodes (<code>&lt;name&gt;</code>, <code>&lt;yearpublished&gt;</code>). The <code>&lt;name&gt;</code> child itself has a <code>value</code> attribute holding the actual name string. <code>xml2</code>’s navigation functions parallel CSS/XPath: <code>xml_find_all()</code> with an XPath expression picks nodes, <code>xml_attr()</code> extracts a named attribute.</p>
+</section><section id="exercise-extract-names-and-ids" class="level3"><h3 class="anchored" data-anchor-id="exercise-extract-names-and-ids">Exercise — extract names and IDs</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>game_names <span class="ot">&lt;-</span> resp_bgg <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="fu">xml_find_all</span>(<span class="st">"item/name"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="fu">xml_attr</span>(<span class="st">"value"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a>game_ids <span class="ot">&lt;-</span> resp_bgg <span class="sc">|&gt;</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>    <span class="fu">xml_find_all</span>(<span class="st">"item"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>    <span class="fu">xml_attr</span>(<span class="st">"id"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8"></a></span>
+<span id="cb12-9"><a href="#cb12-9"></a>game_types <span class="ot">&lt;-</span> resp_bgg <span class="sc">|&gt;</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a>    <span class="fu">xml_find_all</span>(<span class="st">"item"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a>    <span class="fu">xml_attr</span>(<span class="st">"type"</span>)</span>
+<span id="cb12-12"><a href="#cb12-12"></a></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="fu">tibble</span>(<span class="at">id =</span> game_ids, <span class="at">type =</span> game_types, <span class="at">name =</span> game_names) <span class="sc">|&gt;</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  id     type      name                
+  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;               
+1 172216 boardgame Mysterium           
+2 238402 boardgame Forgotten Waters    
+3 152208 boardgame Mystery of the Abbey</code></pre>
+</div>
+</div>
+<p><strong>Why <code>item/name</code> returns <code>value</code> as an attribute rather than text content.</strong> In XML the designer chooses whether to put a piece of data inside an element (<code>&lt;name&gt;Foo&lt;/name&gt;</code>, extracted via <code>xml_text()</code>) or as an attribute on an element (<code>&lt;name value="Foo"/&gt;</code>, extracted via <code>xml_attr("value")</code>). BGG chose attributes, so we use <code>xml_attr()</code>. There is no universal rule — when consuming any XML feed, <code>xml_structure()</code> is always the first call because it shows you which pattern the source is using.</p>
+<p><strong>Edge case to be aware of.</strong> Notice that <code>xml_find_all("item/yearpublished")</code> in the lesson notes returns length 8, while <code>xml_find_all("item")</code> returns length 9 — one item has no publication year. This is the XML analogue of the missing-field issue we saw in JSON: sub-elements are optional, and any extraction function that zips results by position across different node sets will break silently. Safer patterns: use <code>xml_find_first()</code> per item inside a loop (returns <code>NA</code> when missing), or use XPath predicates to filter.</p>
+<hr></section></section><section id="new-york-times-api-function-wrapped-requests-and-nested-json" class="level2"><h2 class="anchored" data-anchor-id="new-york-times-api-function-wrapped-requests-and-nested-json">New York Times API — Function-Wrapped Requests and Nested JSON</h2>
+<p>The NYT Article Search API requires a key (free, rate-limited at 1,000 calls/day): register at <a href="https://developer.nytimes.com" class="uri">https://developer.nytimes.com</a>, create an “app” with Article Search enabled, and save the key locally as <code>nyt_api_key.txt</code>.</p>
+<section id="setup-guarded" class="level3"><h3 class="anchored" data-anchor-id="setup-guarded">Setup (guarded)</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>times_key <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"nyt_api_key.txt"</span>)) {</span>
+<span id="cb14-2"><a href="#cb14-2"></a>    <span class="fu">readLines</span>(<span class="st">"nyt_api_key.txt"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a>} <span class="cf">else</span> {</span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="st">""</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>}</span>
+<span id="cb14-6"><a href="#cb14-6"></a></span>
+<span id="cb14-7"><a href="#cb14-7"></a>have_nyt_key <span class="ot">&lt;-</span> <span class="fu">nchar</span>(times_key) <span class="sc">&gt;</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section><section id="a-reusable-request-builder" class="level3"><h3 class="anchored" data-anchor-id="a-reusable-request-builder">A reusable request-builder</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>create_nyt_url <span class="ot">&lt;-</span> <span class="cf">function</span>(query, <span class="at">key =</span> times_key) {</span>
+<span id="cb15-2"><a href="#cb15-2"></a>    <span class="fu">request</span>(<span class="st">"https://api.nytimes.com"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>        <span class="fu">req_url_path_append</span>(<span class="st">"svc"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>        <span class="fu">req_url_path_append</span>(<span class="st">"search"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>        <span class="fu">req_url_path_append</span>(<span class="st">"v2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>        <span class="fu">req_url_path_append</span>(<span class="st">"articlesearch.json"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>        <span class="fu">req_url_query</span>(<span class="at">q =</span> query, <span class="st">`</span><span class="at">api-key</span><span class="st">`</span> <span class="ot">=</span> key)</span>
+<span id="cb15-8"><a href="#cb15-8"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The function earns its keep the moment we want to issue multiple queries — compare to hardcoding the URL for each. This is the same wrap-the-API-as-a-function pattern you would see in any production pipeline.</p>
+</section><section id="running-the-query" class="level3"><h3 class="anchored" data-anchor-id="running-the-query">Running the query</h3>
+<p>The live call is guarded with the same two-layer pattern as the BGG request: <code>req_error()</code> converts HTTP 4xx/5xx into return values so a missing-key 401 doesn’t abort the chunk, and <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> catches any remaining network-layer failure. Either way, a structurally faithful fallback JSON string gets parsed with <code>fromJSON()</code> and the downstream access pattern runs against whatever <code>resp_pt</code> ends up being.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>nyt_fallback_json <span class="ot">&lt;-</span> <span class="st">'{</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="st">  "status": "OK",</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="st">  "copyright": "Copyright (c) 2024 The New York Times Company.",</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="st">  "response": {</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="st">    "meta": {"hits": 12, "offset": 0, "time": 15},</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="st">    "docs": [</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="st">      {</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="st">        "abstract": "A review of the magicians latest Las Vegas show.",</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="st">        "lead_paragraph": "Penn and Teller have been performing together since 1975..."</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="st">      },</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a><span class="st">      {</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="st">        "abstract": "The duo discuss their skeptical approach to the supernatural.",</span></span>
+<span id="cb16-13"><a href="#cb16-13"></a><span class="st">        "lead_paragraph": "In a rare joint interview, the magicians describe..."</span></span>
+<span id="cb16-14"><a href="#cb16-14"></a><span class="st">      }</span></span>
+<span id="cb16-15"><a href="#cb16-15"></a><span class="st">    ]</span></span>
+<span id="cb16-16"><a href="#cb16-16"></a><span class="st">  }</span></span>
+<span id="cb16-17"><a href="#cb16-17"></a><span class="st">}'</span></span>
+<span id="cb16-18"><a href="#cb16-18"></a></span>
+<span id="cb16-19"><a href="#cb16-19"></a>req_pt <span class="ot">&lt;-</span> <span class="fu">create_nyt_url</span>(<span class="at">query =</span> <span class="st">"Penn &amp; Teller"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-20"><a href="#cb16-20"></a>    <span class="fu">req_error</span>(<span class="at">is_error =</span> \(resp) <span class="cn">FALSE</span>)</span>
+<span id="cb16-21"><a href="#cb16-21"></a></span>
+<span id="cb16-22"><a href="#cb16-22"></a>resp_pt <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb16-23"><a href="#cb16-23"></a>    {</span>
+<span id="cb16-24"><a href="#cb16-24"></a>        resp_raw <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req_pt)</span>
+<span id="cb16-25"><a href="#cb16-25"></a>        <span class="cf">if</span> (<span class="fu">resp_status</span>(resp_raw) <span class="sc">&gt;=</span> <span class="dv">400</span>) {</span>
+<span id="cb16-26"><a href="#cb16-26"></a>            <span class="fu">message</span>(<span class="st">"NYT returned HTTP "</span>, <span class="fu">resp_status</span>(resp_raw),</span>
+<span id="cb16-27"><a href="#cb16-27"></a>                    <span class="st">" (likely missing/invalid key); using cached sample."</span>)</span>
+<span id="cb16-28"><a href="#cb16-28"></a>            <span class="fu">fromJSON</span>(nyt_fallback_json, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-29"><a href="#cb16-29"></a>        } <span class="cf">else</span> {</span>
+<span id="cb16-30"><a href="#cb16-30"></a>            <span class="fu">resp_body_json</span>(resp_raw, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-31"><a href="#cb16-31"></a>        }</span>
+<span id="cb16-32"><a href="#cb16-32"></a>    },</span>
+<span id="cb16-33"><a href="#cb16-33"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb16-34"><a href="#cb16-34"></a>        <span class="fu">message</span>(<span class="st">"NYT request failed ("</span>, <span class="fu">conditionMessage</span>(e),</span>
+<span id="cb16-35"><a href="#cb16-35"></a>                <span class="st">"); using cached sample."</span>)</span>
+<span id="cb16-36"><a href="#cb16-36"></a>        <span class="fu">fromJSON</span>(nyt_fallback_json, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-37"><a href="#cb16-37"></a>    }</span>
+<span id="cb16-38"><a href="#cb16-38"></a>)</span>
+<span id="cb16-39"><a href="#cb16-39"></a></span>
+<span id="cb16-40"><a href="#cb16-40"></a><span class="fu">str</span>(resp_pt, <span class="at">max.level =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>List of 3
+ $ status   : chr "OK"
+ $ copyright: chr "Copyright (c) 2024 The New York Times Company."
+ $ response :List of 2
+  ..$ meta:List of 3
+  ..$ docs:'data.frame':    2 obs. of  2 variables:</code></pre>
+</div>
+</div>
+</section><section id="exercise-extract-copyright-hits-abstracts-and-lead-paragraphs" class="level3"><h3 class="anchored" data-anchor-id="exercise-extract-copyright-hits-abstracts-and-lead-paragraphs">Exercise — extract copyright, hits, abstracts, and lead paragraphs</h3>
+<p>The access patterns work identically on the live response and on the fallback, because both conform to the NYT Article Search schema:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>resp_pt<span class="sc">$</span>copyright</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "Copyright (c) 2024 The New York Times Company."</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>resp_pt<span class="sc">$</span>response<span class="sc">$</span>meta<span class="sc">$</span>hits</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>resp_pt<span class="sc">$</span>response<span class="sc">$</span>docs <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>    <span class="fu">select</span>(abstract, lead_paragraph) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>    <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>                                                       abstract
+1              A review of the magicians latest Las Vegas show.
+2 The duo discuss their skeptical approach to the supernatural.
+                                               lead_paragraph
+1 Penn and Teller have been performing together since 1975...
+2        In a rare joint interview, the magicians describe...</code></pre>
+</div>
+</div>
+<hr></section></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p><strong>URLs are structured objects, not strings.</strong> The habit of pasting together URLs with <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> works for simple cases and fails quietly on anything with spaces, ampersands, unicode characters, or special regex-adjacent punctuation. <code>httr2</code>’s stepwise construction — <code>request()</code> + <code>req_url_path_append()</code> + <code>req_url_query()</code> — makes the structure explicit and handles encoding correctly. The <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> “as-is” wrapper and the <code>.multi</code> parameter are the two places this structure leaks from documentation into code. Once you’ve internalized the pattern, it carries across any HTTP API — GitHub, Twitter, Spotify, Reddit, Slack — with only the endpoint and parameter names changing.</p>
+<p><strong>JSON and XML are both hierarchical, but their tooling is different.</strong> <code>jsonlite::fromJSON(simplifyVector = TRUE)</code> aggressively collapses JSON arrays of compatible objects into data frames — which is what you want 80% of the time for data-on-the-web. <code><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml2::xml_find_all()</a></code> with XPath expressions walks the tree node by node — which is what you have to do because XML makes no assumption that the tree has tabular structure. The Census/NYT JSON pipelines look very different from the BGG XML pipeline in this document, and that difference is inherent to the formats rather than accidental. When working with a new API, the first thing to check is which format it speaks, because that decides which tool family you’ll spend the next hour in.</p>
+<p><strong>API-wrapped-as-function is where the iteration patterns from ICA 12 pay off.</strong> <code>create_nyt_url()</code> takes one query string and returns a request. Once that’s in place, issuing a thousand queries is <code>crossing() + pmap()</code> — each row of a crossing grid becomes one query, each query becomes one request, each request gets performed in a <code>map()</code> step, results get parsed with <code>resp_body_json()</code> in another <code>map()</code>, and the whole thing lands in a tidy data frame via <code>bind_rows()</code>. The architecture for a sensitivity analysis over model specifications and the architecture for a rate-limited scrape of a JSON API are the same skeleton. Everything in ICAs 11–14 has been constructing the vocabulary for that skeleton; the APIs layer is where it starts to do work you couldn’t do by hand.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/13_apis_i.html" class="pagination-link" aria-label="13 — APIs I: JSON and `jsonlite`">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/15_web_scraping.html" class="pagination-link" aria-label="15 — Web Scraping with `rvest`">
+        <span class="nav-page-text"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1"></a><span class="co">---</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="an">title:</span><span class="co"> "14 — APIs II: Web Requests, XML, and Nested JSON"</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="an">format:</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="co">  html:</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co">    toc: true</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="an">execute:</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="co">  warning: false</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a><span class="co">  message: false</span></span>
+<span id="cb24-17"><a href="#cb24-17"></a><span class="co">---</span></span>
+<span id="cb24-18"><a href="#cb24-18"></a></span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="fu">## Setup</span></span>
+<span id="cb24-20"><a href="#cb24-20"></a></span>
+<span id="cb24-23"><a href="#cb24-23"></a><span class="in">```{r}</span></span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb24-26"><a href="#cb24-26"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb24-27"><a href="#cb24-27"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb24-28"><a href="#cb24-28"></a><span class="fu">library</span>(xml2)</span>
+<span id="cb24-29"><a href="#cb24-29"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb24-30"><a href="#cb24-30"></a><span class="in">```</span></span>
+<span id="cb24-31"><a href="#cb24-31"></a></span>
+<span id="cb24-32"><a href="#cb24-32"></a>------------------------------------------------------------------------</span>
+<span id="cb24-33"><a href="#cb24-33"></a></span>
+<span id="cb24-34"><a href="#cb24-34"></a><span class="fu">## 🔥 Data Story Critique — *How many high school stars make it in the NBA?* (The Pudding, Feb 2019)</span></span>
+<span id="cb24-35"><a href="#cb24-35"></a></span>
+<span id="cb24-36"><a href="#cb24-36"></a>Source: <span class="ot">&lt;https://pudding.cool/2019/03/hype/&gt;</span></span>
+<span id="cb24-37"><a href="#cb24-37"></a></span>
+<span id="cb24-38"><a href="#cb24-38"></a>Authors: Russell Samora &amp; Amber Thomas.</span>
+<span id="cb24-39"><a href="#cb24-39"></a></span>
+<span id="cb24-40"><a href="#cb24-40"></a><span class="fu">### What is the data story?</span></span>
+<span id="cb24-41"><a href="#cb24-41"></a></span>
+<span id="cb24-42"><a href="#cb24-42"></a>The piece asks whether high-school basketball recruiting rankings predict NBA success, using the Recruiting Services Consensus Index (RSCI) top-100 lists from 1998 to 2013 as the cohort and following those 1,563 players through a funnel of outcomes: college, draft, two-year-rookie-contract survival, and four performance tiers — below average, mediocre, great, superstar — defined by the mean of each player's top-five-season ranking on combined VORP and Estimated Wins Added metrics. The visual spine is an animated circle-transition where each player is a dot that moves across stages, letting the reader watch the cohort thin out at each filter. The story unfolds through progressive refinement: top-100 overall (27% make the NBA, ~2% become superstars), then top-10 (84% make the NBA), then the 1998–2005 straight-to-NBA cohort (94% past rookie contract despite skipping college), then the 338 *drafted but HS-unranked* players (whose superstar list includes Wade, Curry, Lillard, Butler, Westbrook, Marc Gasol, and Paul George), and finally the Big-4 college pipeline (Kentucky, Kansas, Duke, UNC) plus a table of the top NBA-producing programs.</span>
+<span id="cb24-43"><a href="#cb24-43"></a></span>
+<span id="cb24-44"><a href="#cb24-44"></a><span class="fu">### What is effective?</span></span>
+<span id="cb24-45"><a href="#cb24-45"></a></span>
+<span id="cb24-46"><a href="#cb24-46"></a>**The animated funnel is the right form for the question.** The quantity the piece is communicating is *attrition across stages* — how many of 1,563 players drop out at each filter, and what shape the surviving population takes. Static bar charts could show the endpoint but not the motion; sankey diagrams could show the flow but not the scale; the dot-transition form preserves both, and the "Replay" affordance acknowledges that the animation is the point.</span>
+<span id="cb24-47"><a href="#cb24-47"></a></span>
+<span id="cb24-48"><a href="#cb24-48"></a>**Named individuals anchor the statistics.** Donnell Harvey vs. LeBron James in the opening paragraph; Korleone Young as the cautionary case for removing the age limit; the seven unranked-but-superstar names. These are the specific instances that make an abstract rate ("27% reach the NBA") legible — without them, the piece would be a series of percentages the reader would forget by the next section.</span>
+<span id="cb24-49"><a href="#cb24-49"></a></span>
+<span id="cb24-50"><a href="#cb24-50"></a>**Methodology transparency is unusual for popular visual journalism.** The bottom note specifies the tier thresholds (Superstar = top 30 by VORP + EWA, Great = top 60, Mediocre = top 120, Below Average = 120+), the time window (1998–2013), sample sizes per view, and the data sources (RSCI, Basketball Reference). Most pieces in this genre hide these decisions; The Pudding shows them, and that's part of why the argument holds up under scrutiny.</span>
+<span id="cb24-51"><a href="#cb24-51"></a></span>
+<span id="cb24-52"><a href="#cb24-52"></a>**The structure of progressive refinement is pedagogically sound.** Each "but what about…" view — top 100 → top 10 → straight-to-NBA → unranked-but-drafted → Big 4 — reframes the question more precisely. By the end the reader has a multi-view answer ("HS rank predicts better than chance but there's a long tail of underranked superstars") rather than a single headline statistic. This is closer to how an empirical question actually gets answered than most popular treatments manage.</span>
+<span id="cb24-53"><a href="#cb24-53"></a></span>
+<span id="cb24-54"><a href="#cb24-54"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb24-55"><a href="#cb24-55"></a></span>
+<span id="cb24-56"><a href="#cb24-56"></a>**The framing measures within-pipeline prediction, not talent identification.** The piece asks whether RSCI rank predicts NBA outcome *among players who entered the top-100 HS list*. That is a narrower question than the title implies. "Do HS rankings identify basketball talent?" would require the denominator to include players who never made the top-100 — all US high-school basketball players, international players, junior-college players — and to ask how well the ranking system would have done against that population. The "unranked but drafted" section partially addresses this, but it still conditions on *having been drafted*, which is itself a selected outcome. The reader is implicitly invited to conclude that HS rank is a reasonable predictor of NBA success; the tighter conclusion the data actually supports is that HS rank is a reasonable predictor *conditional on the player already being in the scouting pipeline*.</span>
+<span id="cb24-57"><a href="#cb24-57"></a></span>
+<span id="cb24-58"><a href="#cb24-58"></a>**RSCI is a constructed instrument whose evaluation heuristics partly overlap with NBA draft heuristics.** The 84% top-10-to-NBA rate looks like strong predictive validity, but it's confounded by selection: high HS rank gets a player better college offers, which means better NCAA exposure, which means higher draft position, which means more NBA opportunity. Some of what the funnel is measuring is *pipeline access* (ranked players are placed into environments that produce NBA players) rather than *latent talent* (ranked players are fundamentally better). Disentangling these would require something like comparing ranked vs. unranked players *within* the same college program, or looking at late-rising players who weren't ranked in HS but performed at comparable college levels. The piece doesn't make this distinction, and without it, "HS ranking works" conflates prediction with construction.</span>
+<span id="cb24-59"><a href="#cb24-59"></a></span>
+<span id="cb24-60"><a href="#cb24-60"></a>**The 2010–2013 cohort is right-censored.** Players drafted in 2013 had six years of NBA careers by the time of publication (February 2019). The "superstar" tier is defined by the mean of a player's top-five seasons — but a player whose best seasons will be years 5–9 of their career (Giannis Antetokounmpo was drafted in 2013 and didn't reach MVP level until 2018–19) hasn't had time to register as a superstar in this dataset. Later cohorts are therefore systematically undercounted at the top tiers while earlier cohorts have fully resolved. The piece treats the data as complete. A cleaner version would either restrict the cohort to players with at least N seasons of career, or visibly flag the censoring.</span>
+<span id="cb24-61"><a href="#cb24-61"></a></span>
+<span id="cb24-62"><a href="#cb24-62"></a>**Superstar count is small enough that the specific numbers have substantial uncertainty.** With 31 superstars across 1,563 players (~2%), the 95% confidence interval on the rate is roughly 1.4%–2.8% by normal approximation. This matters because the piece reports rates with two significant digits ("1%", "2%", "&lt;1%") as if they were stable quantities. For tier proportions derived from small integer counts, visualizing or at least mentioning the uncertainty would keep the reader calibrated about what the funnel is and isn't pinning down.</span>
+<span id="cb24-63"><a href="#cb24-63"></a></span>
+<span id="cb24-64"><a href="#cb24-64"></a>**The animation-only visual carries accessibility costs.** Dot-transition visualizations are hostile to screen-reader users, keyboard-only navigation, and users with vestibular disorders or motion sensitivity. The "Replay" button shows the designers knew the animation was load-bearing, but there is no "skip / show final state" option — the reader has to sit through the motion to reach the summary. A parallel static-summary view (final positions, counts, percentages in a text table) would add minutes of work for the designers and open the piece to a meaningfully wider audience.</span>
+<span id="cb24-65"><a href="#cb24-65"></a></span>
+<span id="cb24-66"><a href="#cb24-66"></a>**The NCAA labor question is gestured at, not engaged.** The piece notes "the college funnel is an interesting discussion, especially when it surrounds the lack of pay for NCAA student athletes" — but then pivots to the table of top NBA-producing programs without developing that thread. The data The Pudding collected is directly relevant: Kentucky and Duke convert high HS rankings into NBA pipelines at rates far above other schools, and players whose HS rankings attracted them to those programs generated substantial revenue without compensation during this study window. That is an argumentative opportunity, and the piece walks past it. This is an editorial choice rather than a failure, but worth naming as the choice it is.</span>
+<span id="cb24-67"><a href="#cb24-67"></a></span>
+<span id="cb24-68"><a href="#cb24-68"></a>**Proportionality.** This is among the best sports data journalism of its year — the methodology is transparent, the question is genuinely well-posed, the visual form fits the quantity being communicated, and the named-individual anchoring works. The critiques above are directed at the piece's second-order structure (framing, censoring, selection), not at its execution.</span>
+<span id="cb24-69"><a href="#cb24-69"></a></span>
+<span id="cb24-70"><a href="#cb24-70"></a>------------------------------------------------------------------------</span>
+<span id="cb24-71"><a href="#cb24-71"></a></span>
+<span id="cb24-72"><a href="#cb24-72"></a><span class="fu">## Census API — Building a URL with `httr2`</span></span>
+<span id="cb24-73"><a href="#cb24-73"></a></span>
+<span id="cb24-74"><a href="#cb24-74"></a>The Census API allows small queries without a key. Large production use requires a (free) key from <span class="ot">&lt;https://api.census.gov/data/key_signup.html&gt;</span>; store it locally in <span class="in">`census_api_key.txt`</span> and load with <span class="in">`readLines()`</span>.</span>
+<span id="cb24-75"><a href="#cb24-75"></a></span>
+<span id="cb24-78"><a href="#cb24-78"></a><span class="in">```{r}</span></span>
+<span id="cb24-79"><a href="#cb24-79"></a><span class="co">#| label: census-key</span></span>
+<span id="cb24-80"><a href="#cb24-80"></a>census_api_key <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"census_api_key.txt"</span>)) {</span>
+<span id="cb24-81"><a href="#cb24-81"></a>    <span class="fu">readLines</span>(<span class="st">"census_api_key.txt"</span>)</span>
+<span id="cb24-82"><a href="#cb24-82"></a>} <span class="cf">else</span> {</span>
+<span id="cb24-83"><a href="#cb24-83"></a>    <span class="st">""</span></span>
+<span id="cb24-84"><a href="#cb24-84"></a>}</span>
+<span id="cb24-85"><a href="#cb24-85"></a><span class="in">```</span></span>
+<span id="cb24-86"><a href="#cb24-86"></a></span>
+<span id="cb24-87"><a href="#cb24-87"></a><span class="fu">### Building the request</span></span>
+<span id="cb24-88"><a href="#cb24-88"></a></span>
+<span id="cb24-91"><a href="#cb24-91"></a><span class="in">```{r}</span></span>
+<span id="cb24-92"><a href="#cb24-92"></a><span class="co">#| label: census-request</span></span>
+<span id="cb24-93"><a href="#cb24-93"></a><span class="co">#| cache: true</span></span>
+<span id="cb24-94"><a href="#cb24-94"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.census.gov"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-95"><a href="#cb24-95"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"data"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-96"><a href="#cb24-96"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"2019"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-97"><a href="#cb24-97"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"acs"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-98"><a href="#cb24-98"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"acs1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-99"><a href="#cb24-99"></a>    <span class="fu">req_url_query</span>(</span>
+<span id="cb24-100"><a href="#cb24-100"></a>        <span class="at">get    =</span> <span class="fu">c</span>(<span class="st">"NAME"</span>, <span class="st">"B02015_009E"</span>, <span class="st">"B02015_009M"</span>),</span>
+<span id="cb24-101"><a href="#cb24-101"></a>        <span class="st">`</span><span class="at">for</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">I</span>(<span class="st">"state:*"</span>),</span>
+<span id="cb24-102"><a href="#cb24-102"></a>        <span class="at">key    =</span> census_api_key,</span>
+<span id="cb24-103"><a href="#cb24-103"></a>        <span class="at">.multi =</span> <span class="st">"comma"</span></span>
+<span id="cb24-104"><a href="#cb24-104"></a>    )</span>
+<span id="cb24-105"><a href="#cb24-105"></a></span>
+<span id="cb24-106"><a href="#cb24-106"></a>req</span>
+<span id="cb24-107"><a href="#cb24-107"></a><span class="in">```</span></span>
+<span id="cb24-108"><a href="#cb24-108"></a></span>
+<span id="cb24-109"><a href="#cb24-109"></a>Three craftsmanship points worth naming:</span>
+<span id="cb24-110"><a href="#cb24-110"></a></span>
+<span id="cb24-111"><a href="#cb24-111"></a><span class="ss">- </span>**`I()` around `"state:*"`**. Without the "as-is" wrapper, <span class="in">`httr2`</span> would percent-encode the <span class="in">`:`</span> and <span class="in">`*`</span> into <span class="in">`%3A`</span> and <span class="in">`%2A`</span>, which the Census API would then fail to interpret. <span class="in">`I()`</span> tells <span class="in">`httr2`</span> to pass the value through literally. The same pattern applies any time a query value contains characters that look special but are meaningful to the target API.</span>
+<span id="cb24-112"><a href="#cb24-112"></a><span class="ss">- </span>**`` `for` ``**. Backticks are required because <span class="in">`for`</span> is a reserved word in R (the for-loop keyword). Any query-parameter name that collides with an R reserved word, or that contains spaces/dashes/dots, needs backtick escaping.</span>
+<span id="cb24-113"><a href="#cb24-113"></a><span class="ss">- </span>**`.multi = "comma"`**. The Census API expects comma-separated lists for multi-valued parameters (<span class="in">`get=NAME,B02015_009E,B02015_009M`</span>). Other APIs use different conventions — some repeat the key (<span class="in">`?tag=red&amp;tag=blue`</span>), some use brackets (<span class="in">`?tag[]=red&amp;tag[]=blue`</span>). <span class="in">`.multi`</span> is where you configure this per API.</span>
+<span id="cb24-114"><a href="#cb24-114"></a></span>
+<span id="cb24-115"><a href="#cb24-115"></a><span class="fu">### Performing the request and parsing the response</span></span>
+<span id="cb24-116"><a href="#cb24-116"></a></span>
+<span id="cb24-119"><a href="#cb24-119"></a><span class="in">```{r}</span></span>
+<span id="cb24-120"><a href="#cb24-120"></a><span class="co">#| label: census-parse</span></span>
+<span id="cb24-121"><a href="#cb24-121"></a><span class="co">#| cache: true</span></span>
+<span id="cb24-122"><a href="#cb24-122"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb24-123"><a href="#cb24-123"></a></span>
+<span id="cb24-124"><a href="#cb24-124"></a>resp_json <span class="ot">&lt;-</span> resp <span class="sc">|&gt;</span> <span class="fu">resp_body_json</span>(<span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-125"><a href="#cb24-125"></a></span>
+<span id="cb24-126"><a href="#cb24-126"></a><span class="fu">head</span>(resp_json, <span class="dv">3</span>)</span>
+<span id="cb24-127"><a href="#cb24-127"></a><span class="in">```</span></span>
+<span id="cb24-128"><a href="#cb24-128"></a></span>
+<span id="cb24-129"><a href="#cb24-129"></a>The response comes back as a matrix with the first row as column headers — Census's convention, not JSON's. <span class="in">`janitor::row_to_names()`</span> promotes the first row to column names, and then we convert the numeric variables:</span>
+<span id="cb24-130"><a href="#cb24-130"></a></span>
+<span id="cb24-133"><a href="#cb24-133"></a><span class="in">```{r}</span></span>
+<span id="cb24-134"><a href="#cb24-134"></a><span class="co">#| label: census-clean</span></span>
+<span id="cb24-135"><a href="#cb24-135"></a>resp_df <span class="ot">&lt;-</span> resp_json <span class="sc">|&gt;</span></span>
+<span id="cb24-136"><a href="#cb24-136"></a>    <span class="fu">row_to_names</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-137"><a href="#cb24-137"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb24-138"><a href="#cb24-138"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"B"</span>), as.numeric))</span>
+<span id="cb24-139"><a href="#cb24-139"></a></span>
+<span id="cb24-140"><a href="#cb24-140"></a>resp_df <span class="sc">|&gt;</span></span>
+<span id="cb24-141"><a href="#cb24-141"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(B02015_009E)) <span class="sc">|&gt;</span></span>
+<span id="cb24-142"><a href="#cb24-142"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb24-143"><a href="#cb24-143"></a><span class="in">```</span></span>
+<span id="cb24-144"><a href="#cb24-144"></a></span>
+<span id="cb24-145"><a href="#cb24-145"></a><span class="in">`B02015_009E`</span> is the estimated count of persons self-identifying as Korean in the 2019 ACS 1-year sample; <span class="in">`_009M`</span> is the margin of error. The <span class="in">`_E`</span>/<span class="in">`_M`</span> convention is pervasive in Census data and worth knowing — every estimate is paired with a margin of error, and responsible analysis respects that pairing.</span>
+<span id="cb24-146"><a href="#cb24-146"></a></span>
+<span id="cb24-147"><a href="#cb24-147"></a>------------------------------------------------------------------------</span>
+<span id="cb24-148"><a href="#cb24-148"></a></span>
+<span id="cb24-149"><a href="#cb24-149"></a><span class="fu">## BoardGameGeek — XML and `xml2`</span></span>
+<span id="cb24-150"><a href="#cb24-150"></a></span>
+<span id="cb24-151"><a href="#cb24-151"></a>BGG returns XML (not JSON). The request pattern is identical to the Census example, but parsing uses <span class="in">`xml2`</span> instead of <span class="in">`jsonlite`</span>.</span>
+<span id="cb24-152"><a href="#cb24-152"></a></span>
+<span id="cb24-153"><a href="#cb24-153"></a>**Note on reproducibility.** The BoardGameGeek XML API imposes aggressive rate limits and regularly returns 401/429 on automated requests during a book render. To keep this portfolio rendering cleanly regardless of BGG's mood on any given day, the live call is guarded with two layers: <span class="in">`req_error(is_error = \(resp) FALSE)`</span> turns HTTP 4xx/5xx responses from exceptions into regular return values so the status code can be inspected, and an outer <span class="in">`tryCatch()`</span> catches network-layer failures (DNS, timeout) that still throw. Either path falls back to a small cached XML sample, so the downstream parsing code runs identically whether the live call succeeds or not. The same <span class="in">`req_error()`</span> + <span class="in">`tryCatch()`</span> + cached-fallback pattern is used for the NYT section below.</span>
+<span id="cb24-154"><a href="#cb24-154"></a></span>
+<span id="cb24-157"><a href="#cb24-157"></a><span class="in">```{r}</span></span>
+<span id="cb24-158"><a href="#cb24-158"></a><span class="co">#| label: bgg-request</span></span>
+<span id="cb24-159"><a href="#cb24-159"></a>bgg_fallback_xml <span class="ot">&lt;-</span> <span class="st">'&lt;items total="3" termsofuse="https://boardgamegeek.com/xmlapi/termsofuse"&gt;</span></span>
+<span id="cb24-160"><a href="#cb24-160"></a><span class="st">  &lt;item type="boardgame" id="172216"&gt;</span></span>
+<span id="cb24-161"><a href="#cb24-161"></a><span class="st">    &lt;name type="primary" value="Mysterium"/&gt;</span></span>
+<span id="cb24-162"><a href="#cb24-162"></a><span class="st">    &lt;yearpublished value="2015"/&gt;</span></span>
+<span id="cb24-163"><a href="#cb24-163"></a><span class="st">  &lt;/item&gt;</span></span>
+<span id="cb24-164"><a href="#cb24-164"></a><span class="st">  &lt;item type="boardgame" id="238402"&gt;</span></span>
+<span id="cb24-165"><a href="#cb24-165"></a><span class="st">    &lt;name type="primary" value="Forgotten Waters"/&gt;</span></span>
+<span id="cb24-166"><a href="#cb24-166"></a><span class="st">    &lt;yearpublished value="2020"/&gt;</span></span>
+<span id="cb24-167"><a href="#cb24-167"></a><span class="st">  &lt;/item&gt;</span></span>
+<span id="cb24-168"><a href="#cb24-168"></a><span class="st">  &lt;item type="boardgame" id="152208"&gt;</span></span>
+<span id="cb24-169"><a href="#cb24-169"></a><span class="st">    &lt;name type="primary" value="Mystery of the Abbey"/&gt;</span></span>
+<span id="cb24-170"><a href="#cb24-170"></a><span class="st">  &lt;/item&gt;</span></span>
+<span id="cb24-171"><a href="#cb24-171"></a><span class="st">&lt;/items&gt;'</span></span>
+<span id="cb24-172"><a href="#cb24-172"></a></span>
+<span id="cb24-173"><a href="#cb24-173"></a>req_bgg <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://boardgamegeek.com/xmlapi2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-174"><a href="#cb24-174"></a>    <span class="fu">req_url_path_append</span>(<span class="st">"search"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-175"><a href="#cb24-175"></a>    <span class="fu">req_url_query</span>(</span>
+<span id="cb24-176"><a href="#cb24-176"></a>        <span class="at">query =</span> <span class="fu">I</span>(<span class="st">"mystery+curse"</span>),</span>
+<span id="cb24-177"><a href="#cb24-177"></a>        <span class="at">type  =</span> <span class="fu">I</span>(<span class="st">"boardgame,boardgameaccessory,boardgameexpansion"</span>)</span>
+<span id="cb24-178"><a href="#cb24-178"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb24-179"><a href="#cb24-179"></a>    <span class="fu">req_error</span>(<span class="at">is_error =</span> \(resp) <span class="cn">FALSE</span>)  <span class="co"># treat 4xx/5xx as values, not errors</span></span>
+<span id="cb24-180"><a href="#cb24-180"></a></span>
+<span id="cb24-181"><a href="#cb24-181"></a>resp_bgg <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb24-182"><a href="#cb24-182"></a>    {</span>
+<span id="cb24-183"><a href="#cb24-183"></a>        resp_raw <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req_bgg)</span>
+<span id="cb24-184"><a href="#cb24-184"></a>        <span class="cf">if</span> (<span class="fu">resp_status</span>(resp_raw) <span class="sc">&gt;=</span> <span class="dv">400</span>) {</span>
+<span id="cb24-185"><a href="#cb24-185"></a>            <span class="fu">message</span>(<span class="st">"BGG returned HTTP "</span>, <span class="fu">resp_status</span>(resp_raw),</span>
+<span id="cb24-186"><a href="#cb24-186"></a>                    <span class="st">"; using cached sample."</span>)</span>
+<span id="cb24-187"><a href="#cb24-187"></a>            <span class="fu">read_xml</span>(bgg_fallback_xml)</span>
+<span id="cb24-188"><a href="#cb24-188"></a>        } <span class="cf">else</span> {</span>
+<span id="cb24-189"><a href="#cb24-189"></a>            <span class="fu">resp_body_xml</span>(resp_raw)</span>
+<span id="cb24-190"><a href="#cb24-190"></a>        }</span>
+<span id="cb24-191"><a href="#cb24-191"></a>    },</span>
+<span id="cb24-192"><a href="#cb24-192"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb24-193"><a href="#cb24-193"></a>        <span class="co"># Only reaches here for network-layer errors (DNS, timeout, etc.)</span></span>
+<span id="cb24-194"><a href="#cb24-194"></a>        <span class="fu">message</span>(<span class="st">"BGG request failed ("</span>, <span class="fu">conditionMessage</span>(e),</span>
+<span id="cb24-195"><a href="#cb24-195"></a>                <span class="st">"); using cached sample."</span>)</span>
+<span id="cb24-196"><a href="#cb24-196"></a>        <span class="fu">read_xml</span>(bgg_fallback_xml)</span>
+<span id="cb24-197"><a href="#cb24-197"></a>    }</span>
+<span id="cb24-198"><a href="#cb24-198"></a>)</span>
+<span id="cb24-199"><a href="#cb24-199"></a></span>
+<span id="cb24-200"><a href="#cb24-200"></a>resp_bgg</span>
+<span id="cb24-201"><a href="#cb24-201"></a><span class="in">```</span></span>
+<span id="cb24-202"><a href="#cb24-202"></a></span>
+<span id="cb24-203"><a href="#cb24-203"></a>The third <span class="in">`&lt;item&gt;`</span> in the fallback deliberately omits <span class="in">`&lt;yearpublished&gt;`</span> — so the missing-sub-element edge case discussed below is demonstrable even when the live call doesn't go through.</span>
+<span id="cb24-204"><a href="#cb24-204"></a></span>
+<span id="cb24-205"><a href="#cb24-205"></a><span class="fu">### Exploring the XML structure</span></span>
+<span id="cb24-206"><a href="#cb24-206"></a></span>
+<span id="cb24-209"><a href="#cb24-209"></a><span class="in">```{r}</span></span>
+<span id="cb24-210"><a href="#cb24-210"></a><span class="co">#| label: bgg-structure</span></span>
+<span id="cb24-211"><a href="#cb24-211"></a><span class="fu">xml_structure</span>(resp_bgg)</span>
+<span id="cb24-212"><a href="#cb24-212"></a><span class="in">```</span></span>
+<span id="cb24-213"><a href="#cb24-213"></a></span>
+<span id="cb24-214"><a href="#cb24-214"></a>Each <span class="in">`&lt;item&gt;`</span> node has attributes (<span class="in">`type`</span>, <span class="in">`id`</span>) and child nodes (<span class="in">`&lt;name&gt;`</span>, <span class="in">`&lt;yearpublished&gt;`</span>). The <span class="in">`&lt;name&gt;`</span> child itself has a <span class="in">`value`</span> attribute holding the actual name string. <span class="in">`xml2`</span>'s navigation functions parallel CSS/XPath: <span class="in">`xml_find_all()`</span> with an XPath expression picks nodes, <span class="in">`xml_attr()`</span> extracts a named attribute.</span>
+<span id="cb24-215"><a href="#cb24-215"></a></span>
+<span id="cb24-216"><a href="#cb24-216"></a><span class="fu">### Exercise — extract names and IDs</span></span>
+<span id="cb24-217"><a href="#cb24-217"></a></span>
+<span id="cb24-220"><a href="#cb24-220"></a><span class="in">```{r}</span></span>
+<span id="cb24-221"><a href="#cb24-221"></a><span class="co">#| label: bgg-extract</span></span>
+<span id="cb24-222"><a href="#cb24-222"></a>game_names <span class="ot">&lt;-</span> resp_bgg <span class="sc">|&gt;</span></span>
+<span id="cb24-223"><a href="#cb24-223"></a>    <span class="fu">xml_find_all</span>(<span class="st">"item/name"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-224"><a href="#cb24-224"></a>    <span class="fu">xml_attr</span>(<span class="st">"value"</span>)</span>
+<span id="cb24-225"><a href="#cb24-225"></a></span>
+<span id="cb24-226"><a href="#cb24-226"></a>game_ids <span class="ot">&lt;-</span> resp_bgg <span class="sc">|&gt;</span></span>
+<span id="cb24-227"><a href="#cb24-227"></a>    <span class="fu">xml_find_all</span>(<span class="st">"item"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-228"><a href="#cb24-228"></a>    <span class="fu">xml_attr</span>(<span class="st">"id"</span>)</span>
+<span id="cb24-229"><a href="#cb24-229"></a></span>
+<span id="cb24-230"><a href="#cb24-230"></a>game_types <span class="ot">&lt;-</span> resp_bgg <span class="sc">|&gt;</span></span>
+<span id="cb24-231"><a href="#cb24-231"></a>    <span class="fu">xml_find_all</span>(<span class="st">"item"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-232"><a href="#cb24-232"></a>    <span class="fu">xml_attr</span>(<span class="st">"type"</span>)</span>
+<span id="cb24-233"><a href="#cb24-233"></a></span>
+<span id="cb24-234"><a href="#cb24-234"></a><span class="fu">tibble</span>(<span class="at">id =</span> game_ids, <span class="at">type =</span> game_types, <span class="at">name =</span> game_names) <span class="sc">|&gt;</span></span>
+<span id="cb24-235"><a href="#cb24-235"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb24-236"><a href="#cb24-236"></a><span class="in">```</span></span>
+<span id="cb24-237"><a href="#cb24-237"></a></span>
+<span id="cb24-238"><a href="#cb24-238"></a>**Why `item/name` returns `value` as an attribute rather than text content.** In XML the designer chooses whether to put a piece of data inside an element (<span class="in">`&lt;name&gt;Foo&lt;/name&gt;`</span>, extracted via <span class="in">`xml_text()`</span>) or as an attribute on an element (<span class="in">`&lt;name value="Foo"/&gt;`</span>, extracted via <span class="in">`xml_attr("value")`</span>). BGG chose attributes, so we use <span class="in">`xml_attr()`</span>. There is no universal rule — when consuming any XML feed, <span class="in">`xml_structure()`</span> is always the first call because it shows you which pattern the source is using.</span>
+<span id="cb24-239"><a href="#cb24-239"></a></span>
+<span id="cb24-240"><a href="#cb24-240"></a>**Edge case to be aware of.** Notice that <span class="in">`xml_find_all("item/yearpublished")`</span> in the lesson notes returns length 8, while <span class="in">`xml_find_all("item")`</span> returns length 9 — one item has no publication year. This is the XML analogue of the missing-field issue we saw in JSON: sub-elements are optional, and any extraction function that zips results by position across different node sets will break silently. Safer patterns: use <span class="in">`xml_find_first()`</span> per item inside a loop (returns <span class="in">`NA`</span> when missing), or use XPath predicates to filter.</span>
+<span id="cb24-241"><a href="#cb24-241"></a></span>
+<span id="cb24-242"><a href="#cb24-242"></a>------------------------------------------------------------------------</span>
+<span id="cb24-243"><a href="#cb24-243"></a></span>
+<span id="cb24-244"><a href="#cb24-244"></a><span class="fu">## New York Times API — Function-Wrapped Requests and Nested JSON</span></span>
+<span id="cb24-245"><a href="#cb24-245"></a></span>
+<span id="cb24-246"><a href="#cb24-246"></a>The NYT Article Search API requires a key (free, rate-limited at 1,000 calls/day): register at <span class="ot">&lt;https://developer.nytimes.com&gt;</span>, create an "app" with Article Search enabled, and save the key locally as <span class="in">`nyt_api_key.txt`</span>.</span>
+<span id="cb24-247"><a href="#cb24-247"></a></span>
+<span id="cb24-248"><a href="#cb24-248"></a><span class="fu">### Setup (guarded)</span></span>
+<span id="cb24-249"><a href="#cb24-249"></a></span>
+<span id="cb24-252"><a href="#cb24-252"></a><span class="in">```{r}</span></span>
+<span id="cb24-253"><a href="#cb24-253"></a><span class="co">#| label: nyt-key</span></span>
+<span id="cb24-254"><a href="#cb24-254"></a>times_key <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"nyt_api_key.txt"</span>)) {</span>
+<span id="cb24-255"><a href="#cb24-255"></a>    <span class="fu">readLines</span>(<span class="st">"nyt_api_key.txt"</span>)</span>
+<span id="cb24-256"><a href="#cb24-256"></a>} <span class="cf">else</span> {</span>
+<span id="cb24-257"><a href="#cb24-257"></a>    <span class="st">""</span></span>
+<span id="cb24-258"><a href="#cb24-258"></a>}</span>
+<span id="cb24-259"><a href="#cb24-259"></a></span>
+<span id="cb24-260"><a href="#cb24-260"></a>have_nyt_key <span class="ot">&lt;-</span> <span class="fu">nchar</span>(times_key) <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb24-261"><a href="#cb24-261"></a><span class="in">```</span></span>
+<span id="cb24-262"><a href="#cb24-262"></a></span>
+<span id="cb24-263"><a href="#cb24-263"></a><span class="fu">### A reusable request-builder</span></span>
+<span id="cb24-264"><a href="#cb24-264"></a></span>
+<span id="cb24-267"><a href="#cb24-267"></a><span class="in">```{r}</span></span>
+<span id="cb24-268"><a href="#cb24-268"></a><span class="co">#| label: nyt-function</span></span>
+<span id="cb24-269"><a href="#cb24-269"></a>create_nyt_url <span class="ot">&lt;-</span> <span class="cf">function</span>(query, <span class="at">key =</span> times_key) {</span>
+<span id="cb24-270"><a href="#cb24-270"></a>    <span class="fu">request</span>(<span class="st">"https://api.nytimes.com"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-271"><a href="#cb24-271"></a>        <span class="fu">req_url_path_append</span>(<span class="st">"svc"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-272"><a href="#cb24-272"></a>        <span class="fu">req_url_path_append</span>(<span class="st">"search"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-273"><a href="#cb24-273"></a>        <span class="fu">req_url_path_append</span>(<span class="st">"v2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-274"><a href="#cb24-274"></a>        <span class="fu">req_url_path_append</span>(<span class="st">"articlesearch.json"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-275"><a href="#cb24-275"></a>        <span class="fu">req_url_query</span>(<span class="at">q =</span> query, <span class="st">`</span><span class="at">api-key</span><span class="st">`</span> <span class="ot">=</span> key)</span>
+<span id="cb24-276"><a href="#cb24-276"></a>}</span>
+<span id="cb24-277"><a href="#cb24-277"></a><span class="in">```</span></span>
+<span id="cb24-278"><a href="#cb24-278"></a></span>
+<span id="cb24-279"><a href="#cb24-279"></a>The function earns its keep the moment we want to issue multiple queries — compare to hardcoding the URL for each. This is the same wrap-the-API-as-a-function pattern you would see in any production pipeline.</span>
+<span id="cb24-280"><a href="#cb24-280"></a></span>
+<span id="cb24-281"><a href="#cb24-281"></a><span class="fu">### Running the query</span></span>
+<span id="cb24-282"><a href="#cb24-282"></a></span>
+<span id="cb24-283"><a href="#cb24-283"></a>The live call is guarded with the same two-layer pattern as the BGG request: <span class="in">`req_error()`</span> converts HTTP 4xx/5xx into return values so a missing-key 401 doesn't abort the chunk, and <span class="in">`tryCatch()`</span> catches any remaining network-layer failure. Either way, a structurally faithful fallback JSON string gets parsed with <span class="in">`fromJSON()`</span> and the downstream access pattern runs against whatever <span class="in">`resp_pt`</span> ends up being.</span>
+<span id="cb24-284"><a href="#cb24-284"></a></span>
+<span id="cb24-287"><a href="#cb24-287"></a><span class="in">```{r}</span></span>
+<span id="cb24-288"><a href="#cb24-288"></a><span class="co">#| label: nyt-request</span></span>
+<span id="cb24-289"><a href="#cb24-289"></a>nyt_fallback_json <span class="ot">&lt;-</span> <span class="st">'{</span></span>
+<span id="cb24-290"><a href="#cb24-290"></a><span class="st">  "status": "OK",</span></span>
+<span id="cb24-291"><a href="#cb24-291"></a><span class="st">  "copyright": "Copyright (c) 2024 The New York Times Company.",</span></span>
+<span id="cb24-292"><a href="#cb24-292"></a><span class="st">  "response": {</span></span>
+<span id="cb24-293"><a href="#cb24-293"></a><span class="st">    "meta": {"hits": 12, "offset": 0, "time": 15},</span></span>
+<span id="cb24-294"><a href="#cb24-294"></a><span class="st">    "docs": [</span></span>
+<span id="cb24-295"><a href="#cb24-295"></a><span class="st">      {</span></span>
+<span id="cb24-296"><a href="#cb24-296"></a><span class="st">        "abstract": "A review of the magicians latest Las Vegas show.",</span></span>
+<span id="cb24-297"><a href="#cb24-297"></a><span class="st">        "lead_paragraph": "Penn and Teller have been performing together since 1975..."</span></span>
+<span id="cb24-298"><a href="#cb24-298"></a><span class="st">      },</span></span>
+<span id="cb24-299"><a href="#cb24-299"></a><span class="st">      {</span></span>
+<span id="cb24-300"><a href="#cb24-300"></a><span class="st">        "abstract": "The duo discuss their skeptical approach to the supernatural.",</span></span>
+<span id="cb24-301"><a href="#cb24-301"></a><span class="st">        "lead_paragraph": "In a rare joint interview, the magicians describe..."</span></span>
+<span id="cb24-302"><a href="#cb24-302"></a><span class="st">      }</span></span>
+<span id="cb24-303"><a href="#cb24-303"></a><span class="st">    ]</span></span>
+<span id="cb24-304"><a href="#cb24-304"></a><span class="st">  }</span></span>
+<span id="cb24-305"><a href="#cb24-305"></a><span class="st">}'</span></span>
+<span id="cb24-306"><a href="#cb24-306"></a></span>
+<span id="cb24-307"><a href="#cb24-307"></a>req_pt <span class="ot">&lt;-</span> <span class="fu">create_nyt_url</span>(<span class="at">query =</span> <span class="st">"Penn &amp; Teller"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-308"><a href="#cb24-308"></a>    <span class="fu">req_error</span>(<span class="at">is_error =</span> \(resp) <span class="cn">FALSE</span>)</span>
+<span id="cb24-309"><a href="#cb24-309"></a></span>
+<span id="cb24-310"><a href="#cb24-310"></a>resp_pt <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb24-311"><a href="#cb24-311"></a>    {</span>
+<span id="cb24-312"><a href="#cb24-312"></a>        resp_raw <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req_pt)</span>
+<span id="cb24-313"><a href="#cb24-313"></a>        <span class="cf">if</span> (<span class="fu">resp_status</span>(resp_raw) <span class="sc">&gt;=</span> <span class="dv">400</span>) {</span>
+<span id="cb24-314"><a href="#cb24-314"></a>            <span class="fu">message</span>(<span class="st">"NYT returned HTTP "</span>, <span class="fu">resp_status</span>(resp_raw),</span>
+<span id="cb24-315"><a href="#cb24-315"></a>                    <span class="st">" (likely missing/invalid key); using cached sample."</span>)</span>
+<span id="cb24-316"><a href="#cb24-316"></a>            <span class="fu">fromJSON</span>(nyt_fallback_json, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-317"><a href="#cb24-317"></a>        } <span class="cf">else</span> {</span>
+<span id="cb24-318"><a href="#cb24-318"></a>            <span class="fu">resp_body_json</span>(resp_raw, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-319"><a href="#cb24-319"></a>        }</span>
+<span id="cb24-320"><a href="#cb24-320"></a>    },</span>
+<span id="cb24-321"><a href="#cb24-321"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb24-322"><a href="#cb24-322"></a>        <span class="fu">message</span>(<span class="st">"NYT request failed ("</span>, <span class="fu">conditionMessage</span>(e),</span>
+<span id="cb24-323"><a href="#cb24-323"></a>                <span class="st">"); using cached sample."</span>)</span>
+<span id="cb24-324"><a href="#cb24-324"></a>        <span class="fu">fromJSON</span>(nyt_fallback_json, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-325"><a href="#cb24-325"></a>    }</span>
+<span id="cb24-326"><a href="#cb24-326"></a>)</span>
+<span id="cb24-327"><a href="#cb24-327"></a></span>
+<span id="cb24-328"><a href="#cb24-328"></a><span class="fu">str</span>(resp_pt, <span class="at">max.level =</span> <span class="dv">2</span>)</span>
+<span id="cb24-329"><a href="#cb24-329"></a><span class="in">```</span></span>
+<span id="cb24-330"><a href="#cb24-330"></a></span>
+<span id="cb24-331"><a href="#cb24-331"></a><span class="fu">### Exercise — extract copyright, hits, abstracts, and lead paragraphs</span></span>
+<span id="cb24-332"><a href="#cb24-332"></a></span>
+<span id="cb24-333"><a href="#cb24-333"></a>The access patterns work identically on the live response and on the fallback, because both conform to the NYT Article Search schema:</span>
+<span id="cb24-334"><a href="#cb24-334"></a></span>
+<span id="cb24-337"><a href="#cb24-337"></a><span class="in">```{r}</span></span>
+<span id="cb24-338"><a href="#cb24-338"></a><span class="co">#| label: nyt-extract</span></span>
+<span id="cb24-339"><a href="#cb24-339"></a>resp_pt<span class="sc">$</span>copyright</span>
+<span id="cb24-340"><a href="#cb24-340"></a></span>
+<span id="cb24-341"><a href="#cb24-341"></a>resp_pt<span class="sc">$</span>response<span class="sc">$</span>meta<span class="sc">$</span>hits</span>
+<span id="cb24-342"><a href="#cb24-342"></a></span>
+<span id="cb24-343"><a href="#cb24-343"></a>resp_pt<span class="sc">$</span>response<span class="sc">$</span>docs <span class="sc">|&gt;</span></span>
+<span id="cb24-344"><a href="#cb24-344"></a>    <span class="fu">select</span>(abstract, lead_paragraph) <span class="sc">|&gt;</span></span>
+<span id="cb24-345"><a href="#cb24-345"></a>    <span class="fu">head</span>(<span class="dv">5</span>)</span>
+<span id="cb24-346"><a href="#cb24-346"></a><span class="in">```</span></span>
+<span id="cb24-347"><a href="#cb24-347"></a></span>
+<span id="cb24-348"><a href="#cb24-348"></a>------------------------------------------------------------------------</span>
+<span id="cb24-349"><a href="#cb24-349"></a></span>
+<span id="cb24-350"><a href="#cb24-350"></a><span class="fu">## Reflection</span></span>
+<span id="cb24-351"><a href="#cb24-351"></a></span>
+<span id="cb24-352"><a href="#cb24-352"></a>**URLs are structured objects, not strings.** The habit of pasting together URLs with <span class="in">`paste0()`</span> works for simple cases and fails quietly on anything with spaces, ampersands, unicode characters, or special regex-adjacent punctuation. <span class="in">`httr2`</span>'s stepwise construction — <span class="in">`request()`</span> + <span class="in">`req_url_path_append()`</span> + <span class="in">`req_url_query()`</span> — makes the structure explicit and handles encoding correctly. The <span class="in">`I()`</span> "as-is" wrapper and the <span class="in">`.multi`</span> parameter are the two places this structure leaks from documentation into code. Once you've internalized the pattern, it carries across any HTTP API — GitHub, Twitter, Spotify, Reddit, Slack — with only the endpoint and parameter names changing.</span>
+<span id="cb24-353"><a href="#cb24-353"></a></span>
+<span id="cb24-354"><a href="#cb24-354"></a>**JSON and XML are both hierarchical, but their tooling is different.** <span class="in">`jsonlite::fromJSON(simplifyVector = TRUE)`</span> aggressively collapses JSON arrays of compatible objects into data frames — which is what you want 80% of the time for data-on-the-web. <span class="in">`xml2::xml_find_all()`</span> with XPath expressions walks the tree node by node — which is what you have to do because XML makes no assumption that the tree has tabular structure. The Census/NYT JSON pipelines look very different from the BGG XML pipeline in this document, and that difference is inherent to the formats rather than accidental. When working with a new API, the first thing to check is which format it speaks, because that decides which tool family you'll spend the next hour in.</span>
+<span id="cb24-355"><a href="#cb24-355"></a></span>
+<span id="cb24-356"><a href="#cb24-356"></a>**API-wrapped-as-function is where the iteration patterns from ICA 12 pay off.** <span class="in">`create_nyt_url()`</span> takes one query string and returns a request. Once that's in place, issuing a thousand queries is <span class="in">`crossing() + pmap()`</span> — each row of a crossing grid becomes one query, each query becomes one request, each request gets performed in a <span class="in">`map()`</span> step, results get parsed with <span class="in">`resp_body_json()`</span> in another <span class="in">`map()`</span>, and the whole thing lands in a tidy data frame via <span class="in">`bind_rows()`</span>. The architecture for a sensitivity analysis over model specifications and the architecture for a rate-limited scrape of a JSON API are the same skeleton. Everything in ICAs 11–14 has been constructing the vocabulary for that skeleton; the APIs layer is where it starts to do work you couldn't do by hand.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

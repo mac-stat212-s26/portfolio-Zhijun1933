@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-18">
+<title>12 — Loops and Iteration II: purrr – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/13_apis_i.html" rel="next">
+<link href="../ica/11_loops_iter_i.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12_loops_iter_ii.html"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-oxfam-ireland-annual-report-2019" id="toc-data-story-critique-oxfam-ireland-annual-report-2019" class="nav-link" data-scroll-target="#data-story-critique-oxfam-ireland-annual-report-2019">🔥 Data Story Critique — <em>Oxfam Ireland Annual Report 2019</em></a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story-and-a-framing-note" id="toc-what-is-the-data-story-and-a-framing-note" class="nav-link" data-scroll-target="#what-is-the-data-story-and-a-framing-note">What is the data story? — and a framing note</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li><a href="#iteration-review-column-classes-via-for-loop" id="toc-iteration-review-column-classes-via-for-loop" class="nav-link" data-scroll-target="#iteration-review-column-classes-via-for-loop">Iteration Review — Column Classes via <code>for</code> Loop</a></li>
+  <li><a href="#benchmark-four-ways-to-build-a-vector" id="toc-benchmark-four-ways-to-build-a-vector" class="nav-link" data-scroll-target="#benchmark-four-ways-to-build-a-vector">Benchmark — Four Ways to Build a Vector</a></li>
+  <li>
+<a href="#map_-summary-statistics-per-variable" id="toc-map_-summary-statistics-per-variable" class="nav-link" data-scroll-target="#map_-summary-statistics-per-variable"><code>map_*()</code> — Summary Statistics Per Variable</a>
+  <ul class="collapse">
+<li><a href="#summ_stats-helper" id="toc-summ_stats-helper" class="nav-link" data-scroll-target="#summ_stats-helper"><code>summ_stats()</code> helper</a></li>
+  <li><a href="#applied-across-all-numeric-variables-in-diamonds-with-map-bind_rows" id="toc-applied-across-all-numeric-variables-in-diamonds-with-map-bind_rows" class="nav-link" data-scroll-target="#applied-across-all-numeric-variables-in-diamonds-with-map-bind_rows">Applied across all numeric variables in <code>diamonds</code> — with <code>map()</code> + <code>bind_rows()</code></a></li>
+  <li><a href="#the-same-thing-with-a-for-loop-for-comparison" id="toc-the-same-thing-with-a-for-loop-for-comparison" class="nav-link" data-scroll-target="#the-same-thing-with-a-for-loop-for-comparison">The same thing with a <code>for</code> loop — for comparison</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#pmap-multi-argument-iteration" id="toc-pmap-multi-argument-iteration" class="nav-link" data-scroll-target="#pmap-multi-argument-iteration"><code>pmap()</code> — Multi-Argument Iteration</a>
+  <ul class="collapse">
+<li><a href="#two-small-str_sub-examples" id="toc-two-small-str_sub-examples" class="nav-link" data-scroll-target="#two-small-str_sub-examples">Two small <code>str_sub()</code> examples</a></li>
+  <li><a href="#pmap-case-study-many-model-specifications-on-diamonds" id="toc-pmap-case-study-many-model-specifications-on-diamonds" class="nav-link" data-scroll-target="#pmap-case-study-many-model-specifications-on-diamonds"><code>pmap()</code> case study — many model specifications on <code>diamonds</code></a></li>
+  <li><a href="#extract-a-tidy-comparison-table" id="toc-extract-a-tidy-comparison-table" class="nav-link" data-scroll-target="#extract-a-tidy-comparison-table">Extract a tidy comparison table</a></li>
+  </ul>
+</li>
+  <li><a href="#walk2-saving-one-plot-per-group" id="toc-walk2-saving-one-plot-per-group" class="nav-link" data-scroll-target="#walk2-saving-one-plot-per-group"><code>walk2()</code> — Saving One Plot Per Group</a></li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12_loops_iter_ii.html"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(bench)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-oxfam-ireland-annual-report-2019" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-oxfam-ireland-annual-report-2019">🔥 Data Story Critique — <em>Oxfam Ireland Annual Report 2019</em>
+</h2>
+<p>Source: <a href="https://stories.oxfamireland.org/impact/index.html" class="uri">https://stories.oxfamireland.org/impact/index.html</a></p>
+<section id="what-is-the-data-story-and-a-framing-note" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story-and-a-framing-note">What is the data story? — and a framing note</h3>
+<p>The piece is Oxfam Ireland’s <strong>2019 annual report</strong>, published on Shorthand as a scrollytelling web document. Its structure is the six strategic goals of the Oxfam International confederation — Right to Be Heard, Women’s Rights, Saving Lives, Sustainable Food, Fair Sharing of Natural Resources, and Financing for Development / Universal Essential Services. Each goal gets a short section with one or two country cases (Jordan, Tanzania, Malawi, DRC, Rwanda, Mozambique, Zimbabwe), a named beneficiary’s portrait and first-person quote, and a headline “impact” number: <em>1.1 million people reached in Tanzania; 3,404 farmers trained; 561 women receiving land certificates; 3 million Malawians reached with gender-based-violence messages; attitudes against GBV rising from 27% to 72% among women and 21% to 98.5% among men.</em> The piece opens and closes with a signed letter from Oxfam Ireland’s CEO, Jim Clarken.</p>
+<p>A framing note before the critique: <strong>this is not a data story in the sense that the previous four weeks’ pieces were</strong>. It is an annual report produced for donor stewardship — it needs to make donors feel their money did meaningful work, it needs brand consistency with Oxfam International, and it needs to avoid the reputation hazards its confederation was navigating in 2018–2019. Judging it as investigative data journalism would be a category error. But because it borrows the <em>visual grammar</em> of data journalism (big numbers, percentage changes, “impact” language), it invites a data-critical reading — and in that reading, several structural issues common to NGO communication become visible. The critique below operates at that level: not “this piece failed as journalism,” but “here is what happens when annual-report conventions meet a visual language that implies data-analytic rigour.”</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<p><strong>The six-goal scaffold gives a non-expert reader a scannable mental map.</strong> A person who doesn’t already know Oxfam’s programme taxonomy can land on the page and, within one scroll, understand the range of what the organization does — education advocacy, GBV work, disaster response, smallholder farming, land rights, health-system financing. For the genre, this is good structure.</p>
+<p><strong>Naming and portraiting beneficiaries is an ethical baseline Oxfam clears.</strong> Maram in Jordan, Alice in Malawi, Felista Nterevu in Tanzania, Jenipher caring for three nephews in Malawi — each is a named person, with a photograph and often a direct quote. The alternative genre convention — treating beneficiaries as “a farmer” or “a woman in the programme” — is worse on dignity grounds and worse on traceability. Oxfam does the right thing here.</p>
+<p><strong>The Malawi EVAWG attitude percentages are the piece’s one genuine outcome measurement.</strong> <em>Attitudes against GBV rising from 27% to 72% among women</em> and <em>satisfaction with GBV services rising from 45% to 71%</em> are before-and-after comparisons of survey responses, not activity counts. This is the right shape for an “impact” claim. (The male figure is a separate issue, discussed below.)</p>
+<p><strong>The CEO letter names domestic policy work — the Family Reunification Bill — rather than framing Oxfam as an exclusively overseas charity.</strong> This complicates the stereotype that NGOs are unidirectional giving vehicles, and it signals that Oxfam Ireland is also a political-advocacy organization in its home jurisdiction.</p>
+</section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<p><strong>The big numbers are missing denominators and definitions.</strong> <em>“1.1 million people reached in Tanzania”</em> — Tanzania’s population is ~61 million, so this is roughly 1.8% of the country. Is that a lot? Compared to what? And <em>reached how</em> — did someone read an SMS, attend a one-hour workshop, enroll in a multi-month programme? These three interpretations of “reached” have wildly different dosages. <em>“3,404 farmers trained”</em> — trained in what, over what period, with what retention? Basic data-journalism hygiene — exposure, denominator, operational definition — is exactly what these numbers don’t supply. Annual-report convention lets this slide because bigger and less-contextual numbers read more successfully to donors; data-literate readers should notice.</p>
+<p><strong>Outputs are being presented as outcomes.</strong> <em>“3,404 farmers trained”</em> is an output (a thing Oxfam did). The corresponding outcome would be <em>“these farmers’ yields rose by X% over the following season, sustained over Y years.”</em> Almost every headline number in the piece is output-shaped, but the surrounding narrative voice (“our impact is…”) frames them as outcomes. This output/outcome conflation is a structural problem in development-sector communication, not unique to this document — but it’s the single most important thing a data-critical reader should learn to identify.</p>
+<p><strong>The 21% → 98.5% male attitude change is measurement-suspect.</strong> A roughly 40-standard-deviation shift in a population-scale attitude measure within a single year is implausible under any normal research design. The more likely explanations are (a) the measurement instrument changed between baseline and endline, (b) the samples are not comparable, or (c) the item being measured is socially desirable under implicit pressure (e.g., “Do you agree GBV is wrong?” is a question very few respondents will answer “no” to, especially after a year of anti-GBV messaging). No sample size, no instrument description, and no methodology note accompany the number. To a data-literate reader, this specific number reads as a measurement-validity concern rather than as evidence of success.</p>
+<p><strong>Attribution is singular where the actual ecosystem is plural.</strong> The 561 Tanzanian women receiving land certificates — what would have happened without Oxfam’s specific intervention? Tanzania has parallel land-reform efforts from other NGOs, from UN agencies, and from state programmes. Crediting a specific outcome to a single actor in a multi-actor system is a pervasive convention in NGO reporting, but it’s not what the data can actually support.</p>
+<p><strong>The silence on safeguarding is the most telling absence.</strong> In February 2018 — the start of this report’s fiscal year — Oxfam GB’s 2010 Haiti operation was revealed to have involved staff paying for sex (with some cases involving minors), leading Oxfam to lose UK government funding and to have its Haiti operating permit withdrawn. This was the single defining reputation event for the Oxfam brand in 2018–2019. Oxfam Ireland can argue technically that it was not the affiliate involved, but for a public accountability document — the form of communication that most directly asks donors for trust — <strong>not mentioning a confederation-wide safeguarding crisis at all</strong> is an accountability gap larger than anything the numbers in the document claim to represent. A data-critical reading notices what is <em>not</em> in the document at least as much as what is.</p>
+<p><strong>Beneficiary voice is positioned as narrative illustration rather than authorship.</strong> Felista’s quote — <em>“My farm is secured and will be accessed by my inheritors who are my children”</em> — is beautiful, but it appears exactly where Oxfam chooses to place it and says what Oxfam wants heard. No beneficiary in the document is allowed to say what isn’t working, what they’d change, or what Oxfam is getting wrong. This is the well-documented “participation-as-optics” pattern in NGO communication: beneficiaries visible, beneficiaries not authoritative.</p>
+<p><strong>Proportionality.</strong> The critiques above are type-problems of NGO annual reports in general, not individual failings of Oxfam Ireland, and this document clears the genre’s ethical baseline (named beneficiaries, at least one real outcome measure, acknowledgement of domestic political work). The reason these problems are worth naming at all is that the document borrows the <em>visual language</em> of data journalism — and once you borrow that language, you inherit the responsibilities that come with it: denominators, operational definitions, outcome-versus-output discipline, methodology transparency, and honest engagement with what failed. Those responsibilities cut across genres.</p>
+<hr></section></section><section id="iteration-review-column-classes-via-for-loop" class="level2"><h2 class="anchored" data-anchor-id="iteration-review-column-classes-via-for-loop">Iteration Review — Column Classes via <code>for</code> Loop</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>col_classes <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"character"</span>, <span class="at">length =</span> <span class="fu">ncol</span>(mtcars))</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">names</span>(col_classes) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(mtcars)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(mtcars)) {</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    col_classes[i] <span class="ot">&lt;-</span> <span class="fu">class</span>(mtcars[[i]])</span>
+<span id="cb2-6"><a href="#cb2-6"></a>}</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>col_classes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>      mpg       cyl      disp        hp      drat        wt      qsec        vs 
+"numeric" "numeric" "numeric" "numeric" "numeric" "numeric" "numeric" "numeric" 
+       am      gear      carb 
+"numeric" "numeric" "numeric" </code></pre>
+</div>
+</div>
+<p>A data frame is a list whose elements are columns, so <code>seq_along(mtcars)</code> iterates over columns (not rows). Naming the storage container before the loop — <code>names(col_classes) &lt;- colnames(mtcars)</code> — means the output can be accessed by column name afterwards rather than by numeric position, which is almost always what I want.</p>
+<hr></section><section id="benchmark-four-ways-to-build-a-vector" class="level2"><h2 class="anchored" data-anchor-id="benchmark-four-ways-to-build-a-vector">Benchmark — Four Ways to Build a Vector</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>results_nostorage <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="at">no_storage =</span> {</span>
+<span id="cb4-3"><a href="#cb4-3"></a>        x <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
+<span id="cb4-4"><a href="#cb4-4"></a>        <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fl">1e4</span>)) x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>        x</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    },</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="at">iterations =</span> <span class="dv">5</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a>results_storage <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="at">with_storage =</span> {</span>
+<span id="cb4-12"><a href="#cb4-12"></a>        x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"integer"</span>, <span class="at">length =</span> <span class="fl">1e4</span>)</span>
+<span id="cb4-13"><a href="#cb4-13"></a>        <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fl">1e4</span>)) x[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb4-14"><a href="#cb4-14"></a>        x</span>
+<span id="cb4-15"><a href="#cb4-15"></a>    },</span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="at">iterations =</span> <span class="dv">5</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>)</span>
+<span id="cb4-18"><a href="#cb4-18"></a></span>
+<span id="cb4-19"><a href="#cb4-19"></a>results_purrr <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb4-20"><a href="#cb4-20"></a>    <span class="at">purrr_map =</span> <span class="fu">map_int</span>(<span class="fu">seq_len</span>(<span class="fl">1e4</span>), <span class="sc">~</span> .x),</span>
+<span id="cb4-21"><a href="#cb4-21"></a>    <span class="at">iterations =</span> <span class="dv">5</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a>)</span>
+<span id="cb4-23"><a href="#cb4-23"></a></span>
+<span id="cb4-24"><a href="#cb4-24"></a>results_vectorized <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb4-25"><a href="#cb4-25"></a>    <span class="at">vectorized =</span> <span class="fu">seq_len</span>(<span class="fl">1e4</span>),</span>
+<span id="cb4-26"><a href="#cb4-26"></a>    <span class="at">iterations =</span> <span class="dv">5</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a>)</span>
+<span id="cb4-28"><a href="#cb4-28"></a></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="fu">bind_rows</span>(results_nostorage, results_storage, results_purrr, results_vectorized) <span class="sc">|&gt;</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>    <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">c</span>(<span class="st">"for_loop_no_storage"</span>, <span class="st">"for_loop_with_storage"</span>,</span>
+<span id="cb4-31"><a href="#cb4-31"></a>                    <span class="st">"purrr_map_int"</span>, <span class="st">"vectorized_seq_len"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a>    <span class="fu">select</span>(type, median, mem_alloc, n_gc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  type                    median mem_alloc
+  &lt;chr&gt;                 &lt;bch:tm&gt; &lt;bch:byt&gt;
+1 for_loop_no_storage    75.04ms   191.2MB
+2 for_loop_with_storage 844.56µs    48.8KB
+3 purrr_map_int           3.96ms      46KB
+4 vectorized_seq_len    122.94ns        0B</code></pre>
+</div>
+</div>
+<p>Reading across: <code>vectorized_seq_len</code> is the fastest and allocates the least memory; <code>for_loop_with_storage</code> is in the same ballpark as <code>purrr_map_int</code>; <code>for_loop_no_storage</code> is roughly two orders of magnitude slower and allocates dramatically more memory because every <code>c(x, i)</code> copies the entire growing vector. The <code>n_gc</code> (garbage-collection) column tells the same story from the memory-pressure side.</p>
+<p><strong>Conceptual point.</strong> <code>purrr::map_*()</code> is not faster than a pre-allocated <code>for</code> loop — both are running roughly the same work under the hood. What <code>purrr</code> buys you is not speed but <em>readability</em> and <em>type safety</em>: <code>map_int</code> fails loudly if any element isn’t an integer, whereas an unchecked loop can silently produce garbage.</p>
+<hr></section><section id="map_-summary-statistics-per-variable" class="level2"><h2 class="anchored" data-anchor-id="map_-summary-statistics-per-variable">
+<code>map_*()</code> — Summary Statistics Per Variable</h2>
+<section id="summ_stats-helper" class="level3"><h3 class="anchored" data-anchor-id="summ_stats-helper">
+<code>summ_stats()</code> helper</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>summ_stats <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>        <span class="at">mean   =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-4"><a href="#cb6-4"></a>        <span class="at">median =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-5"><a href="#cb6-5"></a>        <span class="at">sd     =</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-6"><a href="#cb6-6"></a>        <span class="at">iqr    =</span> <span class="fu">IQR</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    )</span>
+<span id="cb6-8"><a href="#cb6-8"></a>}</span>
+<span id="cb6-9"><a href="#cb6-9"></a></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># Single-variable sanity check</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="fu">summ_stats</span>(diamonds<span class="sc">$</span>carat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+   mean median    sd   iqr
+  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 0.798    0.7 0.474  0.64</code></pre>
+</div>
+</div>
+</section><section id="applied-across-all-numeric-variables-in-diamonds-with-map-bind_rows" class="level3"><h3 class="anchored" data-anchor-id="applied-across-all-numeric-variables-in-diamonds-with-map-bind_rows">Applied across all numeric variables in <code>diamonds</code> — with <code>map()</code> + <code>bind_rows()</code>
+</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>diamonds_num <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>diamonds_summary <span class="ot">&lt;-</span> diamonds_num <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="fu">map</span>(summ_stats) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>    <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">"variable"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a>diamonds_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 5
+  variable     mean  median       sd     iqr
+  &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 carat       0.798    0.7     0.474    0.64
+2 depth      61.7     61.8     1.43     1.5 
+3 table      57.5     57       2.23     3   
+4 price    3933.    2401    3989.    4374.  
+5 x           5.73     5.7     1.12     1.83
+6 y           5.73     5.71    1.14     1.82
+7 z           3.54     3.53    0.706    1.13</code></pre>
+</div>
+</div>
+<p>The <code>.id = "variable"</code> trick is the cleanest way to recover column names: <code>map()</code> over a data frame returns a <em>named</em> list (element names inherited from the data frame’s column names), and <code>bind_rows(.id = ...)</code> promotes those names into a new column.</p>
+</section><section id="the-same-thing-with-a-for-loop-for-comparison" class="level3"><h3 class="anchored" data-anchor-id="the-same-thing-with-a-for-loop-for-comparison">The same thing with a <code>for</code> loop — for comparison</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>n_cols <span class="ot">&lt;-</span> <span class="fu">ncol</span>(diamonds_num)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>summ_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="at">length =</span> n_cols)</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n_cols)) {</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    summ_list[[i]] <span class="ot">&lt;-</span> <span class="fu">summ_stats</span>(diamonds_num[[i]])</span>
+<span id="cb10-6"><a href="#cb10-6"></a>}</span>
+<span id="cb10-7"><a href="#cb10-7"></a></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="fu">names</span>(summ_list) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(diamonds_num)</span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="fu">bind_rows</span>(summ_list, <span class="at">.id =</span> <span class="st">"variable"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 5
+  variable     mean  median       sd     iqr
+  &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 carat       0.798    0.7     0.474    0.64
+2 depth      61.7     61.8     1.43     1.5 
+3 table      57.5     57       2.23     3   
+4 price    3933.    2401    3989.    4374.  
+5 x           5.73     5.7     1.12     1.83
+6 y           5.73     5.71    1.14     1.82
+7 z           3.54     3.53    0.706    1.13</code></pre>
+</div>
+</div>
+<p>Same result. The <code>map()</code> version is one line shorter, doesn’t require explicit storage allocation, and the return-type contract (a list of tibbles, combined into one) is visible from the pipeline syntax. For this kind of <em>element-wise</em> iteration the <code>map()</code> form wins on readability; the <code>for</code> loop only starts to earn its keep when iteration carries state between steps.</p>
+<hr></section></section><section id="pmap-multi-argument-iteration" class="level2"><h2 class="anchored" data-anchor-id="pmap-multi-argument-iteration">
+<code>pmap()</code> — Multi-Argument Iteration</h2>
+<section id="two-small-str_sub-examples" class="level3"><h3 class="anchored" data-anchor-id="two-small-str_sub-examples">Two small <code>str_sub()</code> examples</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Example 1: vary string, start, and end simultaneously</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>varying_all <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="at">string =</span> <span class="fu">c</span>(<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>),</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="at">start  =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>),</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    <span class="at">end    =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb12-6"><a href="#cb12-6"></a>)</span>
+<span id="cb12-7"><a href="#cb12-7"></a></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="fu">pmap_chr</span>(varying_all, str_sub)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "ap" "an" "rr"</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Example 2: vary start and end, hold string constant</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>varying_positions <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb14-3"><a href="#cb14-3"></a>    <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>),</span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="at">end   =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb14-5"><a href="#cb14-5"></a>)</span>
+<span id="cb14-6"><a href="#cb14-6"></a></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="fu">pmap_chr</span>(varying_positions, str_sub, <span class="at">string =</span> <span class="st">"abcde"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "ab" "bc" "de"</code></pre>
+</div>
+</div>
+<p>Two design points from these:</p>
+<ul>
+<li>
+<code>pmap</code> matches tibble column names to function argument names. The column names in <code>varying_all</code> match <code>str_sub</code>’s argument names (<code>string</code>, <code>start</code>, <code>end</code>) exactly, which is why it works.</li>
+<li>Arguments that should be held constant across iterations are passed as extra named arguments <em>after</em> the function. In Example 2, <code>string = "abcde"</code> is fixed; only <code>start</code> and <code>end</code> vary.</li>
+</ul></section><section id="pmap-case-study-many-model-specifications-on-diamonds" class="level3"><h3 class="anchored" data-anchor-id="pmap-case-study-many-model-specifications-on-diamonds">
+<code>pmap()</code> case study — many model specifications on <code>diamonds</code>
+</h3>
+<p>This is the ICA 11 case study redone with <code>pmap</code>, avoiding the explicit <code>for</code> loop. I’m also carrying over two fixes from ICA 11: the parameter <code>drop_outliers</code> rather than <code>remove_outliers</code> (to avoid shadowing the function of the same name), and <code>abs(.zscore) &lt;= sd_thresh</code> for a symmetric outlier definition.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Helper: remove outliers on `what_var` beyond sd_thresh SDs from the mean</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>remove_outliers <span class="ot">&lt;-</span> <span class="cf">function</span>(data, what_var, sd_thresh) {</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    data <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>        <span class="fu">mutate</span>(</span>
+<span id="cb16-5"><a href="#cb16-5"></a>            <span class="at">.zscore =</span> ({{ what_var }} <span class="sc">-</span> <span class="fu">mean</span>({{ what_var }}, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>                       <span class="fu">sd</span>({{ what_var }}, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-7"><a href="#cb16-7"></a>        ) <span class="sc">|&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>        <span class="fu">filter</span>(<span class="fu">abs</span>(.zscore) <span class="sc">&lt;=</span> sd_thresh) <span class="sc">|&gt;</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a>        <span class="fu">select</span>(<span class="sc">-</span>.zscore)</span>
+<span id="cb16-10"><a href="#cb16-10"></a>}</span>
+<span id="cb16-11"><a href="#cb16-11"></a></span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="co"># Dispatcher: outer parameter renamed to `drop_outliers` to avoid name collision</span></span>
+<span id="cb16-13"><a href="#cb16-13"></a>fit_model <span class="ot">&lt;-</span> <span class="cf">function</span>(data, mod_formula, drop_outliers) {</span>
+<span id="cb16-14"><a href="#cb16-14"></a>    <span class="cf">if</span> (drop_outliers) {</span>
+<span id="cb16-15"><a href="#cb16-15"></a>        data <span class="ot">&lt;-</span> <span class="fu">remove_outliers</span>(data, <span class="at">what_var =</span> carat, <span class="at">sd_thresh =</span> <span class="dv">3</span>)</span>
+<span id="cb16-16"><a href="#cb16-16"></a>    }</span>
+<span id="cb16-17"><a href="#cb16-17"></a>    <span class="fu">lm</span>(<span class="fu">as.formula</span>(mod_formula), <span class="at">data =</span> data)</span>
+<span id="cb16-18"><a href="#cb16-18"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Build the argument grid. The template builds nested formulas via <code>map_chr()</code> — I keep that pattern because it generalises to an arbitrary predictor list:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>xs <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span> <span class="fu">select</span>(carat, cut, clarity, color) <span class="sc">|&gt;</span> <span class="fu">names</span>()</span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a>df_arg_combos <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb17-4"><a href="#cb17-4"></a>    <span class="at">mod_formula =</span> <span class="fu">str_c</span>(</span>
+<span id="cb17-5"><a href="#cb17-5"></a>        <span class="st">"price ~ "</span>,</span>
+<span id="cb17-6"><a href="#cb17-6"></a>        <span class="fu">map_chr</span>(<span class="fu">seq_along</span>(xs), <span class="sc">~</span> <span class="fu">str_c</span>(xs[<span class="dv">1</span><span class="sc">:</span>.x], <span class="at">collapse =</span> <span class="st">" + "</span>))</span>
+<span id="cb17-7"><a href="#cb17-7"></a>    ),</span>
+<span id="cb17-8"><a href="#cb17-8"></a>    <span class="at">drop_outliers =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb17-9"><a href="#cb17-9"></a>)</span>
+<span id="cb17-10"><a href="#cb17-10"></a></span>
+<span id="cb17-11"><a href="#cb17-11"></a>df_arg_combos</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 2
+  mod_formula                           drop_outliers
+  &lt;chr&gt;                                 &lt;lgl&gt;        
+1 price ~ carat                         FALSE        
+2 price ~ carat                         TRUE         
+3 price ~ carat + cut                   FALSE        
+4 price ~ carat + cut                   TRUE         
+5 price ~ carat + cut + clarity         FALSE        
+6 price ~ carat + cut + clarity         TRUE         
+7 price ~ carat + cut + clarity + color FALSE        
+8 price ~ carat + cut + clarity + color TRUE         </code></pre>
+</div>
+</div>
+<p>Now fit all eight specifications in one <code>pmap()</code> call, storing the results in a list-column alongside the configuration that produced them:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>fitted <span class="ot">&lt;-</span> df_arg_combos <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb19-3"><a href="#cb19-3"></a>        <span class="at">mod =</span> <span class="fu">pmap</span>(</span>
+<span id="cb19-4"><a href="#cb19-4"></a>            <span class="fu">list</span>(<span class="at">mod_formula =</span> mod_formula, <span class="at">drop_outliers =</span> drop_outliers),</span>
+<span id="cb19-5"><a href="#cb19-5"></a>            fit_model,</span>
+<span id="cb19-6"><a href="#cb19-6"></a>            <span class="at">data =</span> diamonds</span>
+<span id="cb19-7"><a href="#cb19-7"></a>        )</span>
+<span id="cb19-8"><a href="#cb19-8"></a>    )</span>
+<span id="cb19-9"><a href="#cb19-9"></a></span>
+<span id="cb19-10"><a href="#cb19-10"></a>fitted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+  mod_formula                           drop_outliers mod   
+  &lt;chr&gt;                                 &lt;lgl&gt;         &lt;list&gt;
+1 price ~ carat                         FALSE         &lt;lm&gt;  
+2 price ~ carat                         TRUE          &lt;lm&gt;  
+3 price ~ carat + cut                   FALSE         &lt;lm&gt;  
+4 price ~ carat + cut                   TRUE          &lt;lm&gt;  
+5 price ~ carat + cut + clarity         FALSE         &lt;lm&gt;  
+6 price ~ carat + cut + clarity         TRUE          &lt;lm&gt;  
+7 price ~ carat + cut + clarity + color FALSE         &lt;lm&gt;  
+8 price ~ carat + cut + clarity + color TRUE          &lt;lm&gt;  </code></pre>
+</div>
+</div>
+<p>The <code>list(mod_formula = ..., drop_outliers = ...)</code> inside <code>pmap()</code> is explicit about which columns feed which arguments — safer than relying on column-name-to-argument-name matching when the tibble has additional columns you don’t want passed. <code>data = diamonds</code> is the fixed argument carried through every iteration.</p>
+</section><section id="extract-a-tidy-comparison-table" class="level3"><h3 class="anchored" data-anchor-id="extract-a-tidy-comparison-table">Extract a tidy comparison table</h3>
+<p>A list-column of <code>lm</code> objects isn’t useful until we pull out comparable statistics:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>fitted <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb21-3"><a href="#cb21-3"></a>        <span class="at">n_used        =</span> <span class="fu">map_int</span>(mod, <span class="sc">~</span> <span class="fu">length</span>(<span class="fu">residuals</span>(.x))),</span>
+<span id="cb21-4"><a href="#cb21-4"></a>        <span class="at">r_squared     =</span> <span class="fu">map_dbl</span>(mod, <span class="sc">~</span> <span class="fu">summary</span>(.x)<span class="sc">$</span>r.squared),</span>
+<span id="cb21-5"><a href="#cb21-5"></a>        <span class="at">adj_r_squared =</span> <span class="fu">map_dbl</span>(mod, <span class="sc">~</span> <span class="fu">summary</span>(.x)<span class="sc">$</span>adj.r.squared),</span>
+<span id="cb21-6"><a href="#cb21-6"></a>        <span class="at">aic           =</span> <span class="fu">map_dbl</span>(mod, AIC)</span>
+<span id="cb21-7"><a href="#cb21-7"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a>    <span class="fu">select</span>(<span class="sc">-</span>mod) <span class="sc">|&gt;</span></span>
+<span id="cb21-9"><a href="#cb21-9"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(adj_r_squared))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 6
+  mod_formula                drop_outliers n_used r_squared adj_r_squared    aic
+  &lt;chr&gt;                      &lt;lgl&gt;          &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;
+1 price ~ carat + cut + cla… TRUE           53501     0.916         0.916 9.03e5
+2 price ~ carat + cut + cla… FALSE          53940     0.916         0.916 9.14e5
+3 price ~ carat + cut + cla… FALSE          53940     0.897         0.897 9.25e5
+4 price ~ carat + cut + cla… TRUE           53501     0.896         0.896 9.15e5
+5 price ~ carat + cut        FALSE          53940     0.856         0.856 9.43e5
+6 price ~ carat + cut        TRUE           53501     0.855         0.855 9.32e5
+7 price ~ carat              FALSE          53940     0.849         0.849 9.45e5
+8 price ~ carat              TRUE           53501     0.848         0.848 9.35e5</code></pre>
+</div>
+</div>
+<p>The full <code>price ~ carat + cut + clarity + color</code> specification on outlier-dropped data wins on adjusted R² — at the cost of being trained on a slightly different dataset than the one it would be applied to. The <code>crossing() + pmap() + map_*() extraction</code> pattern scales: you could add a third axis to <code>crossing()</code> (say, a handful of transformations on <code>carat</code>), go from 8 specifications to 24, and the rest of the pipeline would need zero changes.</p>
+<hr></section></section><section id="walk2-saving-one-plot-per-group" class="level2"><h2 class="anchored" data-anchor-id="walk2-saving-one-plot-per-group">
+<code>walk2()</code> — Saving One Plot Per Group</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Write to a temporary directory so this chunk doesn't pollute the working dir</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>out_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"diamond_plots"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="fu">dir.create</span>(out_dir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-4"><a href="#cb23-4"></a></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="co"># Build one dataset per clarity level, one filepath per dataset, one plot per dataset</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>by_clarity <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a>    <span class="fu">group_nest</span>(clarity) <span class="sc">|&gt;</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb23-9"><a href="#cb23-9"></a>        <span class="at">path =</span> <span class="fu">file.path</span>(out_dir, <span class="fu">str_glue</span>(<span class="st">"diamonds-{clarity}.png"</span>)),</span>
+<span id="cb23-10"><a href="#cb23-10"></a>        <span class="co"># map2 passes both the clarity label and the nested data frame</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a>        <span class="at">plot =</span> <span class="fu">map2</span>(clarity, data, \(cl, df) {</span>
+<span id="cb23-12"><a href="#cb23-12"></a>            <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb23-13"><a href="#cb23-13"></a>                <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb23-14"><a href="#cb23-14"></a>                <span class="fu">labs</span>(</span>
+<span id="cb23-15"><a href="#cb23-15"></a>                    <span class="at">x =</span> <span class="st">"Carat"</span>, <span class="at">y =</span> <span class="st">"Price (USD)"</span>,</span>
+<span id="cb23-16"><a href="#cb23-16"></a>                    <span class="at">title =</span> <span class="fu">str_glue</span>(<span class="st">"Price vs. carat — clarity {cl}"</span>)</span>
+<span id="cb23-17"><a href="#cb23-17"></a>                ) <span class="sc">+</span></span>
+<span id="cb23-18"><a href="#cb23-18"></a>                <span class="fu">theme_minimal</span>()</span>
+<span id="cb23-19"><a href="#cb23-19"></a>        })</span>
+<span id="cb23-20"><a href="#cb23-20"></a>    )</span>
+<span id="cb23-21"><a href="#cb23-21"></a></span>
+<span id="cb23-22"><a href="#cb23-22"></a><span class="co"># walk2() iterates over two parallel vectors for side effects only</span></span>
+<span id="cb23-23"><a href="#cb23-23"></a><span class="fu">walk2</span>(</span>
+<span id="cb23-24"><a href="#cb23-24"></a>    by_clarity<span class="sc">$</span>path,</span>
+<span id="cb23-25"><a href="#cb23-25"></a>    by_clarity<span class="sc">$</span>plot,</span>
+<span id="cb23-26"><a href="#cb23-26"></a>    \(p, g) <span class="fu">ggsave</span>(p, g, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">dpi =</span> <span class="dv">100</span>)</span>
+<span id="cb23-27"><a href="#cb23-27"></a>)</span>
+<span id="cb23-28"><a href="#cb23-28"></a></span>
+<span id="cb23-29"><a href="#cb23-29"></a><span class="co"># Confirm the files exist</span></span>
+<span id="cb23-30"><a href="#cb23-30"></a><span class="fu">list.files</span>(out_dir)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "diamonds-I1.png"   "diamonds-IF.png"   "diamonds-SI1.png" 
+[4] "diamonds-SI2.png"  "diamonds-VS1.png"  "diamonds-VS2.png" 
+[7] "diamonds-VVS1.png" "diamonds-VVS2.png"</code></pre>
+</div>
+</div>
+<p>Three notes on this pattern:</p>
+<ul>
+<li>
+<strong><code>walk2()</code> vs <code>map2()</code>.</strong> They do the same iteration; the difference is that <code>walk2()</code> returns the input invisibly and is intended for side-effect functions like <code>ggsave()</code>, <code>write_csv()</code>, or <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code>. Using <code>map2()</code> here would work but would leave you with a list of <code>NULL</code>s (what <code>ggsave</code> returns), which is not what you want.</li>
+<li>
+<strong><code>group_nest()</code> is the right preparation step.</strong> It produces a tibble where each row is one group and one column is a nested <code>data</code> column holding that group’s rows. From there, a <code>mutate(plot = map(data, ...))</code> builds one plot per row, and <code>walk2()</code> writes them out. The whole pattern — group-nest, list-column transform, walk-to-disk — is the purrr-era replacement for the <code>for</code> loop that used to do this job.</li>
+<li>
+<strong><code><a href="https://rdrr.io/r/base/tempfile.html">tempdir()</a></code> hygiene.</strong> Writing to <code><a href="https://rdrr.io/r/base/tempfile.html">tempdir()</a></code> means this chunk leaves no artifacts in my working directory. For a real use case I’d point <code>out_dir</code> at <code>here::here("figures")</code> or similar; the pattern is identical.</li>
+</ul>
+<hr></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p><strong><code>purrr</code>’s payoff is not speed — it’s readability and type safety.</strong> The benchmarks at the top of this document make this explicit: <code>map_int()</code> is roughly tied with a pre-allocated <code>for</code> loop on raw performance. What <code>purrr</code> buys is the <code>_int</code>, <code>_chr</code>, <code>_dbl</code>, <code>_lgl</code> suffix — the function fails loudly if the return type doesn’t match, instead of letting the error propagate silently. In a pipeline that feeds downstream analysis, failing loudly at the place the error happens is worth more than a few milliseconds. This is the same principle as the input validation in ICA 10’s <code>fit_mod_and_extract()</code>: explicit contract, enforced early.</p>
+<p><strong>The hard transition in this material is from “element-wise iteration” to “multi-argument iteration.”</strong> <code>map()</code> is the easy case — one vector in, one vector out. <code>pmap()</code> is the one that unlocks everything interesting: it takes a data frame where each row is a configuration, matches column names to function arguments, and applies a function once per row. That is the same skeleton as grid-search hyperparameter tuning in scikit-learn, or as a Stata robustness-check loop over model specifications, or as a sensitivity analysis in a causal-inference paper. <code>crossing() + pmap()</code> is the R version of that skeleton. Once you see this, most of the “repeated analysis” work you’ll do in empirical research collapses into one pattern.</p>
+<p><strong><code>walk</code>’s separation of computation from side effects is the same insight functional programming has been making for decades.</strong> A <code>map()</code> is safe to retry, safe to parallelize, safe to reason about because it has no effects outside its return value. A <code>walk()</code> is explicitly for the part of the pipeline that <em>does</em> interact with the world — files, databases, plots, prints. Keeping these two separated — computing first, writing after — is how pipelines stay debuggable when they scale.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/11_loops_iter_i.html" class="pagination-link" aria-label="11 — Loops and Iteration I">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">11 — Loops and Iteration I</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/13_apis_i.html" class="pagination-link" aria-label="13 — APIs I: JSON and `jsonlite`">
+        <span class="nav-page-text"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1"></a><span class="co">---</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="an">title:</span><span class="co"> "12 — Loops and Iteration II: `purrr`"</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="an">format:</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a><span class="co">  html:</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="co">    toc: true</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb25-10"><a href="#cb25-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb25-11"><a href="#cb25-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb25-12"><a href="#cb25-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb25-13"><a href="#cb25-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb25-14"><a href="#cb25-14"></a><span class="an">execute:</span></span>
+<span id="cb25-15"><a href="#cb25-15"></a><span class="co">  warning: false</span></span>
+<span id="cb25-16"><a href="#cb25-16"></a><span class="co">  message: false</span></span>
+<span id="cb25-17"><a href="#cb25-17"></a><span class="co">---</span></span>
+<span id="cb25-18"><a href="#cb25-18"></a></span>
+<span id="cb25-19"><a href="#cb25-19"></a><span class="fu">## Setup</span></span>
+<span id="cb25-20"><a href="#cb25-20"></a></span>
+<span id="cb25-23"><a href="#cb25-23"></a><span class="in">```{r}</span></span>
+<span id="cb25-24"><a href="#cb25-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb25-25"><a href="#cb25-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb25-26"><a href="#cb25-26"></a><span class="fu">library</span>(bench)</span>
+<span id="cb25-27"><a href="#cb25-27"></a><span class="in">```</span></span>
+<span id="cb25-28"><a href="#cb25-28"></a></span>
+<span id="cb25-29"><a href="#cb25-29"></a>------------------------------------------------------------------------</span>
+<span id="cb25-30"><a href="#cb25-30"></a></span>
+<span id="cb25-31"><a href="#cb25-31"></a><span class="fu">## 🔥 Data Story Critique — *Oxfam Ireland Annual Report 2019*</span></span>
+<span id="cb25-32"><a href="#cb25-32"></a></span>
+<span id="cb25-33"><a href="#cb25-33"></a>Source: <span class="ot">&lt;https://stories.oxfamireland.org/impact/index.html&gt;</span></span>
+<span id="cb25-34"><a href="#cb25-34"></a></span>
+<span id="cb25-35"><a href="#cb25-35"></a><span class="fu">### What is the data story? — and a framing note</span></span>
+<span id="cb25-36"><a href="#cb25-36"></a></span>
+<span id="cb25-37"><a href="#cb25-37"></a>The piece is Oxfam Ireland's **2019 annual report**, published on Shorthand as a scrollytelling web document. Its structure is the six strategic goals of the Oxfam International confederation — Right to Be Heard, Women's Rights, Saving Lives, Sustainable Food, Fair Sharing of Natural Resources, and Financing for Development / Universal Essential Services. Each goal gets a short section with one or two country cases (Jordan, Tanzania, Malawi, DRC, Rwanda, Mozambique, Zimbabwe), a named beneficiary's portrait and first-person quote, and a headline "impact" number: *1.1 million people reached in Tanzania; 3,404 farmers trained; 561 women receiving land certificates; 3 million Malawians reached with gender-based-violence messages; attitudes against GBV rising from 27% to 72% among women and 21% to 98.5% among men.* The piece opens and closes with a signed letter from Oxfam Ireland's CEO, Jim Clarken.</span>
+<span id="cb25-38"><a href="#cb25-38"></a></span>
+<span id="cb25-39"><a href="#cb25-39"></a>A framing note before the critique: **this is not a data story in the sense that the previous four weeks' pieces were**. It is an annual report produced for donor stewardship — it needs to make donors feel their money did meaningful work, it needs brand consistency with Oxfam International, and it needs to avoid the reputation hazards its confederation was navigating in 2018–2019. Judging it as investigative data journalism would be a category error. But because it borrows the *visual grammar* of data journalism (big numbers, percentage changes, "impact" language), it invites a data-critical reading — and in that reading, several structural issues common to NGO communication become visible. The critique below operates at that level: not "this piece failed as journalism," but "here is what happens when annual-report conventions meet a visual language that implies data-analytic rigour."</span>
+<span id="cb25-40"><a href="#cb25-40"></a></span>
+<span id="cb25-41"><a href="#cb25-41"></a><span class="fu">### What is effective?</span></span>
+<span id="cb25-42"><a href="#cb25-42"></a></span>
+<span id="cb25-43"><a href="#cb25-43"></a>**The six-goal scaffold gives a non-expert reader a scannable mental map.** A person who doesn't already know Oxfam's programme taxonomy can land on the page and, within one scroll, understand the range of what the organization does — education advocacy, GBV work, disaster response, smallholder farming, land rights, health-system financing. For the genre, this is good structure.</span>
+<span id="cb25-44"><a href="#cb25-44"></a></span>
+<span id="cb25-45"><a href="#cb25-45"></a>**Naming and portraiting beneficiaries is an ethical baseline Oxfam clears.** Maram in Jordan, Alice in Malawi, Felista Nterevu in Tanzania, Jenipher caring for three nephews in Malawi — each is a named person, with a photograph and often a direct quote. The alternative genre convention — treating beneficiaries as "a farmer" or "a woman in the programme" — is worse on dignity grounds and worse on traceability. Oxfam does the right thing here.</span>
+<span id="cb25-46"><a href="#cb25-46"></a></span>
+<span id="cb25-47"><a href="#cb25-47"></a>**The Malawi EVAWG attitude percentages are the piece's one genuine outcome measurement.** *Attitudes against GBV rising from 27% to 72% among women* and *satisfaction with GBV services rising from 45% to 71%* are before-and-after comparisons of survey responses, not activity counts. This is the right shape for an "impact" claim. (The male figure is a separate issue, discussed below.)</span>
+<span id="cb25-48"><a href="#cb25-48"></a></span>
+<span id="cb25-49"><a href="#cb25-49"></a>**The CEO letter names domestic policy work — the Family Reunification Bill — rather than framing Oxfam as an exclusively overseas charity.** This complicates the stereotype that NGOs are unidirectional giving vehicles, and it signals that Oxfam Ireland is also a political-advocacy organization in its home jurisdiction.</span>
+<span id="cb25-50"><a href="#cb25-50"></a></span>
+<span id="cb25-51"><a href="#cb25-51"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb25-52"><a href="#cb25-52"></a></span>
+<span id="cb25-53"><a href="#cb25-53"></a>**The big numbers are missing denominators and definitions.** *"1.1 million people reached in Tanzania"* — Tanzania's population is ~61 million, so this is roughly 1.8% of the country. Is that a lot? Compared to what? And *reached how* — did someone read an SMS, attend a one-hour workshop, enroll in a multi-month programme? These three interpretations of "reached" have wildly different dosages. *"3,404 farmers trained"* — trained in what, over what period, with what retention? Basic data-journalism hygiene — exposure, denominator, operational definition — is exactly what these numbers don't supply. Annual-report convention lets this slide because bigger and less-contextual numbers read more successfully to donors; data-literate readers should notice.</span>
+<span id="cb25-54"><a href="#cb25-54"></a></span>
+<span id="cb25-55"><a href="#cb25-55"></a>**Outputs are being presented as outcomes.** *"3,404 farmers trained"* is an output (a thing Oxfam did). The corresponding outcome would be *"these farmers' yields rose by X% over the following season, sustained over Y years."* Almost every headline number in the piece is output-shaped, but the surrounding narrative voice ("our impact is...") frames them as outcomes. This output/outcome conflation is a structural problem in development-sector communication, not unique to this document — but it's the single most important thing a data-critical reader should learn to identify.</span>
+<span id="cb25-56"><a href="#cb25-56"></a></span>
+<span id="cb25-57"><a href="#cb25-57"></a>**The 21% → 98.5% male attitude change is measurement-suspect.** A roughly 40-standard-deviation shift in a population-scale attitude measure within a single year is implausible under any normal research design. The more likely explanations are (a) the measurement instrument changed between baseline and endline, (b) the samples are not comparable, or (c) the item being measured is socially desirable under implicit pressure (e.g., "Do you agree GBV is wrong?" is a question very few respondents will answer "no" to, especially after a year of anti-GBV messaging). No sample size, no instrument description, and no methodology note accompany the number. To a data-literate reader, this specific number reads as a measurement-validity concern rather than as evidence of success.</span>
+<span id="cb25-58"><a href="#cb25-58"></a></span>
+<span id="cb25-59"><a href="#cb25-59"></a>**Attribution is singular where the actual ecosystem is plural.** The 561 Tanzanian women receiving land certificates — what would have happened without Oxfam's specific intervention? Tanzania has parallel land-reform efforts from other NGOs, from UN agencies, and from state programmes. Crediting a specific outcome to a single actor in a multi-actor system is a pervasive convention in NGO reporting, but it's not what the data can actually support.</span>
+<span id="cb25-60"><a href="#cb25-60"></a></span>
+<span id="cb25-61"><a href="#cb25-61"></a>**The silence on safeguarding is the most telling absence.** In February 2018 — the start of this report's fiscal year — Oxfam GB's 2010 Haiti operation was revealed to have involved staff paying for sex (with some cases involving minors), leading Oxfam to lose UK government funding and to have its Haiti operating permit withdrawn. This was the single defining reputation event for the Oxfam brand in 2018–2019. Oxfam Ireland can argue technically that it was not the affiliate involved, but for a public accountability document — the form of communication that most directly asks donors for trust — **not mentioning a confederation-wide safeguarding crisis at all** is an accountability gap larger than anything the numbers in the document claim to represent. A data-critical reading notices what is *not* in the document at least as much as what is.</span>
+<span id="cb25-62"><a href="#cb25-62"></a></span>
+<span id="cb25-63"><a href="#cb25-63"></a>**Beneficiary voice is positioned as narrative illustration rather than authorship.** Felista's quote — *"My farm is secured and will be accessed by my inheritors who are my children"* — is beautiful, but it appears exactly where Oxfam chooses to place it and says what Oxfam wants heard. No beneficiary in the document is allowed to say what isn't working, what they'd change, or what Oxfam is getting wrong. This is the well-documented "participation-as-optics" pattern in NGO communication: beneficiaries visible, beneficiaries not authoritative.</span>
+<span id="cb25-64"><a href="#cb25-64"></a></span>
+<span id="cb25-65"><a href="#cb25-65"></a>**Proportionality.** The critiques above are type-problems of NGO annual reports in general, not individual failings of Oxfam Ireland, and this document clears the genre's ethical baseline (named beneficiaries, at least one real outcome measure, acknowledgement of domestic political work). The reason these problems are worth naming at all is that the document borrows the *visual language* of data journalism — and once you borrow that language, you inherit the responsibilities that come with it: denominators, operational definitions, outcome-versus-output discipline, methodology transparency, and honest engagement with what failed. Those responsibilities cut across genres.</span>
+<span id="cb25-66"><a href="#cb25-66"></a></span>
+<span id="cb25-67"><a href="#cb25-67"></a>------------------------------------------------------------------------</span>
+<span id="cb25-68"><a href="#cb25-68"></a></span>
+<span id="cb25-69"><a href="#cb25-69"></a><span class="fu">## Iteration Review — Column Classes via `for` Loop</span></span>
+<span id="cb25-70"><a href="#cb25-70"></a></span>
+<span id="cb25-73"><a href="#cb25-73"></a><span class="in">```{r}</span></span>
+<span id="cb25-74"><a href="#cb25-74"></a>col_classes <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"character"</span>, <span class="at">length =</span> <span class="fu">ncol</span>(mtcars))</span>
+<span id="cb25-75"><a href="#cb25-75"></a><span class="fu">names</span>(col_classes) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(mtcars)</span>
+<span id="cb25-76"><a href="#cb25-76"></a></span>
+<span id="cb25-77"><a href="#cb25-77"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(mtcars)) {</span>
+<span id="cb25-78"><a href="#cb25-78"></a>    col_classes[i] <span class="ot">&lt;-</span> <span class="fu">class</span>(mtcars[[i]])</span>
+<span id="cb25-79"><a href="#cb25-79"></a>}</span>
+<span id="cb25-80"><a href="#cb25-80"></a></span>
+<span id="cb25-81"><a href="#cb25-81"></a>col_classes</span>
+<span id="cb25-82"><a href="#cb25-82"></a><span class="in">```</span></span>
+<span id="cb25-83"><a href="#cb25-83"></a></span>
+<span id="cb25-84"><a href="#cb25-84"></a>A data frame is a list whose elements are columns, so <span class="in">`seq_along(mtcars)`</span> iterates over columns (not rows). Naming the storage container before the loop — <span class="in">`names(col_classes) &lt;- colnames(mtcars)`</span> — means the output can be accessed by column name afterwards rather than by numeric position, which is almost always what I want.</span>
+<span id="cb25-85"><a href="#cb25-85"></a></span>
+<span id="cb25-86"><a href="#cb25-86"></a>------------------------------------------------------------------------</span>
+<span id="cb25-87"><a href="#cb25-87"></a></span>
+<span id="cb25-88"><a href="#cb25-88"></a><span class="fu">## Benchmark — Four Ways to Build a Vector</span></span>
+<span id="cb25-89"><a href="#cb25-89"></a></span>
+<span id="cb25-92"><a href="#cb25-92"></a><span class="in">```{r}</span></span>
+<span id="cb25-93"><a href="#cb25-93"></a><span class="co">#| cache: true</span></span>
+<span id="cb25-94"><a href="#cb25-94"></a><span class="co">#| label: vector-benchmarks</span></span>
+<span id="cb25-95"><a href="#cb25-95"></a></span>
+<span id="cb25-96"><a href="#cb25-96"></a>results_nostorage <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb25-97"><a href="#cb25-97"></a>    <span class="at">no_storage =</span> {</span>
+<span id="cb25-98"><a href="#cb25-98"></a>        x <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
+<span id="cb25-99"><a href="#cb25-99"></a>        <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fl">1e4</span>)) x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
+<span id="cb25-100"><a href="#cb25-100"></a>        x</span>
+<span id="cb25-101"><a href="#cb25-101"></a>    },</span>
+<span id="cb25-102"><a href="#cb25-102"></a>    <span class="at">iterations =</span> <span class="dv">5</span></span>
+<span id="cb25-103"><a href="#cb25-103"></a>)</span>
+<span id="cb25-104"><a href="#cb25-104"></a></span>
+<span id="cb25-105"><a href="#cb25-105"></a>results_storage <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb25-106"><a href="#cb25-106"></a>    <span class="at">with_storage =</span> {</span>
+<span id="cb25-107"><a href="#cb25-107"></a>        x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"integer"</span>, <span class="at">length =</span> <span class="fl">1e4</span>)</span>
+<span id="cb25-108"><a href="#cb25-108"></a>        <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fl">1e4</span>)) x[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb25-109"><a href="#cb25-109"></a>        x</span>
+<span id="cb25-110"><a href="#cb25-110"></a>    },</span>
+<span id="cb25-111"><a href="#cb25-111"></a>    <span class="at">iterations =</span> <span class="dv">5</span></span>
+<span id="cb25-112"><a href="#cb25-112"></a>)</span>
+<span id="cb25-113"><a href="#cb25-113"></a></span>
+<span id="cb25-114"><a href="#cb25-114"></a>results_purrr <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb25-115"><a href="#cb25-115"></a>    <span class="at">purrr_map =</span> <span class="fu">map_int</span>(<span class="fu">seq_len</span>(<span class="fl">1e4</span>), <span class="sc">~</span> .x),</span>
+<span id="cb25-116"><a href="#cb25-116"></a>    <span class="at">iterations =</span> <span class="dv">5</span></span>
+<span id="cb25-117"><a href="#cb25-117"></a>)</span>
+<span id="cb25-118"><a href="#cb25-118"></a></span>
+<span id="cb25-119"><a href="#cb25-119"></a>results_vectorized <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb25-120"><a href="#cb25-120"></a>    <span class="at">vectorized =</span> <span class="fu">seq_len</span>(<span class="fl">1e4</span>),</span>
+<span id="cb25-121"><a href="#cb25-121"></a>    <span class="at">iterations =</span> <span class="dv">5</span></span>
+<span id="cb25-122"><a href="#cb25-122"></a>)</span>
+<span id="cb25-123"><a href="#cb25-123"></a></span>
+<span id="cb25-124"><a href="#cb25-124"></a><span class="fu">bind_rows</span>(results_nostorage, results_storage, results_purrr, results_vectorized) <span class="sc">|&gt;</span></span>
+<span id="cb25-125"><a href="#cb25-125"></a>    <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">c</span>(<span class="st">"for_loop_no_storage"</span>, <span class="st">"for_loop_with_storage"</span>,</span>
+<span id="cb25-126"><a href="#cb25-126"></a>                    <span class="st">"purrr_map_int"</span>, <span class="st">"vectorized_seq_len"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb25-127"><a href="#cb25-127"></a>    <span class="fu">select</span>(type, median, mem_alloc, n_gc)</span>
+<span id="cb25-128"><a href="#cb25-128"></a><span class="in">```</span></span>
+<span id="cb25-129"><a href="#cb25-129"></a></span>
+<span id="cb25-130"><a href="#cb25-130"></a>Reading across: <span class="in">`vectorized_seq_len`</span> is the fastest and allocates the least memory; <span class="in">`for_loop_with_storage`</span> is in the same ballpark as <span class="in">`purrr_map_int`</span>; <span class="in">`for_loop_no_storage`</span> is roughly two orders of magnitude slower and allocates dramatically more memory because every <span class="in">`c(x, i)`</span> copies the entire growing vector. The <span class="in">`n_gc`</span> (garbage-collection) column tells the same story from the memory-pressure side.</span>
+<span id="cb25-131"><a href="#cb25-131"></a></span>
+<span id="cb25-132"><a href="#cb25-132"></a>**Conceptual point.** <span class="in">`purrr::map_*()`</span> is not faster than a pre-allocated <span class="in">`for`</span> loop — both are running roughly the same work under the hood. What <span class="in">`purrr`</span> buys you is not speed but *readability* and *type safety*: <span class="in">`map_int`</span> fails loudly if any element isn't an integer, whereas an unchecked loop can silently produce garbage.</span>
+<span id="cb25-133"><a href="#cb25-133"></a></span>
+<span id="cb25-134"><a href="#cb25-134"></a>------------------------------------------------------------------------</span>
+<span id="cb25-135"><a href="#cb25-135"></a></span>
+<span id="cb25-136"><a href="#cb25-136"></a><span class="fu">## `map_*()` — Summary Statistics Per Variable</span></span>
+<span id="cb25-137"><a href="#cb25-137"></a></span>
+<span id="cb25-138"><a href="#cb25-138"></a><span class="fu">### `summ_stats()` helper</span></span>
+<span id="cb25-139"><a href="#cb25-139"></a></span>
+<span id="cb25-142"><a href="#cb25-142"></a><span class="in">```{r}</span></span>
+<span id="cb25-143"><a href="#cb25-143"></a>summ_stats <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb25-144"><a href="#cb25-144"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb25-145"><a href="#cb25-145"></a>        <span class="at">mean   =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-146"><a href="#cb25-146"></a>        <span class="at">median =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-147"><a href="#cb25-147"></a>        <span class="at">sd     =</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-148"><a href="#cb25-148"></a>        <span class="at">iqr    =</span> <span class="fu">IQR</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-149"><a href="#cb25-149"></a>    )</span>
+<span id="cb25-150"><a href="#cb25-150"></a>}</span>
+<span id="cb25-151"><a href="#cb25-151"></a></span>
+<span id="cb25-152"><a href="#cb25-152"></a><span class="co"># Single-variable sanity check</span></span>
+<span id="cb25-153"><a href="#cb25-153"></a><span class="fu">summ_stats</span>(diamonds<span class="sc">$</span>carat)</span>
+<span id="cb25-154"><a href="#cb25-154"></a><span class="in">```</span></span>
+<span id="cb25-155"><a href="#cb25-155"></a></span>
+<span id="cb25-156"><a href="#cb25-156"></a><span class="fu">### Applied across all numeric variables in `diamonds` — with `map()` + `bind_rows()`</span></span>
+<span id="cb25-157"><a href="#cb25-157"></a></span>
+<span id="cb25-160"><a href="#cb25-160"></a><span class="in">```{r}</span></span>
+<span id="cb25-161"><a href="#cb25-161"></a>diamonds_num <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span>
+<span id="cb25-162"><a href="#cb25-162"></a></span>
+<span id="cb25-163"><a href="#cb25-163"></a>diamonds_summary <span class="ot">&lt;-</span> diamonds_num <span class="sc">|&gt;</span></span>
+<span id="cb25-164"><a href="#cb25-164"></a>    <span class="fu">map</span>(summ_stats) <span class="sc">|&gt;</span></span>
+<span id="cb25-165"><a href="#cb25-165"></a>    <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">"variable"</span>)</span>
+<span id="cb25-166"><a href="#cb25-166"></a></span>
+<span id="cb25-167"><a href="#cb25-167"></a>diamonds_summary</span>
+<span id="cb25-168"><a href="#cb25-168"></a><span class="in">```</span></span>
+<span id="cb25-169"><a href="#cb25-169"></a></span>
+<span id="cb25-170"><a href="#cb25-170"></a>The <span class="in">`.id = "variable"`</span> trick is the cleanest way to recover column names: <span class="in">`map()`</span> over a data frame returns a *named* list (element names inherited from the data frame's column names), and <span class="in">`bind_rows(.id = ...)`</span> promotes those names into a new column.</span>
+<span id="cb25-171"><a href="#cb25-171"></a></span>
+<span id="cb25-172"><a href="#cb25-172"></a><span class="fu">### The same thing with a `for` loop — for comparison</span></span>
+<span id="cb25-173"><a href="#cb25-173"></a></span>
+<span id="cb25-176"><a href="#cb25-176"></a><span class="in">```{r}</span></span>
+<span id="cb25-177"><a href="#cb25-177"></a>n_cols <span class="ot">&lt;-</span> <span class="fu">ncol</span>(diamonds_num)</span>
+<span id="cb25-178"><a href="#cb25-178"></a>summ_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="at">length =</span> n_cols)</span>
+<span id="cb25-179"><a href="#cb25-179"></a></span>
+<span id="cb25-180"><a href="#cb25-180"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n_cols)) {</span>
+<span id="cb25-181"><a href="#cb25-181"></a>    summ_list[[i]] <span class="ot">&lt;-</span> <span class="fu">summ_stats</span>(diamonds_num[[i]])</span>
+<span id="cb25-182"><a href="#cb25-182"></a>}</span>
+<span id="cb25-183"><a href="#cb25-183"></a></span>
+<span id="cb25-184"><a href="#cb25-184"></a><span class="fu">names</span>(summ_list) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(diamonds_num)</span>
+<span id="cb25-185"><a href="#cb25-185"></a><span class="fu">bind_rows</span>(summ_list, <span class="at">.id =</span> <span class="st">"variable"</span>)</span>
+<span id="cb25-186"><a href="#cb25-186"></a><span class="in">```</span></span>
+<span id="cb25-187"><a href="#cb25-187"></a></span>
+<span id="cb25-188"><a href="#cb25-188"></a>Same result. The <span class="in">`map()`</span> version is one line shorter, doesn't require explicit storage allocation, and the return-type contract (a list of tibbles, combined into one) is visible from the pipeline syntax. For this kind of *element-wise* iteration the <span class="in">`map()`</span> form wins on readability; the <span class="in">`for`</span> loop only starts to earn its keep when iteration carries state between steps.</span>
+<span id="cb25-189"><a href="#cb25-189"></a></span>
+<span id="cb25-190"><a href="#cb25-190"></a>------------------------------------------------------------------------</span>
+<span id="cb25-191"><a href="#cb25-191"></a></span>
+<span id="cb25-192"><a href="#cb25-192"></a><span class="fu">## `pmap()` — Multi-Argument Iteration</span></span>
+<span id="cb25-193"><a href="#cb25-193"></a></span>
+<span id="cb25-194"><a href="#cb25-194"></a><span class="fu">### Two small `str_sub()` examples</span></span>
+<span id="cb25-195"><a href="#cb25-195"></a></span>
+<span id="cb25-198"><a href="#cb25-198"></a><span class="in">```{r}</span></span>
+<span id="cb25-199"><a href="#cb25-199"></a><span class="co"># Example 1: vary string, start, and end simultaneously</span></span>
+<span id="cb25-200"><a href="#cb25-200"></a>varying_all <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb25-201"><a href="#cb25-201"></a>    <span class="at">string =</span> <span class="fu">c</span>(<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>),</span>
+<span id="cb25-202"><a href="#cb25-202"></a>    <span class="at">start  =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>),</span>
+<span id="cb25-203"><a href="#cb25-203"></a>    <span class="at">end    =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb25-204"><a href="#cb25-204"></a>)</span>
+<span id="cb25-205"><a href="#cb25-205"></a></span>
+<span id="cb25-206"><a href="#cb25-206"></a><span class="fu">pmap_chr</span>(varying_all, str_sub)</span>
+<span id="cb25-207"><a href="#cb25-207"></a><span class="in">```</span></span>
+<span id="cb25-208"><a href="#cb25-208"></a></span>
+<span id="cb25-211"><a href="#cb25-211"></a><span class="in">```{r}</span></span>
+<span id="cb25-212"><a href="#cb25-212"></a><span class="co"># Example 2: vary start and end, hold string constant</span></span>
+<span id="cb25-213"><a href="#cb25-213"></a>varying_positions <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb25-214"><a href="#cb25-214"></a>    <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>),</span>
+<span id="cb25-215"><a href="#cb25-215"></a>    <span class="at">end   =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb25-216"><a href="#cb25-216"></a>)</span>
+<span id="cb25-217"><a href="#cb25-217"></a></span>
+<span id="cb25-218"><a href="#cb25-218"></a><span class="fu">pmap_chr</span>(varying_positions, str_sub, <span class="at">string =</span> <span class="st">"abcde"</span>)</span>
+<span id="cb25-219"><a href="#cb25-219"></a><span class="in">```</span></span>
+<span id="cb25-220"><a href="#cb25-220"></a></span>
+<span id="cb25-221"><a href="#cb25-221"></a>Two design points from these:</span>
+<span id="cb25-222"><a href="#cb25-222"></a></span>
+<span id="cb25-223"><a href="#cb25-223"></a><span class="ss">- </span><span class="in">`pmap`</span> matches tibble column names to function argument names. The column names in <span class="in">`varying_all`</span> match <span class="in">`str_sub`</span>'s argument names (<span class="in">`string`</span>, <span class="in">`start`</span>, <span class="in">`end`</span>) exactly, which is why it works.</span>
+<span id="cb25-224"><a href="#cb25-224"></a><span class="ss">- </span>Arguments that should be held constant across iterations are passed as extra named arguments *after* the function. In Example 2, <span class="in">`string = "abcde"`</span> is fixed; only <span class="in">`start`</span> and <span class="in">`end`</span> vary.</span>
+<span id="cb25-225"><a href="#cb25-225"></a></span>
+<span id="cb25-226"><a href="#cb25-226"></a><span class="fu">### `pmap()` case study — many model specifications on `diamonds`</span></span>
+<span id="cb25-227"><a href="#cb25-227"></a></span>
+<span id="cb25-228"><a href="#cb25-228"></a>This is the ICA 11 case study redone with <span class="in">`pmap`</span>, avoiding the explicit <span class="in">`for`</span> loop. I'm also carrying over two fixes from ICA 11: the parameter <span class="in">`drop_outliers`</span> rather than <span class="in">`remove_outliers`</span> (to avoid shadowing the function of the same name), and <span class="in">`abs(.zscore) &lt;= sd_thresh`</span> for a symmetric outlier definition.</span>
+<span id="cb25-229"><a href="#cb25-229"></a></span>
+<span id="cb25-232"><a href="#cb25-232"></a><span class="in">```{r}</span></span>
+<span id="cb25-233"><a href="#cb25-233"></a><span class="co"># Helper: remove outliers on `what_var` beyond sd_thresh SDs from the mean</span></span>
+<span id="cb25-234"><a href="#cb25-234"></a>remove_outliers <span class="ot">&lt;-</span> <span class="cf">function</span>(data, what_var, sd_thresh) {</span>
+<span id="cb25-235"><a href="#cb25-235"></a>    data <span class="sc">|&gt;</span></span>
+<span id="cb25-236"><a href="#cb25-236"></a>        <span class="fu">mutate</span>(</span>
+<span id="cb25-237"><a href="#cb25-237"></a>            <span class="at">.zscore =</span> ({{ what_var }} <span class="sc">-</span> <span class="fu">mean</span>({{ what_var }}, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span></span>
+<span id="cb25-238"><a href="#cb25-238"></a>                       <span class="fu">sd</span>({{ what_var }}, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-239"><a href="#cb25-239"></a>        ) <span class="sc">|&gt;</span></span>
+<span id="cb25-240"><a href="#cb25-240"></a>        <span class="fu">filter</span>(<span class="fu">abs</span>(.zscore) <span class="sc">&lt;=</span> sd_thresh) <span class="sc">|&gt;</span></span>
+<span id="cb25-241"><a href="#cb25-241"></a>        <span class="fu">select</span>(<span class="sc">-</span>.zscore)</span>
+<span id="cb25-242"><a href="#cb25-242"></a>}</span>
+<span id="cb25-243"><a href="#cb25-243"></a></span>
+<span id="cb25-244"><a href="#cb25-244"></a><span class="co"># Dispatcher: outer parameter renamed to `drop_outliers` to avoid name collision</span></span>
+<span id="cb25-245"><a href="#cb25-245"></a>fit_model <span class="ot">&lt;-</span> <span class="cf">function</span>(data, mod_formula, drop_outliers) {</span>
+<span id="cb25-246"><a href="#cb25-246"></a>    <span class="cf">if</span> (drop_outliers) {</span>
+<span id="cb25-247"><a href="#cb25-247"></a>        data <span class="ot">&lt;-</span> <span class="fu">remove_outliers</span>(data, <span class="at">what_var =</span> carat, <span class="at">sd_thresh =</span> <span class="dv">3</span>)</span>
+<span id="cb25-248"><a href="#cb25-248"></a>    }</span>
+<span id="cb25-249"><a href="#cb25-249"></a>    <span class="fu">lm</span>(<span class="fu">as.formula</span>(mod_formula), <span class="at">data =</span> data)</span>
+<span id="cb25-250"><a href="#cb25-250"></a>}</span>
+<span id="cb25-251"><a href="#cb25-251"></a><span class="in">```</span></span>
+<span id="cb25-252"><a href="#cb25-252"></a></span>
+<span id="cb25-253"><a href="#cb25-253"></a>Build the argument grid. The template builds nested formulas via <span class="in">`map_chr()`</span> — I keep that pattern because it generalises to an arbitrary predictor list:</span>
+<span id="cb25-254"><a href="#cb25-254"></a></span>
+<span id="cb25-257"><a href="#cb25-257"></a><span class="in">```{r}</span></span>
+<span id="cb25-258"><a href="#cb25-258"></a>xs <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span> <span class="fu">select</span>(carat, cut, clarity, color) <span class="sc">|&gt;</span> <span class="fu">names</span>()</span>
+<span id="cb25-259"><a href="#cb25-259"></a></span>
+<span id="cb25-260"><a href="#cb25-260"></a>df_arg_combos <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb25-261"><a href="#cb25-261"></a>    <span class="at">mod_formula =</span> <span class="fu">str_c</span>(</span>
+<span id="cb25-262"><a href="#cb25-262"></a>        <span class="st">"price ~ "</span>,</span>
+<span id="cb25-263"><a href="#cb25-263"></a>        <span class="fu">map_chr</span>(<span class="fu">seq_along</span>(xs), <span class="sc">~</span> <span class="fu">str_c</span>(xs[<span class="dv">1</span><span class="sc">:</span>.x], <span class="at">collapse =</span> <span class="st">" + "</span>))</span>
+<span id="cb25-264"><a href="#cb25-264"></a>    ),</span>
+<span id="cb25-265"><a href="#cb25-265"></a>    <span class="at">drop_outliers =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb25-266"><a href="#cb25-266"></a>)</span>
+<span id="cb25-267"><a href="#cb25-267"></a></span>
+<span id="cb25-268"><a href="#cb25-268"></a>df_arg_combos</span>
+<span id="cb25-269"><a href="#cb25-269"></a><span class="in">```</span></span>
+<span id="cb25-270"><a href="#cb25-270"></a></span>
+<span id="cb25-271"><a href="#cb25-271"></a>Now fit all eight specifications in one <span class="in">`pmap()`</span> call, storing the results in a list-column alongside the configuration that produced them:</span>
+<span id="cb25-272"><a href="#cb25-272"></a></span>
+<span id="cb25-275"><a href="#cb25-275"></a><span class="in">```{r}</span></span>
+<span id="cb25-276"><a href="#cb25-276"></a>fitted <span class="ot">&lt;-</span> df_arg_combos <span class="sc">|&gt;</span></span>
+<span id="cb25-277"><a href="#cb25-277"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb25-278"><a href="#cb25-278"></a>        <span class="at">mod =</span> <span class="fu">pmap</span>(</span>
+<span id="cb25-279"><a href="#cb25-279"></a>            <span class="fu">list</span>(<span class="at">mod_formula =</span> mod_formula, <span class="at">drop_outliers =</span> drop_outliers),</span>
+<span id="cb25-280"><a href="#cb25-280"></a>            fit_model,</span>
+<span id="cb25-281"><a href="#cb25-281"></a>            <span class="at">data =</span> diamonds</span>
+<span id="cb25-282"><a href="#cb25-282"></a>        )</span>
+<span id="cb25-283"><a href="#cb25-283"></a>    )</span>
+<span id="cb25-284"><a href="#cb25-284"></a></span>
+<span id="cb25-285"><a href="#cb25-285"></a>fitted</span>
+<span id="cb25-286"><a href="#cb25-286"></a><span class="in">```</span></span>
+<span id="cb25-287"><a href="#cb25-287"></a></span>
+<span id="cb25-288"><a href="#cb25-288"></a>The <span class="in">`list(mod_formula = ..., drop_outliers = ...)`</span> inside <span class="in">`pmap()`</span> is explicit about which columns feed which arguments — safer than relying on column-name-to-argument-name matching when the tibble has additional columns you don't want passed. <span class="in">`data = diamonds`</span> is the fixed argument carried through every iteration.</span>
+<span id="cb25-289"><a href="#cb25-289"></a></span>
+<span id="cb25-290"><a href="#cb25-290"></a><span class="fu">### Extract a tidy comparison table</span></span>
+<span id="cb25-291"><a href="#cb25-291"></a></span>
+<span id="cb25-292"><a href="#cb25-292"></a>A list-column of <span class="in">`lm`</span> objects isn't useful until we pull out comparable statistics:</span>
+<span id="cb25-293"><a href="#cb25-293"></a></span>
+<span id="cb25-296"><a href="#cb25-296"></a><span class="in">```{r}</span></span>
+<span id="cb25-297"><a href="#cb25-297"></a>fitted <span class="sc">|&gt;</span></span>
+<span id="cb25-298"><a href="#cb25-298"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb25-299"><a href="#cb25-299"></a>        <span class="at">n_used        =</span> <span class="fu">map_int</span>(mod, <span class="sc">~</span> <span class="fu">length</span>(<span class="fu">residuals</span>(.x))),</span>
+<span id="cb25-300"><a href="#cb25-300"></a>        <span class="at">r_squared     =</span> <span class="fu">map_dbl</span>(mod, <span class="sc">~</span> <span class="fu">summary</span>(.x)<span class="sc">$</span>r.squared),</span>
+<span id="cb25-301"><a href="#cb25-301"></a>        <span class="at">adj_r_squared =</span> <span class="fu">map_dbl</span>(mod, <span class="sc">~</span> <span class="fu">summary</span>(.x)<span class="sc">$</span>adj.r.squared),</span>
+<span id="cb25-302"><a href="#cb25-302"></a>        <span class="at">aic           =</span> <span class="fu">map_dbl</span>(mod, AIC)</span>
+<span id="cb25-303"><a href="#cb25-303"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb25-304"><a href="#cb25-304"></a>    <span class="fu">select</span>(<span class="sc">-</span>mod) <span class="sc">|&gt;</span></span>
+<span id="cb25-305"><a href="#cb25-305"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(adj_r_squared))</span>
+<span id="cb25-306"><a href="#cb25-306"></a><span class="in">```</span></span>
+<span id="cb25-307"><a href="#cb25-307"></a></span>
+<span id="cb25-308"><a href="#cb25-308"></a>The full <span class="in">`price ~ carat + cut + clarity + color`</span> specification on outlier-dropped data wins on adjusted R² — at the cost of being trained on a slightly different dataset than the one it would be applied to. The <span class="in">`crossing() + pmap() + map_*() extraction`</span> pattern scales: you could add a third axis to <span class="in">`crossing()`</span> (say, a handful of transformations on <span class="in">`carat`</span>), go from 8 specifications to 24, and the rest of the pipeline would need zero changes.</span>
+<span id="cb25-309"><a href="#cb25-309"></a></span>
+<span id="cb25-310"><a href="#cb25-310"></a>------------------------------------------------------------------------</span>
+<span id="cb25-311"><a href="#cb25-311"></a></span>
+<span id="cb25-312"><a href="#cb25-312"></a><span class="fu">## `walk2()` — Saving One Plot Per Group</span></span>
+<span id="cb25-313"><a href="#cb25-313"></a></span>
+<span id="cb25-316"><a href="#cb25-316"></a><span class="in">```{r}</span></span>
+<span id="cb25-317"><a href="#cb25-317"></a><span class="co">#| label: walk-plot-saving</span></span>
+<span id="cb25-318"><a href="#cb25-318"></a><span class="co"># Write to a temporary directory so this chunk doesn't pollute the working dir</span></span>
+<span id="cb25-319"><a href="#cb25-319"></a>out_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"diamond_plots"</span>)</span>
+<span id="cb25-320"><a href="#cb25-320"></a><span class="fu">dir.create</span>(out_dir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb25-321"><a href="#cb25-321"></a></span>
+<span id="cb25-322"><a href="#cb25-322"></a><span class="co"># Build one dataset per clarity level, one filepath per dataset, one plot per dataset</span></span>
+<span id="cb25-323"><a href="#cb25-323"></a>by_clarity <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span></span>
+<span id="cb25-324"><a href="#cb25-324"></a>    <span class="fu">group_nest</span>(clarity) <span class="sc">|&gt;</span></span>
+<span id="cb25-325"><a href="#cb25-325"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb25-326"><a href="#cb25-326"></a>        <span class="at">path =</span> <span class="fu">file.path</span>(out_dir, <span class="fu">str_glue</span>(<span class="st">"diamonds-{clarity}.png"</span>)),</span>
+<span id="cb25-327"><a href="#cb25-327"></a>        <span class="co"># map2 passes both the clarity label and the nested data frame</span></span>
+<span id="cb25-328"><a href="#cb25-328"></a>        <span class="at">plot =</span> <span class="fu">map2</span>(clarity, data, \(cl, df) {</span>
+<span id="cb25-329"><a href="#cb25-329"></a>            <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb25-330"><a href="#cb25-330"></a>                <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb25-331"><a href="#cb25-331"></a>                <span class="fu">labs</span>(</span>
+<span id="cb25-332"><a href="#cb25-332"></a>                    <span class="at">x =</span> <span class="st">"Carat"</span>, <span class="at">y =</span> <span class="st">"Price (USD)"</span>,</span>
+<span id="cb25-333"><a href="#cb25-333"></a>                    <span class="at">title =</span> <span class="fu">str_glue</span>(<span class="st">"Price vs. carat — clarity {cl}"</span>)</span>
+<span id="cb25-334"><a href="#cb25-334"></a>                ) <span class="sc">+</span></span>
+<span id="cb25-335"><a href="#cb25-335"></a>                <span class="fu">theme_minimal</span>()</span>
+<span id="cb25-336"><a href="#cb25-336"></a>        })</span>
+<span id="cb25-337"><a href="#cb25-337"></a>    )</span>
+<span id="cb25-338"><a href="#cb25-338"></a></span>
+<span id="cb25-339"><a href="#cb25-339"></a><span class="co"># walk2() iterates over two parallel vectors for side effects only</span></span>
+<span id="cb25-340"><a href="#cb25-340"></a><span class="fu">walk2</span>(</span>
+<span id="cb25-341"><a href="#cb25-341"></a>    by_clarity<span class="sc">$</span>path,</span>
+<span id="cb25-342"><a href="#cb25-342"></a>    by_clarity<span class="sc">$</span>plot,</span>
+<span id="cb25-343"><a href="#cb25-343"></a>    \(p, g) <span class="fu">ggsave</span>(p, g, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">dpi =</span> <span class="dv">100</span>)</span>
+<span id="cb25-344"><a href="#cb25-344"></a>)</span>
+<span id="cb25-345"><a href="#cb25-345"></a></span>
+<span id="cb25-346"><a href="#cb25-346"></a><span class="co"># Confirm the files exist</span></span>
+<span id="cb25-347"><a href="#cb25-347"></a><span class="fu">list.files</span>(out_dir)</span>
+<span id="cb25-348"><a href="#cb25-348"></a><span class="in">```</span></span>
+<span id="cb25-349"><a href="#cb25-349"></a></span>
+<span id="cb25-350"><a href="#cb25-350"></a>Three notes on this pattern:</span>
+<span id="cb25-351"><a href="#cb25-351"></a></span>
+<span id="cb25-352"><a href="#cb25-352"></a><span class="ss">- </span>**`walk2()` vs `map2()`.** They do the same iteration; the difference is that <span class="in">`walk2()`</span> returns the input invisibly and is intended for side-effect functions like <span class="in">`ggsave()`</span>, <span class="in">`write_csv()`</span>, or <span class="in">`cat()`</span>. Using <span class="in">`map2()`</span> here would work but would leave you with a list of <span class="in">`NULL`</span>s (what <span class="in">`ggsave`</span> returns), which is not what you want.</span>
+<span id="cb25-353"><a href="#cb25-353"></a><span class="ss">- </span>**`group_nest()` is the right preparation step.** It produces a tibble where each row is one group and one column is a nested <span class="in">`data`</span> column holding that group's rows. From there, a <span class="in">`mutate(plot = map(data, ...))`</span> builds one plot per row, and <span class="in">`walk2()`</span> writes them out. The whole pattern — group-nest, list-column transform, walk-to-disk — is the purrr-era replacement for the <span class="in">`for`</span> loop that used to do this job.</span>
+<span id="cb25-354"><a href="#cb25-354"></a><span class="ss">- </span>**`tempdir()` hygiene.** Writing to <span class="in">`tempdir()`</span> means this chunk leaves no artifacts in my working directory. For a real use case I'd point <span class="in">`out_dir`</span> at <span class="in">`here::here("figures")`</span> or similar; the pattern is identical.</span>
+<span id="cb25-355"><a href="#cb25-355"></a></span>
+<span id="cb25-356"><a href="#cb25-356"></a>------------------------------------------------------------------------</span>
+<span id="cb25-357"><a href="#cb25-357"></a></span>
+<span id="cb25-358"><a href="#cb25-358"></a><span class="fu">## Reflection</span></span>
+<span id="cb25-359"><a href="#cb25-359"></a></span>
+<span id="cb25-360"><a href="#cb25-360"></a>**`purrr`'s payoff is not speed — it's readability and type safety.** The benchmarks at the top of this document make this explicit: <span class="in">`map_int()`</span> is roughly tied with a pre-allocated <span class="in">`for`</span> loop on raw performance. What <span class="in">`purrr`</span> buys is the <span class="in">`_int`</span>, <span class="in">`_chr`</span>, <span class="in">`_dbl`</span>, <span class="in">`_lgl`</span> suffix — the function fails loudly if the return type doesn't match, instead of letting the error propagate silently. In a pipeline that feeds downstream analysis, failing loudly at the place the error happens is worth more than a few milliseconds. This is the same principle as the input validation in ICA 10's <span class="in">`fit_mod_and_extract()`</span>: explicit contract, enforced early.</span>
+<span id="cb25-361"><a href="#cb25-361"></a></span>
+<span id="cb25-362"><a href="#cb25-362"></a>**The hard transition in this material is from "element-wise iteration" to "multi-argument iteration."** <span class="in">`map()`</span> is the easy case — one vector in, one vector out. <span class="in">`pmap()`</span> is the one that unlocks everything interesting: it takes a data frame where each row is a configuration, matches column names to function arguments, and applies a function once per row. That is the same skeleton as grid-search hyperparameter tuning in scikit-learn, or as a Stata robustness-check loop over model specifications, or as a sensitivity analysis in a causal-inference paper. <span class="in">`crossing() + pmap()`</span> is the R version of that skeleton. Once you see this, most of the "repeated analysis" work you'll do in empirical research collapses into one pattern.</span>
+<span id="cb25-363"><a href="#cb25-363"></a></span>
+<span id="cb25-364"><a href="#cb25-364"></a>**`walk`'s separation of computation from side effects is the same insight functional programming has been making for decades.** A <span class="in">`map()`</span> is safe to retry, safe to parallelize, safe to reason about because it has no effects outside its return value. A <span class="in">`walk()`</span> is explicitly for the part of the pipeline that *does* interact with the world — files, databases, plots, prints. Keeping these two separated — computing first, writing after — is how pipelines stay debuggable when they scale.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

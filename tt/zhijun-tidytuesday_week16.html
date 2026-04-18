@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-17">
+<title>The Transition That Stalled – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../pcl/pcl.html" rel="next">
+<link href="../tt/zhijun-tidytuesday_week15.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week4.html">TidyTuesday</a></li><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week16.html"><span class="chapter-title">The Transition That Stalled</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#motivation-research-question" id="toc-motivation-research-question" class="nav-link" data-scroll-target="#motivation-research-question">Motivation &amp; Research Question</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
+  <li><a href="#visualization-1-the-financing-transition-four-income-groups" id="toc-visualization-1-the-financing-transition-four-income-groups" class="nav-link" data-scroll-target="#visualization-1-the-financing-transition-four-income-groups">Visualization 1: The Financing Transition, Four Income Groups</a></li>
+  <li><a href="#visualization-2-the-out-of-pocket-trap" id="toc-visualization-2-the-out-of-pocket-trap" class="nav-link" data-scroll-target="#visualization-2-the-out-of-pocket-trap">Visualization 2: The Out-of-Pocket Trap</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">Takeaway</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week4.html">TidyTuesday</a></li><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week16.html"><span class="chapter-title">The Transition That Stalled</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">The Transition That Stalled</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">TidyTuesday 2026 · Week 16 · WHO Global Health Expenditure Database, 2000–2023</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 17, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>health_spending <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-21/health_spending.csv"</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>financing_schemes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-21/financing_schemes.csv"</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="background" class="level2"><h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>The WHO Global Health Expenditure Database, maintained since 2000, is the closest thing the development community has to a universal ledger of how the world pays for health. For 195 countries and territories, it records every dollar of health spending each year, decomposed by source — domestic government, domestic private households and firms, or external donors — and by financing scheme, the mechanism that channels the money through. The framework it encodes is not neutral. Since a landmark 2010 World Health Report, the WHO has argued that countries move, or ought to move, through a predictable <em>fiscal transition</em> in health: as states grow richer and their administrative capacity strengthens, government health spending rises as a share of total health expenditure, households’ out-of-pocket (OOP) burden falls, and foreign aid eventually tapers off. Thailand in the 2000s is the canonical demonstration. Rwanda after 1994 is the case studied most intensely by Indermit Gill and the Economic Growth Center. Ghana, Vietnam, Turkey are the other names people cite.</p>
+<p>The empirical question — against which all three of my graduate advisors would push me to hold any optimistic claim — is whether the transition is actually occurring at scale, or whether it is a success story reconstructed from a small number of cases and a mostly-flat global average. For most poor countries, the absence of government capacity to run a tax-funded health system is not a transient problem. The OOP share sits high, donor aid fills a fraction of the gap, and when donors leave (as PEPFAR and the Global Fund increasingly have, under the 2025 US aid suspension) the gap falls back onto households. The data released this week covers exactly the period in which this claim is testable.</p>
+</section><section id="motivation-research-question" class="level2"><h2 class="anchored" data-anchor-id="motivation-research-question">Motivation &amp; Research Question</h2>
+<p>The fiscal transition makes a specific, testable prediction. In any given country, over time, one should see the government share of total health expenditure rising and the household OOP share falling. Countries should sort themselves along this trajectory by income level: richer countries further along it, poorer countries still at the starting point but moving in the same direction. A transition that is <em>not</em> happening looks different. The shares stay roughly constant at the country level; the global picture is dominated by new aid flows that replace, rather than catalyse, domestic spending; and the households of the poorest countries continue carrying a share of health costs that households in the richest countries have not carried for half a century.</p>
+<p><strong>Research question: Across 195 countries and 24 years, is the fiscal transition in health financing — the expected shift from out-of-pocket toward pooled government financing — actually visible in the data, or does the out-of-pocket burden on households in low-income countries sit structurally unchanged?</strong></p>
+</section><section id="data-preparation" class="level2"><h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Pull the % of CHE rows for source composition (government / private / external)</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>comp <span class="ot">&lt;-</span> health_spending <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(indicator_code, <span class="st">"_che"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="at">source =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-6"><a href="#cb2-6"></a>      indicator_code <span class="sc">==</span> <span class="st">"gghed_che"</span> <span class="sc">~</span> <span class="st">"Government"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>      indicator_code <span class="sc">==</span> <span class="st">"pvtd_che"</span>  <span class="sc">~</span> <span class="st">"Private (domestic)"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8"></a>      indicator_code <span class="sc">==</span> <span class="st">"ext_che"</span>   <span class="sc">~</span> <span class="st">"External aid"</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>    )</span>
+<span id="cb2-10"><a href="#cb2-10"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(source)) <span class="sc">|&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">select</span>(country_name, iso3_code, year, source, value)</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co"># Out-of-pocket share specifically, from financing_schemes</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>oop <span class="ot">&lt;-</span> financing_schemes <span class="sc">|&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>  <span class="fu">filter</span>(indicator_code <span class="sc">==</span> <span class="st">"hf3_che"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="fu">select</span>(country_name, iso3_code, year, <span class="at">oop_share =</span> value)</span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co"># Country income groups from the World Bank classification, embedded as a</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co"># lookup rather than joined via an external call.  (These reflect the 2023</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co"># classification; a small number of countries have shifted groups over time.)</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co"># Grouping is coarse because it only needs to stratify trajectories, not to</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co"># classify individual countries in a policy sense.</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>income_group <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="sc">~</span>group,              <span class="sc">~</span>iso3,</span>
+<span id="cb2-26"><a href="#cb2-26"></a>  <span class="st">"High income"</span>,       <span class="fu">c</span>(<span class="st">"USA"</span>,<span class="st">"CAN"</span>,<span class="st">"GBR"</span>,<span class="st">"DEU"</span>,<span class="st">"FRA"</span>,<span class="st">"ITA"</span>,<span class="st">"ESP"</span>,<span class="st">"JPN"</span>,<span class="st">"KOR"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27"></a>                         <span class="st">"AUS"</span>,<span class="st">"NZL"</span>,<span class="st">"NLD"</span>,<span class="st">"SWE"</span>,<span class="st">"NOR"</span>,<span class="st">"DNK"</span>,<span class="st">"FIN"</span>,<span class="st">"CHE"</span>,<span class="st">"BEL"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28"></a>                         <span class="st">"AUT"</span>,<span class="st">"IRL"</span>,<span class="st">"PRT"</span>,<span class="st">"ISR"</span>,<span class="st">"SGP"</span>,<span class="st">"ARE"</span>,<span class="st">"SAU"</span>,<span class="st">"CZE"</span>,<span class="st">"POL"</span>,</span>
+<span id="cb2-29"><a href="#cb2-29"></a>                         <span class="st">"HUN"</span>,<span class="st">"EST"</span>,<span class="st">"LVA"</span>,<span class="st">"LTU"</span>,<span class="st">"SVK"</span>,<span class="st">"SVN"</span>,<span class="st">"HRV"</span>,<span class="st">"URY"</span>,<span class="st">"CHL"</span>,</span>
+<span id="cb2-30"><a href="#cb2-30"></a>                         <span class="st">"PAN"</span>,<span class="st">"TTO"</span>,<span class="st">"BRB"</span>,<span class="st">"BHS"</span>),</span>
+<span id="cb2-31"><a href="#cb2-31"></a>  <span class="st">"Upper-middle"</span>,      <span class="fu">c</span>(<span class="st">"CHN"</span>,<span class="st">"RUS"</span>,<span class="st">"BRA"</span>,<span class="st">"MEX"</span>,<span class="st">"ARG"</span>,<span class="st">"TUR"</span>,<span class="st">"MYS"</span>,<span class="st">"THA"</span>,<span class="st">"ZAF"</span>,</span>
+<span id="cb2-32"><a href="#cb2-32"></a>                         <span class="st">"COL"</span>,<span class="st">"PER"</span>,<span class="st">"ECU"</span>,<span class="st">"DOM"</span>,<span class="st">"GTM"</span>,<span class="st">"PRY"</span>,<span class="st">"VEN"</span>,<span class="st">"CUB"</span>,<span class="st">"CRI"</span>,</span>
+<span id="cb2-33"><a href="#cb2-33"></a>                         <span class="st">"BGR"</span>,<span class="st">"ROU"</span>,<span class="st">"SRB"</span>,<span class="st">"ALB"</span>,<span class="st">"MKD"</span>,<span class="st">"BLR"</span>,<span class="st">"KAZ"</span>,<span class="st">"AZE"</span>,<span class="st">"ARM"</span>,</span>
+<span id="cb2-34"><a href="#cb2-34"></a>                         <span class="st">"GEO"</span>,<span class="st">"IRQ"</span>,<span class="st">"IRN"</span>,<span class="st">"JOR"</span>,<span class="st">"LBN"</span>,<span class="st">"TUN"</span>,<span class="st">"DZA"</span>,<span class="st">"LBY"</span>,<span class="st">"NAM"</span>,</span>
+<span id="cb2-35"><a href="#cb2-35"></a>                         <span class="st">"BWA"</span>,<span class="st">"GAB"</span>,<span class="st">"MUS"</span>,<span class="st">"JAM"</span>),</span>
+<span id="cb2-36"><a href="#cb2-36"></a>  <span class="st">"Lower-middle"</span>,      <span class="fu">c</span>(<span class="st">"IND"</span>,<span class="st">"IDN"</span>,<span class="st">"PHL"</span>,<span class="st">"VNM"</span>,<span class="st">"PAK"</span>,<span class="st">"BGD"</span>,<span class="st">"EGY"</span>,<span class="st">"NGA"</span>,<span class="st">"KEN"</span>,</span>
+<span id="cb2-37"><a href="#cb2-37"></a>                         <span class="st">"GHA"</span>,<span class="st">"ZMB"</span>,<span class="st">"ZWE"</span>,<span class="st">"CMR"</span>,<span class="st">"CIV"</span>,<span class="st">"SEN"</span>,<span class="st">"MAR"</span>,<span class="st">"LKA"</span>,<span class="st">"KHM"</span>,</span>
+<span id="cb2-38"><a href="#cb2-38"></a>                         <span class="st">"MMR"</span>,<span class="st">"LAO"</span>,<span class="st">"NPL"</span>,<span class="st">"MNG"</span>,<span class="st">"UZB"</span>,<span class="st">"KGZ"</span>,<span class="st">"TJK"</span>,<span class="st">"PSE"</span>,<span class="st">"YEM"</span>,</span>
+<span id="cb2-39"><a href="#cb2-39"></a>                         <span class="st">"SYR"</span>,<span class="st">"SDN"</span>,<span class="st">"AGO"</span>,<span class="st">"BEN"</span>,<span class="st">"COG"</span>,<span class="st">"HTI"</span>,<span class="st">"HND"</span>,<span class="st">"SLV"</span>,<span class="st">"NIC"</span>,</span>
+<span id="cb2-40"><a href="#cb2-40"></a>                         <span class="st">"BOL"</span>,<span class="st">"TLS"</span>,<span class="st">"PNG"</span>,<span class="st">"STP"</span>),</span>
+<span id="cb2-41"><a href="#cb2-41"></a>  <span class="st">"Low income"</span>,        <span class="fu">c</span>(<span class="st">"AFG"</span>,<span class="st">"ETH"</span>,<span class="st">"TZA"</span>,<span class="st">"UGA"</span>,<span class="st">"RWA"</span>,<span class="st">"BDI"</span>,<span class="st">"MLI"</span>,<span class="st">"BFA"</span>,<span class="st">"NER"</span>,</span>
+<span id="cb2-42"><a href="#cb2-42"></a>                         <span class="st">"TCD"</span>,<span class="st">"CAF"</span>,<span class="st">"COD"</span>,<span class="st">"SOM"</span>,<span class="st">"ERI"</span>,<span class="st">"SSD"</span>,<span class="st">"GIN"</span>,<span class="st">"GMB"</span>,<span class="st">"GNB"</span>,</span>
+<span id="cb2-43"><a href="#cb2-43"></a>                         <span class="st">"SLE"</span>,<span class="st">"LBR"</span>,<span class="st">"MOZ"</span>,<span class="st">"MWI"</span>,<span class="st">"MDG"</span>,<span class="st">"COM"</span>,<span class="st">"TGO"</span>,<span class="st">"PRK"</span>,<span class="st">"SYR"</span>)</span>
+<span id="cb2-44"><a href="#cb2-44"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a>  <span class="fu">unnest</span>(iso3) <span class="sc">|&gt;</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a>  <span class="fu">rename</span>(<span class="at">iso3_code =</span> iso3)</span>
+<span id="cb2-47"><a href="#cb2-47"></a></span>
+<span id="cb2-48"><a href="#cb2-48"></a><span class="co"># Keep only countries we classified (coverage ~80% of WHO set)</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a>oop_grp <span class="ot">&lt;-</span> oop <span class="sc">|&gt;</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a>  <span class="fu">inner_join</span>(income_group, <span class="at">by =</span> <span class="st">"iso3_code"</span>)</span>
+<span id="cb2-51"><a href="#cb2-51"></a></span>
+<span id="cb2-52"><a href="#cb2-52"></a>comp_grp <span class="ot">&lt;-</span> comp <span class="sc">|&gt;</span></span>
+<span id="cb2-53"><a href="#cb2-53"></a>  <span class="fu">inner_join</span>(income_group, <span class="at">by =</span> <span class="st">"iso3_code"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-54"><a href="#cb2-54"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low income"</span>, <span class="st">"Lower-middle"</span>,</span>
+<span id="cb2-55"><a href="#cb2-55"></a>                                          <span class="st">"Upper-middle"</span>, <span class="st">"High income"</span>)))</span>
+<span id="cb2-56"><a href="#cb2-56"></a></span>
+<span id="cb2-57"><a href="#cb2-57"></a><span class="fu">cat</span>(<span class="st">"Total country-years in health_spending:"</span>, <span class="fu">nrow</span>(comp), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Total country-years in health_spending: 13203 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">cat</span>(<span class="st">"Countries classified into an income group:"</span>,</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="fu">n_distinct</span>(comp_grp<span class="sc">$</span>iso3_code), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Countries classified into an income group: 145 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">cat</span>(<span class="st">"Date range:"</span>, <span class="fu">min</span>(comp<span class="sc">$</span>year), <span class="st">"–"</span>, <span class="fu">max</span>(comp<span class="sc">$</span>year), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Date range: 2000 – 2023 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Headline numbers for the motivation</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>latest <span class="ot">&lt;-</span> oop_grp <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">summarise</span>(<span class="at">median_oop =</span> <span class="fu">median</span>(oop_share, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">cat</span>(<span class="st">"Median out-of-pocket share of health spending, 2022, by income group:</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Median out-of-pocket share of health spending, 2022, by income group:</code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>latest <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">median_oop =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(median_oop, <span class="dv">1</span>), <span class="st">"%"</span>)) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  group        median_oop
+  &lt;chr&gt;        &lt;chr&gt;     
+1 High income  16.3%     
+2 Low income   42.9%     
+3 Lower-middle 41.5%     
+4 Upper-middle 30.8%     </code></pre>
+</div>
+</div>
+</section><section id="visualization-1-the-financing-transition-four-income-groups" class="level2"><h2 class="anchored" data-anchor-id="visualization-1-the-financing-transition-four-income-groups">Visualization 1: The Financing Transition, Four Income Groups</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Median country share in each income group × year × source</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>group_trend <span class="ot">&lt;-</span> comp_grp <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value), year <span class="sc">&gt;=</span> <span class="dv">2000</span>, year <span class="sc">&lt;=</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">group_by</span>(group, year, source) <span class="sc">|&gt;</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-6"><a href="#cb12-6"></a>    <span class="at">p25    =</span> <span class="fu">quantile</span>(value, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-7"><a href="#cb12-7"></a>    <span class="at">median =</span> <span class="fu">median</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-8"><a href="#cb12-8"></a>    <span class="at">p75    =</span> <span class="fu">quantile</span>(value, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-9"><a href="#cb12-9"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a>  <span class="fu">mutate</span>(<span class="at">source =</span> <span class="fu">factor</span>(source,</span>
+<span id="cb12-12"><a href="#cb12-12"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Government"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13"></a>                                    <span class="st">"Private (domestic)"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14"></a>                                    <span class="st">"External aid"</span>)))</span>
+<span id="cb12-15"><a href="#cb12-15"></a></span>
+<span id="cb12-16"><a href="#cb12-16"></a>source_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb12-17"><a href="#cb12-17"></a>  <span class="st">"Government"</span>         <span class="ot">=</span> <span class="st">"#2a6b7a"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18"></a>  <span class="st">"Private (domestic)"</span> <span class="ot">=</span> <span class="st">"#b8412d"</span>,</span>
+<span id="cb12-19"><a href="#cb12-19"></a>  <span class="st">"External aid"</span>       <span class="ot">=</span> <span class="st">"#d4af37"</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a>)</span>
+<span id="cb12-21"><a href="#cb12-21"></a></span>
+<span id="cb12-22"><a href="#cb12-22"></a><span class="fu">ggplot</span>(group_trend, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">colour =</span> source, <span class="at">fill =</span> source)) <span class="sc">+</span></span>
+<span id="cb12-23"><a href="#cb12-23"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> p25, <span class="at">ymax =</span> p75), <span class="at">alpha =</span> <span class="fl">0.18</span>, <span class="at">colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb12-24"><a href="#cb12-24"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> median), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-25"><a href="#cb12-25"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> source_pal, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb12-26"><a href="#cb12-26"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> source_pal, <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb12-27"><a href="#cb12-27"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>, <span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb12-28"><a href="#cb12-28"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">25</span>)) <span class="sc">+</span></span>
+<span id="cb12-29"><a href="#cb12-29"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2010</span>, <span class="dv">2020</span>),</span>
+<span id="cb12-30"><a href="#cb12-30"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.02</span>))) <span class="sc">+</span></span>
+<span id="cb12-31"><a href="#cb12-31"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> group, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-32"><a href="#cb12-32"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-33"><a href="#cb12-33"></a>    <span class="at">title    =</span> <span class="st">"Rich countries finished the fiscal transition decades ago — poor countries have not started"</span>,</span>
+<span id="cb12-34"><a href="#cb12-34"></a>    <span class="at">subtitle =</span> <span class="st">"Share of current health expenditure by source, median country in each World Bank income group, 2000–2023"</span>,</span>
+<span id="cb12-35"><a href="#cb12-35"></a>    <span class="at">x        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-36"><a href="#cb12-36"></a>    <span class="at">y        =</span> <span class="st">"Share of current health expenditure"</span>,</span>
+<span id="cb12-37"><a href="#cb12-37"></a>    <span class="at">caption  =</span> <span class="st">"Source: WHO Global Health Expenditure Database · TidyTuesday 2026 Wk 16 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb12-38"><a href="#cb12-38"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-39"><a href="#cb12-39"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb12-40"><a href="#cb12-40"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-41"><a href="#cb12-41"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb12-42"><a href="#cb12-42"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb12-43"><a href="#cb12-43"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb12-44"><a href="#cb12-44"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb12-45"><a href="#cb12-45"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb12-46"><a href="#cb12-46"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-47"><a href="#cb12-47"></a>    <span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="fl">1.1</span>, <span class="st">"lines"</span>)</span>
+<span id="cb12-48"><a href="#cb12-48"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="zhijun-tidytuesday_week16_files/figure-html/viz1-trajectories-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The four panels read, from left to right, as four successive stages of economic development. In the left-most panel, the median low-income country derives roughly 20 percent of its health spending from government, 50 to 60 percent from private sources (the vast majority of which is direct out-of-pocket payment from households), and the rest from external aid that peaks around 2010 and has drifted down since. Across the twenty-four years of the record, the government share rises modestly; the private share barely moves; the external share declines without a corresponding increase in domestic government revenue taking its place. In the right-most panel, high-income countries sit at roughly 70 percent government, 30 percent private, and less than 1 percent external aid — a composition they reached before the period in this record began. The two middle income groups sit between these two states. The upper-middle group has visibly moved toward the high-income profile over the twenty-four years; the lower-middle group’s trajectory is much flatter. The ordering is exactly what the fiscal-transition thesis predicts. The speed of movement, for the countries that most need it, is not.</p>
+</section><section id="visualization-2-the-out-of-pocket-trap" class="level2"><h2 class="anchored" data-anchor-id="visualization-2-the-out-of-pocket-trap">Visualization 2: The Out-of-Pocket Trap</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># For each country, compare OOP share in 2000 (or earliest year ≥ 2000)</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co"># with OOP share in 2022 (or latest year ≤ 2022).</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>oop_change <span class="ot">&lt;-</span> oop_grp <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(oop_share), year <span class="sc">&gt;=</span> <span class="dv">2000</span>, year <span class="sc">&lt;=</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">group_by</span>(iso3_code, country_name, group) <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb13-7"><a href="#cb13-7"></a>    <span class="at">start_year  =</span> <span class="fu">min</span>(year),</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    <span class="at">start_oop   =</span> oop_share[<span class="fu">which.min</span>(year)],</span>
+<span id="cb13-9"><a href="#cb13-9"></a>    <span class="at">end_year    =</span> <span class="fu">max</span>(year),</span>
+<span id="cb13-10"><a href="#cb13-10"></a>    <span class="at">end_oop     =</span> oop_share[<span class="fu">which.max</span>(year)],</span>
+<span id="cb13-11"><a href="#cb13-11"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a>  <span class="fu">filter</span>(end_year <span class="sc">-</span> start_year <span class="sc">&gt;=</span> <span class="dv">10</span>,</span>
+<span id="cb13-14"><a href="#cb13-14"></a>         <span class="sc">!</span><span class="fu">is.na</span>(start_oop), <span class="sc">!</span><span class="fu">is.na</span>(end_oop))</span>
+<span id="cb13-15"><a href="#cb13-15"></a></span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="co"># Highlight a small set of countries whose trajectories are instructive</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a>highlight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"RWA"</span>, <span class="st">"THA"</span>, <span class="st">"TUR"</span>, <span class="st">"CHN"</span>, <span class="st">"IND"</span>, <span class="st">"BGD"</span>,</span>
+<span id="cb13-18"><a href="#cb13-18"></a>               <span class="st">"NGA"</span>, <span class="st">"AFG"</span>, <span class="st">"VNM"</span>, <span class="st">"GHA"</span>, <span class="st">"KEN"</span>, <span class="st">"USA"</span>, <span class="st">"DEU"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19"></a></span>
+<span id="cb13-20"><a href="#cb13-20"></a>oop_plot <span class="ot">&lt;-</span> oop_change <span class="sc">|&gt;</span></span>
+<span id="cb13-21"><a href="#cb13-21"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-22"><a href="#cb13-22"></a>    <span class="at">is_hl    =</span> iso3_code <span class="sc">%in%</span> highlight,</span>
+<span id="cb13-23"><a href="#cb13-23"></a>    <span class="at">trend    =</span> <span class="fu">case_when</span>(</span>
+<span id="cb13-24"><a href="#cb13-24"></a>      end_oop <span class="sc">&lt;</span> start_oop <span class="sc">-</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Reducing OOP reliance"</span>,</span>
+<span id="cb13-25"><a href="#cb13-25"></a>      end_oop <span class="sc">&gt;</span> start_oop <span class="sc">+</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Rising OOP reliance"</span>,</span>
+<span id="cb13-26"><a href="#cb13-26"></a>      <span class="cn">TRUE</span>                    <span class="sc">~</span> <span class="st">"Little change"</span></span>
+<span id="cb13-27"><a href="#cb13-27"></a>    ),</span>
+<span id="cb13-28"><a href="#cb13-28"></a>    <span class="at">trend    =</span> <span class="fu">factor</span>(trend, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Reducing OOP reliance"</span>,</span>
+<span id="cb13-29"><a href="#cb13-29"></a>                                        <span class="st">"Little change"</span>,</span>
+<span id="cb13-30"><a href="#cb13-30"></a>                                        <span class="st">"Rising OOP reliance"</span>)),</span>
+<span id="cb13-31"><a href="#cb13-31"></a>    <span class="at">group    =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low income"</span>, <span class="st">"Lower-middle"</span>,</span>
+<span id="cb13-32"><a href="#cb13-32"></a>                                        <span class="st">"Upper-middle"</span>, <span class="st">"High income"</span>))</span>
+<span id="cb13-33"><a href="#cb13-33"></a>  )</span>
+<span id="cb13-34"><a href="#cb13-34"></a></span>
+<span id="cb13-35"><a href="#cb13-35"></a>trend_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb13-36"><a href="#cb13-36"></a>  <span class="st">"Reducing OOP reliance"</span> <span class="ot">=</span> <span class="st">"#2a6b7a"</span>,</span>
+<span id="cb13-37"><a href="#cb13-37"></a>  <span class="st">"Little change"</span>         <span class="ot">=</span> <span class="st">"#bfb8a8"</span>,</span>
+<span id="cb13-38"><a href="#cb13-38"></a>  <span class="st">"Rising OOP reliance"</span>   <span class="ot">=</span> <span class="st">"#b8412d"</span></span>
+<span id="cb13-39"><a href="#cb13-39"></a>)</span>
+<span id="cb13-40"><a href="#cb13-40"></a></span>
+<span id="cb13-41"><a href="#cb13-41"></a><span class="fu">ggplot</span>(oop_plot, <span class="fu">aes</span>(<span class="at">x =</span> start_oop, <span class="at">y =</span> end_oop)) <span class="sc">+</span></span>
+<span id="cb13-42"><a href="#cb13-42"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>,</span>
+<span id="cb13-43"><a href="#cb13-43"></a>              <span class="at">colour =</span> <span class="st">"grey70"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb13-44"><a href="#cb13-44"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> trend), <span class="at">size =</span> <span class="fl">2.3</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb13-45"><a href="#cb13-45"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(oop_plot, is_hl),</span>
+<span id="cb13-46"><a href="#cb13-46"></a>             <span class="fu">aes</span>(<span class="at">colour =</span> trend), <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">stroke =</span> <span class="fl">0.7</span>, <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb13-47"><a href="#cb13-47"></a>             <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb13-48"><a href="#cb13-48"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> <span class="fu">filter</span>(oop_plot, is_hl),</span>
+<span id="cb13-49"><a href="#cb13-49"></a>            <span class="fu">aes</span>(<span class="at">label =</span> iso3_code), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.25</span>, <span class="at">vjust =</span> <span class="fl">0.2</span>,</span>
+<span id="cb13-50"><a href="#cb13-50"></a>            <span class="at">size =</span> <span class="fl">3.1</span>, <span class="at">colour =</span> <span class="st">"grey15"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb13-51"><a href="#cb13-51"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> trend_pal, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb13-52"><a href="#cb13-52"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>, <span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb13-53"><a href="#cb13-53"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb13-54"><a href="#cb13-54"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>, <span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb13-55"><a href="#cb13-55"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb13-56"><a href="#cb13-56"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> group, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb13-57"><a href="#cb13-57"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">70</span>, <span class="at">y =</span> <span class="dv">5</span>,</span>
+<span id="cb13-58"><a href="#cb13-58"></a>           <span class="at">label =</span> <span class="st">"below line:</span><span class="sc">\n</span><span class="st">OOP fell"</span>,</span>
+<span id="cb13-59"><a href="#cb13-59"></a>           <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"#2a6b7a"</span>, <span class="at">hjust =</span> <span class="dv">1</span>,</span>
+<span id="cb13-60"><a href="#cb13-60"></a>           <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb13-61"><a href="#cb13-61"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">5</span>, <span class="at">y =</span> <span class="dv">75</span>,</span>
+<span id="cb13-62"><a href="#cb13-62"></a>           <span class="at">label =</span> <span class="st">"above line:</span><span class="sc">\n</span><span class="st">OOP rose"</span>,</span>
+<span id="cb13-63"><a href="#cb13-63"></a>           <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"#b8412d"</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb13-64"><a href="#cb13-64"></a>           <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb13-65"><a href="#cb13-65"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-66"><a href="#cb13-66"></a>    <span class="at">title    =</span> <span class="st">"Rwanda and Thailand cut their out-of-pocket share in half; most low-income countries did not move"</span>,</span>
+<span id="cb13-67"><a href="#cb13-67"></a>    <span class="at">subtitle =</span> <span class="st">"Out-of-pocket share of health expenditure, start vs end of the record (2000–2022) — labelled: exemplar cases"</span>,</span>
+<span id="cb13-68"><a href="#cb13-68"></a>    <span class="at">x        =</span> <span class="st">"OOP share at start of observed period"</span>,</span>
+<span id="cb13-69"><a href="#cb13-69"></a>    <span class="at">y        =</span> <span class="st">"OOP share at end"</span>,</span>
+<span id="cb13-70"><a href="#cb13-70"></a>    <span class="at">caption  =</span> <span class="st">"Source: WHO Global Health Expenditure Database · TidyTuesday 2026 Wk 16 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb13-71"><a href="#cb13-71"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-72"><a href="#cb13-72"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb13-73"><a href="#cb13-73"></a>  <span class="fu">theme</span>(</span>
+<span id="cb13-74"><a href="#cb13-74"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb13-75"><a href="#cb13-75"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb13-76"><a href="#cb13-76"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb13-77"><a href="#cb13-77"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb13-78"><a href="#cb13-78"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb13-79"><a href="#cb13-79"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-80"><a href="#cb13-80"></a>    <span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="fl">0.9</span>, <span class="st">"lines"</span>)</span>
+<span id="cb13-81"><a href="#cb13-81"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="zhijun-tidytuesday_week16_files/figure-html/viz2-oop-trap-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The second view zooms in on the single most consequential share in the composition — out-of-pocket. Each point is one country, with its OOP share at the start of its observed record on the horizontal axis and at the end on the vertical. Countries on the dashed 45-degree line ended where they started; countries below the line cut their OOP reliance; countries above it pushed it up. The country-label highlights are deliberately chosen. Rwanda (RWA) and Thailand (THA) are the textbook cases of the fiscal transition working: both began with over 30 percent OOP reliance and cut it dramatically through, respectively, community-based health insurance (Mutuelles de Santé) and the 30-Baht universal coverage scheme. Turkey (TUR) and China (CHN) sit in the same family. But Nigeria (NGA), India (IND), Bangladesh (BGD), Afghanistan (AFG) are the other side of the picture: OOP shares in the 60–80 percent range at the start, in the 60–80 percent range at the end. Among the low-income countries in the left-most panel, only Rwanda and a handful of others have moved meaningfully below the dashed line. For most, a quarter-century of growth, donor engagement, and SDG-era rhetoric about universal coverage has left the household’s share of the health bill essentially untouched.</p>
+</section><section id="takeaway" class="level2"><h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
+<p>The WHO database tells a story that is, on its face, two stories. At the group level, the fiscal-transition thesis is validated — the ordering of country income groups along the trajectory from high-OOP to high-government-share is exactly as predicted, and the movement over twenty-four years is in the predicted direction. At the country level, inside the lowest-income group, the story is different. The gradient between income groups is real; the gradient <em>within</em> the low-income group, the slope of transition year-over-year, is mostly flat. A small number of countries — Rwanda being, for well-documented institutional reasons, the one most studied — have done the transition. Most have not.</p>
+<p>The implication depends on what claim the data is being used to support. A claim that “development raises state capacity, which builds pooled health financing” is consistent with the data once countries graduate into middle-income status. A claim that “the fiscal transition is happening globally” is not consistent with the data for the poorest sixty-odd countries. And a claim that “donor exit will be filled by domestic revenue as countries grow richer” is, at least over a twenty-four-year window, the riskiest of the three. The households in the low-income panel of this figure are where the gap between that assumption and the data actually lives.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-body"><div class="nav-page nav-page-previous">
+      <a href="../tt/zhijun-tidytuesday_week15.html" class="pagination-link" aria-label="Who Follows the Ship">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Who Follows the Ship</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../pcl/pcl.html" class="pagination-link" aria-label="Pre-Class Learning Summaries">
+        <span class="nav-page-text"><span class="chapter-title">Pre-Class Learning Summaries</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">---</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="an">title:</span><span class="co"> "The Transition That Stalled"</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="an">subtitle:</span><span class="co"> "TidyTuesday 2026 · Week 16 · WHO Global Health Expenditure Database, 2000–2023"</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="an">date:</span><span class="co"> "2026-04-17"</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="an">format:</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="co">  html:</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="co">    theme: flatly</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="co">    toc: true</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="co">    code-fold: true</span></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="co">    code-summary: "Show code"</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a><span class="co">    fig-align: center</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a><span class="an">execute:</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a><span class="co">  warning: false</span></span>
+<span id="cb14-15"><a href="#cb14-15"></a><span class="co">  message: false</span></span>
+<span id="cb14-16"><a href="#cb14-16"></a><span class="co">---</span></span>
+<span id="cb14-17"><a href="#cb14-17"></a></span>
+<span id="cb14-20"><a href="#cb14-20"></a><span class="in">```{r}</span></span>
+<span id="cb14-21"><a href="#cb14-21"></a><span class="co">#| label: setup</span></span>
+<span id="cb14-22"><a href="#cb14-22"></a></span>
+<span id="cb14-23"><a href="#cb14-23"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb14-24"><a href="#cb14-24"></a><span class="fu">library</span>(scales)</span>
+<span id="cb14-25"><a href="#cb14-25"></a></span>
+<span id="cb14-26"><a href="#cb14-26"></a>health_spending <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb14-27"><a href="#cb14-27"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-21/health_spending.csv"</span></span>
+<span id="cb14-28"><a href="#cb14-28"></a>)</span>
+<span id="cb14-29"><a href="#cb14-29"></a></span>
+<span id="cb14-30"><a href="#cb14-30"></a>financing_schemes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb14-31"><a href="#cb14-31"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-21/financing_schemes.csv"</span></span>
+<span id="cb14-32"><a href="#cb14-32"></a>)</span>
+<span id="cb14-33"><a href="#cb14-33"></a><span class="in">```</span></span>
+<span id="cb14-34"><a href="#cb14-34"></a></span>
+<span id="cb14-35"><a href="#cb14-35"></a><span class="fu">## Background</span></span>
+<span id="cb14-36"><a href="#cb14-36"></a></span>
+<span id="cb14-37"><a href="#cb14-37"></a>The WHO Global Health Expenditure Database, maintained since 2000, is the</span>
+<span id="cb14-38"><a href="#cb14-38"></a>closest thing the development community has to a universal ledger of how the</span>
+<span id="cb14-39"><a href="#cb14-39"></a>world pays for health. For 195 countries and territories, it records every</span>
+<span id="cb14-40"><a href="#cb14-40"></a>dollar of health spending each year, decomposed by source — domestic</span>
+<span id="cb14-41"><a href="#cb14-41"></a>government, domestic private households and firms, or external donors — and</span>
+<span id="cb14-42"><a href="#cb14-42"></a>by financing scheme, the mechanism that channels the money through. The</span>
+<span id="cb14-43"><a href="#cb14-43"></a>framework it encodes is not neutral. Since a landmark 2010 World Health</span>
+<span id="cb14-44"><a href="#cb14-44"></a>Report, the WHO has argued that countries move, or ought to move, through a</span>
+<span id="cb14-45"><a href="#cb14-45"></a>predictable *fiscal transition* in health: as states grow richer and their</span>
+<span id="cb14-46"><a href="#cb14-46"></a>administrative capacity strengthens, government health spending rises as a</span>
+<span id="cb14-47"><a href="#cb14-47"></a>share of total health expenditure, households' out-of-pocket (OOP) burden</span>
+<span id="cb14-48"><a href="#cb14-48"></a>falls, and foreign aid eventually tapers off. Thailand in the 2000s is the</span>
+<span id="cb14-49"><a href="#cb14-49"></a>canonical demonstration. Rwanda after 1994 is the case studied most</span>
+<span id="cb14-50"><a href="#cb14-50"></a>intensely by Indermit Gill and the Economic Growth Center. Ghana, Vietnam,</span>
+<span id="cb14-51"><a href="#cb14-51"></a>Turkey are the other names people cite.</span>
+<span id="cb14-52"><a href="#cb14-52"></a></span>
+<span id="cb14-53"><a href="#cb14-53"></a>The empirical question — against which all three of my graduate advisors</span>
+<span id="cb14-54"><a href="#cb14-54"></a>would push me to hold any optimistic claim — is whether the transition is</span>
+<span id="cb14-55"><a href="#cb14-55"></a>actually occurring at scale, or whether it is a success story reconstructed</span>
+<span id="cb14-56"><a href="#cb14-56"></a>from a small number of cases and a mostly-flat global average. For most</span>
+<span id="cb14-57"><a href="#cb14-57"></a>poor countries, the absence of government capacity to run a tax-funded</span>
+<span id="cb14-58"><a href="#cb14-58"></a>health system is not a transient problem. The OOP share sits high, donor</span>
+<span id="cb14-59"><a href="#cb14-59"></a>aid fills a fraction of the gap, and when donors leave (as PEPFAR and the</span>
+<span id="cb14-60"><a href="#cb14-60"></a>Global Fund increasingly have, under the 2025 US aid suspension) the gap</span>
+<span id="cb14-61"><a href="#cb14-61"></a>falls back onto households. The data released this week covers exactly the</span>
+<span id="cb14-62"><a href="#cb14-62"></a>period in which this claim is testable.</span>
+<span id="cb14-63"><a href="#cb14-63"></a></span>
+<span id="cb14-64"><a href="#cb14-64"></a><span class="fu">## Motivation &amp; Research Question</span></span>
+<span id="cb14-65"><a href="#cb14-65"></a></span>
+<span id="cb14-66"><a href="#cb14-66"></a>The fiscal transition makes a specific, testable prediction. In any given</span>
+<span id="cb14-67"><a href="#cb14-67"></a>country, over time, one should see the government share of total health</span>
+<span id="cb14-68"><a href="#cb14-68"></a>expenditure rising and the household OOP share falling. Countries should</span>
+<span id="cb14-69"><a href="#cb14-69"></a>sort themselves along this trajectory by income level: richer countries</span>
+<span id="cb14-70"><a href="#cb14-70"></a>further along it, poorer countries still at the starting point but moving</span>
+<span id="cb14-71"><a href="#cb14-71"></a>in the same direction. A transition that is *not* happening looks</span>
+<span id="cb14-72"><a href="#cb14-72"></a>different. The shares stay roughly constant at the country level; the</span>
+<span id="cb14-73"><a href="#cb14-73"></a>global picture is dominated by new aid flows that replace, rather than</span>
+<span id="cb14-74"><a href="#cb14-74"></a>catalyse, domestic spending; and the households of the poorest countries</span>
+<span id="cb14-75"><a href="#cb14-75"></a>continue carrying a share of health costs that households in the richest</span>
+<span id="cb14-76"><a href="#cb14-76"></a>countries have not carried for half a century.</span>
+<span id="cb14-77"><a href="#cb14-77"></a></span>
+<span id="cb14-78"><a href="#cb14-78"></a>**Research question: Across 195 countries and 24 years, is the fiscal</span>
+<span id="cb14-79"><a href="#cb14-79"></a>transition in health financing — the expected shift from out-of-pocket</span>
+<span id="cb14-80"><a href="#cb14-80"></a>toward pooled government financing — actually visible in the data, or</span>
+<span id="cb14-81"><a href="#cb14-81"></a>does the out-of-pocket burden on households in low-income countries sit</span>
+<span id="cb14-82"><a href="#cb14-82"></a>structurally unchanged?**</span>
+<span id="cb14-83"><a href="#cb14-83"></a></span>
+<span id="cb14-84"><a href="#cb14-84"></a><span class="fu">## Data Preparation</span></span>
+<span id="cb14-85"><a href="#cb14-85"></a></span>
+<span id="cb14-88"><a href="#cb14-88"></a><span class="in">```{r}</span></span>
+<span id="cb14-89"><a href="#cb14-89"></a><span class="co">#| label: data-prep</span></span>
+<span id="cb14-90"><a href="#cb14-90"></a></span>
+<span id="cb14-91"><a href="#cb14-91"></a><span class="co"># Pull the % of CHE rows for source composition (government / private / external)</span></span>
+<span id="cb14-92"><a href="#cb14-92"></a>comp <span class="ot">&lt;-</span> health_spending <span class="sc">|&gt;</span></span>
+<span id="cb14-93"><a href="#cb14-93"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(indicator_code, <span class="st">"_che"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb14-94"><a href="#cb14-94"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-95"><a href="#cb14-95"></a>    <span class="at">source =</span> <span class="fu">case_when</span>(</span>
+<span id="cb14-96"><a href="#cb14-96"></a>      indicator_code <span class="sc">==</span> <span class="st">"gghed_che"</span> <span class="sc">~</span> <span class="st">"Government"</span>,</span>
+<span id="cb14-97"><a href="#cb14-97"></a>      indicator_code <span class="sc">==</span> <span class="st">"pvtd_che"</span>  <span class="sc">~</span> <span class="st">"Private (domestic)"</span>,</span>
+<span id="cb14-98"><a href="#cb14-98"></a>      indicator_code <span class="sc">==</span> <span class="st">"ext_che"</span>   <span class="sc">~</span> <span class="st">"External aid"</span></span>
+<span id="cb14-99"><a href="#cb14-99"></a>    )</span>
+<span id="cb14-100"><a href="#cb14-100"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-101"><a href="#cb14-101"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(source)) <span class="sc">|&gt;</span></span>
+<span id="cb14-102"><a href="#cb14-102"></a>  <span class="fu">select</span>(country_name, iso3_code, year, source, value)</span>
+<span id="cb14-103"><a href="#cb14-103"></a></span>
+<span id="cb14-104"><a href="#cb14-104"></a><span class="co"># Out-of-pocket share specifically, from financing_schemes</span></span>
+<span id="cb14-105"><a href="#cb14-105"></a>oop <span class="ot">&lt;-</span> financing_schemes <span class="sc">|&gt;</span></span>
+<span id="cb14-106"><a href="#cb14-106"></a>  <span class="fu">filter</span>(indicator_code <span class="sc">==</span> <span class="st">"hf3_che"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-107"><a href="#cb14-107"></a>  <span class="fu">select</span>(country_name, iso3_code, year, <span class="at">oop_share =</span> value)</span>
+<span id="cb14-108"><a href="#cb14-108"></a></span>
+<span id="cb14-109"><a href="#cb14-109"></a><span class="co"># Country income groups from the World Bank classification, embedded as a</span></span>
+<span id="cb14-110"><a href="#cb14-110"></a><span class="co"># lookup rather than joined via an external call.  (These reflect the 2023</span></span>
+<span id="cb14-111"><a href="#cb14-111"></a><span class="co"># classification; a small number of countries have shifted groups over time.)</span></span>
+<span id="cb14-112"><a href="#cb14-112"></a><span class="co"># Grouping is coarse because it only needs to stratify trajectories, not to</span></span>
+<span id="cb14-113"><a href="#cb14-113"></a><span class="co"># classify individual countries in a policy sense.</span></span>
+<span id="cb14-114"><a href="#cb14-114"></a>income_group <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb14-115"><a href="#cb14-115"></a>  <span class="sc">~</span>group,              <span class="sc">~</span>iso3,</span>
+<span id="cb14-116"><a href="#cb14-116"></a>  <span class="st">"High income"</span>,       <span class="fu">c</span>(<span class="st">"USA"</span>,<span class="st">"CAN"</span>,<span class="st">"GBR"</span>,<span class="st">"DEU"</span>,<span class="st">"FRA"</span>,<span class="st">"ITA"</span>,<span class="st">"ESP"</span>,<span class="st">"JPN"</span>,<span class="st">"KOR"</span>,</span>
+<span id="cb14-117"><a href="#cb14-117"></a>                         <span class="st">"AUS"</span>,<span class="st">"NZL"</span>,<span class="st">"NLD"</span>,<span class="st">"SWE"</span>,<span class="st">"NOR"</span>,<span class="st">"DNK"</span>,<span class="st">"FIN"</span>,<span class="st">"CHE"</span>,<span class="st">"BEL"</span>,</span>
+<span id="cb14-118"><a href="#cb14-118"></a>                         <span class="st">"AUT"</span>,<span class="st">"IRL"</span>,<span class="st">"PRT"</span>,<span class="st">"ISR"</span>,<span class="st">"SGP"</span>,<span class="st">"ARE"</span>,<span class="st">"SAU"</span>,<span class="st">"CZE"</span>,<span class="st">"POL"</span>,</span>
+<span id="cb14-119"><a href="#cb14-119"></a>                         <span class="st">"HUN"</span>,<span class="st">"EST"</span>,<span class="st">"LVA"</span>,<span class="st">"LTU"</span>,<span class="st">"SVK"</span>,<span class="st">"SVN"</span>,<span class="st">"HRV"</span>,<span class="st">"URY"</span>,<span class="st">"CHL"</span>,</span>
+<span id="cb14-120"><a href="#cb14-120"></a>                         <span class="st">"PAN"</span>,<span class="st">"TTO"</span>,<span class="st">"BRB"</span>,<span class="st">"BHS"</span>),</span>
+<span id="cb14-121"><a href="#cb14-121"></a>  <span class="st">"Upper-middle"</span>,      <span class="fu">c</span>(<span class="st">"CHN"</span>,<span class="st">"RUS"</span>,<span class="st">"BRA"</span>,<span class="st">"MEX"</span>,<span class="st">"ARG"</span>,<span class="st">"TUR"</span>,<span class="st">"MYS"</span>,<span class="st">"THA"</span>,<span class="st">"ZAF"</span>,</span>
+<span id="cb14-122"><a href="#cb14-122"></a>                         <span class="st">"COL"</span>,<span class="st">"PER"</span>,<span class="st">"ECU"</span>,<span class="st">"DOM"</span>,<span class="st">"GTM"</span>,<span class="st">"PRY"</span>,<span class="st">"VEN"</span>,<span class="st">"CUB"</span>,<span class="st">"CRI"</span>,</span>
+<span id="cb14-123"><a href="#cb14-123"></a>                         <span class="st">"BGR"</span>,<span class="st">"ROU"</span>,<span class="st">"SRB"</span>,<span class="st">"ALB"</span>,<span class="st">"MKD"</span>,<span class="st">"BLR"</span>,<span class="st">"KAZ"</span>,<span class="st">"AZE"</span>,<span class="st">"ARM"</span>,</span>
+<span id="cb14-124"><a href="#cb14-124"></a>                         <span class="st">"GEO"</span>,<span class="st">"IRQ"</span>,<span class="st">"IRN"</span>,<span class="st">"JOR"</span>,<span class="st">"LBN"</span>,<span class="st">"TUN"</span>,<span class="st">"DZA"</span>,<span class="st">"LBY"</span>,<span class="st">"NAM"</span>,</span>
+<span id="cb14-125"><a href="#cb14-125"></a>                         <span class="st">"BWA"</span>,<span class="st">"GAB"</span>,<span class="st">"MUS"</span>,<span class="st">"JAM"</span>),</span>
+<span id="cb14-126"><a href="#cb14-126"></a>  <span class="st">"Lower-middle"</span>,      <span class="fu">c</span>(<span class="st">"IND"</span>,<span class="st">"IDN"</span>,<span class="st">"PHL"</span>,<span class="st">"VNM"</span>,<span class="st">"PAK"</span>,<span class="st">"BGD"</span>,<span class="st">"EGY"</span>,<span class="st">"NGA"</span>,<span class="st">"KEN"</span>,</span>
+<span id="cb14-127"><a href="#cb14-127"></a>                         <span class="st">"GHA"</span>,<span class="st">"ZMB"</span>,<span class="st">"ZWE"</span>,<span class="st">"CMR"</span>,<span class="st">"CIV"</span>,<span class="st">"SEN"</span>,<span class="st">"MAR"</span>,<span class="st">"LKA"</span>,<span class="st">"KHM"</span>,</span>
+<span id="cb14-128"><a href="#cb14-128"></a>                         <span class="st">"MMR"</span>,<span class="st">"LAO"</span>,<span class="st">"NPL"</span>,<span class="st">"MNG"</span>,<span class="st">"UZB"</span>,<span class="st">"KGZ"</span>,<span class="st">"TJK"</span>,<span class="st">"PSE"</span>,<span class="st">"YEM"</span>,</span>
+<span id="cb14-129"><a href="#cb14-129"></a>                         <span class="st">"SYR"</span>,<span class="st">"SDN"</span>,<span class="st">"AGO"</span>,<span class="st">"BEN"</span>,<span class="st">"COG"</span>,<span class="st">"HTI"</span>,<span class="st">"HND"</span>,<span class="st">"SLV"</span>,<span class="st">"NIC"</span>,</span>
+<span id="cb14-130"><a href="#cb14-130"></a>                         <span class="st">"BOL"</span>,<span class="st">"TLS"</span>,<span class="st">"PNG"</span>,<span class="st">"STP"</span>),</span>
+<span id="cb14-131"><a href="#cb14-131"></a>  <span class="st">"Low income"</span>,        <span class="fu">c</span>(<span class="st">"AFG"</span>,<span class="st">"ETH"</span>,<span class="st">"TZA"</span>,<span class="st">"UGA"</span>,<span class="st">"RWA"</span>,<span class="st">"BDI"</span>,<span class="st">"MLI"</span>,<span class="st">"BFA"</span>,<span class="st">"NER"</span>,</span>
+<span id="cb14-132"><a href="#cb14-132"></a>                         <span class="st">"TCD"</span>,<span class="st">"CAF"</span>,<span class="st">"COD"</span>,<span class="st">"SOM"</span>,<span class="st">"ERI"</span>,<span class="st">"SSD"</span>,<span class="st">"GIN"</span>,<span class="st">"GMB"</span>,<span class="st">"GNB"</span>,</span>
+<span id="cb14-133"><a href="#cb14-133"></a>                         <span class="st">"SLE"</span>,<span class="st">"LBR"</span>,<span class="st">"MOZ"</span>,<span class="st">"MWI"</span>,<span class="st">"MDG"</span>,<span class="st">"COM"</span>,<span class="st">"TGO"</span>,<span class="st">"PRK"</span>,<span class="st">"SYR"</span>)</span>
+<span id="cb14-134"><a href="#cb14-134"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb14-135"><a href="#cb14-135"></a>  <span class="fu">unnest</span>(iso3) <span class="sc">|&gt;</span></span>
+<span id="cb14-136"><a href="#cb14-136"></a>  <span class="fu">rename</span>(<span class="at">iso3_code =</span> iso3)</span>
+<span id="cb14-137"><a href="#cb14-137"></a></span>
+<span id="cb14-138"><a href="#cb14-138"></a><span class="co"># Keep only countries we classified (coverage ~80% of WHO set)</span></span>
+<span id="cb14-139"><a href="#cb14-139"></a>oop_grp <span class="ot">&lt;-</span> oop <span class="sc">|&gt;</span></span>
+<span id="cb14-140"><a href="#cb14-140"></a>  <span class="fu">inner_join</span>(income_group, <span class="at">by =</span> <span class="st">"iso3_code"</span>)</span>
+<span id="cb14-141"><a href="#cb14-141"></a></span>
+<span id="cb14-142"><a href="#cb14-142"></a>comp_grp <span class="ot">&lt;-</span> comp <span class="sc">|&gt;</span></span>
+<span id="cb14-143"><a href="#cb14-143"></a>  <span class="fu">inner_join</span>(income_group, <span class="at">by =</span> <span class="st">"iso3_code"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-144"><a href="#cb14-144"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low income"</span>, <span class="st">"Lower-middle"</span>,</span>
+<span id="cb14-145"><a href="#cb14-145"></a>                                          <span class="st">"Upper-middle"</span>, <span class="st">"High income"</span>)))</span>
+<span id="cb14-146"><a href="#cb14-146"></a></span>
+<span id="cb14-147"><a href="#cb14-147"></a><span class="fu">cat</span>(<span class="st">"Total country-years in health_spending:"</span>, <span class="fu">nrow</span>(comp), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb14-148"><a href="#cb14-148"></a><span class="fu">cat</span>(<span class="st">"Countries classified into an income group:"</span>,</span>
+<span id="cb14-149"><a href="#cb14-149"></a>    <span class="fu">n_distinct</span>(comp_grp<span class="sc">$</span>iso3_code), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb14-150"><a href="#cb14-150"></a><span class="fu">cat</span>(<span class="st">"Date range:"</span>, <span class="fu">min</span>(comp<span class="sc">$</span>year), <span class="st">"–"</span>, <span class="fu">max</span>(comp<span class="sc">$</span>year), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb14-151"><a href="#cb14-151"></a></span>
+<span id="cb14-152"><a href="#cb14-152"></a><span class="co"># Headline numbers for the motivation</span></span>
+<span id="cb14-153"><a href="#cb14-153"></a>latest <span class="ot">&lt;-</span> oop_grp <span class="sc">|&gt;</span></span>
+<span id="cb14-154"><a href="#cb14-154"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-155"><a href="#cb14-155"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb14-156"><a href="#cb14-156"></a>  <span class="fu">summarise</span>(<span class="at">median_oop =</span> <span class="fu">median</span>(oop_share, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb14-157"><a href="#cb14-157"></a><span class="fu">cat</span>(<span class="st">"Median out-of-pocket share of health spending, 2022, by income group:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb14-158"><a href="#cb14-158"></a>latest <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">median_oop =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(median_oop, <span class="dv">1</span>), <span class="st">"%"</span>)) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span>
+<span id="cb14-159"><a href="#cb14-159"></a><span class="in">```</span></span>
+<span id="cb14-160"><a href="#cb14-160"></a></span>
+<span id="cb14-161"><a href="#cb14-161"></a><span class="fu">## Visualization 1: The Financing Transition, Four Income Groups</span></span>
+<span id="cb14-162"><a href="#cb14-162"></a></span>
+<span id="cb14-165"><a href="#cb14-165"></a><span class="in">```{r}</span></span>
+<span id="cb14-166"><a href="#cb14-166"></a><span class="co">#| label: viz1-trajectories</span></span>
+<span id="cb14-167"><a href="#cb14-167"></a><span class="co">#| fig-width: 11</span></span>
+<span id="cb14-168"><a href="#cb14-168"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb14-169"><a href="#cb14-169"></a></span>
+<span id="cb14-170"><a href="#cb14-170"></a><span class="co"># Median country share in each income group × year × source</span></span>
+<span id="cb14-171"><a href="#cb14-171"></a>group_trend <span class="ot">&lt;-</span> comp_grp <span class="sc">|&gt;</span></span>
+<span id="cb14-172"><a href="#cb14-172"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value), year <span class="sc">&gt;=</span> <span class="dv">2000</span>, year <span class="sc">&lt;=</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-173"><a href="#cb14-173"></a>  <span class="fu">group_by</span>(group, year, source) <span class="sc">|&gt;</span></span>
+<span id="cb14-174"><a href="#cb14-174"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-175"><a href="#cb14-175"></a>    <span class="at">p25    =</span> <span class="fu">quantile</span>(value, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-176"><a href="#cb14-176"></a>    <span class="at">median =</span> <span class="fu">median</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-177"><a href="#cb14-177"></a>    <span class="at">p75    =</span> <span class="fu">quantile</span>(value, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-178"><a href="#cb14-178"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb14-179"><a href="#cb14-179"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-180"><a href="#cb14-180"></a>  <span class="fu">mutate</span>(<span class="at">source =</span> <span class="fu">factor</span>(source,</span>
+<span id="cb14-181"><a href="#cb14-181"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Government"</span>,</span>
+<span id="cb14-182"><a href="#cb14-182"></a>                                    <span class="st">"Private (domestic)"</span>,</span>
+<span id="cb14-183"><a href="#cb14-183"></a>                                    <span class="st">"External aid"</span>)))</span>
+<span id="cb14-184"><a href="#cb14-184"></a></span>
+<span id="cb14-185"><a href="#cb14-185"></a>source_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb14-186"><a href="#cb14-186"></a>  <span class="st">"Government"</span>         <span class="ot">=</span> <span class="st">"#2a6b7a"</span>,</span>
+<span id="cb14-187"><a href="#cb14-187"></a>  <span class="st">"Private (domestic)"</span> <span class="ot">=</span> <span class="st">"#b8412d"</span>,</span>
+<span id="cb14-188"><a href="#cb14-188"></a>  <span class="st">"External aid"</span>       <span class="ot">=</span> <span class="st">"#d4af37"</span></span>
+<span id="cb14-189"><a href="#cb14-189"></a>)</span>
+<span id="cb14-190"><a href="#cb14-190"></a></span>
+<span id="cb14-191"><a href="#cb14-191"></a><span class="fu">ggplot</span>(group_trend, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">colour =</span> source, <span class="at">fill =</span> source)) <span class="sc">+</span></span>
+<span id="cb14-192"><a href="#cb14-192"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> p25, <span class="at">ymax =</span> p75), <span class="at">alpha =</span> <span class="fl">0.18</span>, <span class="at">colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb14-193"><a href="#cb14-193"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> median), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-194"><a href="#cb14-194"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> source_pal, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb14-195"><a href="#cb14-195"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> source_pal, <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb14-196"><a href="#cb14-196"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>, <span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb14-197"><a href="#cb14-197"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">25</span>)) <span class="sc">+</span></span>
+<span id="cb14-198"><a href="#cb14-198"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2010</span>, <span class="dv">2020</span>),</span>
+<span id="cb14-199"><a href="#cb14-199"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.02</span>))) <span class="sc">+</span></span>
+<span id="cb14-200"><a href="#cb14-200"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> group, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-201"><a href="#cb14-201"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-202"><a href="#cb14-202"></a>    <span class="at">title    =</span> <span class="st">"Rich countries finished the fiscal transition decades ago — poor countries have not started"</span>,</span>
+<span id="cb14-203"><a href="#cb14-203"></a>    <span class="at">subtitle =</span> <span class="st">"Share of current health expenditure by source, median country in each World Bank income group, 2000–2023"</span>,</span>
+<span id="cb14-204"><a href="#cb14-204"></a>    <span class="at">x        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-205"><a href="#cb14-205"></a>    <span class="at">y        =</span> <span class="st">"Share of current health expenditure"</span>,</span>
+<span id="cb14-206"><a href="#cb14-206"></a>    <span class="at">caption  =</span> <span class="st">"Source: WHO Global Health Expenditure Database · TidyTuesday 2026 Wk 16 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb14-207"><a href="#cb14-207"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-208"><a href="#cb14-208"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb14-209"><a href="#cb14-209"></a>  <span class="fu">theme</span>(</span>
+<span id="cb14-210"><a href="#cb14-210"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb14-211"><a href="#cb14-211"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb14-212"><a href="#cb14-212"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb14-213"><a href="#cb14-213"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb14-214"><a href="#cb14-214"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb14-215"><a href="#cb14-215"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-216"><a href="#cb14-216"></a>    <span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="fl">1.1</span>, <span class="st">"lines"</span>)</span>
+<span id="cb14-217"><a href="#cb14-217"></a>  )</span>
+<span id="cb14-218"><a href="#cb14-218"></a><span class="in">```</span></span>
+<span id="cb14-219"><a href="#cb14-219"></a></span>
+<span id="cb14-220"><a href="#cb14-220"></a>The four panels read, from left to right, as four successive stages of</span>
+<span id="cb14-221"><a href="#cb14-221"></a>economic development. In the left-most panel, the median low-income country</span>
+<span id="cb14-222"><a href="#cb14-222"></a>derives roughly 20 percent of its health spending from government, 50 to 60</span>
+<span id="cb14-223"><a href="#cb14-223"></a>percent from private sources (the vast majority of which is direct</span>
+<span id="cb14-224"><a href="#cb14-224"></a>out-of-pocket payment from households), and the rest from external aid that</span>
+<span id="cb14-225"><a href="#cb14-225"></a>peaks around 2010 and has drifted down since. Across the twenty-four years</span>
+<span id="cb14-226"><a href="#cb14-226"></a>of the record, the government share rises modestly; the private share</span>
+<span id="cb14-227"><a href="#cb14-227"></a>barely moves; the external share declines without a corresponding increase</span>
+<span id="cb14-228"><a href="#cb14-228"></a>in domestic government revenue taking its place. In the right-most panel,</span>
+<span id="cb14-229"><a href="#cb14-229"></a>high-income countries sit at roughly 70 percent government, 30 percent</span>
+<span id="cb14-230"><a href="#cb14-230"></a>private, and less than 1 percent external aid — a composition they reached</span>
+<span id="cb14-231"><a href="#cb14-231"></a>before the period in this record began. The two middle income groups sit</span>
+<span id="cb14-232"><a href="#cb14-232"></a>between these two states. The upper-middle group has visibly moved toward</span>
+<span id="cb14-233"><a href="#cb14-233"></a>the high-income profile over the twenty-four years; the lower-middle</span>
+<span id="cb14-234"><a href="#cb14-234"></a>group's trajectory is much flatter. The ordering is exactly what the</span>
+<span id="cb14-235"><a href="#cb14-235"></a>fiscal-transition thesis predicts. The speed of movement, for the countries</span>
+<span id="cb14-236"><a href="#cb14-236"></a>that most need it, is not.</span>
+<span id="cb14-237"><a href="#cb14-237"></a></span>
+<span id="cb14-238"><a href="#cb14-238"></a><span class="fu">## Visualization 2: The Out-of-Pocket Trap</span></span>
+<span id="cb14-239"><a href="#cb14-239"></a></span>
+<span id="cb14-242"><a href="#cb14-242"></a><span class="in">```{r}</span></span>
+<span id="cb14-243"><a href="#cb14-243"></a><span class="co">#| label: viz2-oop-trap</span></span>
+<span id="cb14-244"><a href="#cb14-244"></a><span class="co">#| fig-width: 11</span></span>
+<span id="cb14-245"><a href="#cb14-245"></a><span class="co">#| fig-height: 6.5</span></span>
+<span id="cb14-246"><a href="#cb14-246"></a></span>
+<span id="cb14-247"><a href="#cb14-247"></a><span class="co"># For each country, compare OOP share in 2000 (or earliest year ≥ 2000)</span></span>
+<span id="cb14-248"><a href="#cb14-248"></a><span class="co"># with OOP share in 2022 (or latest year ≤ 2022).</span></span>
+<span id="cb14-249"><a href="#cb14-249"></a>oop_change <span class="ot">&lt;-</span> oop_grp <span class="sc">|&gt;</span></span>
+<span id="cb14-250"><a href="#cb14-250"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(oop_share), year <span class="sc">&gt;=</span> <span class="dv">2000</span>, year <span class="sc">&lt;=</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-251"><a href="#cb14-251"></a>  <span class="fu">group_by</span>(iso3_code, country_name, group) <span class="sc">|&gt;</span></span>
+<span id="cb14-252"><a href="#cb14-252"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-253"><a href="#cb14-253"></a>    <span class="at">start_year  =</span> <span class="fu">min</span>(year),</span>
+<span id="cb14-254"><a href="#cb14-254"></a>    <span class="at">start_oop   =</span> oop_share[<span class="fu">which.min</span>(year)],</span>
+<span id="cb14-255"><a href="#cb14-255"></a>    <span class="at">end_year    =</span> <span class="fu">max</span>(year),</span>
+<span id="cb14-256"><a href="#cb14-256"></a>    <span class="at">end_oop     =</span> oop_share[<span class="fu">which.max</span>(year)],</span>
+<span id="cb14-257"><a href="#cb14-257"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb14-258"><a href="#cb14-258"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-259"><a href="#cb14-259"></a>  <span class="fu">filter</span>(end_year <span class="sc">-</span> start_year <span class="sc">&gt;=</span> <span class="dv">10</span>,</span>
+<span id="cb14-260"><a href="#cb14-260"></a>         <span class="sc">!</span><span class="fu">is.na</span>(start_oop), <span class="sc">!</span><span class="fu">is.na</span>(end_oop))</span>
+<span id="cb14-261"><a href="#cb14-261"></a></span>
+<span id="cb14-262"><a href="#cb14-262"></a><span class="co"># Highlight a small set of countries whose trajectories are instructive</span></span>
+<span id="cb14-263"><a href="#cb14-263"></a>highlight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"RWA"</span>, <span class="st">"THA"</span>, <span class="st">"TUR"</span>, <span class="st">"CHN"</span>, <span class="st">"IND"</span>, <span class="st">"BGD"</span>,</span>
+<span id="cb14-264"><a href="#cb14-264"></a>               <span class="st">"NGA"</span>, <span class="st">"AFG"</span>, <span class="st">"VNM"</span>, <span class="st">"GHA"</span>, <span class="st">"KEN"</span>, <span class="st">"USA"</span>, <span class="st">"DEU"</span>)</span>
+<span id="cb14-265"><a href="#cb14-265"></a></span>
+<span id="cb14-266"><a href="#cb14-266"></a>oop_plot <span class="ot">&lt;-</span> oop_change <span class="sc">|&gt;</span></span>
+<span id="cb14-267"><a href="#cb14-267"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-268"><a href="#cb14-268"></a>    <span class="at">is_hl    =</span> iso3_code <span class="sc">%in%</span> highlight,</span>
+<span id="cb14-269"><a href="#cb14-269"></a>    <span class="at">trend    =</span> <span class="fu">case_when</span>(</span>
+<span id="cb14-270"><a href="#cb14-270"></a>      end_oop <span class="sc">&lt;</span> start_oop <span class="sc">-</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Reducing OOP reliance"</span>,</span>
+<span id="cb14-271"><a href="#cb14-271"></a>      end_oop <span class="sc">&gt;</span> start_oop <span class="sc">+</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Rising OOP reliance"</span>,</span>
+<span id="cb14-272"><a href="#cb14-272"></a>      <span class="cn">TRUE</span>                    <span class="sc">~</span> <span class="st">"Little change"</span></span>
+<span id="cb14-273"><a href="#cb14-273"></a>    ),</span>
+<span id="cb14-274"><a href="#cb14-274"></a>    <span class="at">trend    =</span> <span class="fu">factor</span>(trend, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Reducing OOP reliance"</span>,</span>
+<span id="cb14-275"><a href="#cb14-275"></a>                                        <span class="st">"Little change"</span>,</span>
+<span id="cb14-276"><a href="#cb14-276"></a>                                        <span class="st">"Rising OOP reliance"</span>)),</span>
+<span id="cb14-277"><a href="#cb14-277"></a>    <span class="at">group    =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low income"</span>, <span class="st">"Lower-middle"</span>,</span>
+<span id="cb14-278"><a href="#cb14-278"></a>                                        <span class="st">"Upper-middle"</span>, <span class="st">"High income"</span>))</span>
+<span id="cb14-279"><a href="#cb14-279"></a>  )</span>
+<span id="cb14-280"><a href="#cb14-280"></a></span>
+<span id="cb14-281"><a href="#cb14-281"></a>trend_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb14-282"><a href="#cb14-282"></a>  <span class="st">"Reducing OOP reliance"</span> <span class="ot">=</span> <span class="st">"#2a6b7a"</span>,</span>
+<span id="cb14-283"><a href="#cb14-283"></a>  <span class="st">"Little change"</span>         <span class="ot">=</span> <span class="st">"#bfb8a8"</span>,</span>
+<span id="cb14-284"><a href="#cb14-284"></a>  <span class="st">"Rising OOP reliance"</span>   <span class="ot">=</span> <span class="st">"#b8412d"</span></span>
+<span id="cb14-285"><a href="#cb14-285"></a>)</span>
+<span id="cb14-286"><a href="#cb14-286"></a></span>
+<span id="cb14-287"><a href="#cb14-287"></a><span class="fu">ggplot</span>(oop_plot, <span class="fu">aes</span>(<span class="at">x =</span> start_oop, <span class="at">y =</span> end_oop)) <span class="sc">+</span></span>
+<span id="cb14-288"><a href="#cb14-288"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>,</span>
+<span id="cb14-289"><a href="#cb14-289"></a>              <span class="at">colour =</span> <span class="st">"grey70"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb14-290"><a href="#cb14-290"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> trend), <span class="at">size =</span> <span class="fl">2.3</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb14-291"><a href="#cb14-291"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(oop_plot, is_hl),</span>
+<span id="cb14-292"><a href="#cb14-292"></a>             <span class="fu">aes</span>(<span class="at">colour =</span> trend), <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">stroke =</span> <span class="fl">0.7</span>, <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb14-293"><a href="#cb14-293"></a>             <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb14-294"><a href="#cb14-294"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> <span class="fu">filter</span>(oop_plot, is_hl),</span>
+<span id="cb14-295"><a href="#cb14-295"></a>            <span class="fu">aes</span>(<span class="at">label =</span> iso3_code), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.25</span>, <span class="at">vjust =</span> <span class="fl">0.2</span>,</span>
+<span id="cb14-296"><a href="#cb14-296"></a>            <span class="at">size =</span> <span class="fl">3.1</span>, <span class="at">colour =</span> <span class="st">"grey15"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb14-297"><a href="#cb14-297"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> trend_pal, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb14-298"><a href="#cb14-298"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>, <span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb14-299"><a href="#cb14-299"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb14-300"><a href="#cb14-300"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>, <span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb14-301"><a href="#cb14-301"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb14-302"><a href="#cb14-302"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> group, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-303"><a href="#cb14-303"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">70</span>, <span class="at">y =</span> <span class="dv">5</span>,</span>
+<span id="cb14-304"><a href="#cb14-304"></a>           <span class="at">label =</span> <span class="st">"below line:</span><span class="sc">\n</span><span class="st">OOP fell"</span>,</span>
+<span id="cb14-305"><a href="#cb14-305"></a>           <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"#2a6b7a"</span>, <span class="at">hjust =</span> <span class="dv">1</span>,</span>
+<span id="cb14-306"><a href="#cb14-306"></a>           <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb14-307"><a href="#cb14-307"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">5</span>, <span class="at">y =</span> <span class="dv">75</span>,</span>
+<span id="cb14-308"><a href="#cb14-308"></a>           <span class="at">label =</span> <span class="st">"above line:</span><span class="sc">\n</span><span class="st">OOP rose"</span>,</span>
+<span id="cb14-309"><a href="#cb14-309"></a>           <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"#b8412d"</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb14-310"><a href="#cb14-310"></a>           <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb14-311"><a href="#cb14-311"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-312"><a href="#cb14-312"></a>    <span class="at">title    =</span> <span class="st">"Rwanda and Thailand cut their out-of-pocket share in half; most low-income countries did not move"</span>,</span>
+<span id="cb14-313"><a href="#cb14-313"></a>    <span class="at">subtitle =</span> <span class="st">"Out-of-pocket share of health expenditure, start vs end of the record (2000–2022) — labelled: exemplar cases"</span>,</span>
+<span id="cb14-314"><a href="#cb14-314"></a>    <span class="at">x        =</span> <span class="st">"OOP share at start of observed period"</span>,</span>
+<span id="cb14-315"><a href="#cb14-315"></a>    <span class="at">y        =</span> <span class="st">"OOP share at end"</span>,</span>
+<span id="cb14-316"><a href="#cb14-316"></a>    <span class="at">caption  =</span> <span class="st">"Source: WHO Global Health Expenditure Database · TidyTuesday 2026 Wk 16 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb14-317"><a href="#cb14-317"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-318"><a href="#cb14-318"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb14-319"><a href="#cb14-319"></a>  <span class="fu">theme</span>(</span>
+<span id="cb14-320"><a href="#cb14-320"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb14-321"><a href="#cb14-321"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb14-322"><a href="#cb14-322"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb14-323"><a href="#cb14-323"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb14-324"><a href="#cb14-324"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb14-325"><a href="#cb14-325"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-326"><a href="#cb14-326"></a>    <span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="fl">0.9</span>, <span class="st">"lines"</span>)</span>
+<span id="cb14-327"><a href="#cb14-327"></a>  )</span>
+<span id="cb14-328"><a href="#cb14-328"></a><span class="in">```</span></span>
+<span id="cb14-329"><a href="#cb14-329"></a></span>
+<span id="cb14-330"><a href="#cb14-330"></a>The second view zooms in on the single most consequential share in the</span>
+<span id="cb14-331"><a href="#cb14-331"></a>composition — out-of-pocket. Each point is one country, with its OOP share</span>
+<span id="cb14-332"><a href="#cb14-332"></a>at the start of its observed record on the horizontal axis and at the end</span>
+<span id="cb14-333"><a href="#cb14-333"></a>on the vertical. Countries on the dashed 45-degree line ended where they</span>
+<span id="cb14-334"><a href="#cb14-334"></a>started; countries below the line cut their OOP reliance; countries above</span>
+<span id="cb14-335"><a href="#cb14-335"></a>it pushed it up. The country-label highlights are deliberately chosen.</span>
+<span id="cb14-336"><a href="#cb14-336"></a>Rwanda (RWA) and Thailand (THA) are the textbook cases of the fiscal</span>
+<span id="cb14-337"><a href="#cb14-337"></a>transition working: both began with over 30 percent OOP reliance and cut</span>
+<span id="cb14-338"><a href="#cb14-338"></a>it dramatically through, respectively, community-based health insurance</span>
+<span id="cb14-339"><a href="#cb14-339"></a>(Mutuelles de Santé) and the 30-Baht universal coverage scheme. Turkey</span>
+<span id="cb14-340"><a href="#cb14-340"></a>(TUR) and China (CHN) sit in the same family. But Nigeria (NGA), India</span>
+<span id="cb14-341"><a href="#cb14-341"></a>(IND), Bangladesh (BGD), Afghanistan (AFG) are the other side of the</span>
+<span id="cb14-342"><a href="#cb14-342"></a>picture: OOP shares in the 60–80 percent range at the start, in the 60–80</span>
+<span id="cb14-343"><a href="#cb14-343"></a>percent range at the end. Among the low-income countries in the left-most</span>
+<span id="cb14-344"><a href="#cb14-344"></a>panel, only Rwanda and a handful of others have moved meaningfully below</span>
+<span id="cb14-345"><a href="#cb14-345"></a>the dashed line. For most, a quarter-century of growth, donor engagement,</span>
+<span id="cb14-346"><a href="#cb14-346"></a>and SDG-era rhetoric about universal coverage has left the household's</span>
+<span id="cb14-347"><a href="#cb14-347"></a>share of the health bill essentially untouched.</span>
+<span id="cb14-348"><a href="#cb14-348"></a></span>
+<span id="cb14-349"><a href="#cb14-349"></a><span class="fu">## Takeaway</span></span>
+<span id="cb14-350"><a href="#cb14-350"></a></span>
+<span id="cb14-351"><a href="#cb14-351"></a>The WHO database tells a story that is, on its face, two stories. At the</span>
+<span id="cb14-352"><a href="#cb14-352"></a>group level, the fiscal-transition thesis is validated — the ordering of</span>
+<span id="cb14-353"><a href="#cb14-353"></a>country income groups along the trajectory from high-OOP to</span>
+<span id="cb14-354"><a href="#cb14-354"></a>high-government-share is exactly as predicted, and the movement over</span>
+<span id="cb14-355"><a href="#cb14-355"></a>twenty-four years is in the predicted direction. At the country level,</span>
+<span id="cb14-356"><a href="#cb14-356"></a>inside the lowest-income group, the story is different. The gradient</span>
+<span id="cb14-357"><a href="#cb14-357"></a>between income groups is real; the gradient *within* the low-income group,</span>
+<span id="cb14-358"><a href="#cb14-358"></a>the slope of transition year-over-year, is mostly flat. A small number of</span>
+<span id="cb14-359"><a href="#cb14-359"></a>countries — Rwanda being, for well-documented institutional reasons, the</span>
+<span id="cb14-360"><a href="#cb14-360"></a>one most studied — have done the transition. Most have not.</span>
+<span id="cb14-361"><a href="#cb14-361"></a></span>
+<span id="cb14-362"><a href="#cb14-362"></a>The implication depends on what claim the data is being used to support.</span>
+<span id="cb14-363"><a href="#cb14-363"></a>A claim that "development raises state capacity, which builds pooled</span>
+<span id="cb14-364"><a href="#cb14-364"></a>health financing" is consistent with the data once countries graduate</span>
+<span id="cb14-365"><a href="#cb14-365"></a>into middle-income status. A claim that "the fiscal transition is</span>
+<span id="cb14-366"><a href="#cb14-366"></a>happening globally" is not consistent with the data for the poorest</span>
+<span id="cb14-367"><a href="#cb14-367"></a>sixty-odd countries. And a claim that "donor exit will be filled by</span>
+<span id="cb14-368"><a href="#cb14-368"></a>domestic revenue as countries grow richer" is, at least over a</span>
+<span id="cb14-369"><a href="#cb14-369"></a>twenty-four-year window, the riskiest of the three. The households in</span>
+<span id="cb14-370"><a href="#cb14-370"></a>the low-income panel of this figure are where the gap between that</span>
+<span id="cb14-371"><a href="#cb14-371"></a>assumption and the data actually lives.</span>
+<span id="cb14-372"><a href="#cb14-372"></a></span>
+<span id="cb14-375"><a href="#cb14-375"></a><span class="in">```{r}</span></span>
+<span id="cb14-376"><a href="#cb14-376"></a><span class="co">#| label: session-info</span></span>
+<span id="cb14-377"><a href="#cb14-377"></a><span class="co">#| include: false</span></span>
+<span id="cb14-378"><a href="#cb14-378"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb14-379"><a href="#cb14-379"></a><span class="in">```</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

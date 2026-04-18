@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-18">
+<title>7 — Advanced Data Wrangling II: Strings and Regular Expressions – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/08_missing_data.html" rel="next">
+<link href="../ica/ica-sample2.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/07_adv_data_wrangling_II.html"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-worlds-longest-mule-deer-migration" id="toc-data-story-critique-worlds-longest-mule-deer-migration" class="nav-link" data-scroll-target="#data-story-critique-worlds-longest-mule-deer-migration">🔥 Data Story Critique — <em>World’s Longest Mule Deer Migration</em></a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story?</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#creating-strings" id="toc-creating-strings" class="nav-link" data-scroll-target="#creating-strings">Creating Strings</a>
+  <ul class="collapse">
+<li><a href="#exercise-its-thursday" id="toc-exercise-its-thursday" class="nav-link" data-scroll-target="#exercise-its-thursday">Exercise — <code>It's Thursday</code></a></li>
+  <li><a href="#exercise-cusers" id="toc-exercise-cusers" class="nav-link" data-scroll-target="#exercise-cusers">Exercise — <code>C:\Users</code></a></li>
+  <li><a href="#exercise-full-date-string-with-str_c-and-str_glue" id="toc-exercise-full-date-string-with-str_c-and-str_glue" class="nav-link" data-scroll-target="#exercise-full-date-string-with-str_c-and-str_glue">Exercise — Full date string with <code>str_c()</code> and <code>str_glue()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#extracting-information-from-strings" id="toc-extracting-information-from-strings" class="nav-link" data-scroll-target="#extracting-information-from-strings">Extracting Information from Strings</a>
+  <ul class="collapse">
+<li><a href="#exercise-middle-letter-of-each-word" id="toc-exercise-middle-letter-of-each-word" class="nav-link" data-scroll-target="#exercise-middle-letter-of-each-word">Exercise — Middle letter of each word</a></li>
+  <li><a href="#challenge-handling-even-length-words" id="toc-challenge-handling-even-length-words" class="nav-link" data-scroll-target="#challenge-handling-even-length-words">Challenge — handling even-length words</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#finding-patterns-with-regular-expressions" id="toc-finding-patterns-with-regular-expressions" class="nav-link" data-scroll-target="#finding-patterns-with-regular-expressions">Finding Patterns with Regular Expressions</a>
+  <ul class="collapse">
+<li><a href="#exercise-predicting-quantifier-matches" id="toc-exercise-predicting-quantifier-matches" class="nav-link" data-scroll-target="#exercise-predicting-quantifier-matches">Exercise — Predicting quantifier matches</a></li>
+  <li><a href="#exercise-words-with-two-vowels-in-a-row-followed-by-m" id="toc-exercise-words-with-two-vowels-in-a-row-followed-by-m" class="nav-link" data-scroll-target="#exercise-words-with-two-vowels-in-a-row-followed-by-m">Exercise — Words with two vowels in a row followed by “m”</a></li>
+  <li><a href="#exercise-fruits-with-a-repeated-vowel" id="toc-exercise-fruits-with-a-repeated-vowel" class="nav-link" data-scroll-target="#exercise-fruits-with-a-repeated-vowel">Exercise — Fruits with a repeated vowel</a></li>
+  <li><a href="#exercise-words-that-do-do-not-start-with-y" id="toc-exercise-words-that-do-do-not-start-with-y" class="nav-link" data-scroll-target="#exercise-words-that-do-do-not-start-with-y">Exercise — Words that do / do not start with “y”</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#exploring-stringr-functions-on-the-dear-abby-data" id="toc-exploring-stringr-functions-on-the-dear-abby-data" class="nav-link" data-scroll-target="#exploring-stringr-functions-on-the-dear-abby-data">Exploring <code>stringr</code> Functions on the Dear Abby Data</a>
+  <ul class="collapse">
+<li><a href="#str_count-worry-word-intensity-per-post" id="toc-str_count-worry-word-intensity-per-post" class="nav-link" data-scroll-target="#str_count-worry-word-intensity-per-post"><code>str_count()</code> — worry-word intensity per post</a></li>
+  <li><a href="#str_detect-binary-presence-per-post" id="toc-str_detect-binary-presence-per-post" class="nav-link" data-scroll-target="#str_detect-binary-presence-per-post"><code>str_detect()</code> — binary presence per post</a></li>
+  <li><a href="#str_subset-keep-only-the-worrying-posts" id="toc-str_subset-keep-only-the-worrying-posts" class="nav-link" data-scroll-target="#str_subset-keep-only-the-worrying-posts"><code>str_subset()</code> — keep only the worrying posts</a></li>
+  <li><a href="#str_extract-str_extract_all-pull-out-the-matched-terms" id="toc-str_extract-str_extract_all-pull-out-the-matched-terms" class="nav-link" data-scroll-target="#str_extract-str_extract_all-pull-out-the-matched-terms"><code>str_extract()</code> / <code>str_extract_all()</code> — pull out the matched terms</a></li>
+  <li><a href="#str_replace-str_replace_all-substitute-matches" id="toc-str_replace-str_replace_all-substitute-matches" class="nav-link" data-scroll-target="#str_replace-str_replace_all-substitute-matches"><code>str_replace()</code> / <code>str_replace_all()</code> — substitute matches</a></li>
+  <li><a href="#str_remove-str_remove_all-delete-matches" id="toc-str_remove-str_remove_all-delete-matches" class="nav-link" data-scroll-target="#str_remove-str_remove_all-delete-matches"><code>str_remove()</code> / <code>str_remove_all()</code> — delete matches</a></li>
+  <li><a href="#small-theme-exploration-anxiety-over-time" id="toc-small-theme-exploration-anxiety-over-time" class="nav-link" data-scroll-target="#small-theme-exploration-anxiety-over-time">Small theme exploration — anxiety over time</a></li>
+  </ul>
+</li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/07_adv_data_wrangling_II.html"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">data</span>(fruit)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">data</span>(words)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">data</span>(sentences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-worlds-longest-mule-deer-migration" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-worlds-longest-mule-deer-migration">🔥 Data Story Critique — <em>World’s Longest Mule Deer Migration</em>
+</h2>
+<p>Source: <a href="https://geonarrative.usgs.gov/muledeer255/" class="uri">https://geonarrative.usgs.gov/muledeer255/</a></p>
+<section id="what-is-the-data-story" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story?</h3>
+<p>The USGS geonarrative follows <strong>Deer 255</strong>, a mule deer doe GPS-collared in Wyoming’s Red Desert in March 2016 as part of a research project led by Matthew Kauffman (USGS Wyoming Cooperative Fish and Wildlife Research Unit) and the Monteith Shop at the University of Wyoming. In her first tracked year she migrated <strong>242 miles one way</strong> from her wintering ground near Superior, WY to summer range in Island Park, Idaho — a <strong>480-mile annual round trip</strong> that is the longest point-to-point land migration ever documented in the lower 48 states, and second on the continent only to North American caribou. Her GPS track becomes the narrative spine of the piece.</p>
+<p>The story uses her yearly trajectory as a scrolling cartographic sequence, layering in information about (1) the jurisdictional patchwork her route traverses — national parks, national forests, BLM land, working ranches, state highways — (2) the physical obstacles she negotiates (more than a thousand fence jumps and dozens of highway crossings across her lifetime), and (3) the herd-level context that three distinct migration strategies (short, medium, long-distance) coexist within the same Sublette mule deer herd. The piece was explicitly built to be embedded in the <strong>American Conservation and Stewardship Atlas</strong> under the <em>America the Beautiful</em> initiative — so it is not just science communication but a policy artifact arguing for corridor-scale conservation across fragmented authority.</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<ul>
+<li>
+<strong>Named-individual protagonist.</strong> Deer 255 as a character (rather than “a representative deer”) gives the reader an anchor to return to. It is a technique borrowed from long-form journalism that makes a multi-year GPS time-series legible as a narrative rather than as a dataset.</li>
+<li>
+<strong>Scroll-synchronized cartography.</strong> The map state advances in lockstep with the explanatory text, collapsing spatial reading and textual reading into a single motion. This is appropriate for a story where geography <em>is</em> the data.</li>
+<li>
+<strong>Narrative tension through scientific honesty.</strong> The “was it a fluke?” arc — collar failure in Idaho, a nineteen-month disappearance, recapture, then confirmation of annual repetition — earns the reader’s investment before the policy argument arrives. It also models how field science actually produces knowledge (with gaps, surprises, and re-captures) rather than presenting a polished result.</li>
+<li>
+<strong>Visual encoding of land tenure.</strong> Colouring the route by managing agency makes the fragmentation argument legible at a glance, which is crucial because the reader cannot be expected to pre-load the map of federal land categories in the American West.</li>
+</ul></section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<ul>
+<li>
+<strong>Accessibility.</strong> Scroll-driven visualizations are known to be difficult for screen-reader users, keyboard-only navigation, and low-bandwidth contexts. There does not appear to be a text-first alternate path through the same content. A parallel narrative version with static maps and figure captions would significantly widen the audience.</li>
+<li>
+<strong>Presumed geographic literacy.</strong> The story assumes the reader can situate the Red Desert, Hoback Basin, and the Greater Yellowstone Ecosystem relative to one another. A persistent inset locator map (placing the route within North America at continental scale) would help international and non-Western-US readers register the magnitude of the journey.</li>
+<li>
+<strong>Individual framing obscures distribution.</strong> The single-protagonist device, while narratively effective, risks collapsing migration into a story about <em>one exceptional deer</em> rather than about a <em>distribution of strategies</em> within a herd. The short- and medium-distance migrants are mentioned but not developed; foregrounding a short-distance peer alongside Deer 255 would make the biological argument sharper.</li>
+<li>
+<strong>Uncertainty not visualized.</strong> GPS collar fixes carry known error envelopes and temporal gaps (the collar-failure period is an obvious one). These are collapsed rather than represented. For a piece being absorbed into a federal conservation atlas, representing data absence honestly matters.</li>
+<li>
+<strong>The policy ask stops at the problem.</strong> The piece identifies barriers (fences, highways, development) but does not close the loop by showing which interventions — wildlife crossings, conservation easements, fence modifications — have actually reconnected corridors. The atlas-embedding mandate would be strengthened by concrete examples of what worked and what did not.</li>
+</ul>
+<hr></section></section><section id="creating-strings" class="level2"><h2 class="anchored" data-anchor-id="creating-strings">Creating Strings</h2>
+<section id="exercise-its-thursday" class="level3"><h3 class="anchored" data-anchor-id="exercise-its-thursday">Exercise — <code>It's Thursday</code>
+</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Double quotes: the apostrophe is just a regular character inside double quotes</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>string_double <span class="ot">&lt;-</span> <span class="st">"It's Thursday"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>string_double</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "It's Thursday"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Single quotes: R reads the ' in It's as closing the string, which breaks it.</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># We would need to escape the inner apostrophe:</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>string_escaped <span class="ot">&lt;-</span> <span class="st">'It</span><span class="sc">\'</span><span class="st">s Thursday'</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>string_escaped</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "It's Thursday"</code></pre>
+</div>
+</div>
+<p><strong>Takeaway:</strong> if the string contains an apostrophe, use double quotes; if it contains a double quote, use single quotes; if it contains both, pick one delimiter and escape the other with <code>\</code>.</p>
+</section><section id="exercise-cusers" class="level3"><h3 class="anchored" data-anchor-id="exercise-cusers">Exercise — <code>C:\Users</code>
+</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Correct: escape the backslash</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>path <span class="ot">&lt;-</span> <span class="st">"C:</span><span class="sc">\\</span><span class="st">Users"</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">str_view</span>(path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] │ C:\Users</code></pre>
+</div>
+</div>
+<p>Without escaping the backslash, R cannot even parse the line — it fails before execution:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># This line is deliberately shown, not executed:</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>path_bad <span class="ot">&lt;-</span> <span class="st">"C:\Users"</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co"># Error: '\U' used without hex digits in character string</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>\</code> is the escape character, so a literal backslash must itself be written as <code>\\</code>. The specific failure here is that <code>\U</code> is reserved for Unicode codepoints (<code>\U0928</code>, etc.) and expects hex digits to follow.</p>
+</section><section id="exercise-full-date-string-with-str_c-and-str_glue" class="level3"><h3 class="anchored" data-anchor-id="exercise-full-date-string-with-str_c-and-str_glue">Exercise — Full date string with <code>str_c()</code> and <code>str_glue()</code>
+</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>df_dates <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="at">year  =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2001</span>, <span class="dv">2002</span>),</span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="at">month =</span> <span class="fu">c</span>(<span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>),</span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="at">day   =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a>df_dates <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb9-9"><a href="#cb9-9"></a>        <span class="at">date_str_c    =</span> <span class="fu">str_c</span>(month, <span class="st">"-"</span>, day, <span class="st">"-"</span>, year),</span>
+<span id="cb9-10"><a href="#cb9-10"></a>        <span class="at">date_str_glue =</span> <span class="fu">str_glue</span>(<span class="st">"{month}-{day}-{year}"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+   year month   day date_str_c date_str_glue
+  &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;glue&gt;       
+1  2000 Jan       3 Jan-3-2000 Jan-3-2000   
+2  2001 Feb       4 Feb-4-2001 Feb-4-2001   
+3  2002 Mar       5 Mar-5-2002 Mar-5-2002   </code></pre>
+</div>
+</div>
+<p>Both produce identical visible output. <code>str_c()</code> requires every literal separator to be passed as its own argument; <code>str_glue()</code> lets the template read almost like the desired output — a readability win as patterns get longer.</p>
+<hr></section></section><section id="extracting-information-from-strings" class="level2"><h2 class="anchored" data-anchor-id="extracting-information-from-strings">Extracting Information from Strings</h2>
+<section id="exercise-middle-letter-of-each-word" class="level3"><h3 class="anchored" data-anchor-id="exercise-middle-letter-of-each-word">Exercise — Middle letter of each word</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-2"><a href="#cb11-2"></a>    <span class="at">word_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb11-3"><a href="#cb11-3"></a>    <span class="at">word    =</span> <span class="fu">c</span>(<span class="st">"replace"</span>, <span class="st">"match"</span>, <span class="st">"pattern"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>)</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb11-8"><a href="#cb11-8"></a>        <span class="at">word_length   =</span> <span class="fu">str_length</span>(word),</span>
+<span id="cb11-9"><a href="#cb11-9"></a>        <span class="at">middle_pos    =</span> <span class="fu">ceiling</span>(word_length <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb11-10"><a href="#cb11-10"></a>        <span class="at">middle_letter =</span> <span class="fu">str_sub</span>(word, middle_pos, middle_pos)</span>
+<span id="cb11-11"><a href="#cb11-11"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  word_id word    word_length middle_pos middle_letter
+    &lt;int&gt; &lt;chr&gt;         &lt;int&gt;      &lt;dbl&gt; &lt;chr&gt;        
+1       1 replace           7          4 l            
+2       2 match             5          3 t            
+3       3 pattern           7          4 t            </code></pre>
+</div>
+</div>
+</section><section id="challenge-handling-even-length-words" class="level3"><h3 class="anchored" data-anchor-id="challenge-handling-even-length-words">Challenge — handling even-length words</h3>
+<p>For odd-length words there is a single middle letter. For even-length words there is no single middle, so the honest answer is to return the two central letters. The following handles both cases uniformly:</p>
+<ul>
+<li>for length <span class="math inline">\(n\)</span>, start position is <span class="math inline">\(\lfloor (n+1)/2 \rfloor\)</span>
+</li>
+<li>end position is <span class="math inline">\(\lceil (n+1)/2 \rceil\)</span>
+</li>
+</ul>
+<p>which gives a single letter when <span class="math inline">\(n\)</span> is odd and two letters when <span class="math inline">\(n\)</span> is even.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>df_mixed <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb13-2"><a href="#cb13-2"></a>    <span class="at">word_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="at">word    =</span> <span class="fu">c</span>(<span class="st">"replace"</span>, <span class="st">"match"</span>, <span class="st">"banana"</span>, <span class="st">"data"</span>, <span class="st">"a"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4"></a>)</span>
+<span id="cb13-5"><a href="#cb13-5"></a></span>
+<span id="cb13-6"><a href="#cb13-6"></a>df_mixed <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb13-8"><a href="#cb13-8"></a>        <span class="at">word_length =</span> <span class="fu">str_length</span>(word),</span>
+<span id="cb13-9"><a href="#cb13-9"></a>        <span class="at">start_pos   =</span> <span class="fu">floor</span>((word_length <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb13-10"><a href="#cb13-10"></a>        <span class="at">end_pos     =</span> <span class="fu">ceiling</span>((word_length <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb13-11"><a href="#cb13-11"></a>        <span class="at">middle      =</span> <span class="fu">str_sub</span>(word, start_pos, end_pos)</span>
+<span id="cb13-12"><a href="#cb13-12"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 6
+  word_id word    word_length start_pos end_pos middle
+    &lt;int&gt; &lt;chr&gt;         &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; 
+1       1 replace           7         4       4 l     
+2       2 match             5         3       3 t     
+3       3 banana            6         3       4 na    
+4       4 data              4         2       3 at    
+5       5 a                 1         1       1 a     </code></pre>
+</div>
+</div>
+<p>Check: <code>replace</code> (7) → <code>l</code>, <code>match</code> (5) → <code>t</code>, <code>banana</code> (6) → <code>na</code>, <code>data</code> (4) → <code>at</code>, <code>a</code> (1) → <code>a</code>.</p>
+<hr></section></section><section id="finding-patterns-with-regular-expressions" class="level2"><h2 class="anchored" data-anchor-id="finding-patterns-with-regular-expressions">Finding Patterns with Regular Expressions</h2>
+<section id="exercise-predicting-quantifier-matches" class="level3"><h3 class="anchored" data-anchor-id="exercise-predicting-quantifier-matches">Exercise — Predicting quantifier matches</h3>
+<p><strong>My predictions before running:</strong></p>
+<ul>
+<li>
+<code>"ab?"</code> — <code>b</code> is optional, so the regex matches <code>a</code> optionally followed by one <code>b</code>. Expected: <code>"a"</code> matches <code>a</code>; <code>"ab"</code> matches <code>ab</code>; <code>"abb"</code> matches only the first <code>ab</code> (greedy but <code>?</code> caps at one).</li>
+<li>
+<code>"ab+"</code> — requires <code>a</code> followed by <em>at least one</em> <code>b</code>. Expected: <code>"a"</code> no match; <code>"ab"</code> matches <code>ab</code>; <code>"abb"</code> matches <code>abb</code>.</li>
+<li>
+<code>"ab*"</code> — requires <code>a</code> followed by <em>zero or more</em> <code>b</code>s. Expected: <code>"a"</code> matches <code>a</code>; <code>"ab"</code> matches <code>ab</code>; <code>"abb"</code> matches <code>abb</code>.</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">str_view</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"abb"</span>), <span class="st">"ab?"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] │ &lt;a&gt;
+[2] │ &lt;ab&gt;
+[3] │ &lt;ab&gt;b</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">str_view</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"abb"</span>), <span class="st">"ab+"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[2] │ &lt;ab&gt;
+[3] │ &lt;abb&gt;</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">str_view</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"abb"</span>), <span class="st">"ab*"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] │ &lt;a&gt;
+[2] │ &lt;ab&gt;
+[3] │ &lt;abb&gt;</code></pre>
+</div>
+</div>
+<p>Predictions confirmed.</p>
+</section><section id="exercise-words-with-two-vowels-in-a-row-followed-by-m" class="level3"><h3 class="anchored" data-anchor-id="exercise-words-with-two-vowels-in-a-row-followed-by-m">Exercise — Words with two vowels in a row followed by “m”</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">str_view</span>(words, <span class="st">"[aeiou][aeiou]m"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[154] │ cl&lt;aim&gt;
+[714] │ r&lt;oom&gt;
+[735] │ s&lt;eem&gt;
+[844] │ t&lt;eam&gt;</code></pre>
+</div>
+</div>
+<p>(Classic hits: <code>aim</code>, <code>beam</code>, <code>team</code>, <code>seem</code>, <code>room</code>, etc.)</p>
+</section><section id="exercise-fruits-with-a-repeated-vowel" class="level3"><h3 class="anchored" data-anchor-id="exercise-fruits-with-a-repeated-vowel">Exercise — Fruits with a repeated vowel</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Straightforward alternation</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">str_view</span>(fruit, <span class="st">"aa|ee|ii|oo|uu"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code> [9] │ bl&lt;oo&gt;d orange
+[33] │ g&lt;oo&gt;seberry
+[47] │ lych&lt;ee&gt;
+[66] │ purple mangost&lt;ee&gt;n</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># More elegant equivalent using a capture group and a backreference:</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="co"># capture any vowel, then require that same vowel again.</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="fu">str_view</span>(fruit, <span class="st">"([aeiou])</span><span class="sc">\\</span><span class="st">1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code> [9] │ bl&lt;oo&gt;d orange
+[33] │ g&lt;oo&gt;seberry
+[47] │ lych&lt;ee&gt;
+[66] │ purple mangost&lt;ee&gt;n</code></pre>
+</div>
+</div>
+<p>Both forms return the same fruits. The backreference form generalizes better — to match any doubled letter we would only need to drop the character class.</p>
+</section><section id="exercise-words-that-do-do-not-start-with-y" class="level3"><h3 class="anchored" data-anchor-id="exercise-words-that-do-do-not-start-with-y">Exercise — Words that do / do not start with “y”</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Start with y</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">str_view</span>(words, <span class="st">"^y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[975] │ &lt;y&gt;ear
+[976] │ &lt;y&gt;es
+[977] │ &lt;y&gt;esterday
+[978] │ &lt;y&gt;et
+[979] │ &lt;y&gt;ou
+[980] │ &lt;y&gt;oung</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># Do NOT start with y</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="fu">str_view</span>(words, <span class="st">"^[^y]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code> [1] │ &lt;a&gt;
+ [2] │ &lt;a&gt;ble
+ [3] │ &lt;a&gt;bout
+ [4] │ &lt;a&gt;bsolute
+ [5] │ &lt;a&gt;ccept
+ [6] │ &lt;a&gt;ccount
+ [7] │ &lt;a&gt;chieve
+ [8] │ &lt;a&gt;cross
+ [9] │ &lt;a&gt;ct
+[10] │ &lt;a&gt;ctive
+[11] │ &lt;a&gt;ctual
+[12] │ &lt;a&gt;dd
+[13] │ &lt;a&gt;ddress
+[14] │ &lt;a&gt;dmit
+[15] │ &lt;a&gt;dvertise
+[16] │ &lt;a&gt;ffect
+[17] │ &lt;a&gt;fford
+[18] │ &lt;a&gt;fter
+[19] │ &lt;a&gt;fternoon
+[20] │ &lt;a&gt;gain
+... and 954 more</code></pre>
+</div>
+</div>
+<p>There are two <code>^</code> symbols doing two different jobs in <code>^[^y]</code>:</p>
+<ul>
+<li>the first <code>^</code> is the <strong>start-of-string anchor</strong>
+</li>
+<li>the <code>^</code> inside the brackets is the <strong>negation operator</strong> for the character class</li>
+</ul>
+<p>Read as: “a character that is not <code>y</code>, occurring at the start of the string.”</p>
+<hr></section></section><section id="exploring-stringr-functions-on-the-dear-abby-data" class="level2"><h2 class="anchored" data-anchor-id="exploring-stringr-functions-on-the-dear-abby-data">Exploring <code>stringr</code> Functions on the Dear Abby Data</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>posts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/the-pudding/data/master/dearabby/raw_da_qs.csv"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2"></a></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="fu">glimpse</span>(posts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Rows: 20,034
+Columns: 7
+$ year          &lt;dbl&gt; 1985, 1985, 1985, 1985, 1985, 1985, 1985, 1985, 1985, 19…
+$ month         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ day           &lt;chr&gt; "01", "01", "02", "03", "04", "04", "04", "04", "06", "0…
+$ url           &lt;chr&gt; "proquest", "proquest", "proquest", "proquest", "proques…
+$ title         &lt;chr&gt; "WOMAN NEEDS HELP: HER BURDEN OF HOPELESSNESS IS TOO HEA…
+$ letterId      &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ question_only &lt;chr&gt; "i have been in a bad marriage for 40 years. i knew it w…</code></pre>
+</div>
+</div>
+<p>The relevant text column is <code>question_only</code>. I’ll explore each <code>stringr</code> function against a working theme — <strong>anxiety vocabulary</strong> — chosen to parallel The Pudding’s project. The working regex covers a family of worry-adjacent stems:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>worry_regex <span class="ot">&lt;-</span> <span class="st">"worr|anxious|anxiety|afraid|scare|nervous|fear"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="str_count-worry-word-intensity-per-post" class="level3"><h3 class="anchored" data-anchor-id="str_count-worry-word-intensity-per-post">
+<code>str_count()</code> — worry-word intensity per post</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb34-3"><a href="#cb34-3"></a>        <span class="at">worry_count =</span> <span class="fu">str_count</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb34-4"><a href="#cb34-4"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>    <span class="fu">select</span>(year, question_only, worry_count) <span class="sc">|&gt;</span></span>
+<span id="cb34-6"><a href="#cb34-6"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(worry_count)) <span class="sc">|&gt;</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+   year question_only                                                worry_count
+  &lt;dbl&gt; &lt;chr&gt;                                                              &lt;int&gt;
+1  1994 "my grandma passed away last july. while going through her …           8
+2  1991 "my husband and i frequently entertain at home. we have a d…           7
+3  2016 "about six months ago, i started a new job i really enjoy. …           6
+4  1986 "i am 15 and have been going with this guy i'll call brian …           5
+5  1988 "the dallas cowboys, once america's team, are now herschel'…           5</code></pre>
+</div>
+</div>
+</section><section id="str_detect-binary-presence-per-post" class="level3"><h3 class="anchored" data-anchor-id="str_detect-binary-presence-per-post">
+<code>str_detect()</code> — binary presence per post</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb36-3"><a href="#cb36-3"></a>        <span class="at">has_worry =</span> <span class="fu">str_detect</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb36-4"><a href="#cb36-4"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>    <span class="fu">count</span>(has_worry) <span class="sc">|&gt;</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a>    <span class="fu">mutate</span>(<span class="at">pct =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  has_worry     n   pct
+  &lt;lgl&gt;     &lt;int&gt; &lt;dbl&gt;
+1 FALSE     17448  87.1
+2 TRUE       2586  12.9</code></pre>
+</div>
+</div>
+</section><section id="str_subset-keep-only-the-worrying-posts" class="level3"><h3 class="anchored" data-anchor-id="str_subset-keep-only-the-worrying-posts">
+<code>str_subset()</code> — keep only the worrying posts</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>worry_posts <span class="ot">&lt;-</span> posts<span class="sc">$</span>question_only <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>    <span class="fu">str_subset</span>(<span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb38-3"><a href="#cb38-3"></a></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="fu">length</span>(worry_posts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 2586</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>worry_posts <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "this is for all newspaper carriers, mail carriers and delivery people: when you see a dog, barking and growling in front of someone's house, turn right around and forget that house.\ntoday, a delivery boy tried to get up to our front door when he was confronted by our dog on a chain, growling and snapping frantically. the delivery boy didn't take the hint; instead he kept advancing, trying to get around the dog and up to our front door. had our dog been able to get to this boy, he could have done him serious damage.\nabby, i'm really worried. i have heard that according to law, every dog is entitled to one bite, but if he bites twice, he has to be put to sleep. is that true?\nloves my dog"
+[2] "is it an old tradition that the person who makes the telephone call should be the one to end the conversation? my mother says it is.\nshe says she would talk all night before she would bring a conversation to a close if the other party had called her.\nthis is what she taught me, and i can remember countless times i have been late because of this. what do you think, abby? anxious in kentucky"                                                                                                                                                                                                                                                                                                               </code></pre>
+</div>
+</div>
+</section><section id="str_extract-str_extract_all-pull-out-the-matched-terms" class="level3"><h3 class="anchored" data-anchor-id="str_extract-str_extract_all-pull-out-the-matched-terms">
+<code>str_extract()</code> / <code>str_extract_all()</code> — pull out the matched terms</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># First match per post, then tabulate which worry-term is most common</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb42-4"><a href="#cb42-4"></a>        <span class="at">first_worry =</span> <span class="fu">str_extract</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb42-5"><a href="#cb42-5"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(first_worry)) <span class="sc">|&gt;</span></span>
+<span id="cb42-7"><a href="#cb42-7"></a>    <span class="fu">count</span>(first_worry, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  first_worry     n
+  &lt;chr&gt;       &lt;int&gt;
+1 afraid        937
+2 worr          805
+3 fear          321
+4 scare         252
+5 nervous       138
+6 anxious        72
+7 anxiety        61</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># All matches per post (returns a list-column); inspect posts with multiple hits</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">500</span>) <span class="sc">|&gt;</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb44-5"><a href="#cb44-5"></a>        <span class="at">all_worry =</span> <span class="fu">str_extract_all</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb44-6"><a href="#cb44-6"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb44-7"><a href="#cb44-7"></a>    <span class="fu">filter</span>(<span class="fu">lengths</span>(all_worry) <span class="sc">&gt;</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb44-8"><a href="#cb44-8"></a>    <span class="fu">select</span>(year, all_worry) <span class="sc">|&gt;</span></span>
+<span id="cb44-9"><a href="#cb44-9"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: year &lt;dbl&gt;, all_worry &lt;list&gt;</code></pre>
+</div>
+</div>
+</section><section id="str_replace-str_replace_all-substitute-matches" class="level3"><h3 class="anchored" data-anchor-id="str_replace-str_replace_all-substitute-matches">
+<code>str_replace()</code> / <code>str_replace_all()</code> — substitute matches</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># str_replace replaces only the first occurrence</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>posts<span class="sc">$</span>question_only[<span class="dv">1</span>] <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a>    <span class="fu">str_replace</span>(<span class="fu">regex</span>(<span class="st">"the"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>), <span class="st">"[THE]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a>    <span class="fu">str_sub</span>(<span class="dv">1</span>, <span class="dv">200</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "i have been in a bad marriage for 40 years. i knew it was a mistake after [THE] first year, but being a catholic, i accepted it as my cross. i bore eight children, hating every minute of it.\nthere was"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># str_replace_all replaces every occurrence</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a>posts<span class="sc">$</span>question_only[<span class="dv">1</span>] <span class="sc">|&gt;</span></span>
+<span id="cb48-3"><a href="#cb48-3"></a>    <span class="fu">str_replace_all</span>(<span class="fu">regex</span>(<span class="st">"the"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>), <span class="st">"[THE]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a>    <span class="fu">str_sub</span>(<span class="dv">1</span>, <span class="dv">200</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "i have been in a bad marriage for 40 years. i knew it was a mistake after [THE] first year, but being a catholic, i accepted it as my cross. i bore eight children, hating every minute of it.\n[THE]re w"</code></pre>
+</div>
+</div>
+</section><section id="str_remove-str_remove_all-delete-matches" class="level3"><h3 class="anchored" data-anchor-id="str_remove-str_remove_all-delete-matches">
+<code>str_remove()</code> / <code>str_remove_all()</code> — delete matches</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="co"># Strip punctuation from the first post</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a>posts<span class="sc">$</span>question_only[<span class="dv">1</span>] <span class="sc">|&gt;</span></span>
+<span id="cb50-3"><a href="#cb50-3"></a>    <span class="fu">str_remove_all</span>(<span class="st">"[[:punct:]]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb50-4"><a href="#cb50-4"></a>    <span class="fu">str_sub</span>(<span class="dv">1</span>, <span class="dv">200</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "i have been in a bad marriage for 40 years i knew it was a mistake after the first year but being a catholic i accepted it as my cross i bore eight children hating every minute of it\nthere was never e"</code></pre>
+</div>
+</div>
+</section><section id="small-theme-exploration-anxiety-over-time" class="level3"><h3 class="anchored" data-anchor-id="small-theme-exploration-anxiety-over-time">Small theme exploration — anxiety over time</h3>
+<p>Because the dataset spans roughly thirty years, we can replicate in miniature what The Pudding did at scale: count worry-mentions per year and see whether the prevalence drifts.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb52-3"><a href="#cb52-3"></a>        <span class="at">has_worry =</span> <span class="fu">str_detect</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb52-4"><a href="#cb52-4"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb52-5"><a href="#cb52-5"></a>    <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb52-6"><a href="#cb52-6"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb52-7"><a href="#cb52-7"></a>        <span class="at">n_posts       =</span> <span class="fu">n</span>(),</span>
+<span id="cb52-8"><a href="#cb52-8"></a>        <span class="at">n_worry_posts =</span> <span class="fu">sum</span>(has_worry, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb52-9"><a href="#cb52-9"></a>        <span class="at">pct_worry     =</span> n_worry_posts <span class="sc">/</span> n_posts</span>
+<span id="cb52-10"><a href="#cb52-10"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb52-11"><a href="#cb52-11"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pct_worry)) <span class="sc">+</span></span>
+<span id="cb52-12"><a href="#cb52-12"></a>    <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb52-13"><a href="#cb52-13"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#b6345c"</span>) <span class="sc">+</span></span>
+<span id="cb52-14"><a href="#cb52-14"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb52-15"><a href="#cb52-15"></a>    <span class="fu">labs</span>(</span>
+<span id="cb52-16"><a href="#cb52-16"></a>        <span class="at">title    =</span> <span class="st">"Share of Dear Abby posts mentioning worry-adjacent vocabulary, by year"</span>,</span>
+<span id="cb52-17"><a href="#cb52-17"></a>        <span class="at">subtitle =</span> <span class="st">"Stems matched: worr, anxious, anxiety, afraid, scare, nervous, fear"</span>,</span>
+<span id="cb52-18"><a href="#cb52-18"></a>        <span class="at">x        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb52-19"><a href="#cb52-19"></a>        <span class="at">y        =</span> <span class="st">"Share of posts"</span></span>
+<span id="cb52-20"><a href="#cb52-20"></a>    ) <span class="sc">+</span></span>
+<span id="cb52-21"><a href="#cb52-21"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="07_adv_data_wrangling_II_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p>The combination of <code>str_detect()</code> for filtering and <code>str_count()</code> for intensity is the basic move behind computational text analysis: one gives a binary signal per document, the other a continuous one, and together they let you ask both <em>“which documents are about X”</em> and <em>“how much is each document about X.”</em> The Pudding’s <em>30 Years of American Anxieties</em> piece sits on exactly this scaffold, scaled up with careful theme curation and temporal aggregation.</p>
+<p>A caveat worth flagging explicitly: regex pattern-matching catches <strong>strings, not meanings</strong>. The regex <code>"fear"</code> matches <code>fearless</code> and <code>fearful</code> alike; <code>"afraid"</code> misses <code>unafraid</code>. A more careful analysis would guard against these with word-boundary anchors (<code>\\bfear\\b</code>) and negated look-arounds, and — more importantly — would pair the computational pass with a qualitative read of a sampled subset to verify that each theme is actually what it claims to be. Computational text analysis is most useful as a <em>focusing tool</em> for close reading, not a replacement for it.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/ica-sample2.html" class="pagination-link" aria-label="ICA Sample 2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">ICA Sample 2</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/08_missing_data.html" class="pagination-link" aria-label="8 — Missing Data: Mechanisms, Exploration, and Imputation">
+        <span class="nav-page-text"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb53-1"><a href="#cb53-1"></a><span class="co">---</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a><span class="an">title:</span><span class="co"> "7 — Advanced Data Wrangling II: Strings and Regular Expressions"</span></span>
+<span id="cb53-3"><a href="#cb53-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb53-4"><a href="#cb53-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb53-5"><a href="#cb53-5"></a><span class="an">format:</span></span>
+<span id="cb53-6"><a href="#cb53-6"></a><span class="co">  html:</span></span>
+<span id="cb53-7"><a href="#cb53-7"></a><span class="co">    toc: true</span></span>
+<span id="cb53-8"><a href="#cb53-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb53-9"><a href="#cb53-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb53-10"><a href="#cb53-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb53-11"><a href="#cb53-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb53-12"><a href="#cb53-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb53-13"><a href="#cb53-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb53-14"><a href="#cb53-14"></a><span class="an">execute:</span></span>
+<span id="cb53-15"><a href="#cb53-15"></a><span class="co">  warning: false</span></span>
+<span id="cb53-16"><a href="#cb53-16"></a><span class="co">  message: false</span></span>
+<span id="cb53-17"><a href="#cb53-17"></a><span class="co">---</span></span>
+<span id="cb53-18"><a href="#cb53-18"></a></span>
+<span id="cb53-19"><a href="#cb53-19"></a><span class="fu">## Setup</span></span>
+<span id="cb53-20"><a href="#cb53-20"></a></span>
+<span id="cb53-23"><a href="#cb53-23"></a><span class="in">```{r}</span></span>
+<span id="cb53-24"><a href="#cb53-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb53-25"><a href="#cb53-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb53-26"><a href="#cb53-26"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb53-27"><a href="#cb53-27"></a></span>
+<span id="cb53-28"><a href="#cb53-28"></a><span class="fu">data</span>(fruit)</span>
+<span id="cb53-29"><a href="#cb53-29"></a><span class="fu">data</span>(words)</span>
+<span id="cb53-30"><a href="#cb53-30"></a><span class="fu">data</span>(sentences)</span>
+<span id="cb53-31"><a href="#cb53-31"></a><span class="in">```</span></span>
+<span id="cb53-32"><a href="#cb53-32"></a></span>
+<span id="cb53-33"><a href="#cb53-33"></a>------------------------------------------------------------------------</span>
+<span id="cb53-34"><a href="#cb53-34"></a></span>
+<span id="cb53-35"><a href="#cb53-35"></a><span class="fu">## 🔥 Data Story Critique — *World's Longest Mule Deer Migration*</span></span>
+<span id="cb53-36"><a href="#cb53-36"></a></span>
+<span id="cb53-37"><a href="#cb53-37"></a>Source: <span class="ot">&lt;https://geonarrative.usgs.gov/muledeer255/&gt;</span></span>
+<span id="cb53-38"><a href="#cb53-38"></a></span>
+<span id="cb53-39"><a href="#cb53-39"></a><span class="fu">### What is the data story?</span></span>
+<span id="cb53-40"><a href="#cb53-40"></a></span>
+<span id="cb53-41"><a href="#cb53-41"></a>The USGS geonarrative follows **Deer 255**, a mule deer doe GPS-collared in Wyoming's Red Desert in March 2016 as part of a research project led by Matthew Kauffman (USGS Wyoming Cooperative Fish and Wildlife Research Unit) and the Monteith Shop at the University of Wyoming. In her first tracked year she migrated **242 miles one way** from her wintering ground near Superior, WY to summer range in Island Park, Idaho — a **480-mile annual round trip** that is the longest point-to-point land migration ever documented in the lower 48 states, and second on the continent only to North American caribou. Her GPS track becomes the narrative spine of the piece.</span>
+<span id="cb53-42"><a href="#cb53-42"></a></span>
+<span id="cb53-43"><a href="#cb53-43"></a>The story uses her yearly trajectory as a scrolling cartographic sequence, layering in information about (1) the jurisdictional patchwork her route traverses — national parks, national forests, BLM land, working ranches, state highways — (2) the physical obstacles she negotiates (more than a thousand fence jumps and dozens of highway crossings across her lifetime), and (3) the herd-level context that three distinct migration strategies (short, medium, long-distance) coexist within the same Sublette mule deer herd. The piece was explicitly built to be embedded in the **American Conservation and Stewardship Atlas** under the *America the Beautiful* initiative — so it is not just science communication but a policy artifact arguing for corridor-scale conservation across fragmented authority.</span>
+<span id="cb53-44"><a href="#cb53-44"></a></span>
+<span id="cb53-45"><a href="#cb53-45"></a><span class="fu">### What is effective?</span></span>
+<span id="cb53-46"><a href="#cb53-46"></a></span>
+<span id="cb53-47"><a href="#cb53-47"></a><span class="ss">- </span>**Named-individual protagonist.** Deer 255 as a character (rather than "a representative deer") gives the reader an anchor to return to. It is a technique borrowed from long-form journalism that makes a multi-year GPS time-series legible as a narrative rather than as a dataset.</span>
+<span id="cb53-48"><a href="#cb53-48"></a><span class="ss">- </span>**Scroll-synchronized cartography.** The map state advances in lockstep with the explanatory text, collapsing spatial reading and textual reading into a single motion. This is appropriate for a story where geography *is* the data.</span>
+<span id="cb53-49"><a href="#cb53-49"></a><span class="ss">- </span>**Narrative tension through scientific honesty.** The "was it a fluke?" arc — collar failure in Idaho, a nineteen-month disappearance, recapture, then confirmation of annual repetition — earns the reader's investment before the policy argument arrives. It also models how field science actually produces knowledge (with gaps, surprises, and re-captures) rather than presenting a polished result.</span>
+<span id="cb53-50"><a href="#cb53-50"></a><span class="ss">- </span>**Visual encoding of land tenure.** Colouring the route by managing agency makes the fragmentation argument legible at a glance, which is crucial because the reader cannot be expected to pre-load the map of federal land categories in the American West.</span>
+<span id="cb53-51"><a href="#cb53-51"></a></span>
+<span id="cb53-52"><a href="#cb53-52"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb53-53"><a href="#cb53-53"></a></span>
+<span id="cb53-54"><a href="#cb53-54"></a><span class="ss">- </span>**Accessibility.** Scroll-driven visualizations are known to be difficult for screen-reader users, keyboard-only navigation, and low-bandwidth contexts. There does not appear to be a text-first alternate path through the same content. A parallel narrative version with static maps and figure captions would significantly widen the audience.</span>
+<span id="cb53-55"><a href="#cb53-55"></a><span class="ss">- </span>**Presumed geographic literacy.** The story assumes the reader can situate the Red Desert, Hoback Basin, and the Greater Yellowstone Ecosystem relative to one another. A persistent inset locator map (placing the route within North America at continental scale) would help international and non-Western-US readers register the magnitude of the journey.</span>
+<span id="cb53-56"><a href="#cb53-56"></a><span class="ss">- </span>**Individual framing obscures distribution.** The single-protagonist device, while narratively effective, risks collapsing migration into a story about *one exceptional deer* rather than about a *distribution of strategies* within a herd. The short- and medium-distance migrants are mentioned but not developed; foregrounding a short-distance peer alongside Deer 255 would make the biological argument sharper.</span>
+<span id="cb53-57"><a href="#cb53-57"></a><span class="ss">- </span>**Uncertainty not visualized.** GPS collar fixes carry known error envelopes and temporal gaps (the collar-failure period is an obvious one). These are collapsed rather than represented. For a piece being absorbed into a federal conservation atlas, representing data absence honestly matters.</span>
+<span id="cb53-58"><a href="#cb53-58"></a><span class="ss">- </span>**The policy ask stops at the problem.** The piece identifies barriers (fences, highways, development) but does not close the loop by showing which interventions — wildlife crossings, conservation easements, fence modifications — have actually reconnected corridors. The atlas-embedding mandate would be strengthened by concrete examples of what worked and what did not.</span>
+<span id="cb53-59"><a href="#cb53-59"></a></span>
+<span id="cb53-60"><a href="#cb53-60"></a>------------------------------------------------------------------------</span>
+<span id="cb53-61"><a href="#cb53-61"></a></span>
+<span id="cb53-62"><a href="#cb53-62"></a><span class="fu">## Creating Strings</span></span>
+<span id="cb53-63"><a href="#cb53-63"></a></span>
+<span id="cb53-64"><a href="#cb53-64"></a><span class="fu">### Exercise — `It's Thursday`</span></span>
+<span id="cb53-65"><a href="#cb53-65"></a></span>
+<span id="cb53-68"><a href="#cb53-68"></a><span class="in">```{r}</span></span>
+<span id="cb53-69"><a href="#cb53-69"></a><span class="co"># Double quotes: the apostrophe is just a regular character inside double quotes</span></span>
+<span id="cb53-70"><a href="#cb53-70"></a>string_double <span class="ot">&lt;-</span> <span class="st">"It's Thursday"</span></span>
+<span id="cb53-71"><a href="#cb53-71"></a>string_double</span>
+<span id="cb53-72"><a href="#cb53-72"></a></span>
+<span id="cb53-73"><a href="#cb53-73"></a><span class="co"># Single quotes: R reads the ' in It's as closing the string, which breaks it.</span></span>
+<span id="cb53-74"><a href="#cb53-74"></a><span class="co"># We would need to escape the inner apostrophe:</span></span>
+<span id="cb53-75"><a href="#cb53-75"></a>string_escaped <span class="ot">&lt;-</span> <span class="st">'It</span><span class="sc">\'</span><span class="st">s Thursday'</span></span>
+<span id="cb53-76"><a href="#cb53-76"></a>string_escaped</span>
+<span id="cb53-77"><a href="#cb53-77"></a><span class="in">```</span></span>
+<span id="cb53-78"><a href="#cb53-78"></a></span>
+<span id="cb53-79"><a href="#cb53-79"></a>**Takeaway:** if the string contains an apostrophe, use double quotes; if it contains a double quote, use single quotes; if it contains both, pick one delimiter and escape the other with <span class="in">`\`</span>.</span>
+<span id="cb53-80"><a href="#cb53-80"></a></span>
+<span id="cb53-81"><a href="#cb53-81"></a><span class="fu">### Exercise — `C:\Users`</span></span>
+<span id="cb53-82"><a href="#cb53-82"></a></span>
+<span id="cb53-85"><a href="#cb53-85"></a><span class="in">```{r}</span></span>
+<span id="cb53-86"><a href="#cb53-86"></a><span class="co"># Correct: escape the backslash</span></span>
+<span id="cb53-87"><a href="#cb53-87"></a>path <span class="ot">&lt;-</span> <span class="st">"C:</span><span class="sc">\\</span><span class="st">Users"</span></span>
+<span id="cb53-88"><a href="#cb53-88"></a><span class="fu">str_view</span>(path)</span>
+<span id="cb53-89"><a href="#cb53-89"></a><span class="in">```</span></span>
+<span id="cb53-90"><a href="#cb53-90"></a></span>
+<span id="cb53-91"><a href="#cb53-91"></a>Without escaping the backslash, R cannot even parse the line — it fails before execution:</span>
+<span id="cb53-92"><a href="#cb53-92"></a></span>
+<span id="cb53-93"><a href="#cb53-93"></a><span class="in">```r</span></span>
+<span id="cb53-94"><a href="#cb53-94"></a><span class="co"># This line is deliberately shown, not executed:</span></span>
+<span id="cb53-95"><a href="#cb53-95"></a>path_bad <span class="ot">&lt;-</span> <span class="st">"C:\Users"</span></span>
+<span id="cb53-96"><a href="#cb53-96"></a><span class="co"># Error: '\U' used without hex digits in character string</span></span>
+<span id="cb53-97"><a href="#cb53-97"></a><span class="in">```</span></span>
+<span id="cb53-98"><a href="#cb53-98"></a></span>
+<span id="cb53-99"><a href="#cb53-99"></a>The <span class="in">`\`</span> is the escape character, so a literal backslash must itself be written as <span class="in">`\\`</span>. The specific failure here is that <span class="in">`\U`</span> is reserved for Unicode codepoints (<span class="in">`\U0928`</span>, etc.) and expects hex digits to follow.</span>
+<span id="cb53-100"><a href="#cb53-100"></a></span>
+<span id="cb53-101"><a href="#cb53-101"></a><span class="fu">### Exercise — Full date string with `str_c()` and `str_glue()`</span></span>
+<span id="cb53-102"><a href="#cb53-102"></a></span>
+<span id="cb53-105"><a href="#cb53-105"></a><span class="in">```{r}</span></span>
+<span id="cb53-106"><a href="#cb53-106"></a>df_dates <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb53-107"><a href="#cb53-107"></a>    <span class="at">year  =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2001</span>, <span class="dv">2002</span>),</span>
+<span id="cb53-108"><a href="#cb53-108"></a>    <span class="at">month =</span> <span class="fu">c</span>(<span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>),</span>
+<span id="cb53-109"><a href="#cb53-109"></a>    <span class="at">day   =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb53-110"><a href="#cb53-110"></a>)</span>
+<span id="cb53-111"><a href="#cb53-111"></a></span>
+<span id="cb53-112"><a href="#cb53-112"></a>df_dates <span class="sc">|&gt;</span></span>
+<span id="cb53-113"><a href="#cb53-113"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb53-114"><a href="#cb53-114"></a>        <span class="at">date_str_c    =</span> <span class="fu">str_c</span>(month, <span class="st">"-"</span>, day, <span class="st">"-"</span>, year),</span>
+<span id="cb53-115"><a href="#cb53-115"></a>        <span class="at">date_str_glue =</span> <span class="fu">str_glue</span>(<span class="st">"{month}-{day}-{year}"</span>)</span>
+<span id="cb53-116"><a href="#cb53-116"></a>    )</span>
+<span id="cb53-117"><a href="#cb53-117"></a><span class="in">```</span></span>
+<span id="cb53-118"><a href="#cb53-118"></a></span>
+<span id="cb53-119"><a href="#cb53-119"></a>Both produce identical visible output. <span class="in">`str_c()`</span> requires every literal separator to be passed as its own argument; <span class="in">`str_glue()`</span> lets the template read almost like the desired output — a readability win as patterns get longer.</span>
+<span id="cb53-120"><a href="#cb53-120"></a></span>
+<span id="cb53-121"><a href="#cb53-121"></a>------------------------------------------------------------------------</span>
+<span id="cb53-122"><a href="#cb53-122"></a></span>
+<span id="cb53-123"><a href="#cb53-123"></a><span class="fu">## Extracting Information from Strings</span></span>
+<span id="cb53-124"><a href="#cb53-124"></a></span>
+<span id="cb53-125"><a href="#cb53-125"></a><span class="fu">### Exercise — Middle letter of each word</span></span>
+<span id="cb53-126"><a href="#cb53-126"></a></span>
+<span id="cb53-129"><a href="#cb53-129"></a><span class="in">```{r}</span></span>
+<span id="cb53-130"><a href="#cb53-130"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb53-131"><a href="#cb53-131"></a>    <span class="at">word_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb53-132"><a href="#cb53-132"></a>    <span class="at">word    =</span> <span class="fu">c</span>(<span class="st">"replace"</span>, <span class="st">"match"</span>, <span class="st">"pattern"</span>)</span>
+<span id="cb53-133"><a href="#cb53-133"></a>)</span>
+<span id="cb53-134"><a href="#cb53-134"></a></span>
+<span id="cb53-135"><a href="#cb53-135"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb53-136"><a href="#cb53-136"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb53-137"><a href="#cb53-137"></a>        <span class="at">word_length   =</span> <span class="fu">str_length</span>(word),</span>
+<span id="cb53-138"><a href="#cb53-138"></a>        <span class="at">middle_pos    =</span> <span class="fu">ceiling</span>(word_length <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb53-139"><a href="#cb53-139"></a>        <span class="at">middle_letter =</span> <span class="fu">str_sub</span>(word, middle_pos, middle_pos)</span>
+<span id="cb53-140"><a href="#cb53-140"></a>    )</span>
+<span id="cb53-141"><a href="#cb53-141"></a><span class="in">```</span></span>
+<span id="cb53-142"><a href="#cb53-142"></a></span>
+<span id="cb53-143"><a href="#cb53-143"></a><span class="fu">### Challenge — handling even-length words</span></span>
+<span id="cb53-144"><a href="#cb53-144"></a></span>
+<span id="cb53-145"><a href="#cb53-145"></a>For odd-length words there is a single middle letter. For even-length words there is no single middle, so the honest answer is to return the two central letters. The following handles both cases uniformly:</span>
+<span id="cb53-146"><a href="#cb53-146"></a></span>
+<span id="cb53-147"><a href="#cb53-147"></a><span class="ss">- </span>for length $n$, start position is $\lfloor (n+1)/2 \rfloor$</span>
+<span id="cb53-148"><a href="#cb53-148"></a><span class="ss">- </span>end position is $\lceil (n+1)/2 \rceil$</span>
+<span id="cb53-149"><a href="#cb53-149"></a></span>
+<span id="cb53-150"><a href="#cb53-150"></a>which gives a single letter when $n$ is odd and two letters when $n$ is even.</span>
+<span id="cb53-151"><a href="#cb53-151"></a></span>
+<span id="cb53-154"><a href="#cb53-154"></a><span class="in">```{r}</span></span>
+<span id="cb53-155"><a href="#cb53-155"></a>df_mixed <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb53-156"><a href="#cb53-156"></a>    <span class="at">word_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb53-157"><a href="#cb53-157"></a>    <span class="at">word    =</span> <span class="fu">c</span>(<span class="st">"replace"</span>, <span class="st">"match"</span>, <span class="st">"banana"</span>, <span class="st">"data"</span>, <span class="st">"a"</span>)</span>
+<span id="cb53-158"><a href="#cb53-158"></a>)</span>
+<span id="cb53-159"><a href="#cb53-159"></a></span>
+<span id="cb53-160"><a href="#cb53-160"></a>df_mixed <span class="sc">|&gt;</span></span>
+<span id="cb53-161"><a href="#cb53-161"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb53-162"><a href="#cb53-162"></a>        <span class="at">word_length =</span> <span class="fu">str_length</span>(word),</span>
+<span id="cb53-163"><a href="#cb53-163"></a>        <span class="at">start_pos   =</span> <span class="fu">floor</span>((word_length <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb53-164"><a href="#cb53-164"></a>        <span class="at">end_pos     =</span> <span class="fu">ceiling</span>((word_length <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb53-165"><a href="#cb53-165"></a>        <span class="at">middle      =</span> <span class="fu">str_sub</span>(word, start_pos, end_pos)</span>
+<span id="cb53-166"><a href="#cb53-166"></a>    )</span>
+<span id="cb53-167"><a href="#cb53-167"></a><span class="in">```</span></span>
+<span id="cb53-168"><a href="#cb53-168"></a></span>
+<span id="cb53-169"><a href="#cb53-169"></a>Check: <span class="in">`replace`</span> (7) → <span class="in">`l`</span>, <span class="in">`match`</span> (5) → <span class="in">`t`</span>, <span class="in">`banana`</span> (6) → <span class="in">`na`</span>, <span class="in">`data`</span> (4) → <span class="in">`at`</span>, <span class="in">`a`</span> (1) → <span class="in">`a`</span>.</span>
+<span id="cb53-170"><a href="#cb53-170"></a></span>
+<span id="cb53-171"><a href="#cb53-171"></a>------------------------------------------------------------------------</span>
+<span id="cb53-172"><a href="#cb53-172"></a></span>
+<span id="cb53-173"><a href="#cb53-173"></a><span class="fu">## Finding Patterns with Regular Expressions</span></span>
+<span id="cb53-174"><a href="#cb53-174"></a></span>
+<span id="cb53-175"><a href="#cb53-175"></a><span class="fu">### Exercise — Predicting quantifier matches</span></span>
+<span id="cb53-176"><a href="#cb53-176"></a></span>
+<span id="cb53-177"><a href="#cb53-177"></a>**My predictions before running:**</span>
+<span id="cb53-178"><a href="#cb53-178"></a></span>
+<span id="cb53-179"><a href="#cb53-179"></a><span class="ss">- </span><span class="in">`"ab?"`</span> — <span class="in">`b`</span> is optional, so the regex matches <span class="in">`a`</span> optionally followed by one <span class="in">`b`</span>. Expected: <span class="in">`"a"`</span> matches <span class="in">`a`</span>; <span class="in">`"ab"`</span> matches <span class="in">`ab`</span>; <span class="in">`"abb"`</span> matches only the first <span class="in">`ab`</span> (greedy but <span class="in">`?`</span> caps at one).</span>
+<span id="cb53-180"><a href="#cb53-180"></a><span class="ss">- </span><span class="in">`"ab+"`</span> — requires <span class="in">`a`</span> followed by *at least one* <span class="in">`b`</span>. Expected: <span class="in">`"a"`</span> no match; <span class="in">`"ab"`</span> matches <span class="in">`ab`</span>; <span class="in">`"abb"`</span> matches <span class="in">`abb`</span>.</span>
+<span id="cb53-181"><a href="#cb53-181"></a><span class="ss">- </span><span class="in">`"ab*"`</span> — requires <span class="in">`a`</span> followed by *zero or more* <span class="in">`b`</span>s. Expected: <span class="in">`"a"`</span> matches <span class="in">`a`</span>; <span class="in">`"ab"`</span> matches <span class="in">`ab`</span>; <span class="in">`"abb"`</span> matches <span class="in">`abb`</span>.</span>
+<span id="cb53-182"><a href="#cb53-182"></a></span>
+<span id="cb53-185"><a href="#cb53-185"></a><span class="in">```{r}</span></span>
+<span id="cb53-186"><a href="#cb53-186"></a><span class="fu">str_view</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"abb"</span>), <span class="st">"ab?"</span>)</span>
+<span id="cb53-187"><a href="#cb53-187"></a><span class="fu">str_view</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"abb"</span>), <span class="st">"ab+"</span>)</span>
+<span id="cb53-188"><a href="#cb53-188"></a><span class="fu">str_view</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"abb"</span>), <span class="st">"ab*"</span>)</span>
+<span id="cb53-189"><a href="#cb53-189"></a><span class="in">```</span></span>
+<span id="cb53-190"><a href="#cb53-190"></a></span>
+<span id="cb53-191"><a href="#cb53-191"></a>Predictions confirmed.</span>
+<span id="cb53-192"><a href="#cb53-192"></a></span>
+<span id="cb53-193"><a href="#cb53-193"></a><span class="fu">### Exercise — Words with two vowels in a row followed by "m"</span></span>
+<span id="cb53-194"><a href="#cb53-194"></a></span>
+<span id="cb53-197"><a href="#cb53-197"></a><span class="in">```{r}</span></span>
+<span id="cb53-198"><a href="#cb53-198"></a><span class="fu">str_view</span>(words, <span class="st">"[aeiou][aeiou]m"</span>)</span>
+<span id="cb53-199"><a href="#cb53-199"></a><span class="in">```</span></span>
+<span id="cb53-200"><a href="#cb53-200"></a></span>
+<span id="cb53-201"><a href="#cb53-201"></a>(Classic hits: <span class="in">`aim`</span>, <span class="in">`beam`</span>, <span class="in">`team`</span>, <span class="in">`seem`</span>, <span class="in">`room`</span>, etc.)</span>
+<span id="cb53-202"><a href="#cb53-202"></a></span>
+<span id="cb53-203"><a href="#cb53-203"></a><span class="fu">### Exercise — Fruits with a repeated vowel</span></span>
+<span id="cb53-204"><a href="#cb53-204"></a></span>
+<span id="cb53-207"><a href="#cb53-207"></a><span class="in">```{r}</span></span>
+<span id="cb53-208"><a href="#cb53-208"></a><span class="co"># Straightforward alternation</span></span>
+<span id="cb53-209"><a href="#cb53-209"></a><span class="fu">str_view</span>(fruit, <span class="st">"aa|ee|ii|oo|uu"</span>)</span>
+<span id="cb53-210"><a href="#cb53-210"></a><span class="in">```</span></span>
+<span id="cb53-211"><a href="#cb53-211"></a></span>
+<span id="cb53-214"><a href="#cb53-214"></a><span class="in">```{r}</span></span>
+<span id="cb53-215"><a href="#cb53-215"></a><span class="co"># More elegant equivalent using a capture group and a backreference:</span></span>
+<span id="cb53-216"><a href="#cb53-216"></a><span class="co"># capture any vowel, then require that same vowel again.</span></span>
+<span id="cb53-217"><a href="#cb53-217"></a><span class="fu">str_view</span>(fruit, <span class="st">"([aeiou])</span><span class="sc">\\</span><span class="st">1"</span>)</span>
+<span id="cb53-218"><a href="#cb53-218"></a><span class="in">```</span></span>
+<span id="cb53-219"><a href="#cb53-219"></a></span>
+<span id="cb53-220"><a href="#cb53-220"></a>Both forms return the same fruits. The backreference form generalizes better — to match any doubled letter we would only need to drop the character class.</span>
+<span id="cb53-221"><a href="#cb53-221"></a></span>
+<span id="cb53-222"><a href="#cb53-222"></a><span class="fu">### Exercise — Words that do / do not start with "y"</span></span>
+<span id="cb53-223"><a href="#cb53-223"></a></span>
+<span id="cb53-226"><a href="#cb53-226"></a><span class="in">```{r}</span></span>
+<span id="cb53-227"><a href="#cb53-227"></a><span class="co"># Start with y</span></span>
+<span id="cb53-228"><a href="#cb53-228"></a><span class="fu">str_view</span>(words, <span class="st">"^y"</span>)</span>
+<span id="cb53-229"><a href="#cb53-229"></a></span>
+<span id="cb53-230"><a href="#cb53-230"></a><span class="co"># Do NOT start with y</span></span>
+<span id="cb53-231"><a href="#cb53-231"></a><span class="fu">str_view</span>(words, <span class="st">"^[^y]"</span>)</span>
+<span id="cb53-232"><a href="#cb53-232"></a><span class="in">```</span></span>
+<span id="cb53-233"><a href="#cb53-233"></a></span>
+<span id="cb53-234"><a href="#cb53-234"></a>There are two <span class="in">`^`</span> symbols doing two different jobs in <span class="in">`^[^y]`</span>:</span>
+<span id="cb53-235"><a href="#cb53-235"></a></span>
+<span id="cb53-236"><a href="#cb53-236"></a><span class="ss">- </span>the first <span class="in">`^`</span> is the **start-of-string anchor**</span>
+<span id="cb53-237"><a href="#cb53-237"></a><span class="ss">- </span>the <span class="in">`^`</span> inside the brackets is the **negation operator** for the character class</span>
+<span id="cb53-238"><a href="#cb53-238"></a></span>
+<span id="cb53-239"><a href="#cb53-239"></a>Read as: "a character that is not <span class="in">`y`</span>, occurring at the start of the string."</span>
+<span id="cb53-240"><a href="#cb53-240"></a></span>
+<span id="cb53-241"><a href="#cb53-241"></a>------------------------------------------------------------------------</span>
+<span id="cb53-242"><a href="#cb53-242"></a></span>
+<span id="cb53-243"><a href="#cb53-243"></a><span class="fu">## Exploring `stringr` Functions on the Dear Abby Data</span></span>
+<span id="cb53-244"><a href="#cb53-244"></a></span>
+<span id="cb53-247"><a href="#cb53-247"></a><span class="in">```{r}</span></span>
+<span id="cb53-248"><a href="#cb53-248"></a><span class="co">#| label: load-posts</span></span>
+<span id="cb53-249"><a href="#cb53-249"></a>posts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/the-pudding/data/master/dearabby/raw_da_qs.csv"</span>)</span>
+<span id="cb53-250"><a href="#cb53-250"></a></span>
+<span id="cb53-251"><a href="#cb53-251"></a><span class="fu">glimpse</span>(posts)</span>
+<span id="cb53-252"><a href="#cb53-252"></a><span class="in">```</span></span>
+<span id="cb53-253"><a href="#cb53-253"></a></span>
+<span id="cb53-254"><a href="#cb53-254"></a>The relevant text column is <span class="in">`question_only`</span>. I'll explore each <span class="in">`stringr`</span> function against a working theme — **anxiety vocabulary** — chosen to parallel The Pudding's project. The working regex covers a family of worry-adjacent stems:</span>
+<span id="cb53-255"><a href="#cb53-255"></a></span>
+<span id="cb53-258"><a href="#cb53-258"></a><span class="in">```{r}</span></span>
+<span id="cb53-259"><a href="#cb53-259"></a>worry_regex <span class="ot">&lt;-</span> <span class="st">"worr|anxious|anxiety|afraid|scare|nervous|fear"</span></span>
+<span id="cb53-260"><a href="#cb53-260"></a><span class="in">```</span></span>
+<span id="cb53-261"><a href="#cb53-261"></a></span>
+<span id="cb53-262"><a href="#cb53-262"></a><span class="fu">### `str_count()` — worry-word intensity per post</span></span>
+<span id="cb53-263"><a href="#cb53-263"></a></span>
+<span id="cb53-266"><a href="#cb53-266"></a><span class="in">```{r}</span></span>
+<span id="cb53-267"><a href="#cb53-267"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb53-268"><a href="#cb53-268"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb53-269"><a href="#cb53-269"></a>        <span class="at">worry_count =</span> <span class="fu">str_count</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb53-270"><a href="#cb53-270"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb53-271"><a href="#cb53-271"></a>    <span class="fu">select</span>(year, question_only, worry_count) <span class="sc">|&gt;</span></span>
+<span id="cb53-272"><a href="#cb53-272"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(worry_count)) <span class="sc">|&gt;</span></span>
+<span id="cb53-273"><a href="#cb53-273"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb53-274"><a href="#cb53-274"></a><span class="in">```</span></span>
+<span id="cb53-275"><a href="#cb53-275"></a></span>
+<span id="cb53-276"><a href="#cb53-276"></a><span class="fu">### `str_detect()` — binary presence per post</span></span>
+<span id="cb53-277"><a href="#cb53-277"></a></span>
+<span id="cb53-280"><a href="#cb53-280"></a><span class="in">```{r}</span></span>
+<span id="cb53-281"><a href="#cb53-281"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb53-282"><a href="#cb53-282"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb53-283"><a href="#cb53-283"></a>        <span class="at">has_worry =</span> <span class="fu">str_detect</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb53-284"><a href="#cb53-284"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb53-285"><a href="#cb53-285"></a>    <span class="fu">count</span>(has_worry) <span class="sc">|&gt;</span></span>
+<span id="cb53-286"><a href="#cb53-286"></a>    <span class="fu">mutate</span>(<span class="at">pct =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>))</span>
+<span id="cb53-287"><a href="#cb53-287"></a><span class="in">```</span></span>
+<span id="cb53-288"><a href="#cb53-288"></a></span>
+<span id="cb53-289"><a href="#cb53-289"></a><span class="fu">### `str_subset()` — keep only the worrying posts</span></span>
+<span id="cb53-290"><a href="#cb53-290"></a></span>
+<span id="cb53-293"><a href="#cb53-293"></a><span class="in">```{r}</span></span>
+<span id="cb53-294"><a href="#cb53-294"></a>worry_posts <span class="ot">&lt;-</span> posts<span class="sc">$</span>question_only <span class="sc">|&gt;</span></span>
+<span id="cb53-295"><a href="#cb53-295"></a>    <span class="fu">str_subset</span>(<span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb53-296"><a href="#cb53-296"></a></span>
+<span id="cb53-297"><a href="#cb53-297"></a><span class="fu">length</span>(worry_posts)</span>
+<span id="cb53-298"><a href="#cb53-298"></a>worry_posts <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">2</span>)</span>
+<span id="cb53-299"><a href="#cb53-299"></a><span class="in">```</span></span>
+<span id="cb53-300"><a href="#cb53-300"></a></span>
+<span id="cb53-301"><a href="#cb53-301"></a><span class="fu">### `str_extract()` / `str_extract_all()` — pull out the matched terms</span></span>
+<span id="cb53-302"><a href="#cb53-302"></a></span>
+<span id="cb53-305"><a href="#cb53-305"></a><span class="in">```{r}</span></span>
+<span id="cb53-306"><a href="#cb53-306"></a><span class="co"># First match per post, then tabulate which worry-term is most common</span></span>
+<span id="cb53-307"><a href="#cb53-307"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb53-308"><a href="#cb53-308"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb53-309"><a href="#cb53-309"></a>        <span class="at">first_worry =</span> <span class="fu">str_extract</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb53-310"><a href="#cb53-310"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb53-311"><a href="#cb53-311"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(first_worry)) <span class="sc">|&gt;</span></span>
+<span id="cb53-312"><a href="#cb53-312"></a>    <span class="fu">count</span>(first_worry, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-313"><a href="#cb53-313"></a><span class="in">```</span></span>
+<span id="cb53-314"><a href="#cb53-314"></a></span>
+<span id="cb53-317"><a href="#cb53-317"></a><span class="in">```{r}</span></span>
+<span id="cb53-318"><a href="#cb53-318"></a><span class="co"># All matches per post (returns a list-column); inspect posts with multiple hits</span></span>
+<span id="cb53-319"><a href="#cb53-319"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb53-320"><a href="#cb53-320"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">500</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-321"><a href="#cb53-321"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb53-322"><a href="#cb53-322"></a>        <span class="at">all_worry =</span> <span class="fu">str_extract_all</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb53-323"><a href="#cb53-323"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb53-324"><a href="#cb53-324"></a>    <span class="fu">filter</span>(<span class="fu">lengths</span>(all_worry) <span class="sc">&gt;</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-325"><a href="#cb53-325"></a>    <span class="fu">select</span>(year, all_worry) <span class="sc">|&gt;</span></span>
+<span id="cb53-326"><a href="#cb53-326"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb53-327"><a href="#cb53-327"></a><span class="in">```</span></span>
+<span id="cb53-328"><a href="#cb53-328"></a></span>
+<span id="cb53-329"><a href="#cb53-329"></a><span class="fu">### `str_replace()` / `str_replace_all()` — substitute matches</span></span>
+<span id="cb53-330"><a href="#cb53-330"></a></span>
+<span id="cb53-333"><a href="#cb53-333"></a><span class="in">```{r}</span></span>
+<span id="cb53-334"><a href="#cb53-334"></a><span class="co"># str_replace replaces only the first occurrence</span></span>
+<span id="cb53-335"><a href="#cb53-335"></a>posts<span class="sc">$</span>question_only[<span class="dv">1</span>] <span class="sc">|&gt;</span></span>
+<span id="cb53-336"><a href="#cb53-336"></a>    <span class="fu">str_replace</span>(<span class="fu">regex</span>(<span class="st">"the"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>), <span class="st">"[THE]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-337"><a href="#cb53-337"></a>    <span class="fu">str_sub</span>(<span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb53-338"><a href="#cb53-338"></a></span>
+<span id="cb53-339"><a href="#cb53-339"></a><span class="co"># str_replace_all replaces every occurrence</span></span>
+<span id="cb53-340"><a href="#cb53-340"></a>posts<span class="sc">$</span>question_only[<span class="dv">1</span>] <span class="sc">|&gt;</span></span>
+<span id="cb53-341"><a href="#cb53-341"></a>    <span class="fu">str_replace_all</span>(<span class="fu">regex</span>(<span class="st">"the"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>), <span class="st">"[THE]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-342"><a href="#cb53-342"></a>    <span class="fu">str_sub</span>(<span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb53-343"><a href="#cb53-343"></a><span class="in">```</span></span>
+<span id="cb53-344"><a href="#cb53-344"></a></span>
+<span id="cb53-345"><a href="#cb53-345"></a><span class="fu">### `str_remove()` / `str_remove_all()` — delete matches</span></span>
+<span id="cb53-346"><a href="#cb53-346"></a></span>
+<span id="cb53-349"><a href="#cb53-349"></a><span class="in">```{r}</span></span>
+<span id="cb53-350"><a href="#cb53-350"></a><span class="co"># Strip punctuation from the first post</span></span>
+<span id="cb53-351"><a href="#cb53-351"></a>posts<span class="sc">$</span>question_only[<span class="dv">1</span>] <span class="sc">|&gt;</span></span>
+<span id="cb53-352"><a href="#cb53-352"></a>    <span class="fu">str_remove_all</span>(<span class="st">"[[:punct:]]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-353"><a href="#cb53-353"></a>    <span class="fu">str_sub</span>(<span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb53-354"><a href="#cb53-354"></a><span class="in">```</span></span>
+<span id="cb53-355"><a href="#cb53-355"></a></span>
+<span id="cb53-356"><a href="#cb53-356"></a><span class="fu">### Small theme exploration — anxiety over time</span></span>
+<span id="cb53-357"><a href="#cb53-357"></a></span>
+<span id="cb53-358"><a href="#cb53-358"></a>Because the dataset spans roughly thirty years, we can replicate in miniature what The Pudding did at scale: count worry-mentions per year and see whether the prevalence drifts.</span>
+<span id="cb53-359"><a href="#cb53-359"></a></span>
+<span id="cb53-362"><a href="#cb53-362"></a><span class="in">```{r}</span></span>
+<span id="cb53-363"><a href="#cb53-363"></a>posts <span class="sc">|&gt;</span></span>
+<span id="cb53-364"><a href="#cb53-364"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb53-365"><a href="#cb53-365"></a>        <span class="at">has_worry =</span> <span class="fu">str_detect</span>(question_only, <span class="fu">regex</span>(worry_regex, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb53-366"><a href="#cb53-366"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb53-367"><a href="#cb53-367"></a>    <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb53-368"><a href="#cb53-368"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb53-369"><a href="#cb53-369"></a>        <span class="at">n_posts       =</span> <span class="fu">n</span>(),</span>
+<span id="cb53-370"><a href="#cb53-370"></a>        <span class="at">n_worry_posts =</span> <span class="fu">sum</span>(has_worry, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-371"><a href="#cb53-371"></a>        <span class="at">pct_worry     =</span> n_worry_posts <span class="sc">/</span> n_posts</span>
+<span id="cb53-372"><a href="#cb53-372"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb53-373"><a href="#cb53-373"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pct_worry)) <span class="sc">+</span></span>
+<span id="cb53-374"><a href="#cb53-374"></a>    <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb53-375"><a href="#cb53-375"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#b6345c"</span>) <span class="sc">+</span></span>
+<span id="cb53-376"><a href="#cb53-376"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb53-377"><a href="#cb53-377"></a>    <span class="fu">labs</span>(</span>
+<span id="cb53-378"><a href="#cb53-378"></a>        <span class="at">title    =</span> <span class="st">"Share of Dear Abby posts mentioning worry-adjacent vocabulary, by year"</span>,</span>
+<span id="cb53-379"><a href="#cb53-379"></a>        <span class="at">subtitle =</span> <span class="st">"Stems matched: worr, anxious, anxiety, afraid, scare, nervous, fear"</span>,</span>
+<span id="cb53-380"><a href="#cb53-380"></a>        <span class="at">x        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb53-381"><a href="#cb53-381"></a>        <span class="at">y        =</span> <span class="st">"Share of posts"</span></span>
+<span id="cb53-382"><a href="#cb53-382"></a>    ) <span class="sc">+</span></span>
+<span id="cb53-383"><a href="#cb53-383"></a>    <span class="fu">theme_minimal</span>()</span>
+<span id="cb53-384"><a href="#cb53-384"></a><span class="in">```</span></span>
+<span id="cb53-385"><a href="#cb53-385"></a></span>
+<span id="cb53-386"><a href="#cb53-386"></a>------------------------------------------------------------------------</span>
+<span id="cb53-387"><a href="#cb53-387"></a></span>
+<span id="cb53-388"><a href="#cb53-388"></a><span class="fu">## Reflection</span></span>
+<span id="cb53-389"><a href="#cb53-389"></a></span>
+<span id="cb53-390"><a href="#cb53-390"></a>The combination of <span class="in">`str_detect()`</span> for filtering and <span class="in">`str_count()`</span> for intensity is the basic move behind computational text analysis: one gives a binary signal per document, the other a continuous one, and together they let you ask both *"which documents are about X"* and *"how much is each document about X."* The Pudding's *30 Years of American Anxieties* piece sits on exactly this scaffold, scaled up with careful theme curation and temporal aggregation.</span>
+<span id="cb53-391"><a href="#cb53-391"></a></span>
+<span id="cb53-392"><a href="#cb53-392"></a>A caveat worth flagging explicitly: regex pattern-matching catches **strings, not meanings**. The regex <span class="in">`"fear"`</span> matches <span class="in">`fearless`</span> and <span class="in">`fearful`</span> alike; <span class="in">`"afraid"`</span> misses <span class="in">`unafraid`</span>. A more careful analysis would guard against these with word-boundary anchors (<span class="in">`\\bfear\\b`</span>) and negated look-arounds, and — more importantly — would pair the computational pass with a qualitative read of a sampled subset to verify that each theme is actually what it claims to be. Computational text analysis is most useful as a *focusing tool* for close reading, not a replacement for it.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-18">
+<title>19 — Quality Control: Code and Data Hygiene – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../extra/extra-sample1.html" rel="next">
+<link href="../ica/18_interactive_viz.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/ica-19-quality-control.html"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-counting-happiness-and-where-it-comes-from-flowingdata-2021" id="toc-data-story-critique-counting-happiness-and-where-it-comes-from-flowingdata-2021" class="nav-link" data-scroll-target="#data-story-critique-counting-happiness-and-where-it-comes-from-flowingdata-2021">🔥 Data Story Critique — <em>Counting Happiness and Where it Comes From</em> (FlowingData, 2021)</a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story?</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#code-quality-checklist-worked-examples" id="toc-code-quality-checklist-worked-examples" class="nav-link" data-scroll-target="#code-quality-checklist-worked-examples">Code Quality Checklist — Worked Examples</a>
+  <ul class="collapse">
+<li><a href="#dry-dont-repeat-yourself" id="toc-dry-dont-repeat-yourself" class="nav-link" data-scroll-target="#dry-dont-repeat-yourself">1. DRY — Don’t Repeat Yourself</a></li>
+  <li><a href="#readability" id="toc-readability" class="nav-link" data-scroll-target="#readability">2. Readability</a></li>
+  <li><a href="#meaningful-names" id="toc-meaningful-names" class="nav-link" data-scroll-target="#meaningful-names">3. Meaningful Names</a></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">4. Testing</a></li>
+  <li><a href="#efficiency" id="toc-efficiency" class="nav-link" data-scroll-target="#efficiency">5. Efficiency</a></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">6. Reproducibility</a></li>
+  <li><a href="#simple-tasks-in-functions" id="toc-simple-tasks-in-functions" class="nav-link" data-scroll-target="#simple-tasks-in-functions">7. Simple Tasks in Functions</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#data-quality-checklist-worked-examples" id="toc-data-quality-checklist-worked-examples" class="nav-link" data-scroll-target="#data-quality-checklist-worked-examples">Data Quality Checklist — Worked Examples</a>
+  <ul class="collapse">
+<li><a href="#always-keep-the-raw-data" id="toc-always-keep-the-raw-data" class="nav-link" data-scroll-target="#always-keep-the-raw-data">Always keep the raw data</a></li>
+  <li><a href="#check-missing-values-before-trusting-anything" id="toc-check-missing-values-before-trusting-anything" class="nav-link" data-scroll-target="#check-missing-values-before-trusting-anything">Check missing values before trusting anything</a></li>
+  <li><a href="#parse-dates-with-eyes-open" id="toc-parse-dates-with-eyes-open" class="nav-link" data-scroll-target="#parse-dates-with-eyes-open">Parse dates with eyes open</a></li>
+  <li><a href="#parse-strings-with-test-cases" id="toc-parse-strings-with-test-cases" class="nav-link" data-scroll-target="#parse-strings-with-test-cases">Parse strings with test cases</a></li>
+  <li><a href="#join-discipline" id="toc-join-discipline" class="nav-link" data-scroll-target="#join-discipline">Join discipline</a></li>
+  <li><a href="#check-for-duplicates-before-aggregating" id="toc-check-for-duplicates-before-aggregating" class="nav-link" data-scroll-target="#check-for-duplicates-before-aggregating">Check for duplicates before aggregating</a></li>
+  <li><a href="#sanity-visualize-early-and-often" id="toc-sanity-visualize-early-and-often" class="nav-link" data-scroll-target="#sanity-visualize-early-and-often">Sanity-visualize early and often</a></li>
+  </ul>
+</li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/ica-19-quality-control.html"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(bench)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(testthat)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(palmerpenguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-counting-happiness-and-where-it-comes-from-flowingdata-2021" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-counting-happiness-and-where-it-comes-from-flowingdata-2021">🔥 Data Story Critique — <em>Counting Happiness and Where it Comes From</em> (FlowingData, 2021)</h2>
+<p>Source: <a href="https://flowingdata.com/2021/07/29/counting-happiness/" class="uri">https://flowingdata.com/2021/07/29/counting-happiness/</a></p>
+<p>Author: Nathan Yau.</p>
+<p><strong>Note on repeated observation.</strong> This is the second Nathan Yau piece we have critiqued — the first being <em>Seeing How Much We Ate Over the Years</em> in ICA 9. The critique here is calibrated against that prior observation, treating this piece as an iteration in the same body of work rather than as a standalone artefact. That framing makes some improvements and some regressions visible that would not be visible from a single reading.</p>
+<section id="what-is-the-data-story" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story?</h3>
+<p>The underlying dataset is <strong>HappyDB</strong> (Asai et al., LREC 2018), a corpus of ~100,000 “happy moments” collected from ~10,000 Amazon Mechanical Turk workers who were asked to list ten things that <em>recently</em> made them happy. Yau’s analytical move is to parse each sentence into a <strong>subject-verb-object triple</strong> (“I watched a good movie yesterday” → I / watched / movie), and then to tabulate the most common SVO combinations. The piece opens on the observation that the subject field splits almost cleanly into “I” versus “Others” — which Yau uses as the top-level partition. Three ribbon-style flow diagrams follow: (1) a full self-vs-others view, (2) a drill-down on the “Others” group showing family terms (husband, son, friend, wife, daughter), and (3) a specialized view of pet-related moments with much more specific verbs (snuggled, jumped, curled, rather than the generic had/got/watched of the human view). The story’s closing claim is that happiness comes “in many forms, from many places, and through many paths.”</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<p><strong>The SVO parsing is a genuinely good analytical choice for this data.</strong> The naïve approach to a corpus of 100,000 text fragments is a bag-of-words frequency count — a word cloud. Bag-of-words tells you that <em>dinner</em>, <em>movie</em>, <em>family</em>, <em>dog</em> are common, but it cannot distinguish “I watched a movie” from “My son gave me a movie” because both contribute the same tokens. Parsing into SVO triples promotes the grammatical relationship into a first-class analytical object, so <em>who acts on what</em> becomes visible. For a seven-paragraph blog post, that is substantive analytical lift.</p>
+<p><strong>The “Self” vs.&nbsp;“Others” partition is load-bearing rather than arbitrary.</strong> Yau tells the reader explicitly that the subject field is bimodal — “I” on one side and everyone else on the other — and uses that empirical structure as the piece’s primary scaffolding. It is not a random slice chosen for visual convenience; it is the shape of the data, and building the argument on top of that shape is the right move.</p>
+<p><strong>The “team won game” surprised-then-verified moment is a discipline tell.</strong> When an unexpected result appears in a top-five list, the professional move is to go back to the raw text and check whether the parser captured something real or created an artefact. Yau does this, reports what he found (“mostly people who were happy their favorite sports team won a game”), and updates the interpretation accordingly. This is the minimum standard of data analysis honesty, and explicitly showing the verification step in a blog post register is a small but real piece of craft.</p>
+<p><strong>The Mechanical Turk caveat is in the main text, not buried in a footnote.</strong> This is a genuine improvement over Yau’s 2021 USDA food-availability piece, where the fundamental availability-vs-consumption caveat was confined to a single end-of-post paragraph. Here, the sampling limitation — skewed to 20–40-year-olds, likely boosting children and spouses, likely suppressing girlfriend/boyfriend and workplace references — is written into a paragraph that sits between two main charts. That is the correct placement for a methodological limitation that affects the interpretation of the next visual.</p>
+<p><strong>The pets section is a well-chosen narrative ending.</strong> The shift from generic verbs (<em>had</em>, <em>got</em>, <em>watched</em>) in the human view to specific verbs (<em>snuggled</em>, <em>jumped</em>, <em>curled</em>) in the pet view makes the same analytical point visible in two different textures: human happiness is often described with abstract gestures, pet happiness with concrete actions. Ending on the high-information-density pet view gives the piece a small analytical payoff rather than a flat stop.</p>
+</section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<p><strong>The SVO parser’s error rate is not quantified.</strong> Of 100,000 happy moments, how many yielded a clean triple? How many were dropped (moments like “the weather was nice” have no agentive verb)? How many were mis-parsed in ways the “team won game” check didn’t catch? For a computational text pipeline driving a top-five ranking, the parser’s precision and recall are first-order metadata. A single sentence — <em>“about X% of moments could not be cleanly parsed, and among the parseable subset the top rankings are robust to reasonable alternative parsers”</em> — would let the reader calibrate how much the rankings depend on the specific NLP pipeline used.</p>
+<p><strong>“Recently” is undefined and the ranking conflates frequency with salience.</strong> Participants were asked about things that “recently” made them happy, without temporal anchoring. A person listing yesterday’s dinner, last week’s game, and last month’s child’s graduation all count equally in the tabulation. This means the output is not <em>frequency of happy events</em> but <em>recall-salience of happy events</em> — two different quantities. Dinner happens daily but most dinners are not memorable; a team win is rare but often highly memorable. The top-five list mixes “frequent and ordinary” with “rare and memorable” without distinguishing them, which changes what the piece can and cannot claim. The argument would be more precisely stated as “dinner is the most commonly <em>recalled</em> form of happy moment,” not “dinner is what makes people most happy.”</p>
+<p><strong>Single-token subjects flatten heterogeneous relational categories.</strong> “Husband,” “son,” “wife,” “daughter” come through as distinct subjects because English vocabulary marks them separately. “Friend” comes through as a single label, even though new/old, close/casual, work/personal friendships produce different kinds of happy moments. The method’s resolution is inherited from the language’s vocabulary structure — family relationships are pre-disaggregated at the word level, social relationships are not — and the analysis reproduces that asymmetry without flagging it. A piece that wanted to be analytically careful about relational sources of happiness would need either a secondary tagging pass on “friend” contexts or an explicit acknowledgement that “friend” is an aggregation under which substantial variation is compressed.</p>
+<p><strong>The Mechanical Turk caveat is acknowledged but not given direction.</strong> Yau says the sample isn’t representative and gives age-skew as an example, but does not extend the reasoning to the piece’s conclusions. Mturk workers in 2018 were well-documented to skew US and Indian, to be lower-income on average, to work from home, to be male-overrepresented among Indian workers. These demographic skews have directional implications for the happy-moment distribution: low-income participants may systematically over-represent low-cost daily happiness (dinner, TV, family) and under-represent travel, major purchases, and career milestones. That is a specific prediction the caveat should make, not just the abstract statement that “the sample isn’t representative.”</p>
+<p><strong>The Western positive-psychology framing of “happiness” is not named.</strong> The HappyDB prompt — “list ten things that recently made you happy” — sits inside a research tradition (Seligman-era positive psychology) that has its own assumptions about what “happiness” means as a category, what counts as an instance of it, and how people self-report it. In East Asian affect vocabularies, the distinctions between 幸福 / 快乐 / 满足 / 顺心 are not all captured by a single English word “happy,” and cross-cultural affect research has documented that the prompt design shapes what gets listed. A piece whose closing claim is that “happiness comes in many forms, from many places” has, in fact, shown the many forms of a specific culturally bounded concept of happiness. Naming this would be one line of editorial honesty.</p>
+<p><strong>The ribbon diagram visually resembles the alluvial form from the earlier food-availability piece but is doing different work.</strong> In the USDA piece, alluvial diagrams were the correct form because the data had a temporal axis and items crossed rank over time. Here, the flow between subject / verb / object is a two-step bipartite matching without a temporal dimension; the visual language is sankey-ish rather than alluvial. A reader who has seen both pieces may interpret the new ribbons through the old reading habit, importing an implicit time axis that isn’t there. This is the reuse of a visual idiom across differently structured problems, and the piece does not disambiguate.</p>
+<p><strong>Proportionality.</strong> This remains a piece of careful blog-register data work with above-median analytical lift. The critique is calibrated against Yau’s own prior baseline: the Mturk caveat improved; the parser error rate is still not quantified; the temporal-ambiguity issue (“recently”) is new to this piece and unaddressed; the cultural framing of “happiness” was not named and arguably could not be in a piece of this length. For a blog with Yau’s readership and craft, the next step is the move the USDA piece never made either: <em>bring the analytical caveat up from the footnote into the chart itself</em>.</p>
+<hr></section></section><section id="code-quality-checklist-worked-examples" class="level2"><h2 class="anchored" data-anchor-id="code-quality-checklist-worked-examples">Code Quality Checklist — Worked Examples</h2>
+<p>The seven principles below are abstract until worked through on real data. What follows is one small example per principle, drawn where possible from patterns that came up across this semester’s ICAs.</p>
+<section id="dry-dont-repeat-yourself" class="level3"><h3 class="anchored" data-anchor-id="dry-dont-repeat-yourself">1. DRY — Don’t Repeat Yourself</h3>
+<p><strong>Anti-pattern.</strong> Computing the same summary four times with slightly different column names.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Don't do this — three nearly-identical lines asking to be parameterized</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>diamonds <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  mean_x
+   &lt;dbl&gt;
+1   5.73</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>diamonds <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">mean_y =</span> <span class="fu">mean</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  mean_y
+   &lt;dbl&gt;
+1   5.73</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>diamonds <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">mean_z =</span> <span class="fu">mean</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  mean_z
+   &lt;dbl&gt;
+1   3.54</code></pre>
+</div>
+</div>
+<p><strong>Refactor.</strong> Extract the pattern into <code>across()</code> or a function.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>diamonds <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(x, y, z), \(v) <span class="fu">mean</span>(v, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+      x     y     z
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  5.73  5.73  3.54</code></pre>
+</div>
+</div>
+<p>The moment the same transformation is typed a second time with a changed column name, the correct move is to parameterize — either via a function argument or via a tidyverse helper like <code>across()</code>. Copy-paste is where bugs come from; the copy that got fixed and the copy that didn’t stay fixed are the same code until they aren’t.</p>
+</section><section id="readability" class="level3"><h3 class="anchored" data-anchor-id="readability">2. Readability</h3>
+<p>Readability is a cognitive claim about the person who will read the code next — which is usually you, six months from now, with no memory of what you were doing. Two practical habits:</p>
+<ul>
+<li>
+<strong>Pipe chains over nested function calls.</strong> <code>x |&gt; filter(...) |&gt; mutate(...) |&gt; summarise(...)</code> reads like a sentence; <code>summarise(mutate(filter(x, ...), ...), ...)</code> requires the reader to mentally unwrap the nesting.</li>
+<li>
+<strong>One idea per line.</strong> When a pipe step does more than one thing, it is often worth splitting into two steps with a named intermediate.</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Readable: each step is one idea, and the intermediate name explains the filter</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co"># adult penguins with complete measurements</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>heavy_male_penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>    <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"male"</span>, <span class="sc">!</span><span class="fu">is.na</span>(body_mass_g)) <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>    <span class="fu">filter</span>(body_mass_g <span class="sc">&gt;</span> <span class="dv">4500</span>)</span>
+<span id="cb10-6"><a href="#cb10-6"></a></span>
+<span id="cb10-7"><a href="#cb10-7"></a>heavy_male_penguins <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>    <span class="fu">count</span>(species, island) <span class="sc">|&gt;</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  species   island        n
+  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;
+1 Gentoo    Biscoe       61
+2 Adelie    Biscoe        3
+3 Adelie    Dream         2
+4 Adelie    Torgersen     2
+5 Chinstrap Dream         2</code></pre>
+</div>
+</div>
+</section><section id="meaningful-names" class="level3"><h3 class="anchored" data-anchor-id="meaningful-names">3. Meaningful Names</h3>
+<p><strong>Anti-pattern.</strong> <code>df</code>, <code>tmp</code>, <code>x</code>, <code>result</code> — these carry no information. By the time you come back to the script you have to reconstruct what each was supposed to hold.</p>
+<p><strong>Pattern.</strong> Names should describe the <em>content</em> and, where relevant, the <em>stage of processing</em>:</p>
+<ul>
+<li>
+<code>raw_survey</code> → <code>cleaned_survey</code> → <code>survey_with_outcomes</code> — a pipeline where the name tracks the transformation state</li>
+<li>
+<code>is_complete_case</code>, <code>has_outlier_bmi</code> — boolean flags named as predicates so <code>filter(is_complete_case)</code> reads naturally</li>
+<li>
+<code>fit_lm_with_controls()</code>, <code>extract_ci_at_level()</code> — functions named as verb phrases describing what they do</li>
+</ul>
+<p>The test I apply: <em>can I guess what an object holds or a function returns from its name alone, without looking at the definition?</em> If not, the name is underspecified.</p>
+</section><section id="testing" class="level3"><h3 class="anchored" data-anchor-id="testing">4. Testing</h3>
+<p>For any function that will be reused — even once — write a handful of test cases. <code>testthat</code> is the standard R tool.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># A small function to rescale a numeric vector to [0, 1]</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>rescale01 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    rng <span class="ot">&lt;-</span> <span class="fu">range</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="cf">if</span> (<span class="fu">diff</span>(rng) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="fu">length</span>(x)))</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    (x <span class="sc">-</span> rng[<span class="dv">1</span>]) <span class="sc">/</span> (rng[<span class="dv">2</span>] <span class="sc">-</span> rng[<span class="dv">1</span>])</span>
+<span id="cb12-6"><a href="#cb12-6"></a>}</span>
+<span id="cb12-7"><a href="#cb12-7"></a></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co"># Tests covering normal case, constant vector, NA handling, negative values</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="fu">test_that</span>(<span class="st">"rescale01 behaves correctly"</span>, {</span>
+<span id="cb12-10"><a href="#cb12-10"></a>    <span class="fu">expect_equal</span>(<span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>)), <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</span>
+<span id="cb12-11"><a href="#cb12-11"></a>    <span class="fu">expect_equal</span>(<span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>)), <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>))</span>
+<span id="cb12-12"><a href="#cb12-12"></a>    <span class="fu">expect_equal</span>(<span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>)), <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</span>
+<span id="cb12-13"><a href="#cb12-13"></a>    <span class="fu">expect_equal</span>(<span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">3</span>)), <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>, <span class="dv">1</span>))</span>
+<span id="cb12-14"><a href="#cb12-14"></a>    <span class="fu">expect_length</span>(<span class="fu">rescale01</span>(<span class="fu">numeric</span>(<span class="dv">0</span>)), <span class="dv">0</span>)</span>
+<span id="cb12-15"><a href="#cb12-15"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>── Warning: rescale01 behaves correctly ────────────────────────────────────────
+no non-missing arguments to min; returning Inf
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_length(rescale01(numeric(0)), 0)
+ 2. │ └─testthat::quasi_label(enquo(object), arg = "object")
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
+ 4. └─global rescale01(numeric(0))
+ 5.   └─base::range(x, na.rm = TRUE)
+ 6.     └─base::.rangeNum(..., na.rm = na.rm, finite = finite, isNumeric = is.numeric)
+
+── Warning: rescale01 behaves correctly ────────────────────────────────────────
+no non-missing arguments to max; returning -Inf
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_length(rescale01(numeric(0)), 0)
+ 2. │ └─testthat::quasi_label(enquo(object), arg = "object")
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
+ 4. └─global rescale01(numeric(0))
+ 5.   └─base::range(x, na.rm = TRUE)
+ 6.     └─base::.rangeNum(..., na.rm = na.rm, finite = finite, isNumeric = is.numeric)</code></pre>
+</div>
+</div>
+<p>Tests that fail loudly when behaviour changes are the closest thing to institutional memory a codebase has. They are also the primary document of what the function is <em>supposed</em> to do — the tests express the contract.</p>
+</section><section id="efficiency" class="level3"><h3 class="anchored" data-anchor-id="efficiency">5. Efficiency</h3>
+<p>Efficiency is worth worrying about when (a) the pipeline is slow enough to disrupt analysis, or (b) it is slow enough to prevent iteration. Below that threshold, readability wins over micro-optimization.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb14-2"><a href="#cb14-2"></a>    <span class="at">grow_vector =</span> {</span>
+<span id="cb14-3"><a href="#cb14-3"></a>        x <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
+<span id="cb14-4"><a href="#cb14-4"></a>        <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e4</span>) x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
+<span id="cb14-5"><a href="#cb14-5"></a>        x</span>
+<span id="cb14-6"><a href="#cb14-6"></a>    },</span>
+<span id="cb14-7"><a href="#cb14-7"></a>    <span class="at">preallocate =</span> {</span>
+<span id="cb14-8"><a href="#cb14-8"></a>        x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"integer"</span>, <span class="fl">1e4</span>)</span>
+<span id="cb14-9"><a href="#cb14-9"></a>        <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e4</span>) x[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb14-10"><a href="#cb14-10"></a>        x</span>
+<span id="cb14-11"><a href="#cb14-11"></a>    },</span>
+<span id="cb14-12"><a href="#cb14-12"></a>    <span class="at">vectorized =</span> <span class="fu">seq_len</span>(<span class="fl">1e4</span>),</span>
+<span id="cb14-13"><a href="#cb14-13"></a>    <span class="at">check =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-14"><a href="#cb14-14"></a>    <span class="at">iterations =</span> <span class="dv">10</span></span>
+<span id="cb14-15"><a href="#cb14-15"></a>)[, <span class="fu">c</span>(<span class="st">"expression"</span>, <span class="st">"median"</span>, <span class="st">"mem_alloc"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  expression    median mem_alloc
+  &lt;bch:expr&gt;  &lt;bch:tm&gt; &lt;bch:byt&gt;
+1 grow_vector   76.6ms   191.3MB
+2 preallocate  818.2µs    48.8KB
+3 vectorized   102.6ns        0B</code></pre>
+</div>
+</div>
+<p>Growing a vector with <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> inside a loop is ~100× slower than pre-allocating and ~1,000× slower than the vectorized form. The <code>mem_alloc</code> column explains why: every <code>c(x, i)</code> allocates a fresh vector one element longer, so total allocation scales quadratically with the iteration count.</p>
+</section><section id="reproducibility" class="level3"><h3 class="anchored" data-anchor-id="reproducibility">6. Reproducibility</h3>
+<p>Reproducible code produces the same output on a different machine, in a different session, by a different user. The basic disciplines:</p>
+<ul>
+<li>
+<strong>Relative paths, not absolute.</strong> <code>read_csv("data/survey.csv")</code> works when the project folder is cloned anywhere; <code>read_csv("/Users/zhijun/Documents/.../survey.csv")</code> works only on my laptop.</li>
+<li>
+<strong><code><a href="https://here.r-lib.org/reference/here.html">here::here()</a></code> for paths when the working directory is unstable</strong> (e.g., Quarto renders from the document’s directory, R scripts from the project root). <code>here::here("data", "survey.csv")</code> resolves consistently.</li>
+<li>
+<strong><code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> before any stochastic operation</strong> that the analysis depends on — simulation, sampling, bootstrap, random imputation. Without it, <code>?_map</code> and <code>rnorm</code> give a different answer every run, and the figure in today’s draft can’t be reproduced tomorrow.</li>
+<li>
+<strong>Pin package versions</strong> with <code>renv</code> for serious projects. This is the difference between a project that works in 2026 and a project that stops working when a dependency updates.</li>
+<li>
+<strong>Include <code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code> in the rendered output</strong> for any analysis meant to travel.</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Capture the environment state at render time</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31)
+Platform: aarch64-apple-darwin20
+Running under: macOS 26.3
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/Chicago
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] palmerpenguins_0.1.1 testthat_3.2.3       bench_1.1.4         
+ [4] janitor_2.2.1        naniar_1.1.0         lubridate_1.9.4     
+ [7] forcats_1.0.0        stringr_1.5.1        dplyr_1.1.4         
+[10] purrr_1.0.4          readr_2.1.5          tidyr_1.3.1         
+[13] tibble_3.2.1         ggplot2_3.5.2        tidyverse_2.0.0     
+
+loaded via a namespace (and not attached):
+ [1] utf8_1.2.4        generics_0.1.3    stringi_1.8.4     hms_1.1.3        
+ [5] digest_0.6.37     magrittr_2.0.3    evaluate_1.0.3    grid_4.4.2       
+ [9] timechange_0.3.0  pkgload_1.5.0     fastmap_1.2.0     rprojroot_2.1.1  
+[13] jsonlite_1.8.9    brio_1.1.5        scales_1.3.0      cli_3.6.5        
+[17] rlang_1.1.7       munsell_0.5.1     withr_3.0.2       yaml_2.3.10      
+[21] tools_4.4.2       tzdb_0.5.0        colorspace_2.1-1  profmem_0.7.0    
+[25] vctrs_0.6.5       R6_2.6.1          lifecycle_1.0.4   snakecase_0.11.1 
+[29] htmlwidgets_1.6.4 waldo_0.6.1       pkgconfig_2.0.3   desc_1.4.3       
+[33] pillar_1.10.1     gtable_0.3.6      glue_1.8.0        visdat_0.6.0     
+[37] xfun_0.52         tidyselect_1.2.1  knitr_1.50        htmltools_0.5.8.1
+[41] rmarkdown_2.30    compiler_4.4.2   </code></pre>
+</div>
+</div>
+</section><section id="simple-tasks-in-functions" class="level3"><h3 class="anchored" data-anchor-id="simple-tasks-in-functions">7. Simple Tasks in Functions</h3>
+<p>One function should do one thing. A function that does two things is harder to test, harder to re-use, harder to compose.</p>
+<p><strong>Anti-pattern.</strong> One function that loads data, cleans it, fits a model, extracts coefficients, and formats a table.</p>
+<p><strong>Pattern.</strong> Five functions, each doing one step, composed in a pipeline.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Toy-sized versions of each step, so the composition pattern is demonstrable.</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="co"># In a real project each function would live in its own file under R/.</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>load_survey_data     <span class="ot">&lt;-</span> <span class="cf">function</span>(path)              <span class="fu">read_csv</span>(path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb18-4"><a href="#cb18-4"></a>clean_survey         <span class="ot">&lt;-</span> <span class="cf">function</span>(data)              data <span class="sc">|&gt;</span> <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> <span class="fu">drop_na</span>()</span>
+<span id="cb18-5"><a href="#cb18-5"></a>restrict_to_adults   <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">min_age =</span> <span class="dv">18</span>) data <span class="sc">|&gt;</span> <span class="fu">filter</span>(age <span class="sc">&gt;=</span> min_age)</span>
+<span id="cb18-6"><a href="#cb18-6"></a>fit_outcome_model    <span class="ot">&lt;-</span> <span class="cf">function</span>(data, formula)     <span class="fu">lm</span>(formula, <span class="at">data =</span> data)</span>
+<span id="cb18-7"><a href="#cb18-7"></a>summarise_model_fit  <span class="ot">&lt;-</span> <span class="cf">function</span>(fit)               broom<span class="sc">::</span><span class="fu">tidy</span>(fit, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-8"><a href="#cb18-8"></a></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="co"># Stand-in dataset so the pipeline actually runs end-to-end</span></span>
+<span id="cb18-10"><a href="#cb18-10"></a>demo_path <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".csv"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11"></a><span class="fu">write_csv</span>(</span>
+<span id="cb18-12"><a href="#cb18-12"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb18-13"><a href="#cb18-13"></a>        <span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb18-14"><a href="#cb18-14"></a>        <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">22</span>, <span class="dv">34</span>, <span class="dv">45</span>, <span class="dv">29</span>, <span class="dv">51</span>),</span>
+<span id="cb18-15"><a href="#cb18-15"></a>        <span class="at">X1  =</span> <span class="fu">c</span>(<span class="fl">1.2</span>, <span class="fl">2.4</span>, <span class="fl">3.1</span>, <span class="fl">4.0</span>, <span class="fl">2.8</span>, <span class="fl">5.5</span>),</span>
+<span id="cb18-16"><a href="#cb18-16"></a>        <span class="at">Y   =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">21</span>, <span class="dv">29</span>, <span class="dv">42</span>, <span class="dv">25</span>, <span class="dv">58</span>)</span>
+<span id="cb18-17"><a href="#cb18-17"></a>    ),</span>
+<span id="cb18-18"><a href="#cb18-18"></a>    demo_path</span>
+<span id="cb18-19"><a href="#cb18-19"></a>)</span>
+<span id="cb18-20"><a href="#cb18-20"></a></span>
+<span id="cb18-21"><a href="#cb18-21"></a><span class="co"># The composition — each step one idea, each step independently testable</span></span>
+<span id="cb18-22"><a href="#cb18-22"></a>raw      <span class="ot">&lt;-</span> <span class="fu">load_survey_data</span>(demo_path)</span>
+<span id="cb18-23"><a href="#cb18-23"></a>cleaned  <span class="ot">&lt;-</span> <span class="fu">clean_survey</span>(raw)</span>
+<span id="cb18-24"><a href="#cb18-24"></a>filtered <span class="ot">&lt;-</span> <span class="fu">restrict_to_adults</span>(cleaned)</span>
+<span id="cb18-25"><a href="#cb18-25"></a>fit      <span class="ot">&lt;-</span> <span class="fu">fit_outcome_model</span>(filtered, <span class="at">formula =</span> y <span class="sc">~</span> x1)</span>
+<span id="cb18-26"><a href="#cb18-26"></a>summary  <span class="ot">&lt;-</span> <span class="fu">summarise_model_fit</span>(fit)</span>
+<span id="cb18-27"><a href="#cb18-27"></a></span>
+<span id="cb18-28"><a href="#cb18-28"></a>summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term        estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)    -8.42     1.70      -4.95 0.0159      -13.8     -3.00
+2 x1             12.2      0.457     26.7  0.000115     10.7     13.6 </code></pre>
+</div>
+</div>
+<p>Each step is independently testable, independently reusable, and independently debuggable. When something breaks, the failing function is the scope of the bug hunt — not the whole pipeline.</p>
+<hr></section></section><section id="data-quality-checklist-worked-examples" class="level2"><h2 class="anchored" data-anchor-id="data-quality-checklist-worked-examples">Data Quality Checklist — Worked Examples</h2>
+<section id="always-keep-the-raw-data" class="level3"><h3 class="anchored" data-anchor-id="always-keep-the-raw-data">Always keep the raw data</h3>
+<p>The first rule. The raw data file should be read-only, never modified in place. Every transformation creates a derived object or file; the original stays untouched. This is the single discipline that allows you to back out from a mistake six weeks later when you realize the 2,000 rows you “cleaned” included a systematic misinterpretation of one column.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Demonstrate the pattern against a temp directory so this chunk actually runs.</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="co"># In a real project, swap `tmp_dir` for your project's `data/raw` and `data/processed` folders.</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>tmp_dir <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="st">"survey_demo_"</span>); <span class="fu">dir.create</span>(tmp_dir)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>raw_path       <span class="ot">&lt;-</span> <span class="fu">file.path</span>(tmp_dir, <span class="st">"survey_2024.csv"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>processed_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(tmp_dir, <span class="st">"survey_cleaned.csv"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6"></a></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="co"># Seed the raw file once (standing in for a vendor-supplied dataset)</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="fu">write_csv</span>(<span class="fu">tibble</span>(<span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="cn">NA</span>)), raw_path)</span>
+<span id="cb20-9"><a href="#cb20-9"></a></span>
+<span id="cb20-10"><a href="#cb20-10"></a><span class="co"># --- The pattern itself ---</span></span>
+<span id="cb20-11"><a href="#cb20-11"></a>raw_survey <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(raw_path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)  <span class="co"># read once, never write back</span></span>
+<span id="cb20-12"><a href="#cb20-12"></a>cleaned    <span class="ot">&lt;-</span> raw_survey <span class="sc">|&gt;</span> <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(id)  <span class="co"># derived object</span></span>
+<span id="cb20-13"><a href="#cb20-13"></a><span class="fu">write_csv</span>(cleaned, processed_path)                         <span class="co"># written to a different path</span></span>
+<span id="cb20-14"><a href="#cb20-14"></a></span>
+<span id="cb20-15"><a href="#cb20-15"></a>cleaned</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+     id name 
+  &lt;dbl&gt; &lt;chr&gt;
+1     1 A    
+2     2 B    
+3     3 &lt;NA&gt; </code></pre>
+</div>
+</div>
+</section><section id="check-missing-values-before-trusting-anything" class="level3"><h3 class="anchored" data-anchor-id="check-missing-values-before-trusting-anything">Check missing values before trusting anything</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># A quick audit on any new dataset</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>penguins <span class="sc">|&gt;</span> <span class="fu">miss_var_summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+  variable          n_miss pct_miss
+  &lt;chr&gt;              &lt;int&gt;    &lt;num&gt;
+1 sex                   11    3.20 
+2 bill_length_mm         2    0.581
+3 bill_depth_mm          2    0.581
+4 flipper_length_mm      2    0.581
+5 body_mass_g            2    0.581
+6 species                0    0    
+7 island                 0    0    
+8 year                   0    0    </code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>penguins <span class="sc">|&gt;</span> <span class="fu">vis_miss</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ica-19-quality-control_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The pattern: every time you read data, immediately run <code>miss_var_summary()</code> to count NAs per variable. If a column has unexpected NAs, that is evidence the data parsing or the data source is not what you thought. Two percent missing on a variable you expected to be complete is a research question, not a nuisance.</p>
+</section><section id="parse-dates-with-eyes-open" class="level3"><h3 class="anchored" data-anchor-id="parse-dates-with-eyes-open">Parse dates with eyes open</h3>
+<p>Dates are the single most common source of silent data corruption because date strings look like dates but can be in any of a dozen formats.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>dates_raw <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"2024-03-15"</span>, <span class="st">"03/15/2024"</span>, <span class="st">"15/03/2024"</span>, <span class="st">"March 15, 2024"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="co"># lubridate tries, but the US/EU ambiguity can silently swap month and day</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="fu">tibble</span>(<span class="at">raw =</span> dates_raw) <span class="sc">|&gt;</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb25-6"><a href="#cb25-6"></a>        <span class="at">ymd_parsed =</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(raw, <span class="at">quiet =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-7"><a href="#cb25-7"></a>        <span class="at">mdy_parsed =</span> lubridate<span class="sc">::</span><span class="fu">mdy</span>(raw, <span class="at">quiet =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-8"><a href="#cb25-8"></a>        <span class="at">dmy_parsed =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(raw, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-9"><a href="#cb25-9"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  raw            ymd_parsed mdy_parsed dmy_parsed
+  &lt;chr&gt;          &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+1 2024-03-15     2024-03-15 NA         NA        
+2 03/15/2024     NA         2024-03-15 NA        
+3 15/03/2024     NA         NA         2024-03-15
+4 March 15, 2024 NA         2024-03-15 NA        </code></pre>
+</div>
+</div>
+<p>Each parser fails on the strings it cannot interpret (returning <code>NA</code>), but for an ambiguous string like <code>"03/04/2024"</code> — is that March 4 or April 3? — the two parsers will both succeed and produce <em>different, equally plausible</em> dates. The only defence is knowing the data’s provenance (which country’s conventions? which system exported it?) and verifying with a small sample.</p>
+</section><section id="parse-strings-with-test-cases" class="level3"><h3 class="anchored" data-anchor-id="parse-strings-with-test-cases">Parse strings with test cases</h3>
+<p>When using regular expressions to extract structured information from text, <em>always test against both cases you want to match and cases you want to exclude.</em></p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>emails <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"les@mac.edu"</span>, <span class="st">"les@mac.net"</span>, <span class="st">"les@mac."</span>, <span class="st">"les@macedu"</span>, <span class="st">"not an email"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="fu">tibble</span>(</span>
+<span id="cb27-4"><a href="#cb27-4"></a>    <span class="at">raw =</span> emails,</span>
+<span id="cb27-5"><a href="#cb27-5"></a>    <span class="at">is_valid =</span> <span class="fu">str_detect</span>(emails, <span class="st">"^[^@</span><span class="sc">\\</span><span class="st">s]+@[^@</span><span class="sc">\\</span><span class="st">s]+</span><span class="sc">\\</span><span class="st">.[^@</span><span class="sc">\\</span><span class="st">s]+$"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  raw          is_valid
+  &lt;chr&gt;        &lt;lgl&gt;   
+1 les@mac.edu  TRUE    
+2 les@mac.net  TRUE    
+3 les@mac.     FALSE   
+4 les@macedu   FALSE   
+5 not an email FALSE   </code></pre>
+</div>
+</div>
+<p>The pattern: one list of positive cases (should match), one list of negative cases (should not match), a single tibble showing the regex decision on each. Any surprise in either column means the regex is wrong.</p>
+</section><section id="join-discipline" class="level3"><h3 class="anchored" data-anchor-id="join-discipline">Join discipline</h3>
+<p>Joins are where datasets most often go wrong. Three checks before merging:</p>
+<p><strong>Row-count prediction.</strong> Before the join, predict how many rows the result should have. If an inner-joined table has 9,800 rows and you expected 10,000, that’s 200 missing matches to investigate.</p>
+<p><strong>Key-representation consistency.</strong> <code>id = 1</code> and <code>id = "01"</code> will not match. Check <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> and spot-check values on both sides before joining.</p>
+<p><strong>Anti-join for unmatched rows.</strong> <code>anti_join(x, y)</code> shows the rows in <code>x</code> that had no match in <code>y</code>. This is the single most useful diagnostic for understanding why a join returned fewer rows than expected.</p>
+<p>The following simulation demonstrates the failure mode. <code>patients$id</code> is integer; <code>outcomes$id</code> is character — same <em>values</em>, different <em>types</em>.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>patients <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>))</span>
+<span id="cb29-2"><a href="#cb29-2"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>), <span class="at">outcome =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>))</span>
+<span id="cb29-3"><a href="#cb29-3"></a></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="fu">class</span>(patients<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">class</span>(outcomes<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p><strong>What goes wrong.</strong> Current dplyr (≥1.1) refuses the mismatched join outright — the error message itself is the diagnostic. Older dplyr would silently coerce or return a table where every outcome was <code>NA</code>, which was the original motivation for type discipline. Either way, the lesson is the same: reconcile key types before joining, or your pipeline will either crash or (worse) fail silently.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># Capture the error so the chunk keeps running. In older dplyr this would</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="co"># instead return a tibble with outcome column entirely NA — no error, no warning.</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="fu">tryCatch</span>(</span>
+<span id="cb33-4"><a href="#cb33-4"></a>    <span class="fu">left_join</span>(patients, outcomes, <span class="at">by =</span> <span class="st">"id"</span>),</span>
+<span id="cb33-5"><a href="#cb33-5"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb33-6"><a href="#cb33-6"></a>        <span class="fu">cat</span>(<span class="st">"left_join refused to proceed:</span><span class="sc">\n</span><span class="st">"</span>, <span class="fu">conditionMessage</span>(e), <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb33-7"><a href="#cb33-7"></a>    }</span>
+<span id="cb33-8"><a href="#cb33-8"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>left_join refused to proceed:
+Can't join `x$id` with `y$id` due to incompatible types.
+ℹ `x$id` is a &lt;integer&gt;.
+ℹ `y$id` is a &lt;character&gt;.</code></pre>
+</div>
+</div>
+<p><strong>The fix.</strong> Coerce the keys to a common type on both sides before joining. Integer-to-character and character-to-integer are both safe here (the character values are clean integers); for messier keys, coercing both to character is the conservative default.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>outcomes_fixed <span class="ot">&lt;-</span> outcomes <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">as.integer</span>(id))</span>
+<span id="cb35-2"><a href="#cb35-2"></a></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="fu">left_join</span>(patients, outcomes_fixed, <span class="at">by =</span> <span class="st">"id"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+     id name  outcome
+  &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;
+1     1 A          10
+2     2 B          20
+3     3 C          30
+4     4 D          NA
+5     5 E          NA</code></pre>
+</div>
+</div>
+<p><strong>The diagnostic for partial matches.</strong> Even with types reconciled, only three of five patients have outcome data. <code>anti_join()</code> shows which rows in <code>patients</code> had no match — the starting point for investigating whether those are truly missing, filtered elsewhere in the pipeline, or indicative of a deeper data problem.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">anti_join</span>(patients, outcomes_fixed, <span class="at">by =</span> <span class="st">"id"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+     id name 
+  &lt;int&gt; &lt;chr&gt;
+1     4 D    
+2     5 E    </code></pre>
+</div>
+</div>
+</section><section id="check-for-duplicates-before-aggregating" class="level3"><h3 class="anchored" data-anchor-id="check-for-duplicates-before-aggregating">Check for duplicates before aggregating</h3>
+<p>A duplicate record silently counted twice in a <code>group_by() |&gt; summarise(n = n())</code> will inflate the group count without any warning. <code><a href="https://sfirke.github.io/janitor/reference/get_dupes.html">janitor::get_dupes()</a></code> shows you duplicate rows:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># Add a synthetic duplicate to demonstrate</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>penguins_with_dup <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a>    <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">344</span>, <span class="dv">1</span>))   <span class="co"># duplicate the first row</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a></span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="co"># `get_dupes` takes the key columns and returns the duplicated rows</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a>penguins_with_dup <span class="sc">|&gt;</span></span>
+<span id="cb39-7"><a href="#cb39-7"></a>    <span class="fu">get_dupes</span>(species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, year) <span class="sc">|&gt;</span></span>
+<span id="cb39-8"><a href="#cb39-8"></a>    <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 9
+  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+1 Adelie  Torgersen           39.1          18.7               181        3750
+2 Adelie  Torgersen           39.1          18.7               181        3750
+# ℹ 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;, dupe_count &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>For real data the “key” is whatever combination of columns should uniquely identify a record — often a subset of the available columns, not all of them.</p>
+</section><section id="sanity-visualize-early-and-often" class="level3"><h3 class="anchored" data-anchor-id="sanity-visualize-early-and-often">Sanity-visualize early and often</h3>
+<p>The cheapest bug catcher in data analysis is a quick plot. Before any substantive modelling, plot the outcome and the key predictors:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>    <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb41-5"><a href="#cb41-5"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a>    <span class="fu">labs</span>(</span>
+<span id="cb41-7"><a href="#cb41-7"></a>        <span class="at">x =</span> <span class="st">"Bill length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb41-8"><a href="#cb41-8"></a>        <span class="at">title =</span> <span class="st">"Sanity check: bill length vs. body mass by species"</span></span>
+<span id="cb41-9"><a href="#cb41-9"></a>    ) <span class="sc">+</span></span>
+<span id="cb41-10"><a href="#cb41-10"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ica-19-quality-control_files/figure-html/sanity-viz-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Four questions to ask of any such plot:</p>
+<ol type="1">
+<li>
+<strong>Does the number of points look right?</strong> If you expected 340 and see 330, something dropped.</li>
+<li>
+<strong>Are the values in the expected range?</strong> Penguins with body mass of 50 kg are a data-entry error.</li>
+<li>
+<strong>Do the relationships make sense?</strong> Positive slope where you expected negative is a sign flip.</li>
+<li>
+<strong>Do the groups behave as expected?</strong> Same intercept-and-slope across groups where you expected heterogeneity means your group variable may be wrong.</li>
+</ol>
+<hr></section></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p><strong>Code quality is an institutional-memory problem, not a style problem.</strong> The seven principles above are often framed as aesthetics — “write clean code” — but they are really disciplines for future communication. The person most likely to read my code is me in six months, with no memory of what I was doing. The person second most likely is a reviewer, collaborator, or successor who needs to verify or extend the work. DRY, readable naming, tests, reproducibility — these are the minimum standard for code that communicates across time and across people. They are exactly the same problem that good academic writing solves: making the reasoning legible to someone who doesn’t already share your context.</p>
+<p><strong>Data quality is about respecting the gap between the world and the dataset.</strong> The raw-data principle, missing-value audit, date parsing, join discipline, duplicate checks, sanity visualization — these are all versions of the same move: <em>don’t trust that the data is what you think it is until you’ve checked.</em> The world is noisy and data-collection pipelines are imperfect, and the dataset you inherit is the output of many human decisions you did not witness. Each check is a place where that gap between the world and the representation can be surfaced before it contaminates downstream results. This is exactly the point of the human-centered data science exercise from ICA 17 — the checklist in this ICA is its operational counterpart.</p>
+<p><strong>The same discipline that makes code reproducible makes research defensible.</strong> For empirical work at scale — the work that a thesis, a journal submission, or a policy brief rests on — the question “does this analysis hold up under scrutiny” reduces to: <em>can a reviewer re-run your pipeline from your data and code, and get the same numbers?</em> If the answer is no, the conclusions are not defensible regardless of how sophisticated the analysis looked. Relative paths, seed-setting, environment capture, and function decomposition are not bureaucratic overhead — they are the infrastructure that makes honest research possible. The habits formalized in this ICA are the minimum standard for any work that is meant to travel beyond a single laptop.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/18_interactive_viz.html" class="pagination-link" aria-label="18 — Interactive Visualization: Shiny and plotly">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../extra/extra-sample1.html" class="pagination-link" aria-label="Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil">
+        <span class="nav-page-text"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1"></a><span class="co">---</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="an">title:</span><span class="co"> "19 — Quality Control: Code and Data Hygiene"</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a><span class="an">format:</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a><span class="co">  html:</span></span>
+<span id="cb42-7"><a href="#cb42-7"></a><span class="co">    toc: true</span></span>
+<span id="cb42-8"><a href="#cb42-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb42-9"><a href="#cb42-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb42-10"><a href="#cb42-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb42-11"><a href="#cb42-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb42-12"><a href="#cb42-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb42-13"><a href="#cb42-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb42-14"><a href="#cb42-14"></a><span class="an">execute:</span></span>
+<span id="cb42-15"><a href="#cb42-15"></a><span class="co">  warning: false</span></span>
+<span id="cb42-16"><a href="#cb42-16"></a><span class="co">  message: false</span></span>
+<span id="cb42-17"><a href="#cb42-17"></a><span class="co">---</span></span>
+<span id="cb42-18"><a href="#cb42-18"></a></span>
+<span id="cb42-19"><a href="#cb42-19"></a><span class="fu">## Setup</span></span>
+<span id="cb42-20"><a href="#cb42-20"></a></span>
+<span id="cb42-23"><a href="#cb42-23"></a><span class="in">```{r}</span></span>
+<span id="cb42-24"><a href="#cb42-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb42-25"><a href="#cb42-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb42-26"><a href="#cb42-26"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb42-27"><a href="#cb42-27"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb42-28"><a href="#cb42-28"></a><span class="fu">library</span>(bench)</span>
+<span id="cb42-29"><a href="#cb42-29"></a><span class="fu">library</span>(testthat)</span>
+<span id="cb42-30"><a href="#cb42-30"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb42-31"><a href="#cb42-31"></a><span class="in">```</span></span>
+<span id="cb42-32"><a href="#cb42-32"></a></span>
+<span id="cb42-33"><a href="#cb42-33"></a>------------------------------------------------------------------------</span>
+<span id="cb42-34"><a href="#cb42-34"></a></span>
+<span id="cb42-35"><a href="#cb42-35"></a><span class="fu">## 🔥 Data Story Critique — *Counting Happiness and Where it Comes From* (FlowingData, 2021)</span></span>
+<span id="cb42-36"><a href="#cb42-36"></a></span>
+<span id="cb42-37"><a href="#cb42-37"></a>Source: <span class="ot">&lt;https://flowingdata.com/2021/07/29/counting-happiness/&gt;</span></span>
+<span id="cb42-38"><a href="#cb42-38"></a></span>
+<span id="cb42-39"><a href="#cb42-39"></a>Author: Nathan Yau.</span>
+<span id="cb42-40"><a href="#cb42-40"></a></span>
+<span id="cb42-41"><a href="#cb42-41"></a>**Note on repeated observation.** This is the second Nathan Yau piece we have critiqued — the first being *Seeing How Much We Ate Over the Years* in ICA 9. The critique here is calibrated against that prior observation, treating this piece as an iteration in the same body of work rather than as a standalone artefact. That framing makes some improvements and some regressions visible that would not be visible from a single reading.</span>
+<span id="cb42-42"><a href="#cb42-42"></a></span>
+<span id="cb42-43"><a href="#cb42-43"></a><span class="fu">### What is the data story?</span></span>
+<span id="cb42-44"><a href="#cb42-44"></a></span>
+<span id="cb42-45"><a href="#cb42-45"></a>The underlying dataset is **HappyDB** (Asai et al., LREC 2018), a corpus of ~100,000 "happy moments" collected from ~10,000 Amazon Mechanical Turk workers who were asked to list ten things that *recently* made them happy. Yau's analytical move is to parse each sentence into a **subject-verb-object triple** ("I watched a good movie yesterday" → I / watched / movie), and then to tabulate the most common SVO combinations. The piece opens on the observation that the subject field splits almost cleanly into "I" versus "Others" — which Yau uses as the top-level partition. Three ribbon-style flow diagrams follow: (1) a full self-vs-others view, (2) a drill-down on the "Others" group showing family terms (husband, son, friend, wife, daughter), and (3) a specialized view of pet-related moments with much more specific verbs (snuggled, jumped, curled, rather than the generic had/got/watched of the human view). The story's closing claim is that happiness comes "in many forms, from many places, and through many paths."</span>
+<span id="cb42-46"><a href="#cb42-46"></a></span>
+<span id="cb42-47"><a href="#cb42-47"></a><span class="fu">### What is effective?</span></span>
+<span id="cb42-48"><a href="#cb42-48"></a></span>
+<span id="cb42-49"><a href="#cb42-49"></a>**The SVO parsing is a genuinely good analytical choice for this data.** The naïve approach to a corpus of 100,000 text fragments is a bag-of-words frequency count — a word cloud. Bag-of-words tells you that *dinner*, *movie*, *family*, *dog* are common, but it cannot distinguish "I watched a movie" from "My son gave me a movie" because both contribute the same tokens. Parsing into SVO triples promotes the grammatical relationship into a first-class analytical object, so *who acts on what* becomes visible. For a seven-paragraph blog post, that is substantive analytical lift.</span>
+<span id="cb42-50"><a href="#cb42-50"></a></span>
+<span id="cb42-51"><a href="#cb42-51"></a>**The "Self" vs. "Others" partition is load-bearing rather than arbitrary.** Yau tells the reader explicitly that the subject field is bimodal — "I" on one side and everyone else on the other — and uses that empirical structure as the piece's primary scaffolding. It is not a random slice chosen for visual convenience; it is the shape of the data, and building the argument on top of that shape is the right move.</span>
+<span id="cb42-52"><a href="#cb42-52"></a></span>
+<span id="cb42-53"><a href="#cb42-53"></a>**The "team won game" surprised-then-verified moment is a discipline tell.** When an unexpected result appears in a top-five list, the professional move is to go back to the raw text and check whether the parser captured something real or created an artefact. Yau does this, reports what he found ("mostly people who were happy their favorite sports team won a game"), and updates the interpretation accordingly. This is the minimum standard of data analysis honesty, and explicitly showing the verification step in a blog post register is a small but real piece of craft.</span>
+<span id="cb42-54"><a href="#cb42-54"></a></span>
+<span id="cb42-55"><a href="#cb42-55"></a>**The Mechanical Turk caveat is in the main text, not buried in a footnote.** This is a genuine improvement over Yau's 2021 USDA food-availability piece, where the fundamental availability-vs-consumption caveat was confined to a single end-of-post paragraph. Here, the sampling limitation — skewed to 20–40-year-olds, likely boosting children and spouses, likely suppressing girlfriend/boyfriend and workplace references — is written into a paragraph that sits between two main charts. That is the correct placement for a methodological limitation that affects the interpretation of the next visual.</span>
+<span id="cb42-56"><a href="#cb42-56"></a></span>
+<span id="cb42-57"><a href="#cb42-57"></a>**The pets section is a well-chosen narrative ending.** The shift from generic verbs (*had*, *got*, *watched*) in the human view to specific verbs (*snuggled*, *jumped*, *curled*) in the pet view makes the same analytical point visible in two different textures: human happiness is often described with abstract gestures, pet happiness with concrete actions. Ending on the high-information-density pet view gives the piece a small analytical payoff rather than a flat stop.</span>
+<span id="cb42-58"><a href="#cb42-58"></a></span>
+<span id="cb42-59"><a href="#cb42-59"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb42-60"><a href="#cb42-60"></a></span>
+<span id="cb42-61"><a href="#cb42-61"></a>**The SVO parser's error rate is not quantified.** Of 100,000 happy moments, how many yielded a clean triple? How many were dropped (moments like "the weather was nice" have no agentive verb)? How many were mis-parsed in ways the "team won game" check didn't catch? For a computational text pipeline driving a top-five ranking, the parser's precision and recall are first-order metadata. A single sentence — *"about X% of moments could not be cleanly parsed, and among the parseable subset the top rankings are robust to reasonable alternative parsers"* — would let the reader calibrate how much the rankings depend on the specific NLP pipeline used.</span>
+<span id="cb42-62"><a href="#cb42-62"></a></span>
+<span id="cb42-63"><a href="#cb42-63"></a>**"Recently" is undefined and the ranking conflates frequency with salience.** Participants were asked about things that "recently" made them happy, without temporal anchoring. A person listing yesterday's dinner, last week's game, and last month's child's graduation all count equally in the tabulation. This means the output is not *frequency of happy events* but *recall-salience of happy events* — two different quantities. Dinner happens daily but most dinners are not memorable; a team win is rare but often highly memorable. The top-five list mixes "frequent and ordinary" with "rare and memorable" without distinguishing them, which changes what the piece can and cannot claim. The argument would be more precisely stated as "dinner is the most commonly *recalled* form of happy moment," not "dinner is what makes people most happy."</span>
+<span id="cb42-64"><a href="#cb42-64"></a></span>
+<span id="cb42-65"><a href="#cb42-65"></a>**Single-token subjects flatten heterogeneous relational categories.** "Husband," "son," "wife," "daughter" come through as distinct subjects because English vocabulary marks them separately. "Friend" comes through as a single label, even though new/old, close/casual, work/personal friendships produce different kinds of happy moments. The method's resolution is inherited from the language's vocabulary structure — family relationships are pre-disaggregated at the word level, social relationships are not — and the analysis reproduces that asymmetry without flagging it. A piece that wanted to be analytically careful about relational sources of happiness would need either a secondary tagging pass on "friend" contexts or an explicit acknowledgement that "friend" is an aggregation under which substantial variation is compressed.</span>
+<span id="cb42-66"><a href="#cb42-66"></a></span>
+<span id="cb42-67"><a href="#cb42-67"></a>**The Mechanical Turk caveat is acknowledged but not given direction.** Yau says the sample isn't representative and gives age-skew as an example, but does not extend the reasoning to the piece's conclusions. Mturk workers in 2018 were well-documented to skew US and Indian, to be lower-income on average, to work from home, to be male-overrepresented among Indian workers. These demographic skews have directional implications for the happy-moment distribution: low-income participants may systematically over-represent low-cost daily happiness (dinner, TV, family) and under-represent travel, major purchases, and career milestones. That is a specific prediction the caveat should make, not just the abstract statement that "the sample isn't representative."</span>
+<span id="cb42-68"><a href="#cb42-68"></a></span>
+<span id="cb42-69"><a href="#cb42-69"></a>**The Western positive-psychology framing of "happiness" is not named.** The HappyDB prompt — "list ten things that recently made you happy" — sits inside a research tradition (Seligman-era positive psychology) that has its own assumptions about what "happiness" means as a category, what counts as an instance of it, and how people self-report it. In East Asian affect vocabularies, the distinctions between 幸福 / 快乐 / 满足 / 顺心 are not all captured by a single English word "happy," and cross-cultural affect research has documented that the prompt design shapes what gets listed. A piece whose closing claim is that "happiness comes in many forms, from many places" has, in fact, shown the many forms of a specific culturally bounded concept of happiness. Naming this would be one line of editorial honesty.</span>
+<span id="cb42-70"><a href="#cb42-70"></a></span>
+<span id="cb42-71"><a href="#cb42-71"></a>**The ribbon diagram visually resembles the alluvial form from the earlier food-availability piece but is doing different work.** In the USDA piece, alluvial diagrams were the correct form because the data had a temporal axis and items crossed rank over time. Here, the flow between subject / verb / object is a two-step bipartite matching without a temporal dimension; the visual language is sankey-ish rather than alluvial. A reader who has seen both pieces may interpret the new ribbons through the old reading habit, importing an implicit time axis that isn't there. This is the reuse of a visual idiom across differently structured problems, and the piece does not disambiguate.</span>
+<span id="cb42-72"><a href="#cb42-72"></a></span>
+<span id="cb42-73"><a href="#cb42-73"></a>**Proportionality.** This remains a piece of careful blog-register data work with above-median analytical lift. The critique is calibrated against Yau's own prior baseline: the Mturk caveat improved; the parser error rate is still not quantified; the temporal-ambiguity issue ("recently") is new to this piece and unaddressed; the cultural framing of "happiness" was not named and arguably could not be in a piece of this length. For a blog with Yau's readership and craft, the next step is the move the USDA piece never made either: *bring the analytical caveat up from the footnote into the chart itself*.</span>
+<span id="cb42-74"><a href="#cb42-74"></a></span>
+<span id="cb42-75"><a href="#cb42-75"></a>------------------------------------------------------------------------</span>
+<span id="cb42-76"><a href="#cb42-76"></a></span>
+<span id="cb42-77"><a href="#cb42-77"></a><span class="fu">## Code Quality Checklist — Worked Examples</span></span>
+<span id="cb42-78"><a href="#cb42-78"></a></span>
+<span id="cb42-79"><a href="#cb42-79"></a>The seven principles below are abstract until worked through on real data. What follows is one small example per principle, drawn where possible from patterns that came up across this semester's ICAs.</span>
+<span id="cb42-80"><a href="#cb42-80"></a></span>
+<span id="cb42-81"><a href="#cb42-81"></a><span class="fu">### 1. DRY — Don't Repeat Yourself</span></span>
+<span id="cb42-82"><a href="#cb42-82"></a></span>
+<span id="cb42-83"><a href="#cb42-83"></a>**Anti-pattern.** Computing the same summary four times with slightly different column names.</span>
+<span id="cb42-84"><a href="#cb42-84"></a></span>
+<span id="cb42-87"><a href="#cb42-87"></a><span class="in">```{r}</span></span>
+<span id="cb42-88"><a href="#cb42-88"></a><span class="co">#| label: dry-antipattern</span></span>
+<span id="cb42-89"><a href="#cb42-89"></a><span class="co"># Don't do this — three nearly-identical lines asking to be parameterized</span></span>
+<span id="cb42-90"><a href="#cb42-90"></a>diamonds <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb42-91"><a href="#cb42-91"></a>diamonds <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">mean_y =</span> <span class="fu">mean</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb42-92"><a href="#cb42-92"></a>diamonds <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">mean_z =</span> <span class="fu">mean</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb42-93"><a href="#cb42-93"></a><span class="in">```</span></span>
+<span id="cb42-94"><a href="#cb42-94"></a></span>
+<span id="cb42-95"><a href="#cb42-95"></a>**Refactor.** Extract the pattern into <span class="in">`across()`</span> or a function.</span>
+<span id="cb42-96"><a href="#cb42-96"></a></span>
+<span id="cb42-99"><a href="#cb42-99"></a><span class="in">```{r}</span></span>
+<span id="cb42-100"><a href="#cb42-100"></a>diamonds <span class="sc">|&gt;</span></span>
+<span id="cb42-101"><a href="#cb42-101"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(x, y, z), \(v) <span class="fu">mean</span>(v, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb42-102"><a href="#cb42-102"></a><span class="in">```</span></span>
+<span id="cb42-103"><a href="#cb42-103"></a></span>
+<span id="cb42-104"><a href="#cb42-104"></a>The moment the same transformation is typed a second time with a changed column name, the correct move is to parameterize — either via a function argument or via a tidyverse helper like <span class="in">`across()`</span>. Copy-paste is where bugs come from; the copy that got fixed and the copy that didn't stay fixed are the same code until they aren't.</span>
+<span id="cb42-105"><a href="#cb42-105"></a></span>
+<span id="cb42-106"><a href="#cb42-106"></a><span class="fu">### 2. Readability</span></span>
+<span id="cb42-107"><a href="#cb42-107"></a></span>
+<span id="cb42-108"><a href="#cb42-108"></a>Readability is a cognitive claim about the person who will read the code next — which is usually you, six months from now, with no memory of what you were doing. Two practical habits:</span>
+<span id="cb42-109"><a href="#cb42-109"></a></span>
+<span id="cb42-110"><a href="#cb42-110"></a><span class="ss">- </span>**Pipe chains over nested function calls.** <span class="in">`x |&gt; filter(...) |&gt; mutate(...) |&gt; summarise(...)`</span> reads like a sentence; <span class="in">`summarise(mutate(filter(x, ...), ...), ...)`</span> requires the reader to mentally unwrap the nesting.</span>
+<span id="cb42-111"><a href="#cb42-111"></a><span class="ss">- </span>**One idea per line.** When a pipe step does more than one thing, it is often worth splitting into two steps with a named intermediate.</span>
+<span id="cb42-112"><a href="#cb42-112"></a></span>
+<span id="cb42-115"><a href="#cb42-115"></a><span class="in">```{r}</span></span>
+<span id="cb42-116"><a href="#cb42-116"></a><span class="co"># Readable: each step is one idea, and the intermediate name explains the filter</span></span>
+<span id="cb42-117"><a href="#cb42-117"></a><span class="co"># adult penguins with complete measurements</span></span>
+<span id="cb42-118"><a href="#cb42-118"></a>heavy_male_penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb42-119"><a href="#cb42-119"></a>    <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"male"</span>, <span class="sc">!</span><span class="fu">is.na</span>(body_mass_g)) <span class="sc">|&gt;</span></span>
+<span id="cb42-120"><a href="#cb42-120"></a>    <span class="fu">filter</span>(body_mass_g <span class="sc">&gt;</span> <span class="dv">4500</span>)</span>
+<span id="cb42-121"><a href="#cb42-121"></a></span>
+<span id="cb42-122"><a href="#cb42-122"></a>heavy_male_penguins <span class="sc">|&gt;</span></span>
+<span id="cb42-123"><a href="#cb42-123"></a>    <span class="fu">count</span>(species, island) <span class="sc">|&gt;</span></span>
+<span id="cb42-124"><a href="#cb42-124"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb42-125"><a href="#cb42-125"></a><span class="in">```</span></span>
+<span id="cb42-126"><a href="#cb42-126"></a></span>
+<span id="cb42-127"><a href="#cb42-127"></a><span class="fu">### 3. Meaningful Names</span></span>
+<span id="cb42-128"><a href="#cb42-128"></a></span>
+<span id="cb42-129"><a href="#cb42-129"></a>**Anti-pattern.** <span class="in">`df`</span>, <span class="in">`tmp`</span>, <span class="in">`x`</span>, <span class="in">`result`</span> — these carry no information. By the time you come back to the script you have to reconstruct what each was supposed to hold.</span>
+<span id="cb42-130"><a href="#cb42-130"></a></span>
+<span id="cb42-131"><a href="#cb42-131"></a>**Pattern.** Names should describe the *content* and, where relevant, the *stage of processing*:</span>
+<span id="cb42-132"><a href="#cb42-132"></a></span>
+<span id="cb42-133"><a href="#cb42-133"></a><span class="ss">- </span><span class="in">`raw_survey`</span> → <span class="in">`cleaned_survey`</span> → <span class="in">`survey_with_outcomes`</span> — a pipeline where the name tracks the transformation state</span>
+<span id="cb42-134"><a href="#cb42-134"></a><span class="ss">- </span><span class="in">`is_complete_case`</span>, <span class="in">`has_outlier_bmi`</span> — boolean flags named as predicates so <span class="in">`filter(is_complete_case)`</span> reads naturally</span>
+<span id="cb42-135"><a href="#cb42-135"></a><span class="ss">- </span><span class="in">`fit_lm_with_controls()`</span>, <span class="in">`extract_ci_at_level()`</span> — functions named as verb phrases describing what they do</span>
+<span id="cb42-136"><a href="#cb42-136"></a></span>
+<span id="cb42-137"><a href="#cb42-137"></a>The test I apply: *can I guess what an object holds or a function returns from its name alone, without looking at the definition?* If not, the name is underspecified.</span>
+<span id="cb42-138"><a href="#cb42-138"></a></span>
+<span id="cb42-139"><a href="#cb42-139"></a><span class="fu">### 4. Testing</span></span>
+<span id="cb42-140"><a href="#cb42-140"></a></span>
+<span id="cb42-141"><a href="#cb42-141"></a>For any function that will be reused — even once — write a handful of test cases. <span class="in">`testthat`</span> is the standard R tool.</span>
+<span id="cb42-142"><a href="#cb42-142"></a></span>
+<span id="cb42-145"><a href="#cb42-145"></a><span class="in">```{r}</span></span>
+<span id="cb42-146"><a href="#cb42-146"></a><span class="co">#| label: testing-example</span></span>
+<span id="cb42-147"><a href="#cb42-147"></a><span class="co"># A small function to rescale a numeric vector to [0, 1]</span></span>
+<span id="cb42-148"><a href="#cb42-148"></a>rescale01 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb42-149"><a href="#cb42-149"></a>    rng <span class="ot">&lt;-</span> <span class="fu">range</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb42-150"><a href="#cb42-150"></a>    <span class="cf">if</span> (<span class="fu">diff</span>(rng) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="fu">length</span>(x)))</span>
+<span id="cb42-151"><a href="#cb42-151"></a>    (x <span class="sc">-</span> rng[<span class="dv">1</span>]) <span class="sc">/</span> (rng[<span class="dv">2</span>] <span class="sc">-</span> rng[<span class="dv">1</span>])</span>
+<span id="cb42-152"><a href="#cb42-152"></a>}</span>
+<span id="cb42-153"><a href="#cb42-153"></a></span>
+<span id="cb42-154"><a href="#cb42-154"></a><span class="co"># Tests covering normal case, constant vector, NA handling, negative values</span></span>
+<span id="cb42-155"><a href="#cb42-155"></a><span class="fu">test_that</span>(<span class="st">"rescale01 behaves correctly"</span>, {</span>
+<span id="cb42-156"><a href="#cb42-156"></a>    <span class="fu">expect_equal</span>(<span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>)), <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</span>
+<span id="cb42-157"><a href="#cb42-157"></a>    <span class="fu">expect_equal</span>(<span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>)), <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>))</span>
+<span id="cb42-158"><a href="#cb42-158"></a>    <span class="fu">expect_equal</span>(<span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>)), <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</span>
+<span id="cb42-159"><a href="#cb42-159"></a>    <span class="fu">expect_equal</span>(<span class="fu">rescale01</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">3</span>)), <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>, <span class="dv">1</span>))</span>
+<span id="cb42-160"><a href="#cb42-160"></a>    <span class="fu">expect_length</span>(<span class="fu">rescale01</span>(<span class="fu">numeric</span>(<span class="dv">0</span>)), <span class="dv">0</span>)</span>
+<span id="cb42-161"><a href="#cb42-161"></a>})</span>
+<span id="cb42-162"><a href="#cb42-162"></a><span class="in">```</span></span>
+<span id="cb42-163"><a href="#cb42-163"></a></span>
+<span id="cb42-164"><a href="#cb42-164"></a>Tests that fail loudly when behaviour changes are the closest thing to institutional memory a codebase has. They are also the primary document of what the function is *supposed* to do — the tests express the contract.</span>
+<span id="cb42-165"><a href="#cb42-165"></a></span>
+<span id="cb42-166"><a href="#cb42-166"></a><span class="fu">### 5. Efficiency</span></span>
+<span id="cb42-167"><a href="#cb42-167"></a></span>
+<span id="cb42-168"><a href="#cb42-168"></a>Efficiency is worth worrying about when (a) the pipeline is slow enough to disrupt analysis, or (b) it is slow enough to prevent iteration. Below that threshold, readability wins over micro-optimization.</span>
+<span id="cb42-169"><a href="#cb42-169"></a></span>
+<span id="cb42-172"><a href="#cb42-172"></a><span class="in">```{r}</span></span>
+<span id="cb42-173"><a href="#cb42-173"></a><span class="co">#| label: efficiency-example</span></span>
+<span id="cb42-174"><a href="#cb42-174"></a><span class="co">#| cache: true</span></span>
+<span id="cb42-175"><a href="#cb42-175"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb42-176"><a href="#cb42-176"></a>    <span class="at">grow_vector =</span> {</span>
+<span id="cb42-177"><a href="#cb42-177"></a>        x <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
+<span id="cb42-178"><a href="#cb42-178"></a>        <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e4</span>) x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
+<span id="cb42-179"><a href="#cb42-179"></a>        x</span>
+<span id="cb42-180"><a href="#cb42-180"></a>    },</span>
+<span id="cb42-181"><a href="#cb42-181"></a>    <span class="at">preallocate =</span> {</span>
+<span id="cb42-182"><a href="#cb42-182"></a>        x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"integer"</span>, <span class="fl">1e4</span>)</span>
+<span id="cb42-183"><a href="#cb42-183"></a>        <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e4</span>) x[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb42-184"><a href="#cb42-184"></a>        x</span>
+<span id="cb42-185"><a href="#cb42-185"></a>    },</span>
+<span id="cb42-186"><a href="#cb42-186"></a>    <span class="at">vectorized =</span> <span class="fu">seq_len</span>(<span class="fl">1e4</span>),</span>
+<span id="cb42-187"><a href="#cb42-187"></a>    <span class="at">check =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb42-188"><a href="#cb42-188"></a>    <span class="at">iterations =</span> <span class="dv">10</span></span>
+<span id="cb42-189"><a href="#cb42-189"></a>)[, <span class="fu">c</span>(<span class="st">"expression"</span>, <span class="st">"median"</span>, <span class="st">"mem_alloc"</span>)]</span>
+<span id="cb42-190"><a href="#cb42-190"></a><span class="in">```</span></span>
+<span id="cb42-191"><a href="#cb42-191"></a></span>
+<span id="cb42-192"><a href="#cb42-192"></a>Growing a vector with <span class="in">`c()`</span> inside a loop is ~100× slower than pre-allocating and ~1,000× slower than the vectorized form. The <span class="in">`mem_alloc`</span> column explains why: every <span class="in">`c(x, i)`</span> allocates a fresh vector one element longer, so total allocation scales quadratically with the iteration count.</span>
+<span id="cb42-193"><a href="#cb42-193"></a></span>
+<span id="cb42-194"><a href="#cb42-194"></a><span class="fu">### 6. Reproducibility</span></span>
+<span id="cb42-195"><a href="#cb42-195"></a></span>
+<span id="cb42-196"><a href="#cb42-196"></a>Reproducible code produces the same output on a different machine, in a different session, by a different user. The basic disciplines:</span>
+<span id="cb42-197"><a href="#cb42-197"></a></span>
+<span id="cb42-198"><a href="#cb42-198"></a><span class="ss">- </span>**Relative paths, not absolute.** <span class="in">`read_csv("data/survey.csv")`</span> works when the project folder is cloned anywhere; <span class="in">`read_csv("/Users/zhijun/Documents/.../survey.csv")`</span> works only on my laptop.</span>
+<span id="cb42-199"><a href="#cb42-199"></a><span class="ss">- </span>**`here::here()` for paths when the working directory is unstable** (e.g., Quarto renders from the document's directory, R scripts from the project root). <span class="in">`here::here("data", "survey.csv")`</span> resolves consistently.</span>
+<span id="cb42-200"><a href="#cb42-200"></a><span class="ss">- </span>**`set.seed()` before any stochastic operation** that the analysis depends on — simulation, sampling, bootstrap, random imputation. Without it, <span class="in">`?_map`</span> and <span class="in">`rnorm`</span> give a different answer every run, and the figure in today's draft can't be reproduced tomorrow.</span>
+<span id="cb42-201"><a href="#cb42-201"></a><span class="ss">- </span>**Pin package versions** with <span class="in">`renv`</span> for serious projects. This is the difference between a project that works in 2026 and a project that stops working when a dependency updates.</span>
+<span id="cb42-202"><a href="#cb42-202"></a><span class="ss">- </span>**Include `sessionInfo()` in the rendered output** for any analysis meant to travel.</span>
+<span id="cb42-203"><a href="#cb42-203"></a></span>
+<span id="cb42-206"><a href="#cb42-206"></a><span class="in">```{r}</span></span>
+<span id="cb42-207"><a href="#cb42-207"></a><span class="co"># Capture the environment state at render time</span></span>
+<span id="cb42-208"><a href="#cb42-208"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb42-209"><a href="#cb42-209"></a><span class="in">```</span></span>
+<span id="cb42-210"><a href="#cb42-210"></a></span>
+<span id="cb42-211"><a href="#cb42-211"></a><span class="fu">### 7. Simple Tasks in Functions</span></span>
+<span id="cb42-212"><a href="#cb42-212"></a></span>
+<span id="cb42-213"><a href="#cb42-213"></a>One function should do one thing. A function that does two things is harder to test, harder to re-use, harder to compose.</span>
+<span id="cb42-214"><a href="#cb42-214"></a></span>
+<span id="cb42-215"><a href="#cb42-215"></a>**Anti-pattern.** One function that loads data, cleans it, fits a model, extracts coefficients, and formats a table.</span>
+<span id="cb42-216"><a href="#cb42-216"></a></span>
+<span id="cb42-217"><a href="#cb42-217"></a>**Pattern.** Five functions, each doing one step, composed in a pipeline.</span>
+<span id="cb42-218"><a href="#cb42-218"></a></span>
+<span id="cb42-221"><a href="#cb42-221"></a><span class="in">```{r}</span></span>
+<span id="cb42-222"><a href="#cb42-222"></a><span class="co">#| label: decomposed-pipeline</span></span>
+<span id="cb42-223"><a href="#cb42-223"></a><span class="co"># Toy-sized versions of each step, so the composition pattern is demonstrable.</span></span>
+<span id="cb42-224"><a href="#cb42-224"></a><span class="co"># In a real project each function would live in its own file under R/.</span></span>
+<span id="cb42-225"><a href="#cb42-225"></a>load_survey_data     <span class="ot">&lt;-</span> <span class="cf">function</span>(path)              <span class="fu">read_csv</span>(path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb42-226"><a href="#cb42-226"></a>clean_survey         <span class="ot">&lt;-</span> <span class="cf">function</span>(data)              data <span class="sc">|&gt;</span> <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> <span class="fu">drop_na</span>()</span>
+<span id="cb42-227"><a href="#cb42-227"></a>restrict_to_adults   <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">min_age =</span> <span class="dv">18</span>) data <span class="sc">|&gt;</span> <span class="fu">filter</span>(age <span class="sc">&gt;=</span> min_age)</span>
+<span id="cb42-228"><a href="#cb42-228"></a>fit_outcome_model    <span class="ot">&lt;-</span> <span class="cf">function</span>(data, formula)     <span class="fu">lm</span>(formula, <span class="at">data =</span> data)</span>
+<span id="cb42-229"><a href="#cb42-229"></a>summarise_model_fit  <span class="ot">&lt;-</span> <span class="cf">function</span>(fit)               broom<span class="sc">::</span><span class="fu">tidy</span>(fit, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb42-230"><a href="#cb42-230"></a></span>
+<span id="cb42-231"><a href="#cb42-231"></a><span class="co"># Stand-in dataset so the pipeline actually runs end-to-end</span></span>
+<span id="cb42-232"><a href="#cb42-232"></a>demo_path <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".csv"</span>)</span>
+<span id="cb42-233"><a href="#cb42-233"></a><span class="fu">write_csv</span>(</span>
+<span id="cb42-234"><a href="#cb42-234"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb42-235"><a href="#cb42-235"></a>        <span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb42-236"><a href="#cb42-236"></a>        <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">22</span>, <span class="dv">34</span>, <span class="dv">45</span>, <span class="dv">29</span>, <span class="dv">51</span>),</span>
+<span id="cb42-237"><a href="#cb42-237"></a>        <span class="at">X1  =</span> <span class="fu">c</span>(<span class="fl">1.2</span>, <span class="fl">2.4</span>, <span class="fl">3.1</span>, <span class="fl">4.0</span>, <span class="fl">2.8</span>, <span class="fl">5.5</span>),</span>
+<span id="cb42-238"><a href="#cb42-238"></a>        <span class="at">Y   =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">21</span>, <span class="dv">29</span>, <span class="dv">42</span>, <span class="dv">25</span>, <span class="dv">58</span>)</span>
+<span id="cb42-239"><a href="#cb42-239"></a>    ),</span>
+<span id="cb42-240"><a href="#cb42-240"></a>    demo_path</span>
+<span id="cb42-241"><a href="#cb42-241"></a>)</span>
+<span id="cb42-242"><a href="#cb42-242"></a></span>
+<span id="cb42-243"><a href="#cb42-243"></a><span class="co"># The composition — each step one idea, each step independently testable</span></span>
+<span id="cb42-244"><a href="#cb42-244"></a>raw      <span class="ot">&lt;-</span> <span class="fu">load_survey_data</span>(demo_path)</span>
+<span id="cb42-245"><a href="#cb42-245"></a>cleaned  <span class="ot">&lt;-</span> <span class="fu">clean_survey</span>(raw)</span>
+<span id="cb42-246"><a href="#cb42-246"></a>filtered <span class="ot">&lt;-</span> <span class="fu">restrict_to_adults</span>(cleaned)</span>
+<span id="cb42-247"><a href="#cb42-247"></a>fit      <span class="ot">&lt;-</span> <span class="fu">fit_outcome_model</span>(filtered, <span class="at">formula =</span> y <span class="sc">~</span> x1)</span>
+<span id="cb42-248"><a href="#cb42-248"></a>summary  <span class="ot">&lt;-</span> <span class="fu">summarise_model_fit</span>(fit)</span>
+<span id="cb42-249"><a href="#cb42-249"></a></span>
+<span id="cb42-250"><a href="#cb42-250"></a>summary</span>
+<span id="cb42-251"><a href="#cb42-251"></a><span class="in">```</span></span>
+<span id="cb42-252"><a href="#cb42-252"></a></span>
+<span id="cb42-253"><a href="#cb42-253"></a>Each step is independently testable, independently reusable, and independently debuggable. When something breaks, the failing function is the scope of the bug hunt — not the whole pipeline.</span>
+<span id="cb42-254"><a href="#cb42-254"></a></span>
+<span id="cb42-255"><a href="#cb42-255"></a>------------------------------------------------------------------------</span>
+<span id="cb42-256"><a href="#cb42-256"></a></span>
+<span id="cb42-257"><a href="#cb42-257"></a><span class="fu">## Data Quality Checklist — Worked Examples</span></span>
+<span id="cb42-258"><a href="#cb42-258"></a></span>
+<span id="cb42-259"><a href="#cb42-259"></a><span class="fu">### Always keep the raw data</span></span>
+<span id="cb42-260"><a href="#cb42-260"></a></span>
+<span id="cb42-261"><a href="#cb42-261"></a>The first rule. The raw data file should be read-only, never modified in place. Every transformation creates a derived object or file; the original stays untouched. This is the single discipline that allows you to back out from a mistake six weeks later when you realize the 2,000 rows you "cleaned" included a systematic misinterpretation of one column.</span>
+<span id="cb42-262"><a href="#cb42-262"></a></span>
+<span id="cb42-265"><a href="#cb42-265"></a><span class="in">```{r}</span></span>
+<span id="cb42-266"><a href="#cb42-266"></a><span class="co">#| label: raw-data-pattern</span></span>
+<span id="cb42-267"><a href="#cb42-267"></a><span class="co"># Demonstrate the pattern against a temp directory so this chunk actually runs.</span></span>
+<span id="cb42-268"><a href="#cb42-268"></a><span class="co"># In a real project, swap `tmp_dir` for your project's `data/raw` and `data/processed` folders.</span></span>
+<span id="cb42-269"><a href="#cb42-269"></a>tmp_dir <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="st">"survey_demo_"</span>); <span class="fu">dir.create</span>(tmp_dir)</span>
+<span id="cb42-270"><a href="#cb42-270"></a>raw_path       <span class="ot">&lt;-</span> <span class="fu">file.path</span>(tmp_dir, <span class="st">"survey_2024.csv"</span>)</span>
+<span id="cb42-271"><a href="#cb42-271"></a>processed_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(tmp_dir, <span class="st">"survey_cleaned.csv"</span>)</span>
+<span id="cb42-272"><a href="#cb42-272"></a></span>
+<span id="cb42-273"><a href="#cb42-273"></a><span class="co"># Seed the raw file once (standing in for a vendor-supplied dataset)</span></span>
+<span id="cb42-274"><a href="#cb42-274"></a><span class="fu">write_csv</span>(<span class="fu">tibble</span>(<span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="cn">NA</span>)), raw_path)</span>
+<span id="cb42-275"><a href="#cb42-275"></a></span>
+<span id="cb42-276"><a href="#cb42-276"></a><span class="co"># --- The pattern itself ---</span></span>
+<span id="cb42-277"><a href="#cb42-277"></a>raw_survey <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(raw_path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)  <span class="co"># read once, never write back</span></span>
+<span id="cb42-278"><a href="#cb42-278"></a>cleaned    <span class="ot">&lt;-</span> raw_survey <span class="sc">|&gt;</span> <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(id)  <span class="co"># derived object</span></span>
+<span id="cb42-279"><a href="#cb42-279"></a><span class="fu">write_csv</span>(cleaned, processed_path)                         <span class="co"># written to a different path</span></span>
+<span id="cb42-280"><a href="#cb42-280"></a></span>
+<span id="cb42-281"><a href="#cb42-281"></a>cleaned</span>
+<span id="cb42-282"><a href="#cb42-282"></a><span class="in">```</span></span>
+<span id="cb42-283"><a href="#cb42-283"></a></span>
+<span id="cb42-284"><a href="#cb42-284"></a><span class="fu">### Check missing values before trusting anything</span></span>
+<span id="cb42-285"><a href="#cb42-285"></a></span>
+<span id="cb42-288"><a href="#cb42-288"></a><span class="in">```{r}</span></span>
+<span id="cb42-289"><a href="#cb42-289"></a><span class="co">#| label: missing-check</span></span>
+<span id="cb42-290"><a href="#cb42-290"></a><span class="co"># A quick audit on any new dataset</span></span>
+<span id="cb42-291"><a href="#cb42-291"></a>penguins <span class="sc">|&gt;</span> <span class="fu">miss_var_summary</span>()</span>
+<span id="cb42-292"><a href="#cb42-292"></a><span class="in">```</span></span>
+<span id="cb42-293"><a href="#cb42-293"></a></span>
+<span id="cb42-296"><a href="#cb42-296"></a><span class="in">```{r}</span></span>
+<span id="cb42-297"><a href="#cb42-297"></a>penguins <span class="sc">|&gt;</span> <span class="fu">vis_miss</span>()</span>
+<span id="cb42-298"><a href="#cb42-298"></a><span class="in">```</span></span>
+<span id="cb42-299"><a href="#cb42-299"></a></span>
+<span id="cb42-300"><a href="#cb42-300"></a>The pattern: every time you read data, immediately run <span class="in">`miss_var_summary()`</span> to count NAs per variable. If a column has unexpected NAs, that is evidence the data parsing or the data source is not what you thought. Two percent missing on a variable you expected to be complete is a research question, not a nuisance.</span>
+<span id="cb42-301"><a href="#cb42-301"></a></span>
+<span id="cb42-302"><a href="#cb42-302"></a><span class="fu">### Parse dates with eyes open</span></span>
+<span id="cb42-303"><a href="#cb42-303"></a></span>
+<span id="cb42-304"><a href="#cb42-304"></a>Dates are the single most common source of silent data corruption because date strings look like dates but can be in any of a dozen formats.</span>
+<span id="cb42-305"><a href="#cb42-305"></a></span>
+<span id="cb42-308"><a href="#cb42-308"></a><span class="in">```{r}</span></span>
+<span id="cb42-309"><a href="#cb42-309"></a><span class="co">#| label: dates-check</span></span>
+<span id="cb42-310"><a href="#cb42-310"></a>dates_raw <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"2024-03-15"</span>, <span class="st">"03/15/2024"</span>, <span class="st">"15/03/2024"</span>, <span class="st">"March 15, 2024"</span>)</span>
+<span id="cb42-311"><a href="#cb42-311"></a></span>
+<span id="cb42-312"><a href="#cb42-312"></a><span class="co"># lubridate tries, but the US/EU ambiguity can silently swap month and day</span></span>
+<span id="cb42-313"><a href="#cb42-313"></a><span class="fu">tibble</span>(<span class="at">raw =</span> dates_raw) <span class="sc">|&gt;</span></span>
+<span id="cb42-314"><a href="#cb42-314"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb42-315"><a href="#cb42-315"></a>        <span class="at">ymd_parsed =</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(raw, <span class="at">quiet =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb42-316"><a href="#cb42-316"></a>        <span class="at">mdy_parsed =</span> lubridate<span class="sc">::</span><span class="fu">mdy</span>(raw, <span class="at">quiet =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb42-317"><a href="#cb42-317"></a>        <span class="at">dmy_parsed =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(raw, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb42-318"><a href="#cb42-318"></a>    )</span>
+<span id="cb42-319"><a href="#cb42-319"></a><span class="in">```</span></span>
+<span id="cb42-320"><a href="#cb42-320"></a></span>
+<span id="cb42-321"><a href="#cb42-321"></a>Each parser fails on the strings it cannot interpret (returning <span class="in">`NA`</span>), but for an ambiguous string like <span class="in">`"03/04/2024"`</span> — is that March 4 or April 3? — the two parsers will both succeed and produce *different, equally plausible* dates. The only defence is knowing the data's provenance (which country's conventions? which system exported it?) and verifying with a small sample.</span>
+<span id="cb42-322"><a href="#cb42-322"></a></span>
+<span id="cb42-323"><a href="#cb42-323"></a><span class="fu">### Parse strings with test cases</span></span>
+<span id="cb42-324"><a href="#cb42-324"></a></span>
+<span id="cb42-325"><a href="#cb42-325"></a>When using regular expressions to extract structured information from text, *always test against both cases you want to match and cases you want to exclude.*</span>
+<span id="cb42-326"><a href="#cb42-326"></a></span>
+<span id="cb42-329"><a href="#cb42-329"></a><span class="in">```{r}</span></span>
+<span id="cb42-330"><a href="#cb42-330"></a><span class="co">#| label: regex-test</span></span>
+<span id="cb42-331"><a href="#cb42-331"></a>emails <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"les@mac.edu"</span>, <span class="st">"les@mac.net"</span>, <span class="st">"les@mac."</span>, <span class="st">"les@macedu"</span>, <span class="st">"not an email"</span>)</span>
+<span id="cb42-332"><a href="#cb42-332"></a></span>
+<span id="cb42-333"><a href="#cb42-333"></a><span class="fu">tibble</span>(</span>
+<span id="cb42-334"><a href="#cb42-334"></a>    <span class="at">raw =</span> emails,</span>
+<span id="cb42-335"><a href="#cb42-335"></a>    <span class="at">is_valid =</span> <span class="fu">str_detect</span>(emails, <span class="st">"^[^@</span><span class="sc">\\</span><span class="st">s]+@[^@</span><span class="sc">\\</span><span class="st">s]+</span><span class="sc">\\</span><span class="st">.[^@</span><span class="sc">\\</span><span class="st">s]+$"</span>)</span>
+<span id="cb42-336"><a href="#cb42-336"></a>)</span>
+<span id="cb42-337"><a href="#cb42-337"></a><span class="in">```</span></span>
+<span id="cb42-338"><a href="#cb42-338"></a></span>
+<span id="cb42-339"><a href="#cb42-339"></a>The pattern: one list of positive cases (should match), one list of negative cases (should not match), a single tibble showing the regex decision on each. Any surprise in either column means the regex is wrong.</span>
+<span id="cb42-340"><a href="#cb42-340"></a></span>
+<span id="cb42-341"><a href="#cb42-341"></a><span class="fu">### Join discipline</span></span>
+<span id="cb42-342"><a href="#cb42-342"></a></span>
+<span id="cb42-343"><a href="#cb42-343"></a>Joins are where datasets most often go wrong. Three checks before merging:</span>
+<span id="cb42-344"><a href="#cb42-344"></a></span>
+<span id="cb42-345"><a href="#cb42-345"></a>**Row-count prediction.** Before the join, predict how many rows the result should have. If an inner-joined table has 9,800 rows and you expected 10,000, that's 200 missing matches to investigate.</span>
+<span id="cb42-346"><a href="#cb42-346"></a></span>
+<span id="cb42-347"><a href="#cb42-347"></a>**Key-representation consistency.** <span class="in">`id = 1`</span> and <span class="in">`id = "01"`</span> will not match. Check <span class="in">`class()`</span> and spot-check values on both sides before joining.</span>
+<span id="cb42-348"><a href="#cb42-348"></a></span>
+<span id="cb42-349"><a href="#cb42-349"></a>**Anti-join for unmatched rows.** <span class="in">`anti_join(x, y)`</span> shows the rows in <span class="in">`x`</span> that had no match in <span class="in">`y`</span>. This is the single most useful diagnostic for understanding why a join returned fewer rows than expected.</span>
+<span id="cb42-350"><a href="#cb42-350"></a></span>
+<span id="cb42-351"><a href="#cb42-351"></a>The following simulation demonstrates the failure mode. <span class="in">`patients$id`</span> is integer; <span class="in">`outcomes$id`</span> is character — same *values*, different *types*.</span>
+<span id="cb42-352"><a href="#cb42-352"></a></span>
+<span id="cb42-355"><a href="#cb42-355"></a><span class="in">```{r}</span></span>
+<span id="cb42-356"><a href="#cb42-356"></a><span class="co">#| label: join-setup</span></span>
+<span id="cb42-357"><a href="#cb42-357"></a>patients <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>))</span>
+<span id="cb42-358"><a href="#cb42-358"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>), <span class="at">outcome =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>))</span>
+<span id="cb42-359"><a href="#cb42-359"></a></span>
+<span id="cb42-360"><a href="#cb42-360"></a><span class="fu">class</span>(patients<span class="sc">$</span>id)</span>
+<span id="cb42-361"><a href="#cb42-361"></a><span class="fu">class</span>(outcomes<span class="sc">$</span>id)</span>
+<span id="cb42-362"><a href="#cb42-362"></a><span class="in">```</span></span>
+<span id="cb42-363"><a href="#cb42-363"></a></span>
+<span id="cb42-364"><a href="#cb42-364"></a>**What goes wrong.** Current dplyr (≥1.1) refuses the mismatched join outright — the error message itself is the diagnostic. Older dplyr would silently coerce or return a table where every outcome was <span class="in">`NA`</span>, which was the original motivation for type discipline. Either way, the lesson is the same: reconcile key types before joining, or your pipeline will either crash or (worse) fail silently.</span>
+<span id="cb42-365"><a href="#cb42-365"></a></span>
+<span id="cb42-368"><a href="#cb42-368"></a><span class="in">```{r}</span></span>
+<span id="cb42-369"><a href="#cb42-369"></a><span class="co">#| label: join-broken</span></span>
+<span id="cb42-370"><a href="#cb42-370"></a><span class="co"># Capture the error so the chunk keeps running. In older dplyr this would</span></span>
+<span id="cb42-371"><a href="#cb42-371"></a><span class="co"># instead return a tibble with outcome column entirely NA — no error, no warning.</span></span>
+<span id="cb42-372"><a href="#cb42-372"></a><span class="fu">tryCatch</span>(</span>
+<span id="cb42-373"><a href="#cb42-373"></a>    <span class="fu">left_join</span>(patients, outcomes, <span class="at">by =</span> <span class="st">"id"</span>),</span>
+<span id="cb42-374"><a href="#cb42-374"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb42-375"><a href="#cb42-375"></a>        <span class="fu">cat</span>(<span class="st">"left_join refused to proceed:</span><span class="sc">\n</span><span class="st">"</span>, <span class="fu">conditionMessage</span>(e), <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb42-376"><a href="#cb42-376"></a>    }</span>
+<span id="cb42-377"><a href="#cb42-377"></a>)</span>
+<span id="cb42-378"><a href="#cb42-378"></a><span class="in">```</span></span>
+<span id="cb42-379"><a href="#cb42-379"></a></span>
+<span id="cb42-380"><a href="#cb42-380"></a>**The fix.** Coerce the keys to a common type on both sides before joining. Integer-to-character and character-to-integer are both safe here (the character values are clean integers); for messier keys, coercing both to character is the conservative default.</span>
+<span id="cb42-381"><a href="#cb42-381"></a></span>
+<span id="cb42-384"><a href="#cb42-384"></a><span class="in">```{r}</span></span>
+<span id="cb42-385"><a href="#cb42-385"></a><span class="co">#| label: join-fixed</span></span>
+<span id="cb42-386"><a href="#cb42-386"></a>outcomes_fixed <span class="ot">&lt;-</span> outcomes <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">as.integer</span>(id))</span>
+<span id="cb42-387"><a href="#cb42-387"></a></span>
+<span id="cb42-388"><a href="#cb42-388"></a><span class="fu">left_join</span>(patients, outcomes_fixed, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb42-389"><a href="#cb42-389"></a><span class="in">```</span></span>
+<span id="cb42-390"><a href="#cb42-390"></a></span>
+<span id="cb42-391"><a href="#cb42-391"></a>**The diagnostic for partial matches.** Even with types reconciled, only three of five patients have outcome data. <span class="in">`anti_join()`</span> shows which rows in <span class="in">`patients`</span> had no match — the starting point for investigating whether those are truly missing, filtered elsewhere in the pipeline, or indicative of a deeper data problem.</span>
+<span id="cb42-392"><a href="#cb42-392"></a></span>
+<span id="cb42-395"><a href="#cb42-395"></a><span class="in">```{r}</span></span>
+<span id="cb42-396"><a href="#cb42-396"></a><span class="co">#| label: join-antijoin</span></span>
+<span id="cb42-397"><a href="#cb42-397"></a><span class="fu">anti_join</span>(patients, outcomes_fixed, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb42-398"><a href="#cb42-398"></a><span class="in">```</span></span>
+<span id="cb42-399"><a href="#cb42-399"></a></span>
+<span id="cb42-400"><a href="#cb42-400"></a><span class="fu">### Check for duplicates before aggregating</span></span>
+<span id="cb42-401"><a href="#cb42-401"></a></span>
+<span id="cb42-402"><a href="#cb42-402"></a>A duplicate record silently counted twice in a <span class="in">`group_by() |&gt; summarise(n = n())`</span> will inflate the group count without any warning. <span class="in">`janitor::get_dupes()`</span> shows you duplicate rows:</span>
+<span id="cb42-403"><a href="#cb42-403"></a></span>
+<span id="cb42-406"><a href="#cb42-406"></a><span class="in">```{r}</span></span>
+<span id="cb42-407"><a href="#cb42-407"></a><span class="co">#| label: duplicate-check</span></span>
+<span id="cb42-408"><a href="#cb42-408"></a><span class="co"># Add a synthetic duplicate to demonstrate</span></span>
+<span id="cb42-409"><a href="#cb42-409"></a>penguins_with_dup <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb42-410"><a href="#cb42-410"></a>    <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">344</span>, <span class="dv">1</span>))   <span class="co"># duplicate the first row</span></span>
+<span id="cb42-411"><a href="#cb42-411"></a></span>
+<span id="cb42-412"><a href="#cb42-412"></a><span class="co"># `get_dupes` takes the key columns and returns the duplicated rows</span></span>
+<span id="cb42-413"><a href="#cb42-413"></a>penguins_with_dup <span class="sc">|&gt;</span></span>
+<span id="cb42-414"><a href="#cb42-414"></a>    <span class="fu">get_dupes</span>(species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, year) <span class="sc">|&gt;</span></span>
+<span id="cb42-415"><a href="#cb42-415"></a>    <span class="fu">head</span>()</span>
+<span id="cb42-416"><a href="#cb42-416"></a><span class="in">```</span></span>
+<span id="cb42-417"><a href="#cb42-417"></a></span>
+<span id="cb42-418"><a href="#cb42-418"></a>For real data the "key" is whatever combination of columns should uniquely identify a record — often a subset of the available columns, not all of them.</span>
+<span id="cb42-419"><a href="#cb42-419"></a></span>
+<span id="cb42-420"><a href="#cb42-420"></a><span class="fu">### Sanity-visualize early and often</span></span>
+<span id="cb42-421"><a href="#cb42-421"></a></span>
+<span id="cb42-422"><a href="#cb42-422"></a>The cheapest bug catcher in data analysis is a quick plot. Before any substantive modelling, plot the outcome and the key predictors:</span>
+<span id="cb42-423"><a href="#cb42-423"></a></span>
+<span id="cb42-426"><a href="#cb42-426"></a><span class="in">```{r}</span></span>
+<span id="cb42-427"><a href="#cb42-427"></a><span class="co">#| label: sanity-viz</span></span>
+<span id="cb42-428"><a href="#cb42-428"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb42-429"><a href="#cb42-429"></a>    <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb42-430"><a href="#cb42-430"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb42-431"><a href="#cb42-431"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb42-432"><a href="#cb42-432"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb42-433"><a href="#cb42-433"></a>    <span class="fu">labs</span>(</span>
+<span id="cb42-434"><a href="#cb42-434"></a>        <span class="at">x =</span> <span class="st">"Bill length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb42-435"><a href="#cb42-435"></a>        <span class="at">title =</span> <span class="st">"Sanity check: bill length vs. body mass by species"</span></span>
+<span id="cb42-436"><a href="#cb42-436"></a>    ) <span class="sc">+</span></span>
+<span id="cb42-437"><a href="#cb42-437"></a>    <span class="fu">theme_minimal</span>()</span>
+<span id="cb42-438"><a href="#cb42-438"></a><span class="in">```</span></span>
+<span id="cb42-439"><a href="#cb42-439"></a></span>
+<span id="cb42-440"><a href="#cb42-440"></a>Four questions to ask of any such plot:</span>
+<span id="cb42-441"><a href="#cb42-441"></a></span>
+<span id="cb42-442"><a href="#cb42-442"></a><span class="ss">1. </span>**Does the number of points look right?** If you expected 340 and see 330, something dropped.</span>
+<span id="cb42-443"><a href="#cb42-443"></a><span class="ss">2. </span>**Are the values in the expected range?** Penguins with body mass of 50 kg are a data-entry error.</span>
+<span id="cb42-444"><a href="#cb42-444"></a><span class="ss">3. </span>**Do the relationships make sense?** Positive slope where you expected negative is a sign flip.</span>
+<span id="cb42-445"><a href="#cb42-445"></a><span class="ss">4. </span>**Do the groups behave as expected?** Same intercept-and-slope across groups where you expected heterogeneity means your group variable may be wrong.</span>
+<span id="cb42-446"><a href="#cb42-446"></a></span>
+<span id="cb42-447"><a href="#cb42-447"></a>------------------------------------------------------------------------</span>
+<span id="cb42-448"><a href="#cb42-448"></a></span>
+<span id="cb42-449"><a href="#cb42-449"></a><span class="fu">## Reflection</span></span>
+<span id="cb42-450"><a href="#cb42-450"></a></span>
+<span id="cb42-451"><a href="#cb42-451"></a>**Code quality is an institutional-memory problem, not a style problem.** The seven principles above are often framed as aesthetics — "write clean code" — but they are really disciplines for future communication. The person most likely to read my code is me in six months, with no memory of what I was doing. The person second most likely is a reviewer, collaborator, or successor who needs to verify or extend the work. DRY, readable naming, tests, reproducibility — these are the minimum standard for code that communicates across time and across people. They are exactly the same problem that good academic writing solves: making the reasoning legible to someone who doesn't already share your context.</span>
+<span id="cb42-452"><a href="#cb42-452"></a></span>
+<span id="cb42-453"><a href="#cb42-453"></a>**Data quality is about respecting the gap between the world and the dataset.** The raw-data principle, missing-value audit, date parsing, join discipline, duplicate checks, sanity visualization — these are all versions of the same move: *don't trust that the data is what you think it is until you've checked.* The world is noisy and data-collection pipelines are imperfect, and the dataset you inherit is the output of many human decisions you did not witness. Each check is a place where that gap between the world and the representation can be surfaced before it contaminates downstream results. This is exactly the point of the human-centered data science exercise from ICA 17 — the checklist in this ICA is its operational counterpart.</span>
+<span id="cb42-454"><a href="#cb42-454"></a></span>
+<span id="cb42-455"><a href="#cb42-455"></a>**The same discipline that makes code reproducible makes research defensible.** For empirical work at scale — the work that a thesis, a journal submission, or a policy brief rests on — the question "does this analysis hold up under scrutiny" reduces to: *can a reviewer re-run your pipeline from your data and code, and get the same numbers?* If the answer is no, the conclusions are not defensible regardless of how sophisticated the analysis looked. Relative paths, seed-setting, environment capture, and function decomposition are not bureaucratic overhead — they are the infrastructure that makes honest research possible. The habits formalized in this ICA are the minimum standard for any work that is meant to travel beyond a single laptop.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

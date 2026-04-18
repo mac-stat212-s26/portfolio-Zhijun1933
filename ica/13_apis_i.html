@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-18">
+<title>13 — APIs I: JSON and jsonlite – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/icaa-14-apis-ii.html" rel="next">
+<link href="../ica/12_loops_iter_ii.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/13_apis_i.html"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-cheaper-mortgages-and-car-loans-nyt-18-sept-2024" id="toc-data-story-critique-cheaper-mortgages-and-car-loans-nyt-18-sept-2024" class="nav-link" data-scroll-target="#data-story-critique-cheaper-mortgages-and-car-loans-nyt-18-sept-2024">🔥 Data Story Critique — <em>Cheaper Mortgages and Car Loans</em> (NYT, 18 Sept 2024)</a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story?</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#json-basics" id="toc-json-basics" class="nav-link" data-scroll-target="#json-basics">JSON Basics</a>
+  <ul class="collapse">
+<li><a href="#a-minimal-example" id="toc-a-minimal-example" class="nav-link" data-scroll-target="#a-minimal-example">A minimal example</a></li>
+  <li><a href="#arrays-of-objects-the-simplifyvector-choice" id="toc-arrays-of-objects-the-simplifyvector-choice" class="nav-link" data-scroll-target="#arrays-of-objects-the-simplifyvector-choice">Arrays of objects — the <code>simplifyVector</code> choice</a></li>
+  <li><a href="#when-simplification-fails-heterogeneous-arrays" id="toc-when-simplification-fails-heterogeneous-arrays" class="nav-link" data-scroll-target="#when-simplification-fails-heterogeneous-arrays">When simplification fails — heterogeneous arrays</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#edge-cases-from-the-ooms-paper" id="toc-edge-cases-from-the-ooms-paper" class="nav-link" data-scroll-target="#edge-cases-from-the-ooms-paper">Edge Cases from the Ooms Paper</a>
+  <ul class="collapse">
+<li><a href="#vectors-of-length-1" id="toc-vectors-of-length-1" class="nav-link" data-scroll-target="#vectors-of-length-1">Vectors of length 1</a></li>
+  <li><a href="#the-golden-rule-keys-are-names-not-data" id="toc-the-golden-rule-keys-are-names-not-data" class="nav-link" data-scroll-target="#the-golden-rule-keys-are-names-not-data">The “golden rule” — keys are names, not data</a></li>
+  <li><a href="#nested-records" id="toc-nested-records" class="nav-link" data-scroll-target="#nested-records">Nested records</a></li>
+  </ul>
+</li>
+  <li><a href="#a-real-api-call" id="toc-a-real-api-call" class="nav-link" data-scroll-target="#a-real-api-call">A Real API Call</a></li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/13_apis_i.html"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(jsonlite)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-cheaper-mortgages-and-car-loans-nyt-18-sept-2024" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-cheaper-mortgages-and-car-loans-nyt-18-sept-2024">🔥 Data Story Critique — <em>Cheaper Mortgages and Car Loans</em> (NYT, 18 Sept 2024)</h2>
+<p>Source: <a href="https://www.nytimes.com/interactive/2024/09/18/business/economy/mortgages-car-loans-interest-rates.html" class="uri">https://www.nytimes.com/interactive/2024/09/18/business/economy/mortgages-car-loans-interest-rates.html</a></p>
+<p>Author: Karl Russell (NYT graphics team).</p>
+<section id="what-is-the-data-story" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story?</h3>
+<p>Published on the day the Federal Reserve announced its first rate cut in over four years — a 50-basis-point reduction that took the federal funds rate from 5.25–5.50% to 4.75–5.00% — the piece is a short <strong>explainer</strong> aimed at non-specialist readers. It situates the rate cut within a five-year window (2019–2024) using three overlaid time-series charts: (1) the federal funds rate alongside average 30-year mortgage and new-car-loan rates, (2) the federal funds rate alongside inflation, and (3) average credit-card APRs. The narrative takes six short paragraphs to walk the reader through three ideas: borrowing costs are easing; the Fed cut rates after years of fighting inflation; the transmission of rate changes to consumer products is not instantaneous.</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<p><strong>The overlaid time-series chart is the right form for the claim.</strong> All three rates share a unit (percent interest) and a time axis, so putting them on one y-axis establishes comparability without the interpretive hazards of a secondary axis (which almost always misleads). What the reader sees is the co-movement of Fed funds and consumer borrowing rates across the tightening cycle — which is precisely the claim the piece is making. This is the least-astonishment principle in economic charting.</p>
+<p><strong>The 2019 baseline is well chosen for the explainer form.</strong> It captures pre-pandemic conditions, the COVID shock, the zero-rate era, the 2022–2023 tightening cycle, and the cut itself. Starting earlier would dilute attention on the recent event; starting later would lose the context that explains why the cut is news.</p>
+<p><strong>“Transmission is not instantaneous” is the most important line in the piece.</strong> Readers’ intuition is that when the Fed moves rates, consumer products follow immediately. They don’t — mortgage rates are mediated by the 10-year Treasury, credit-card APRs by lenders’ own repricing cycles. By explicitly flagging lag and using the credit-card chart as visual evidence (APRs kept climbing after Fed funds peaked), the piece sets the correct horizon expectation. This is a genuinely important piece of financial literacy that a lot of coverage skips.</p>
+<p><strong>Keeping credit-card APR on its own chart is a subtle analytical choice.</strong> At ~21%, it is an order of magnitude above mortgage and auto rates; putting all four on one chart would have compressed the mortgage/auto variation into invisibility. The separation also lets the reader notice an unspoken distributional point — that the people most reliant on credit-card borrowing (often lower-income, without home equity to draw on) pay rates that have barely moved while Fed policy swung dramatically.</p>
+</section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<p><strong>The Fed funds → mortgage rate causality is presented as direct, but it isn’t.</strong> Mortgage rates track the 10-year Treasury yield, not the federal funds rate — Fed funds drives short-end rates, and long-end rates respond through the term structure and market expectations. This is why the chart shows the mortgage rate already declining <em>before</em> the Fed cut on Wednesday: markets had priced the cut in weeks earlier. The piece doesn’t mention this, and the caption language (“Borrowing costs hit a two-decade high as part of the Fed’s inflation fight”) implies more direct causation than the data shows. A single sentence — <em>“mortgage rates have been easing in anticipation of this cut, because markets set long-term rates based on where they expect Fed funds to go”</em> — would be more honest and is arguably necessary to explain what the reader is looking at.</p>
+<p><strong>No distinction between real and nominal rates.</strong> The second chart places Fed funds against inflation on the same axis, but the Fed’s actual policy stance is the <em>real</em> rate — nominal minus inflation expectations. In 2022–2023, Fed funds rose steeply, but so did inflation, and the real rate’s trajectory is a different story from the nominal one the chart tells. Real-rate economics is outside an explainer’s scope, but a one-line note — “once you subtract out inflation, the Fed’s tightening was less aggressive than the blue line suggests” — would prevent the wrong inference that nominal rate level equals policy tightness.</p>
+<p><strong>The labour market is named in text but not visualized.</strong> The piece says “a variety of factors go into the Fed’s decision… including the strength of the labor market,” then describes unemployment rising and wage growth slowing — but no fourth chart supplies the data. In a piece whose default mode is “show, don’t tell,” this asymmetry is visible. A compact unemployment + wage-growth panel would give the claim visual weight.</p>
+<p><strong>The “waited too long” line hangs in isolation.</strong> <em>“That has raised questions about whether the Fed waited too long to begin lowering rates”</em> — who is raising these questions, with what argument? The Sahm rule trigger, the persistence of yield-curve inversion, the speed of labour-market cooling — these are the actual reasons the “too late” case is being made. The reader is left with a suggestion of debate but no substance. For a neutral explainer, either develop the point briefly or leave it out; in current form it reads as tacit editorial agreement without argument.</p>
+<p><strong>Proportionality.</strong> This is a same-day news explainer from a graphics reporter with very limited word count. It executes its brief well — correct reference frame, clean overlaid time series, honest horizon-setting. The critiques above are directed at what a slightly longer version of this piece could add, not at what this one got wrong.</p>
+<hr></section></section><section id="json-basics" class="level2"><h2 class="anchored" data-anchor-id="json-basics">JSON Basics</h2>
+<section id="a-minimal-example" class="level3"><h3 class="anchored" data-anchor-id="a-minimal-example">A minimal example</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># JSON is just text — here stored as a string in R</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>json_basic <span class="ot">&lt;-</span> <span class="st">'{</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  "name": "John",</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="st">  "age": 30,</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="st">  "city": "New York",</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="st">  "hobbies": ["reading", "hiking", "coding"]</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="st">}'</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># fromJSON() parses it into an R object</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>person <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(json_basic)</span>
+<span id="cb2-11"><a href="#cb2-11"></a>person</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>$name
+[1] "John"
+
+$age
+[1] 30
+
+$city
+[1] "New York"
+
+$hobbies
+[1] "reading" "hiking"  "coding" </code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">class</span>(person)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">str</span>(person)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>List of 4
+ $ name   : chr "John"
+ $ age    : int 30
+ $ city   : chr "New York"
+ $ hobbies: chr [1:3] "reading" "hiking" "coding"</code></pre>
+</div>
+</div>
+<p>The result is a <strong>named list</strong> because JSON objects map to named lists in R. The <code>hobbies</code> element inside the list is an <em>unnamed</em> collection that <code>jsonlite</code> simplified into a character vector — this is the “simplify” convention discussed in Ooms (2014) — a homogeneous JSON array becomes an atomic vector rather than a list.</p>
+</section><section id="arrays-of-objects-the-simplifyvector-choice" class="level3"><h3 class="anchored" data-anchor-id="arrays-of-objects-the-simplifyvector-choice">Arrays of objects — the <code>simplifyVector</code> choice</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>json_mario <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  {"Name": "Mario",  "Age": 32, "Occupation": "Plumber"},</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  {"Name": "Peach",  "Age": 21, "Occupation": "Princess"},</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  {},</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  {"Name": "Bowser",             "Occupation": "Koopa"}</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="st">]'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>With <code>simplifyVector = FALSE</code> (no simplification): we get a list of four lists.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">fromJSON</span>(json_mario, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[[1]]$Name
+[1] "Mario"
+
+[[1]]$Age
+[1] 32
+
+[[1]]$Occupation
+[1] "Plumber"
+
+
+[[2]]
+[[2]]$Name
+[1] "Peach"
+
+[[2]]$Age
+[1] 21
+
+[[2]]$Occupation
+[1] "Princess"
+
+
+[[3]]
+named list()
+
+[[4]]
+[[4]]$Name
+[1] "Bowser"
+
+[[4]]$Occupation
+[1] "Koopa"</code></pre>
+</div>
+</div>
+<p>With <code>simplifyVector = TRUE</code> (default): <code>jsonlite</code> detects that the records have compatible fields and returns a data frame.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">fromJSON</span>(json_mario, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>    Name Age Occupation
+1  Mario  32    Plumber
+2  Peach  21   Princess
+3   &lt;NA&gt;  NA       &lt;NA&gt;
+4 Bowser  NA      Koopa</code></pre>
+</div>
+</div>
+<p>Three things worth noticing:</p>
+<ul>
+<li>Where a record had no <code>Name</code> field (the third row), <code>jsonlite</code> inserted <code>NA</code>. This is the row-based-JSON / column-based-R translation at work — in the JSON, missing fields are simply absent; in a data frame, every row must have a value (or <code>NA</code>) for every column.</li>
+<li>The third record (<code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code>) maps to an all-<code>NA</code> row. It doesn’t disappear, which is the right behaviour: the presence of an empty record is itself information.</li>
+<li>Once <code>simplifyVector = TRUE</code> gives us a tibble-shaped object, the result can flow directly into the tidyverse pipeline. This is the main reason the default is on.</li>
+</ul></section><section id="when-simplification-fails-heterogeneous-arrays" class="level3"><h3 class="anchored" data-anchor-id="when-simplification-fails-heterogeneous-arrays">When simplification fails — heterogeneous arrays</h3>
+<p><code>simplifyVector = TRUE</code> is a <em>best-effort</em> heuristic. When records don’t share a consistent structure, <code>jsonlite</code> falls back:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>json_heterogeneous <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  {"id": 1, "tags": ["red", "blue"]},</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  {"id": 2, "tags": "red"},</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="st">  {"id": 3, "tags": null}</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="st">]'</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="fu">fromJSON</span>(json_heterogeneous, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>  id      tags
+1  1 red, blue
+2  2       red
+3  3      NULL</code></pre>
+</div>
+</div>
+<p>The <code>tags</code> column is a list-column — because in the three rows it’s respectively a length-2 character vector, a length-1 character vector, and <code>NULL</code>. A data frame column can’t be a regular atomic vector here because the lengths don’t match, so <code>jsonlite</code> produces a list-column. This is one of the places where JSON’s row-orientation collides with R’s column-orientation and the fix is not neat; the user is expected to <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">tidyr::unnest()</a></code> downstream.</p>
+<hr></section></section><section id="edge-cases-from-the-ooms-paper" class="level2"><h2 class="anchored" data-anchor-id="edge-cases-from-the-ooms-paper">Edge Cases from the Ooms Paper</h2>
+<section id="vectors-of-length-1" class="level3"><h3 class="anchored" data-anchor-id="vectors-of-length-1">Vectors of length 1</h3>
+<p>Ooms emphasizes that <code>jsonlite</code> always encodes length-1 vectors as JSON arrays (not as scalars), because inconsistency across lengths is a common source of bugs in dynamic-data pipelines.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># A length-1 vector stays an array in JSON</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">toJSON</span>(pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[3.1416] </code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Round-trip preserves the vector</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">identical</span>(<span class="fu">fromJSON</span>(<span class="fu">toJSON</span>(pi)), pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>The rival packages <code>rjson</code> and <code>RJSONIO</code> handle this differently — <code>rjson</code> encodes a length-1 vector as a JSON primitive inside a list, which silently changes the type depending on vector length. For pipelines that consume API output of varying sizes, <code>jsonlite</code>’s consistency is a real feature, not a cosmetic one.</p>
+</section><section id="the-golden-rule-keys-are-names-not-data" class="level3"><h3 class="anchored" data-anchor-id="the-golden-rule-keys-are-names-not-data">The “golden rule” — keys are names, not data</h3>
+<p>Ooms quotes Mike Dewar’s “golden rule”: JSON keys should be names, not data. A common violation is using timestamps as keys:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Bad — keys are data (timestamps)</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>bad_json <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  {"1325344443": 124},</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="st">  {"1325344456": 131},</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="st">  {"1325344478": 137}</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="st">]'</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="fu">fromJSON</span>(bad_json)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>  1325344443 1325344456 1325344478
+1        124         NA         NA
+2         NA        131         NA
+3         NA         NA        137</code></pre>
+</div>
+</div>
+<p>Every record has a different key, so no downstream code can address the “price” field by name. The fix is to promote the timestamp into its own field:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Good — keys describe what the field means</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>good_json <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  {"time": 1325344443, "price": 124},</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="st">  {"time": 1325344456, "price": 131},</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="st">  {"time": 1325344478, "price": 137}</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="st">]'</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a></span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="fu">fromJSON</span>(good_json)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>        time price
+1 1325344443   124
+2 1325344456   131
+3 1325344478   137</code></pre>
+</div>
+</div>
+<p>The “good” version simplifies cleanly to a tidy data frame; the “bad” version produces a list of list of named scalars that needs manual unpacking. The rule generalizes beyond JSON — any data-interchange format, and indeed any tabular data representation, works correctly when the <strong>schema</strong> (which keys exist, what they mean) is separated from the <strong>data</strong> (what values those keys take). Wickham’s tidy-data principle is the same insight, arrived at from the R side.</p>
+</section><section id="nested-records" class="level3"><h3 class="anchored" data-anchor-id="nested-records">Nested records</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>nested_json <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="st">  {</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="st">    "driver": "Bowser",</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="st">    "vehicle": {"model": "Piranha Prowler", "stats": {"speed": 55, "weight": 67}}</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="st">  },</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="st">  {</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="st">    "driver": "Peach",</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="st">    "vehicle": {"model": "Royal Racer",     "stats": {"speed": 34, "weight": 24}}</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="st">  }</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="st">]'</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a></span>
+<span id="cb23-12"><a href="#cb23-12"></a>nested <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(nested_json, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-13"><a href="#cb23-13"></a>nested</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>  driver   vehicle.model vehicle.stats.speed vehicle.stats.weight
+1 Bowser Piranha Prowler                  55                   67
+2  Peach     Royal Racer                  34                   24</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># The `vehicle` column is itself a data frame — this is a nested data frame</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">str</span>(nested)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   2 obs. of  2 variables:
+ $ driver : chr  "Bowser" "Peach"
+ $ vehicle:'data.frame':    2 obs. of  2 variables:
+  ..$ model: chr  "Piranha Prowler" "Royal Racer"
+  ..$ stats:'data.frame':   2 obs. of  2 variables:
+  .. ..$ speed : int  55 34
+  .. ..$ weight: int  67 24</code></pre>
+</div>
+</div>
+<p>For one-to-one nesting, <code><a href="https://tidyr.tidyverse.org/reference/unnest_wider.html">tidyr::unnest_wider()</a></code> flattens the structure cleanly:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>nested <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>    tidyr<span class="sc">::</span><span class="fu">unnest_wider</span>(vehicle) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>    tidyr<span class="sc">::</span><span class="fu">unnest_wider</span>(stats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  driver model           speed weight
+  &lt;chr&gt;  &lt;chr&gt;           &lt;int&gt;  &lt;int&gt;
+1 Bowser Piranha Prowler    55     67
+2 Peach  Royal Racer        34     24</code></pre>
+</div>
+</div>
+<p>For one-to-many nesting (where a single record has an array of sub-records), <code>unnest_longer()</code> is the corresponding tool. Together, <code>unnest_wider()</code> and <code>unnest_longer()</code> cover most cases of bringing JSON-from-the-web into a tidy-data-frame shape.</p>
+<hr></section></section><section id="a-real-api-call" class="level2"><h2 class="anchored" data-anchor-id="a-real-api-call">A Real API Call</h2>
+<p>A typical use of <code>fromJSON()</code> is to fetch directly from a URL. GitHub’s public API returns JSON and does not require authentication for modest request volumes. Here we look up the latest releases of the <code>tidyverse</code> package:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>tidy_releases <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(</span>
+<span id="cb29-2"><a href="#cb29-2"></a>    <span class="st">"https://api.github.com/repos/tidyverse/tidyverse/releases"</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>)</span>
+<span id="cb29-4"><a href="#cb29-4"></a></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="co"># What did we get?</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="fu">class</span>(tidy_releases)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">dim</span>(tidy_releases)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1]  9 21</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">names</span>(tidy_releases)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code> [1] "url"              "assets_url"       "upload_url"       "html_url"        
+ [5] "id"               "author"           "node_id"          "tag_name"        
+ [9] "target_commitish" "name"             "draft"            "immutable"       
+[13] "prerelease"       "created_at"       "updated_at"       "published_at"    
+[17] "assets"           "tarball_url"      "zipball_url"      "body"            
+[21] "reactions"       </code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># Pull out the columns that are actually useful for a release summary</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>tidy_releases <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a>    <span class="fu">transmute</span>(</span>
+<span id="cb35-5"><a href="#cb35-5"></a>        <span class="at">tag       =</span> tag_name,</span>
+<span id="cb35-6"><a href="#cb35-6"></a>        <span class="at">name      =</span> name,</span>
+<span id="cb35-7"><a href="#cb35-7"></a>        <span class="at">published =</span> lubridate<span class="sc">::</span><span class="fu">as_date</span>(published_at),</span>
+<span id="cb35-8"><a href="#cb35-8"></a>        <span class="at">prerelease =</span> prerelease</span>
+<span id="cb35-9"><a href="#cb35-9"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(published))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 4
+  tag    name            published  prerelease
+  &lt;chr&gt;  &lt;chr&gt;           &lt;date&gt;     &lt;lgl&gt;     
+1 v2.0.0 tidyverse 2.0.0 2023-02-23 FALSE     
+2 v1.3.2 tidyverse 1.3.2 2022-07-18 FALSE     
+3 v1.3.1 tidyverse 1.3.1 2021-04-15 FALSE     
+4 v1.3.0 tidyverse 1.3.0 2019-11-21 FALSE     
+5 v1.2.1 tidyverse 1.2.1 2017-11-14 FALSE     
+6 v1.2.0 tidyverse 1.2.0 2017-11-14 FALSE     
+7 v1.1.1 tidyverse 1.1.1 2017-01-27 FALSE     
+8 v1.1.0 tidyverse 1.1.0 2017-01-20 FALSE     
+9 v1.0.0 Tidyverse 1.0.0 2016-09-15 FALSE     </code></pre>
+</div>
+</div>
+<p>The GitHub API returns an array of release objects, which <code>jsonlite</code> simplifies into a data frame. Columns like <code>author</code>, <code>assets</code>, and <code>reactions</code> come through as nested data frames or list-columns (you can check with <code>str(tidy_releases, max.level = 1)</code>), reflecting the one-to-many relationships in the underlying schema — each release has one author but can have multiple assets. The rest of this course’s API material is essentially about this pattern: hit a URL, get JSON back, negotiate the nesting, reshape into a tibble.</p>
+<hr></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p><strong>JSON and R have an impedance mismatch, and <code>jsonlite</code> is the translator.</strong> R thinks in columns; JSON thinks in rows. R has vectors as a first-class type; JSON has objects and arrays but no separate notion of a scalar. When you call <code>fromJSON()</code>, you are invoking a set of <em>conventions</em> — described in Ooms (2014) — for how to bridge the two. The single most important convention is <code>simplifyVector = TRUE</code>: when the structure permits, promote JSON arrays of compatible objects into data frames. When it doesn’t permit, fall back to list-columns rather than fail. This is not a mathematical isomorphism — <code>fromJSON(toJSON(x))</code> is not always exactly <code>x</code> — but it is the practical mapping that makes JSON APIs usable from R.</p>
+<p><strong>Type consistency is a runtime contract you have to enforce yourself.</strong> API documentation tells you what fields <em>should</em> be returned, but reality will hand you missing fields, null values, length-1 arrays that could-have-been scalars, and the occasional structural change. <code>jsonlite</code> does its best — consistent encoding of length-1 vectors as arrays, <code>NA</code> insertion for missing fields in simplified data frames — but the consumer of the API still needs to validate that the shape of the data matches expectations. The <code>map_*()</code> functions from ICA 12 are relevant here: <code>map_chr()</code> will fail loudly if any element isn’t a character, which is what you want when the upstream JSON has silently started returning numeric IDs instead of string IDs.</p>
+<p><strong>The “golden rule” is a data-modeling principle, not a JSON one.</strong> Keys-describe-meaning and values-carry-data is the same rule that makes relational schemas normalise-able, that makes tidy data tidy, and that makes APIs versionable. When you design data structures that will cross system boundaries — whether as JSON over HTTP, as Parquet on disk, or as tables in a warehouse — holding the schema steady while the data varies is what makes downstream code possible to write. Everything in the next ICA about URL construction and query parameters is downstream of this principle.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/12_loops_iter_ii.html" class="pagination-link" aria-label="12 — Loops and Iteration II: `purrr`">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/icaa-14-apis-ii.html" class="pagination-link" aria-label="14 — APIs II: Web Requests, XML, and Nested JSON">
+        <span class="nav-page-text"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1"></a><span class="co">---</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="an">title:</span><span class="co"> "13 — APIs I: JSON and `jsonlite`"</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="an">format:</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a><span class="co">  html:</span></span>
+<span id="cb37-7"><a href="#cb37-7"></a><span class="co">    toc: true</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb37-9"><a href="#cb37-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb37-10"><a href="#cb37-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb37-11"><a href="#cb37-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb37-12"><a href="#cb37-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb37-13"><a href="#cb37-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb37-14"><a href="#cb37-14"></a><span class="an">execute:</span></span>
+<span id="cb37-15"><a href="#cb37-15"></a><span class="co">  warning: false</span></span>
+<span id="cb37-16"><a href="#cb37-16"></a><span class="co">  message: false</span></span>
+<span id="cb37-17"><a href="#cb37-17"></a><span class="co">---</span></span>
+<span id="cb37-18"><a href="#cb37-18"></a></span>
+<span id="cb37-19"><a href="#cb37-19"></a><span class="fu">## Setup</span></span>
+<span id="cb37-20"><a href="#cb37-20"></a></span>
+<span id="cb37-23"><a href="#cb37-23"></a><span class="in">```{r}</span></span>
+<span id="cb37-24"><a href="#cb37-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb37-25"><a href="#cb37-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb37-26"><a href="#cb37-26"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb37-27"><a href="#cb37-27"></a><span class="in">```</span></span>
+<span id="cb37-28"><a href="#cb37-28"></a></span>
+<span id="cb37-29"><a href="#cb37-29"></a>------------------------------------------------------------------------</span>
+<span id="cb37-30"><a href="#cb37-30"></a></span>
+<span id="cb37-31"><a href="#cb37-31"></a><span class="fu">## 🔥 Data Story Critique — *Cheaper Mortgages and Car Loans* (NYT, 18 Sept 2024)</span></span>
+<span id="cb37-32"><a href="#cb37-32"></a></span>
+<span id="cb37-33"><a href="#cb37-33"></a>Source: <span class="ot">&lt;https://www.nytimes.com/interactive/2024/09/18/business/economy/mortgages-car-loans-interest-rates.html&gt;</span></span>
+<span id="cb37-34"><a href="#cb37-34"></a></span>
+<span id="cb37-35"><a href="#cb37-35"></a>Author: Karl Russell (NYT graphics team).</span>
+<span id="cb37-36"><a href="#cb37-36"></a></span>
+<span id="cb37-37"><a href="#cb37-37"></a><span class="fu">### What is the data story?</span></span>
+<span id="cb37-38"><a href="#cb37-38"></a></span>
+<span id="cb37-39"><a href="#cb37-39"></a>Published on the day the Federal Reserve announced its first rate cut in over four years — a 50-basis-point reduction that took the federal funds rate from 5.25–5.50% to 4.75–5.00% — the piece is a short **explainer** aimed at non-specialist readers. It situates the rate cut within a five-year window (2019–2024) using three overlaid time-series charts: (1) the federal funds rate alongside average 30-year mortgage and new-car-loan rates, (2) the federal funds rate alongside inflation, and (3) average credit-card APRs. The narrative takes six short paragraphs to walk the reader through three ideas: borrowing costs are easing; the Fed cut rates after years of fighting inflation; the transmission of rate changes to consumer products is not instantaneous.</span>
+<span id="cb37-40"><a href="#cb37-40"></a></span>
+<span id="cb37-41"><a href="#cb37-41"></a><span class="fu">### What is effective?</span></span>
+<span id="cb37-42"><a href="#cb37-42"></a></span>
+<span id="cb37-43"><a href="#cb37-43"></a>**The overlaid time-series chart is the right form for the claim.** All three rates share a unit (percent interest) and a time axis, so putting them on one y-axis establishes comparability without the interpretive hazards of a secondary axis (which almost always misleads). What the reader sees is the co-movement of Fed funds and consumer borrowing rates across the tightening cycle — which is precisely the claim the piece is making. This is the least-astonishment principle in economic charting.</span>
+<span id="cb37-44"><a href="#cb37-44"></a></span>
+<span id="cb37-45"><a href="#cb37-45"></a>**The 2019 baseline is well chosen for the explainer form.** It captures pre-pandemic conditions, the COVID shock, the zero-rate era, the 2022–2023 tightening cycle, and the cut itself. Starting earlier would dilute attention on the recent event; starting later would lose the context that explains why the cut is news.</span>
+<span id="cb37-46"><a href="#cb37-46"></a></span>
+<span id="cb37-47"><a href="#cb37-47"></a>**"Transmission is not instantaneous" is the most important line in the piece.** Readers' intuition is that when the Fed moves rates, consumer products follow immediately. They don't — mortgage rates are mediated by the 10-year Treasury, credit-card APRs by lenders' own repricing cycles. By explicitly flagging lag and using the credit-card chart as visual evidence (APRs kept climbing after Fed funds peaked), the piece sets the correct horizon expectation. This is a genuinely important piece of financial literacy that a lot of coverage skips.</span>
+<span id="cb37-48"><a href="#cb37-48"></a></span>
+<span id="cb37-49"><a href="#cb37-49"></a>**Keeping credit-card APR on its own chart is a subtle analytical choice.** At ~21%, it is an order of magnitude above mortgage and auto rates; putting all four on one chart would have compressed the mortgage/auto variation into invisibility. The separation also lets the reader notice an unspoken distributional point — that the people most reliant on credit-card borrowing (often lower-income, without home equity to draw on) pay rates that have barely moved while Fed policy swung dramatically.</span>
+<span id="cb37-50"><a href="#cb37-50"></a></span>
+<span id="cb37-51"><a href="#cb37-51"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb37-52"><a href="#cb37-52"></a></span>
+<span id="cb37-53"><a href="#cb37-53"></a>**The Fed funds → mortgage rate causality is presented as direct, but it isn't.** Mortgage rates track the 10-year Treasury yield, not the federal funds rate — Fed funds drives short-end rates, and long-end rates respond through the term structure and market expectations. This is why the chart shows the mortgage rate already declining *before* the Fed cut on Wednesday: markets had priced the cut in weeks earlier. The piece doesn't mention this, and the caption language ("Borrowing costs hit a two-decade high as part of the Fed's inflation fight") implies more direct causation than the data shows. A single sentence — *"mortgage rates have been easing in anticipation of this cut, because markets set long-term rates based on where they expect Fed funds to go"* — would be more honest and is arguably necessary to explain what the reader is looking at.</span>
+<span id="cb37-54"><a href="#cb37-54"></a></span>
+<span id="cb37-55"><a href="#cb37-55"></a>**No distinction between real and nominal rates.** The second chart places Fed funds against inflation on the same axis, but the Fed's actual policy stance is the *real* rate — nominal minus inflation expectations. In 2022–2023, Fed funds rose steeply, but so did inflation, and the real rate's trajectory is a different story from the nominal one the chart tells. Real-rate economics is outside an explainer's scope, but a one-line note — "once you subtract out inflation, the Fed's tightening was less aggressive than the blue line suggests" — would prevent the wrong inference that nominal rate level equals policy tightness.</span>
+<span id="cb37-56"><a href="#cb37-56"></a></span>
+<span id="cb37-57"><a href="#cb37-57"></a>**The labour market is named in text but not visualized.** The piece says "a variety of factors go into the Fed's decision… including the strength of the labor market," then describes unemployment rising and wage growth slowing — but no fourth chart supplies the data. In a piece whose default mode is "show, don't tell," this asymmetry is visible. A compact unemployment + wage-growth panel would give the claim visual weight.</span>
+<span id="cb37-58"><a href="#cb37-58"></a></span>
+<span id="cb37-59"><a href="#cb37-59"></a>**The "waited too long" line hangs in isolation.** *"That has raised questions about whether the Fed waited too long to begin lowering rates"* — who is raising these questions, with what argument? The Sahm rule trigger, the persistence of yield-curve inversion, the speed of labour-market cooling — these are the actual reasons the "too late" case is being made. The reader is left with a suggestion of debate but no substance. For a neutral explainer, either develop the point briefly or leave it out; in current form it reads as tacit editorial agreement without argument.</span>
+<span id="cb37-60"><a href="#cb37-60"></a></span>
+<span id="cb37-61"><a href="#cb37-61"></a>**Proportionality.** This is a same-day news explainer from a graphics reporter with very limited word count. It executes its brief well — correct reference frame, clean overlaid time series, honest horizon-setting. The critiques above are directed at what a slightly longer version of this piece could add, not at what this one got wrong.</span>
+<span id="cb37-62"><a href="#cb37-62"></a></span>
+<span id="cb37-63"><a href="#cb37-63"></a>------------------------------------------------------------------------</span>
+<span id="cb37-64"><a href="#cb37-64"></a></span>
+<span id="cb37-65"><a href="#cb37-65"></a><span class="fu">## JSON Basics</span></span>
+<span id="cb37-66"><a href="#cb37-66"></a></span>
+<span id="cb37-67"><a href="#cb37-67"></a><span class="fu">### A minimal example</span></span>
+<span id="cb37-68"><a href="#cb37-68"></a></span>
+<span id="cb37-71"><a href="#cb37-71"></a><span class="in">```{r}</span></span>
+<span id="cb37-72"><a href="#cb37-72"></a><span class="co"># JSON is just text — here stored as a string in R</span></span>
+<span id="cb37-73"><a href="#cb37-73"></a>json_basic <span class="ot">&lt;-</span> <span class="st">'{</span></span>
+<span id="cb37-74"><a href="#cb37-74"></a><span class="st">  "name": "John",</span></span>
+<span id="cb37-75"><a href="#cb37-75"></a><span class="st">  "age": 30,</span></span>
+<span id="cb37-76"><a href="#cb37-76"></a><span class="st">  "city": "New York",</span></span>
+<span id="cb37-77"><a href="#cb37-77"></a><span class="st">  "hobbies": ["reading", "hiking", "coding"]</span></span>
+<span id="cb37-78"><a href="#cb37-78"></a><span class="st">}'</span></span>
+<span id="cb37-79"><a href="#cb37-79"></a></span>
+<span id="cb37-80"><a href="#cb37-80"></a><span class="co"># fromJSON() parses it into an R object</span></span>
+<span id="cb37-81"><a href="#cb37-81"></a>person <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(json_basic)</span>
+<span id="cb37-82"><a href="#cb37-82"></a>person</span>
+<span id="cb37-83"><a href="#cb37-83"></a><span class="in">```</span></span>
+<span id="cb37-84"><a href="#cb37-84"></a></span>
+<span id="cb37-87"><a href="#cb37-87"></a><span class="in">```{r}</span></span>
+<span id="cb37-88"><a href="#cb37-88"></a><span class="fu">class</span>(person)</span>
+<span id="cb37-89"><a href="#cb37-89"></a><span class="fu">str</span>(person)</span>
+<span id="cb37-90"><a href="#cb37-90"></a><span class="in">```</span></span>
+<span id="cb37-91"><a href="#cb37-91"></a></span>
+<span id="cb37-92"><a href="#cb37-92"></a>The result is a **named list** because JSON objects map to named lists in R. The <span class="in">`hobbies`</span> element inside the list is an *unnamed* collection that <span class="in">`jsonlite`</span> simplified into a character vector — this is the "simplify" convention discussed in Ooms (2014) — a homogeneous JSON array becomes an atomic vector rather than a list.</span>
+<span id="cb37-93"><a href="#cb37-93"></a></span>
+<span id="cb37-94"><a href="#cb37-94"></a><span class="fu">### Arrays of objects — the `simplifyVector` choice</span></span>
+<span id="cb37-95"><a href="#cb37-95"></a></span>
+<span id="cb37-98"><a href="#cb37-98"></a><span class="in">```{r}</span></span>
+<span id="cb37-99"><a href="#cb37-99"></a>json_mario <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb37-100"><a href="#cb37-100"></a><span class="st">  {"Name": "Mario",  "Age": 32, "Occupation": "Plumber"},</span></span>
+<span id="cb37-101"><a href="#cb37-101"></a><span class="st">  {"Name": "Peach",  "Age": 21, "Occupation": "Princess"},</span></span>
+<span id="cb37-102"><a href="#cb37-102"></a><span class="st">  {},</span></span>
+<span id="cb37-103"><a href="#cb37-103"></a><span class="st">  {"Name": "Bowser",             "Occupation": "Koopa"}</span></span>
+<span id="cb37-104"><a href="#cb37-104"></a><span class="st">]'</span></span>
+<span id="cb37-105"><a href="#cb37-105"></a><span class="in">```</span></span>
+<span id="cb37-106"><a href="#cb37-106"></a></span>
+<span id="cb37-107"><a href="#cb37-107"></a>With <span class="in">`simplifyVector = FALSE`</span> (no simplification): we get a list of four lists.</span>
+<span id="cb37-108"><a href="#cb37-108"></a></span>
+<span id="cb37-111"><a href="#cb37-111"></a><span class="in">```{r}</span></span>
+<span id="cb37-112"><a href="#cb37-112"></a><span class="fu">fromJSON</span>(json_mario, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb37-113"><a href="#cb37-113"></a><span class="in">```</span></span>
+<span id="cb37-114"><a href="#cb37-114"></a></span>
+<span id="cb37-115"><a href="#cb37-115"></a>With <span class="in">`simplifyVector = TRUE`</span> (default): <span class="in">`jsonlite`</span> detects that the records have compatible fields and returns a data frame.</span>
+<span id="cb37-116"><a href="#cb37-116"></a></span>
+<span id="cb37-119"><a href="#cb37-119"></a><span class="in">```{r}</span></span>
+<span id="cb37-120"><a href="#cb37-120"></a><span class="fu">fromJSON</span>(json_mario, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-121"><a href="#cb37-121"></a><span class="in">```</span></span>
+<span id="cb37-122"><a href="#cb37-122"></a></span>
+<span id="cb37-123"><a href="#cb37-123"></a>Three things worth noticing:</span>
+<span id="cb37-124"><a href="#cb37-124"></a></span>
+<span id="cb37-125"><a href="#cb37-125"></a><span class="ss">- </span>Where a record had no <span class="in">`Name`</span> field (the third row), <span class="in">`jsonlite`</span> inserted <span class="in">`NA`</span>. This is the row-based-JSON / column-based-R translation at work — in the JSON, missing fields are simply absent; in a data frame, every row must have a value (or <span class="in">`NA`</span>) for every column.</span>
+<span id="cb37-126"><a href="#cb37-126"></a><span class="ss">- </span>The third record (<span class="in">`{}`</span>) maps to an all-<span class="in">`NA`</span> row. It doesn't disappear, which is the right behaviour: the presence of an empty record is itself information.</span>
+<span id="cb37-127"><a href="#cb37-127"></a><span class="ss">- </span>Once <span class="in">`simplifyVector = TRUE`</span> gives us a tibble-shaped object, the result can flow directly into the tidyverse pipeline. This is the main reason the default is on.</span>
+<span id="cb37-128"><a href="#cb37-128"></a></span>
+<span id="cb37-129"><a href="#cb37-129"></a><span class="fu">### When simplification fails — heterogeneous arrays</span></span>
+<span id="cb37-130"><a href="#cb37-130"></a></span>
+<span id="cb37-131"><a href="#cb37-131"></a><span class="in">`simplifyVector = TRUE`</span> is a *best-effort* heuristic. When records don't share a consistent structure, <span class="in">`jsonlite`</span> falls back:</span>
+<span id="cb37-132"><a href="#cb37-132"></a></span>
+<span id="cb37-135"><a href="#cb37-135"></a><span class="in">```{r}</span></span>
+<span id="cb37-136"><a href="#cb37-136"></a>json_heterogeneous <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb37-137"><a href="#cb37-137"></a><span class="st">  {"id": 1, "tags": ["red", "blue"]},</span></span>
+<span id="cb37-138"><a href="#cb37-138"></a><span class="st">  {"id": 2, "tags": "red"},</span></span>
+<span id="cb37-139"><a href="#cb37-139"></a><span class="st">  {"id": 3, "tags": null}</span></span>
+<span id="cb37-140"><a href="#cb37-140"></a><span class="st">]'</span></span>
+<span id="cb37-141"><a href="#cb37-141"></a></span>
+<span id="cb37-142"><a href="#cb37-142"></a><span class="fu">fromJSON</span>(json_heterogeneous, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-143"><a href="#cb37-143"></a><span class="in">```</span></span>
+<span id="cb37-144"><a href="#cb37-144"></a></span>
+<span id="cb37-145"><a href="#cb37-145"></a>The <span class="in">`tags`</span> column is a list-column — because in the three rows it's respectively a length-2 character vector, a length-1 character vector, and <span class="in">`NULL`</span>. A data frame column can't be a regular atomic vector here because the lengths don't match, so <span class="in">`jsonlite`</span> produces a list-column. This is one of the places where JSON's row-orientation collides with R's column-orientation and the fix is not neat; the user is expected to <span class="in">`tidyr::unnest()`</span> downstream.</span>
+<span id="cb37-146"><a href="#cb37-146"></a></span>
+<span id="cb37-147"><a href="#cb37-147"></a>------------------------------------------------------------------------</span>
+<span id="cb37-148"><a href="#cb37-148"></a></span>
+<span id="cb37-149"><a href="#cb37-149"></a><span class="fu">## Edge Cases from the Ooms Paper</span></span>
+<span id="cb37-150"><a href="#cb37-150"></a></span>
+<span id="cb37-151"><a href="#cb37-151"></a><span class="fu">### Vectors of length 1</span></span>
+<span id="cb37-152"><a href="#cb37-152"></a></span>
+<span id="cb37-153"><a href="#cb37-153"></a>Ooms emphasizes that <span class="in">`jsonlite`</span> always encodes length-1 vectors as JSON arrays (not as scalars), because inconsistency across lengths is a common source of bugs in dynamic-data pipelines.</span>
+<span id="cb37-154"><a href="#cb37-154"></a></span>
+<span id="cb37-157"><a href="#cb37-157"></a><span class="in">```{r}</span></span>
+<span id="cb37-158"><a href="#cb37-158"></a><span class="co"># A length-1 vector stays an array in JSON</span></span>
+<span id="cb37-159"><a href="#cb37-159"></a><span class="fu">toJSON</span>(pi)</span>
+<span id="cb37-160"><a href="#cb37-160"></a><span class="in">```</span></span>
+<span id="cb37-161"><a href="#cb37-161"></a></span>
+<span id="cb37-164"><a href="#cb37-164"></a><span class="in">```{r}</span></span>
+<span id="cb37-165"><a href="#cb37-165"></a><span class="co"># Round-trip preserves the vector</span></span>
+<span id="cb37-166"><a href="#cb37-166"></a><span class="fu">identical</span>(<span class="fu">fromJSON</span>(<span class="fu">toJSON</span>(pi)), pi)</span>
+<span id="cb37-167"><a href="#cb37-167"></a><span class="in">```</span></span>
+<span id="cb37-168"><a href="#cb37-168"></a></span>
+<span id="cb37-169"><a href="#cb37-169"></a>The rival packages <span class="in">`rjson`</span> and <span class="in">`RJSONIO`</span> handle this differently — <span class="in">`rjson`</span> encodes a length-1 vector as a JSON primitive inside a list, which silently changes the type depending on vector length. For pipelines that consume API output of varying sizes, <span class="in">`jsonlite`</span>'s consistency is a real feature, not a cosmetic one.</span>
+<span id="cb37-170"><a href="#cb37-170"></a></span>
+<span id="cb37-171"><a href="#cb37-171"></a><span class="fu">### The "golden rule" — keys are names, not data</span></span>
+<span id="cb37-172"><a href="#cb37-172"></a></span>
+<span id="cb37-173"><a href="#cb37-173"></a>Ooms quotes Mike Dewar's "golden rule": JSON keys should be names, not data. A common violation is using timestamps as keys:</span>
+<span id="cb37-174"><a href="#cb37-174"></a></span>
+<span id="cb37-177"><a href="#cb37-177"></a><span class="in">```{r}</span></span>
+<span id="cb37-178"><a href="#cb37-178"></a><span class="co"># Bad — keys are data (timestamps)</span></span>
+<span id="cb37-179"><a href="#cb37-179"></a>bad_json <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb37-180"><a href="#cb37-180"></a><span class="st">  {"1325344443": 124},</span></span>
+<span id="cb37-181"><a href="#cb37-181"></a><span class="st">  {"1325344456": 131},</span></span>
+<span id="cb37-182"><a href="#cb37-182"></a><span class="st">  {"1325344478": 137}</span></span>
+<span id="cb37-183"><a href="#cb37-183"></a><span class="st">]'</span></span>
+<span id="cb37-184"><a href="#cb37-184"></a></span>
+<span id="cb37-185"><a href="#cb37-185"></a><span class="fu">fromJSON</span>(bad_json)</span>
+<span id="cb37-186"><a href="#cb37-186"></a><span class="in">```</span></span>
+<span id="cb37-187"><a href="#cb37-187"></a></span>
+<span id="cb37-188"><a href="#cb37-188"></a>Every record has a different key, so no downstream code can address the "price" field by name. The fix is to promote the timestamp into its own field:</span>
+<span id="cb37-189"><a href="#cb37-189"></a></span>
+<span id="cb37-192"><a href="#cb37-192"></a><span class="in">```{r}</span></span>
+<span id="cb37-193"><a href="#cb37-193"></a><span class="co"># Good — keys describe what the field means</span></span>
+<span id="cb37-194"><a href="#cb37-194"></a>good_json <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb37-195"><a href="#cb37-195"></a><span class="st">  {"time": 1325344443, "price": 124},</span></span>
+<span id="cb37-196"><a href="#cb37-196"></a><span class="st">  {"time": 1325344456, "price": 131},</span></span>
+<span id="cb37-197"><a href="#cb37-197"></a><span class="st">  {"time": 1325344478, "price": 137}</span></span>
+<span id="cb37-198"><a href="#cb37-198"></a><span class="st">]'</span></span>
+<span id="cb37-199"><a href="#cb37-199"></a></span>
+<span id="cb37-200"><a href="#cb37-200"></a><span class="fu">fromJSON</span>(good_json)</span>
+<span id="cb37-201"><a href="#cb37-201"></a><span class="in">```</span></span>
+<span id="cb37-202"><a href="#cb37-202"></a></span>
+<span id="cb37-203"><a href="#cb37-203"></a>The "good" version simplifies cleanly to a tidy data frame; the "bad" version produces a list of list of named scalars that needs manual unpacking. The rule generalizes beyond JSON — any data-interchange format, and indeed any tabular data representation, works correctly when the **schema** (which keys exist, what they mean) is separated from the **data** (what values those keys take). Wickham's tidy-data principle is the same insight, arrived at from the R side.</span>
+<span id="cb37-204"><a href="#cb37-204"></a></span>
+<span id="cb37-205"><a href="#cb37-205"></a><span class="fu">### Nested records</span></span>
+<span id="cb37-206"><a href="#cb37-206"></a></span>
+<span id="cb37-209"><a href="#cb37-209"></a><span class="in">```{r}</span></span>
+<span id="cb37-210"><a href="#cb37-210"></a>nested_json <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb37-211"><a href="#cb37-211"></a><span class="st">  {</span></span>
+<span id="cb37-212"><a href="#cb37-212"></a><span class="st">    "driver": "Bowser",</span></span>
+<span id="cb37-213"><a href="#cb37-213"></a><span class="st">    "vehicle": {"model": "Piranha Prowler", "stats": {"speed": 55, "weight": 67}}</span></span>
+<span id="cb37-214"><a href="#cb37-214"></a><span class="st">  },</span></span>
+<span id="cb37-215"><a href="#cb37-215"></a><span class="st">  {</span></span>
+<span id="cb37-216"><a href="#cb37-216"></a><span class="st">    "driver": "Peach",</span></span>
+<span id="cb37-217"><a href="#cb37-217"></a><span class="st">    "vehicle": {"model": "Royal Racer",     "stats": {"speed": 34, "weight": 24}}</span></span>
+<span id="cb37-218"><a href="#cb37-218"></a><span class="st">  }</span></span>
+<span id="cb37-219"><a href="#cb37-219"></a><span class="st">]'</span></span>
+<span id="cb37-220"><a href="#cb37-220"></a></span>
+<span id="cb37-221"><a href="#cb37-221"></a>nested <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(nested_json, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-222"><a href="#cb37-222"></a>nested</span>
+<span id="cb37-223"><a href="#cb37-223"></a><span class="in">```</span></span>
+<span id="cb37-224"><a href="#cb37-224"></a></span>
+<span id="cb37-227"><a href="#cb37-227"></a><span class="in">```{r}</span></span>
+<span id="cb37-228"><a href="#cb37-228"></a><span class="co"># The `vehicle` column is itself a data frame — this is a nested data frame</span></span>
+<span id="cb37-229"><a href="#cb37-229"></a><span class="fu">str</span>(nested)</span>
+<span id="cb37-230"><a href="#cb37-230"></a><span class="in">```</span></span>
+<span id="cb37-231"><a href="#cb37-231"></a></span>
+<span id="cb37-232"><a href="#cb37-232"></a>For one-to-one nesting, <span class="in">`tidyr::unnest_wider()`</span> flattens the structure cleanly:</span>
+<span id="cb37-233"><a href="#cb37-233"></a></span>
+<span id="cb37-236"><a href="#cb37-236"></a><span class="in">```{r}</span></span>
+<span id="cb37-237"><a href="#cb37-237"></a>nested <span class="sc">|&gt;</span></span>
+<span id="cb37-238"><a href="#cb37-238"></a>    tidyr<span class="sc">::</span><span class="fu">unnest_wider</span>(vehicle) <span class="sc">|&gt;</span></span>
+<span id="cb37-239"><a href="#cb37-239"></a>    tidyr<span class="sc">::</span><span class="fu">unnest_wider</span>(stats)</span>
+<span id="cb37-240"><a href="#cb37-240"></a><span class="in">```</span></span>
+<span id="cb37-241"><a href="#cb37-241"></a></span>
+<span id="cb37-242"><a href="#cb37-242"></a>For one-to-many nesting (where a single record has an array of sub-records), <span class="in">`unnest_longer()`</span> is the corresponding tool. Together, <span class="in">`unnest_wider()`</span> and <span class="in">`unnest_longer()`</span> cover most cases of bringing JSON-from-the-web into a tidy-data-frame shape.</span>
+<span id="cb37-243"><a href="#cb37-243"></a></span>
+<span id="cb37-244"><a href="#cb37-244"></a>------------------------------------------------------------------------</span>
+<span id="cb37-245"><a href="#cb37-245"></a></span>
+<span id="cb37-246"><a href="#cb37-246"></a><span class="fu">## A Real API Call</span></span>
+<span id="cb37-247"><a href="#cb37-247"></a></span>
+<span id="cb37-248"><a href="#cb37-248"></a>A typical use of <span class="in">`fromJSON()`</span> is to fetch directly from a URL. GitHub's public API returns JSON and does not require authentication for modest request volumes. Here we look up the latest releases of the <span class="in">`tidyverse`</span> package:</span>
+<span id="cb37-249"><a href="#cb37-249"></a></span>
+<span id="cb37-252"><a href="#cb37-252"></a><span class="in">```{r}</span></span>
+<span id="cb37-253"><a href="#cb37-253"></a><span class="co">#| cache: true</span></span>
+<span id="cb37-254"><a href="#cb37-254"></a>tidy_releases <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(</span>
+<span id="cb37-255"><a href="#cb37-255"></a>    <span class="st">"https://api.github.com/repos/tidyverse/tidyverse/releases"</span></span>
+<span id="cb37-256"><a href="#cb37-256"></a>)</span>
+<span id="cb37-257"><a href="#cb37-257"></a></span>
+<span id="cb37-258"><a href="#cb37-258"></a><span class="co"># What did we get?</span></span>
+<span id="cb37-259"><a href="#cb37-259"></a><span class="fu">class</span>(tidy_releases)</span>
+<span id="cb37-260"><a href="#cb37-260"></a><span class="fu">dim</span>(tidy_releases)</span>
+<span id="cb37-261"><a href="#cb37-261"></a><span class="fu">names</span>(tidy_releases)</span>
+<span id="cb37-262"><a href="#cb37-262"></a><span class="in">```</span></span>
+<span id="cb37-263"><a href="#cb37-263"></a></span>
+<span id="cb37-266"><a href="#cb37-266"></a><span class="in">```{r}</span></span>
+<span id="cb37-267"><a href="#cb37-267"></a><span class="co"># Pull out the columns that are actually useful for a release summary</span></span>
+<span id="cb37-268"><a href="#cb37-268"></a>tidy_releases <span class="sc">|&gt;</span></span>
+<span id="cb37-269"><a href="#cb37-269"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb37-270"><a href="#cb37-270"></a>    <span class="fu">transmute</span>(</span>
+<span id="cb37-271"><a href="#cb37-271"></a>        <span class="at">tag       =</span> tag_name,</span>
+<span id="cb37-272"><a href="#cb37-272"></a>        <span class="at">name      =</span> name,</span>
+<span id="cb37-273"><a href="#cb37-273"></a>        <span class="at">published =</span> lubridate<span class="sc">::</span><span class="fu">as_date</span>(published_at),</span>
+<span id="cb37-274"><a href="#cb37-274"></a>        <span class="at">prerelease =</span> prerelease</span>
+<span id="cb37-275"><a href="#cb37-275"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb37-276"><a href="#cb37-276"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(published))</span>
+<span id="cb37-277"><a href="#cb37-277"></a><span class="in">```</span></span>
+<span id="cb37-278"><a href="#cb37-278"></a></span>
+<span id="cb37-279"><a href="#cb37-279"></a>The GitHub API returns an array of release objects, which <span class="in">`jsonlite`</span> simplifies into a data frame. Columns like <span class="in">`author`</span>, <span class="in">`assets`</span>, and <span class="in">`reactions`</span> come through as nested data frames or list-columns (you can check with <span class="in">`str(tidy_releases, max.level = 1)`</span>), reflecting the one-to-many relationships in the underlying schema — each release has one author but can have multiple assets. The rest of this course's API material is essentially about this pattern: hit a URL, get JSON back, negotiate the nesting, reshape into a tibble.</span>
+<span id="cb37-280"><a href="#cb37-280"></a></span>
+<span id="cb37-281"><a href="#cb37-281"></a>------------------------------------------------------------------------</span>
+<span id="cb37-282"><a href="#cb37-282"></a></span>
+<span id="cb37-283"><a href="#cb37-283"></a><span class="fu">## Reflection</span></span>
+<span id="cb37-284"><a href="#cb37-284"></a></span>
+<span id="cb37-285"><a href="#cb37-285"></a>**JSON and R have an impedance mismatch, and `jsonlite` is the translator.** R thinks in columns; JSON thinks in rows. R has vectors as a first-class type; JSON has objects and arrays but no separate notion of a scalar. When you call <span class="in">`fromJSON()`</span>, you are invoking a set of *conventions* — described in Ooms (2014) — for how to bridge the two. The single most important convention is <span class="in">`simplifyVector = TRUE`</span>: when the structure permits, promote JSON arrays of compatible objects into data frames. When it doesn't permit, fall back to list-columns rather than fail. This is not a mathematical isomorphism — <span class="in">`fromJSON(toJSON(x))`</span> is not always exactly <span class="in">`x`</span> — but it is the practical mapping that makes JSON APIs usable from R.</span>
+<span id="cb37-286"><a href="#cb37-286"></a></span>
+<span id="cb37-287"><a href="#cb37-287"></a>**Type consistency is a runtime contract you have to enforce yourself.** API documentation tells you what fields *should* be returned, but reality will hand you missing fields, null values, length-1 arrays that could-have-been scalars, and the occasional structural change. `jsonlite` does its best — consistent encoding of length-1 vectors as arrays, `NA` insertion for missing fields in simplified data frames — but the consumer of the API still needs to validate that the shape of the data matches expectations. The `map_*()<span class="in">` functions from ICA 12 are relevant here: `</span>map_chr()` will fail loudly if any element isn't a character, which is what you want when the upstream JSON has silently started returning numeric IDs instead of string IDs.</span>
+<span id="cb37-288"><a href="#cb37-288"></a></span>
+<span id="cb37-289"><a href="#cb37-289"></a>**The "golden rule" is a data-modeling principle, not a JSON one.** Keys-describe-meaning and values-carry-data is the same rule that makes relational schemas normalise-able, that makes tidy data tidy, and that makes APIs versionable. When you design data structures that will cross system boundaries — whether as JSON over HTTP, as Parquet on disk, or as tables in a warehouse — holding the schema steady while the data varies is what makes downstream code possible to write. Everything in the next ICA about URL construction and query parameters is downstream of this principle.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

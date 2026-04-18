@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-17">
+<title>Who Follows the Ship – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../tt/zhijun-tidytuesday_week16.html" rel="next">
+<link href="../tt/zhijun-tidytuesday_week14.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week4.html">TidyTuesday</a></li><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week15.html"><span class="chapter-title">Who Follows the Ship</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#motivation-research-question" id="toc-motivation-research-question" class="nav-link" data-scroll-target="#motivation-research-question">Motivation &amp; Research Question</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
+  <li><a href="#visualization-1-behaviour-species" id="toc-visualization-1-behaviour-species" class="nav-link" data-scroll-target="#visualization-1-behaviour-species">Visualization 1: Behaviour × Species</a></li>
+  <li><a href="#visualization-2-where-the-behaviours-happen" id="toc-visualization-2-where-the-behaviours-happen" class="nav-link" data-scroll-target="#visualization-2-where-the-behaviours-happen">Visualization 2: Where the Behaviours Happen</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">Takeaway</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week4.html">TidyTuesday</a></li><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week15.html"><span class="chapter-title">Who Follows the Ship</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Who Follows the Ship</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">TidyTuesday 2026 · Week 15 · Seabird Sightings Near New Zealand, 1969–1990</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 17, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>birds <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-14/birds.csv"</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>ships <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-14/ships.csv"</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="background" class="level2"><h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>For most of the twentieth century, the southern oceans below Australia and New Zealand were travelled by a small number of ships — research vessels, fishing trawlers, cargo ships, whaling ships — and watched by an even smaller number of seabird observers. From 1969 to 1990, under the Australasian Seabird Mapping Scheme, those observers kept standardised ten-minute logs of every seabird they could see from the deck. For each sighting they recorded species, count, and a small set of behavioural codes: was the bird flying past, sitting on water, sitting on ice, feeding, following the ship’s wake, or flying alongside? The resulting dataset, now curated by Te Papa Tongarewa (the Museum of New Zealand), contains tens of thousands of observations.</p>
+<p>The behavioural columns matter. One of the central facts of modern seabird ecology is that many pelagic species have a strong, species-specific relationship to fishing vessels. Albatrosses and giant petrels routinely trail trawlers for hours to feed on fish discards; this is their ecological opportunity and, via longline bycatch, their ecological peril. Other species — prions, storm petrels, shearwaters — show little interest in ships and fly past them as if they were not there. The division is not a modern conservation artefact. It is a stable behavioural feature of the birds themselves, and the Australasian log book, collected before the industrial fishing footprint of the Southern Ocean reached its modern scale, offers an unusually clean window into what the natural partition looked like.</p>
+</section><section id="motivation-research-question" class="level2"><h2 class="anchored" data-anchor-id="motivation-research-question">Motivation &amp; Research Question</h2>
+<p>The suggested question for this week’s dataset concerns record-keeping: do the split columns agree with the original logbook entries in <code>species_common_name</code>? That is a useful data-quality audit, and the answer is mostly yes. A more interesting question the data supports is ecological. Every sighting comes tagged with behaviour — and every bird species has a different pattern of behaviours. If the boundary between ship-followers and passers-by is as clean as seabird ecologists describe, it should be visible immediately in the joint distribution of species and behaviour, without any model at all.</p>
+<p><strong>Research question: Do seabird species in the Australasian log book divide cleanly into ship-followers and ship-ignorers, and does the division track known taxonomy and foraging strategy?</strong></p>
+</section><section id="data-preparation" class="level2"><h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Join birds with ship records to carry along date and location.</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>bird_ship <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(species_common_name)) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">left_join</span>(ships <span class="sc">|&gt;</span> <span class="fu">select</span>(record_id, date, latitude, longitude, activity),</span>
+<span id="cb2-5"><a href="#cb2-5"></a>            <span class="at">by =</span> <span class="st">"record_id"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># The logbook frequently records identification at genus level</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># (e.g. "Royal albatross sensu lato") or with plumage/age tags (AD, JUV).</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># Collapse to a simpler species label by stripping trailing age/sex tokens</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># and pooling obvious aggregates.</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>bird_ship <span class="ot">&lt;-</span> bird_ship <span class="sc">|&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-13"><a href="#cb2-13"></a>    <span class="at">species_label =</span> species_common_name <span class="sc">|&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>      <span class="fu">str_remove_all</span>(<span class="st">" sensu lato"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>      <span class="fu">str_remove_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s+(AD|JUV|IMM|SUBAD|M|F)$"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>      <span class="fu">str_trim</span>(),</span>
+<span id="cb2-17"><a href="#cb2-17"></a>    <span class="at">species_label =</span> <span class="fu">fct_lump_min</span>(species_label, <span class="at">min =</span> <span class="dv">300</span>)</span>
+<span id="cb2-18"><a href="#cb2-18"></a>  )</span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co"># Pick the most commonly recorded species (top 14) for the heatmap</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>top_species <span class="ot">&lt;-</span> bird_ship <span class="sc">|&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="fu">filter</span>(species_label <span class="sc">!=</span> <span class="st">"Other"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="fu">count</span>(species_label, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">14</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="fu">pull</span>(species_label)</span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a>beh_df <span class="ot">&lt;-</span> bird_ship <span class="sc">|&gt;</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a>  <span class="fu">filter</span>(species_label <span class="sc">%in%</span> top_species) <span class="sc">|&gt;</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a>  <span class="fu">mutate</span>(<span class="at">species_label =</span> <span class="fu">factor</span>(species_label, <span class="at">levels =</span> <span class="fu">rev</span>(top_species)))</span>
+<span id="cb2-30"><a href="#cb2-30"></a></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="fu">cat</span>(<span class="st">"Total bird observations:"</span>, <span class="fu">format</span>(<span class="fu">nrow</span>(birds), <span class="at">big.mark =</span> <span class="st">","</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Total bird observations: 49,019 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">cat</span>(<span class="st">"Linked to ship records: "</span>, <span class="fu">format</span>(<span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(bird_ship<span class="sc">$</span>date)),</span>
+<span id="cb4-2"><a href="#cb4-2"></a>                                        <span class="at">big.mark =</span> <span class="st">","</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Linked to ship records:  48,327 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">cat</span>(<span class="st">"Date range:             "</span>, <span class="fu">format</span>(<span class="fu">min</span>(bird_ship<span class="sc">$</span>date, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="st">"–"</span>, <span class="fu">format</span>(<span class="fu">max</span>(bird_ship<span class="sc">$</span>date, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Date range:              1969-07-31 – 1990-12-21 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">cat</span>(<span class="st">"Top 14 species cover    "</span>, <span class="fu">percent</span>(<span class="fu">sum</span>(bird_ship<span class="sc">$</span>species_label <span class="sc">%in%</span> top_species) <span class="sc">/</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>                                        <span class="fu">nrow</span>(bird_ship), <span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="st">"of observations</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">" "</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Top 14 species cover     63% of observations</code></pre>
+</div>
+</div>
+</section><section id="visualization-1-behaviour-species" class="level2"><h2 class="anchored" data-anchor-id="visualization-1-behaviour-species">Visualization 1: Behaviour × Species</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>behaviours <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="at">following_ship   =</span> <span class="st">"Following</span><span class="sc">\n</span><span class="st">wake"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="at">accompanying     =</span> <span class="st">"Flying</span><span class="sc">\n</span><span class="st">alongside"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="at">feeding          =</span> <span class="st">"Feeding"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="at">sitting_on_ship  =</span> <span class="st">"Sitting</span><span class="sc">\n</span><span class="st">on ship"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="at">flying_past      =</span> <span class="st">"Flying</span><span class="sc">\n</span><span class="st">past"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="at">sitting_on_water =</span> <span class="st">"Sitting</span><span class="sc">\n</span><span class="st">on water"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8"></a>  <span class="at">sitting_on_ice   =</span> <span class="st">"Sitting</span><span class="sc">\n</span><span class="st">on ice"</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>)</span>
+<span id="cb10-10"><a href="#cb10-10"></a></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co"># Per-species share of sightings exhibiting each behaviour</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a>beh_long <span class="ot">&lt;-</span> beh_df <span class="sc">|&gt;</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a>  <span class="fu">select</span>(species_label, <span class="fu">all_of</span>(<span class="fu">names</span>(behaviours))) <span class="sc">|&gt;</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>species_label, <span class="at">names_to =</span> <span class="st">"behaviour"</span>, <span class="at">values_to =</span> <span class="st">"flag"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(flag)) <span class="sc">|&gt;</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a>  <span class="fu">group_by</span>(species_label, behaviour) <span class="sc">|&gt;</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a>  <span class="fu">summarise</span>(<span class="at">share =</span> <span class="fu">mean</span>(flag), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-19"><a href="#cb10-19"></a>    <span class="at">behaviour =</span> <span class="fu">factor</span>(behaviour,</span>
+<span id="cb10-20"><a href="#cb10-20"></a>                       <span class="at">levels =</span> <span class="fu">names</span>(behaviours),</span>
+<span id="cb10-21"><a href="#cb10-21"></a>                       <span class="at">labels =</span> behaviours)</span>
+<span id="cb10-22"><a href="#cb10-22"></a>  )</span>
+<span id="cb10-23"><a href="#cb10-23"></a></span>
+<span id="cb10-24"><a href="#cb10-24"></a><span class="fu">ggplot</span>(beh_long,</span>
+<span id="cb10-25"><a href="#cb10-25"></a>       <span class="fu">aes</span>(<span class="at">x =</span> behaviour, <span class="at">y =</span> species_label, <span class="at">fill =</span> share)) <span class="sc">+</span></span>
+<span id="cb10-26"><a href="#cb10-26"></a>  <span class="fu">geom_tile</span>(<span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb10-27"><a href="#cb10-27"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">ifelse</span>(share <span class="sc">&gt;=</span> <span class="fl">0.05</span>,</span>
+<span id="cb10-28"><a href="#cb10-28"></a>                               <span class="fu">sprintf</span>(<span class="st">"%.0f%%"</span>, <span class="dv">100</span> <span class="sc">*</span> share), <span class="st">""</span>)),</span>
+<span id="cb10-29"><a href="#cb10-29"></a>            <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"grey15"</span>) <span class="sc">+</span></span>
+<span id="cb10-30"><a href="#cb10-30"></a>  <span class="fu">scale_fill_gradient2</span>(</span>
+<span id="cb10-31"><a href="#cb10-31"></a>    <span class="at">low =</span> <span class="st">"#f3f5f8"</span>, <span class="at">mid =</span> <span class="st">"#d4af37"</span>, <span class="at">high =</span> <span class="st">"#b8412d"</span>,</span>
+<span id="cb10-32"><a href="#cb10-32"></a>    <span class="at">midpoint =</span> <span class="fl">0.35</span>,</span>
+<span id="cb10-33"><a href="#cb10-33"></a>    <span class="at">name =</span> <span class="st">"Share of</span><span class="sc">\n</span><span class="st">sightings"</span>,</span>
+<span id="cb10-34"><a href="#cb10-34"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb10-35"><a href="#cb10-35"></a>    <span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>)</span>
+<span id="cb10-36"><a href="#cb10-36"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-37"><a href="#cb10-37"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
+<span id="cb10-38"><a href="#cb10-38"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-39"><a href="#cb10-39"></a>    <span class="at">title    =</span> <span class="st">"Every species sits in its own behavioural niche with respect to the ship"</span>,</span>
+<span id="cb10-40"><a href="#cb10-40"></a>    <span class="at">subtitle =</span> <span class="st">"Share of sightings in each behavioural mode, top 14 recorded species, 1969–1990"</span>,</span>
+<span id="cb10-41"><a href="#cb10-41"></a>    <span class="at">x        =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb10-42"><a href="#cb10-42"></a>    <span class="at">caption  =</span> <span class="st">"Source: Te Papa Tongarewa / Australasian Seabird Mapping Scheme · TidyTuesday 2026 Wk 15 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb10-43"><a href="#cb10-43"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-44"><a href="#cb10-44"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb10-45"><a href="#cb10-45"></a>  <span class="fu">theme</span>(</span>
+<span id="cb10-46"><a href="#cb10-46"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb10-47"><a href="#cb10-47"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb10-48"><a href="#cb10-48"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb10-49"><a href="#cb10-49"></a>    <span class="at">panel.grid    =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-50"><a href="#cb10-50"></a>    <span class="at">axis.text.x   =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">lineheight =</span> <span class="fl">0.9</span>),</span>
+<span id="cb10-51"><a href="#cb10-51"></a>    <span class="at">axis.text.y   =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb10-52"><a href="#cb10-52"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>,</span>
+<span id="cb10-53"><a href="#cb10-53"></a>    <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="fl">1.1</span>, <span class="st">"cm"</span>)</span>
+<span id="cb10-54"><a href="#cb10-54"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="zhijun-tidytuesday_week15_files/figure-html/viz1-behaviour-heatmap-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The heatmap reads as a behavioural niche map. Each row is a species; each column is a behaviour; the cell intensity is the share of that species’ sightings in which the behaviour was recorded. Numbers appear in cells where the behaviour accounts for at least 5 percent of sightings, to keep the plot legible. A distinct block structure is immediately visible. The “Following wake” and “Flying alongside” columns light up strongly for the albatrosses, giant petrels, and cape petrels at the top — the species that seabird ecologists describe as ship-followers. The “Flying past” column dominates for the small tube-nosed species: prions, storm petrels, shearwaters. “Sitting on water” shows up in species that use the ocean surface as a platform for prolonged rest or local foraging (shearwaters, cape petrels) rather than actively trailing the ship. Two species — the black-browed albatross and the cape petrel — sit at the intersection of two columns (“flying past” and “following ship”), consistent with their status as flexible generalists that can either follow vessels or not depending on circumstance. The behavioural division is not a dichotomy of two clean groups. It is a structured gradient that the taxonomy anticipates.</p>
+</section><section id="visualization-2-where-the-behaviours-happen" class="level2"><h2 class="anchored" data-anchor-id="visualization-2-where-the-behaviours-happen">Visualization 2: Where the Behaviours Happen</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Collapse each observation to one behaviour class: wake-follower,</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co"># water-user, or flying past, using the dominant recorded behaviour.</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>obs_class <span class="ot">&lt;-</span> bird_ship <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">filter</span>(species_label <span class="sc">%in%</span> top_species,</span>
+<span id="cb11-5"><a href="#cb11-5"></a>         <span class="sc">!</span><span class="fu">is.na</span>(latitude), <span class="sc">!</span><span class="fu">is.na</span>(longitude),</span>
+<span id="cb11-6"><a href="#cb11-6"></a>         <span class="fu">between</span>(latitude, <span class="sc">-</span><span class="dv">75</span>, <span class="dv">10</span>),</span>
+<span id="cb11-7"><a href="#cb11-7"></a>         <span class="fu">between</span>(longitude, <span class="dv">100</span>, <span class="dv">220</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-9"><a href="#cb11-9"></a>    <span class="at">behaviour_class =</span> <span class="fu">case_when</span>(</span>
+<span id="cb11-10"><a href="#cb11-10"></a>      following_ship <span class="sc">|</span> accompanying             <span class="sc">~</span> <span class="st">"Wake-followers"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11"></a>      sitting_on_water <span class="sc">&amp;</span> <span class="sc">!</span>flying_past           <span class="sc">~</span> <span class="st">"Water-users"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12"></a>      flying_past                               <span class="sc">~</span> <span class="st">"Passers-by"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13"></a>      <span class="cn">TRUE</span>                                      <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a>    ),</span>
+<span id="cb11-15"><a href="#cb11-15"></a>    <span class="at">behaviour_class =</span> <span class="fu">factor</span>(behaviour_class,</span>
+<span id="cb11-16"><a href="#cb11-16"></a>                             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Wake-followers"</span>,</span>
+<span id="cb11-17"><a href="#cb11-17"></a>                                        <span class="st">"Passers-by"</span>,</span>
+<span id="cb11-18"><a href="#cb11-18"></a>                                        <span class="st">"Water-users"</span>,</span>
+<span id="cb11-19"><a href="#cb11-19"></a>                                        <span class="st">"Other"</span>))</span>
+<span id="cb11-20"><a href="#cb11-20"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb11-21"><a href="#cb11-21"></a>  <span class="fu">filter</span>(behaviour_class <span class="sc">!=</span> <span class="st">"Other"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-22"><a href="#cb11-22"></a>  <span class="co"># Bin longitudes past the antimeridian (east of 180) into positive space</span></span>
+<span id="cb11-23"><a href="#cb11-23"></a>  <span class="fu">mutate</span>(<span class="at">lon_wrapped =</span> <span class="fu">ifelse</span>(longitude <span class="sc">&lt;</span> <span class="dv">0</span>, longitude <span class="sc">+</span> <span class="dv">360</span>, longitude))</span>
+<span id="cb11-24"><a href="#cb11-24"></a></span>
+<span id="cb11-25"><a href="#cb11-25"></a>class_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb11-26"><a href="#cb11-26"></a>  <span class="st">"Wake-followers"</span> <span class="ot">=</span> <span class="st">"#b8412d"</span>,</span>
+<span id="cb11-27"><a href="#cb11-27"></a>  <span class="st">"Passers-by"</span>     <span class="ot">=</span> <span class="st">"#4a90d9"</span>,</span>
+<span id="cb11-28"><a href="#cb11-28"></a>  <span class="st">"Water-users"</span>    <span class="ot">=</span> <span class="st">"#5aab6d"</span></span>
+<span id="cb11-29"><a href="#cb11-29"></a>)</span>
+<span id="cb11-30"><a href="#cb11-30"></a></span>
+<span id="cb11-31"><a href="#cb11-31"></a><span class="fu">ggplot</span>(obs_class,</span>
+<span id="cb11-32"><a href="#cb11-32"></a>       <span class="fu">aes</span>(<span class="at">x =</span> lon_wrapped, <span class="at">y =</span> latitude, <span class="at">colour =</span> behaviour_class)) <span class="sc">+</span></span>
+<span id="cb11-33"><a href="#cb11-33"></a>  <span class="co"># very light lat/lon grid</span></span>
+<span id="cb11-34"><a href="#cb11-34"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">40</span>, <span class="sc">-</span><span class="dv">20</span>, <span class="dv">0</span>),</span>
+<span id="cb11-35"><a href="#cb11-35"></a>             <span class="at">colour =</span> <span class="st">"grey90"</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb11-36"><a href="#cb11-36"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">140</span>, <span class="dv">160</span>, <span class="dv">180</span>, <span class="dv">200</span>),</span>
+<span id="cb11-37"><a href="#cb11-37"></a>             <span class="at">colour =</span> <span class="st">"grey90"</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb11-38"><a href="#cb11-38"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">stroke =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb11-39"><a href="#cb11-39"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> behaviour_class, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb11-40"><a href="#cb11-40"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> class_pal, <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb11-41"><a href="#cb11-41"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">140</span>, <span class="dv">160</span>, <span class="dv">180</span>, <span class="dv">200</span>),</span>
+<span id="cb11-42"><a href="#cb11-42"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"120°E"</span>, <span class="st">"140°E"</span>, <span class="st">"160°E"</span>, <span class="st">"180°"</span>, <span class="st">"160°W"</span>)) <span class="sc">+</span></span>
+<span id="cb11-43"><a href="#cb11-43"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="dv">0</span>, <span class="dv">20</span>),</span>
+<span id="cb11-44"><a href="#cb11-44"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"60°S"</span>, <span class="st">"40°S"</span>, <span class="st">"20°S"</span>, <span class="st">"0°"</span>)) <span class="sc">+</span></span>
+<span id="cb11-45"><a href="#cb11-45"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">220</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">75</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb11-46"><a href="#cb11-46"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-47"><a href="#cb11-47"></a>    <span class="at">title    =</span> <span class="st">"Wake-followers cluster around the New Zealand shelf; passers-by fill the southern ocean"</span>,</span>
+<span id="cb11-48"><a href="#cb11-48"></a>    <span class="at">subtitle =</span> <span class="st">"Observation locations by behavioural class, Australasian Seabird Mapping Scheme 1969–1990"</span>,</span>
+<span id="cb11-49"><a href="#cb11-49"></a>    <span class="at">x        =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb11-50"><a href="#cb11-50"></a>    <span class="at">caption  =</span> <span class="st">"Source: Te Papa Tongarewa / Australasian Seabird Mapping Scheme · TidyTuesday 2026 Wk 15 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb11-51"><a href="#cb11-51"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-52"><a href="#cb11-52"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb11-53"><a href="#cb11-53"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-54"><a href="#cb11-54"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb11-55"><a href="#cb11-55"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb11-56"><a href="#cb11-56"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb11-57"><a href="#cb11-57"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb11-58"><a href="#cb11-58"></a>    <span class="at">panel.grid    =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb11-59"><a href="#cb11-59"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"lines"</span>)</span>
+<span id="cb11-60"><a href="#cb11-60"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="zhijun-tidytuesday_week15_files/figure-html/viz2-spatial-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The three-panel map takes each observation’s dominant behaviour and plots where in the ocean it was recorded, from the Australian coast in the west to roughly 160°W in the east. The panels differ. Wake-following sightings, in red, cluster strikingly around the waters immediately east and south of New Zealand, with a second concentration along the eastern Australian shelf — the areas where the commercial trawl and longline fishery was most active in this period, and where the hungry, ship-following albatrosses and giant petrels would most reliably find food scraps. The passer-by cloud, in blue, is diffuse across nearly the entire range — a reflection of how the smaller tube-noses move through the southern ocean on their own migratory and foraging business regardless of the ships present. Water-users, in green, share the coastal footprint of the wake-followers but extend into the open ocean wherever sightings were recorded. The shape of each panel is a product of where ships actually went, not of independent random sampling of the ocean — but within that sampling footprint, the behavioural signature of each class is visible in a very different spatial signature.</p>
+</section><section id="takeaway" class="level2"><h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
+<p>The Australasian seabird log book, assembled over two decades by observers on ships passing through one of the wildest seabird theatres on earth, is rich enough that the behavioural structure of the community emerges without any modelling at all. Species do not interact with ships uniformly. They split into groups the taxonomy predicts: the big pelagic scavengers — wandering and royal albatross, giant petrels, cape petrels — trail vessels and cluster in the same ocean patches as the commercial fisheries that those vessels fed into. The smaller tube-noses — fairy prions, sooty shearwaters, Wilson’s storm petrel — mostly ignore ships and distribute widely across the southern ocean.</p>
+<p>The dataset predates the period in which longline bycatch was recognised as a principal cause of albatross decline, and it predates the spatial management tools now used to mitigate that decline. What it shows, in retrospect, is the behavioural substrate the problem was built on. The exact same species that follow ships in the 1975 log are the species now documented as most vulnerable to hook-and-line mortality. The log book did not know that yet. It simply recorded what the birds did. The continuity between the behaviour and the modern conservation record is a good reminder that historical natural-history data, collected without a specific management question in mind, can turn out to answer one.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-body"><div class="nav-page nav-page-previous">
+      <a href="../tt/zhijun-tidytuesday_week14.html" class="pagination-link" aria-label="Some Things Still Get Fixed">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Some Things Still Get Fixed</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../tt/zhijun-tidytuesday_week16.html" class="pagination-link" aria-label="The Transition That Stalled">
+        <span class="nav-page-text"><span class="chapter-title">The Transition That Stalled</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">---</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="an">title:</span><span class="co"> "Who Follows the Ship"</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="an">subtitle:</span><span class="co"> "TidyTuesday 2026 · Week 15 · Seabird Sightings Near New Zealand, 1969–1990"</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="an">date:</span><span class="co"> "2026-04-17"</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="an">format:</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co">  html:</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co">    theme: flatly</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co">    toc: true</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">    code-fold: true</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">    code-summary: "Show code"</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co">    fig-align: center</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="an">execute:</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">  warning: false</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="co">  message: false</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co">---</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a></span>
+<span id="cb12-20"><a href="#cb12-20"></a><span class="in">```{r}</span></span>
+<span id="cb12-21"><a href="#cb12-21"></a><span class="co">#| label: setup</span></span>
+<span id="cb12-22"><a href="#cb12-22"></a></span>
+<span id="cb12-23"><a href="#cb12-23"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb12-24"><a href="#cb12-24"></a><span class="fu">library</span>(scales)</span>
+<span id="cb12-25"><a href="#cb12-25"></a></span>
+<span id="cb12-26"><a href="#cb12-26"></a>birds <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb12-27"><a href="#cb12-27"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-14/birds.csv"</span></span>
+<span id="cb12-28"><a href="#cb12-28"></a>)</span>
+<span id="cb12-29"><a href="#cb12-29"></a></span>
+<span id="cb12-30"><a href="#cb12-30"></a>ships <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb12-31"><a href="#cb12-31"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-14/ships.csv"</span></span>
+<span id="cb12-32"><a href="#cb12-32"></a>)</span>
+<span id="cb12-33"><a href="#cb12-33"></a><span class="in">```</span></span>
+<span id="cb12-34"><a href="#cb12-34"></a></span>
+<span id="cb12-35"><a href="#cb12-35"></a><span class="fu">## Background</span></span>
+<span id="cb12-36"><a href="#cb12-36"></a></span>
+<span id="cb12-37"><a href="#cb12-37"></a>For most of the twentieth century, the southern oceans below Australia and</span>
+<span id="cb12-38"><a href="#cb12-38"></a>New Zealand were travelled by a small number of ships — research vessels,</span>
+<span id="cb12-39"><a href="#cb12-39"></a>fishing trawlers, cargo ships, whaling ships — and watched by an even</span>
+<span id="cb12-40"><a href="#cb12-40"></a>smaller number of seabird observers. From 1969 to 1990, under the</span>
+<span id="cb12-41"><a href="#cb12-41"></a>Australasian Seabird Mapping Scheme, those observers kept standardised</span>
+<span id="cb12-42"><a href="#cb12-42"></a>ten-minute logs of every seabird they could see from the deck. For each</span>
+<span id="cb12-43"><a href="#cb12-43"></a>sighting they recorded species, count, and a small set of behavioural</span>
+<span id="cb12-44"><a href="#cb12-44"></a>codes: was the bird flying past, sitting on water, sitting on ice,</span>
+<span id="cb12-45"><a href="#cb12-45"></a>feeding, following the ship's wake, or flying alongside? The resulting</span>
+<span id="cb12-46"><a href="#cb12-46"></a>dataset, now curated by Te Papa Tongarewa (the Museum of New Zealand),</span>
+<span id="cb12-47"><a href="#cb12-47"></a>contains tens of thousands of observations.</span>
+<span id="cb12-48"><a href="#cb12-48"></a></span>
+<span id="cb12-49"><a href="#cb12-49"></a>The behavioural columns matter. One of the central facts of modern</span>
+<span id="cb12-50"><a href="#cb12-50"></a>seabird ecology is that many pelagic species have a strong, species-specific</span>
+<span id="cb12-51"><a href="#cb12-51"></a>relationship to fishing vessels. Albatrosses and giant petrels routinely</span>
+<span id="cb12-52"><a href="#cb12-52"></a>trail trawlers for hours to feed on fish discards; this is their</span>
+<span id="cb12-53"><a href="#cb12-53"></a>ecological opportunity and, via longline bycatch, their ecological peril.</span>
+<span id="cb12-54"><a href="#cb12-54"></a>Other species — prions, storm petrels, shearwaters — show little interest</span>
+<span id="cb12-55"><a href="#cb12-55"></a>in ships and fly past them as if they were not there. The division is not</span>
+<span id="cb12-56"><a href="#cb12-56"></a>a modern conservation artefact. It is a stable behavioural feature of the</span>
+<span id="cb12-57"><a href="#cb12-57"></a>birds themselves, and the Australasian log book, collected before the</span>
+<span id="cb12-58"><a href="#cb12-58"></a>industrial fishing footprint of the Southern Ocean reached its modern scale,</span>
+<span id="cb12-59"><a href="#cb12-59"></a>offers an unusually clean window into what the natural partition looked like.</span>
+<span id="cb12-60"><a href="#cb12-60"></a></span>
+<span id="cb12-61"><a href="#cb12-61"></a><span class="fu">## Motivation &amp; Research Question</span></span>
+<span id="cb12-62"><a href="#cb12-62"></a></span>
+<span id="cb12-63"><a href="#cb12-63"></a>The suggested question for this week's dataset concerns record-keeping:</span>
+<span id="cb12-64"><a href="#cb12-64"></a>do the split columns agree with the original logbook entries in</span>
+<span id="cb12-65"><a href="#cb12-65"></a><span class="in">`species_common_name`</span>? That is a useful data-quality audit, and the</span>
+<span id="cb12-66"><a href="#cb12-66"></a>answer is mostly yes. A more interesting question the data supports is</span>
+<span id="cb12-67"><a href="#cb12-67"></a>ecological. Every sighting comes tagged with behaviour — and every bird</span>
+<span id="cb12-68"><a href="#cb12-68"></a>species has a different pattern of behaviours. If the boundary between</span>
+<span id="cb12-69"><a href="#cb12-69"></a>ship-followers and passers-by is as clean as seabird ecologists describe,</span>
+<span id="cb12-70"><a href="#cb12-70"></a>it should be visible immediately in the joint distribution of species and</span>
+<span id="cb12-71"><a href="#cb12-71"></a>behaviour, without any model at all.</span>
+<span id="cb12-72"><a href="#cb12-72"></a></span>
+<span id="cb12-73"><a href="#cb12-73"></a>**Research question: Do seabird species in the Australasian log book</span>
+<span id="cb12-74"><a href="#cb12-74"></a>divide cleanly into ship-followers and ship-ignorers, and does the</span>
+<span id="cb12-75"><a href="#cb12-75"></a>division track known taxonomy and foraging strategy?**</span>
+<span id="cb12-76"><a href="#cb12-76"></a></span>
+<span id="cb12-77"><a href="#cb12-77"></a><span class="fu">## Data Preparation</span></span>
+<span id="cb12-78"><a href="#cb12-78"></a></span>
+<span id="cb12-81"><a href="#cb12-81"></a><span class="in">```{r}</span></span>
+<span id="cb12-82"><a href="#cb12-82"></a><span class="co">#| label: data-prep</span></span>
+<span id="cb12-83"><a href="#cb12-83"></a></span>
+<span id="cb12-84"><a href="#cb12-84"></a><span class="co"># Join birds with ship records to carry along date and location.</span></span>
+<span id="cb12-85"><a href="#cb12-85"></a>bird_ship <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
+<span id="cb12-86"><a href="#cb12-86"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(species_common_name)) <span class="sc">|&gt;</span></span>
+<span id="cb12-87"><a href="#cb12-87"></a>  <span class="fu">left_join</span>(ships <span class="sc">|&gt;</span> <span class="fu">select</span>(record_id, date, latitude, longitude, activity),</span>
+<span id="cb12-88"><a href="#cb12-88"></a>            <span class="at">by =</span> <span class="st">"record_id"</span>)</span>
+<span id="cb12-89"><a href="#cb12-89"></a></span>
+<span id="cb12-90"><a href="#cb12-90"></a><span class="co"># The logbook frequently records identification at genus level</span></span>
+<span id="cb12-91"><a href="#cb12-91"></a><span class="co"># (e.g. "Royal albatross sensu lato") or with plumage/age tags (AD, JUV).</span></span>
+<span id="cb12-92"><a href="#cb12-92"></a><span class="co"># Collapse to a simpler species label by stripping trailing age/sex tokens</span></span>
+<span id="cb12-93"><a href="#cb12-93"></a><span class="co"># and pooling obvious aggregates.</span></span>
+<span id="cb12-94"><a href="#cb12-94"></a>bird_ship <span class="ot">&lt;-</span> bird_ship <span class="sc">|&gt;</span></span>
+<span id="cb12-95"><a href="#cb12-95"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-96"><a href="#cb12-96"></a>    <span class="at">species_label =</span> species_common_name <span class="sc">|&gt;</span></span>
+<span id="cb12-97"><a href="#cb12-97"></a>      <span class="fu">str_remove_all</span>(<span class="st">" sensu lato"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-98"><a href="#cb12-98"></a>      <span class="fu">str_remove_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s+(AD|JUV|IMM|SUBAD|M|F)$"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-99"><a href="#cb12-99"></a>      <span class="fu">str_trim</span>(),</span>
+<span id="cb12-100"><a href="#cb12-100"></a>    <span class="at">species_label =</span> <span class="fu">fct_lump_min</span>(species_label, <span class="at">min =</span> <span class="dv">300</span>)</span>
+<span id="cb12-101"><a href="#cb12-101"></a>  )</span>
+<span id="cb12-102"><a href="#cb12-102"></a></span>
+<span id="cb12-103"><a href="#cb12-103"></a><span class="co"># Pick the most commonly recorded species (top 14) for the heatmap</span></span>
+<span id="cb12-104"><a href="#cb12-104"></a>top_species <span class="ot">&lt;-</span> bird_ship <span class="sc">|&gt;</span></span>
+<span id="cb12-105"><a href="#cb12-105"></a>  <span class="fu">filter</span>(species_label <span class="sc">!=</span> <span class="st">"Other"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-106"><a href="#cb12-106"></a>  <span class="fu">count</span>(species_label, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-107"><a href="#cb12-107"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">14</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-108"><a href="#cb12-108"></a>  <span class="fu">pull</span>(species_label)</span>
+<span id="cb12-109"><a href="#cb12-109"></a></span>
+<span id="cb12-110"><a href="#cb12-110"></a>beh_df <span class="ot">&lt;-</span> bird_ship <span class="sc">|&gt;</span></span>
+<span id="cb12-111"><a href="#cb12-111"></a>  <span class="fu">filter</span>(species_label <span class="sc">%in%</span> top_species) <span class="sc">|&gt;</span></span>
+<span id="cb12-112"><a href="#cb12-112"></a>  <span class="fu">mutate</span>(<span class="at">species_label =</span> <span class="fu">factor</span>(species_label, <span class="at">levels =</span> <span class="fu">rev</span>(top_species)))</span>
+<span id="cb12-113"><a href="#cb12-113"></a></span>
+<span id="cb12-114"><a href="#cb12-114"></a><span class="fu">cat</span>(<span class="st">"Total bird observations:"</span>, <span class="fu">format</span>(<span class="fu">nrow</span>(birds), <span class="at">big.mark =</span> <span class="st">","</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb12-115"><a href="#cb12-115"></a><span class="fu">cat</span>(<span class="st">"Linked to ship records: "</span>, <span class="fu">format</span>(<span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(bird_ship<span class="sc">$</span>date)),</span>
+<span id="cb12-116"><a href="#cb12-116"></a>                                        <span class="at">big.mark =</span> <span class="st">","</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb12-117"><a href="#cb12-117"></a><span class="fu">cat</span>(<span class="st">"Date range:             "</span>, <span class="fu">format</span>(<span class="fu">min</span>(bird_ship<span class="sc">$</span>date, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb12-118"><a href="#cb12-118"></a>    <span class="st">"–"</span>, <span class="fu">format</span>(<span class="fu">max</span>(bird_ship<span class="sc">$</span>date, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb12-119"><a href="#cb12-119"></a><span class="fu">cat</span>(<span class="st">"Top 14 species cover    "</span>, <span class="fu">percent</span>(<span class="fu">sum</span>(bird_ship<span class="sc">$</span>species_label <span class="sc">%in%</span> top_species) <span class="sc">/</span></span>
+<span id="cb12-120"><a href="#cb12-120"></a>                                        <span class="fu">nrow</span>(bird_ship), <span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb12-121"><a href="#cb12-121"></a>    <span class="st">"of observations</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">" "</span>)</span>
+<span id="cb12-122"><a href="#cb12-122"></a><span class="in">```</span></span>
+<span id="cb12-123"><a href="#cb12-123"></a></span>
+<span id="cb12-124"><a href="#cb12-124"></a><span class="fu">## Visualization 1: Behaviour × Species</span></span>
+<span id="cb12-125"><a href="#cb12-125"></a></span>
+<span id="cb12-128"><a href="#cb12-128"></a><span class="in">```{r}</span></span>
+<span id="cb12-129"><a href="#cb12-129"></a><span class="co">#| label: viz1-behaviour-heatmap</span></span>
+<span id="cb12-130"><a href="#cb12-130"></a><span class="co">#| fig-width: 11</span></span>
+<span id="cb12-131"><a href="#cb12-131"></a><span class="co">#| fig-height: 6.5</span></span>
+<span id="cb12-132"><a href="#cb12-132"></a></span>
+<span id="cb12-133"><a href="#cb12-133"></a>behaviours <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb12-134"><a href="#cb12-134"></a>  <span class="at">following_ship   =</span> <span class="st">"Following</span><span class="sc">\n</span><span class="st">wake"</span>,</span>
+<span id="cb12-135"><a href="#cb12-135"></a>  <span class="at">accompanying     =</span> <span class="st">"Flying</span><span class="sc">\n</span><span class="st">alongside"</span>,</span>
+<span id="cb12-136"><a href="#cb12-136"></a>  <span class="at">feeding          =</span> <span class="st">"Feeding"</span>,</span>
+<span id="cb12-137"><a href="#cb12-137"></a>  <span class="at">sitting_on_ship  =</span> <span class="st">"Sitting</span><span class="sc">\n</span><span class="st">on ship"</span>,</span>
+<span id="cb12-138"><a href="#cb12-138"></a>  <span class="at">flying_past      =</span> <span class="st">"Flying</span><span class="sc">\n</span><span class="st">past"</span>,</span>
+<span id="cb12-139"><a href="#cb12-139"></a>  <span class="at">sitting_on_water =</span> <span class="st">"Sitting</span><span class="sc">\n</span><span class="st">on water"</span>,</span>
+<span id="cb12-140"><a href="#cb12-140"></a>  <span class="at">sitting_on_ice   =</span> <span class="st">"Sitting</span><span class="sc">\n</span><span class="st">on ice"</span></span>
+<span id="cb12-141"><a href="#cb12-141"></a>)</span>
+<span id="cb12-142"><a href="#cb12-142"></a></span>
+<span id="cb12-143"><a href="#cb12-143"></a><span class="co"># Per-species share of sightings exhibiting each behaviour</span></span>
+<span id="cb12-144"><a href="#cb12-144"></a>beh_long <span class="ot">&lt;-</span> beh_df <span class="sc">|&gt;</span></span>
+<span id="cb12-145"><a href="#cb12-145"></a>  <span class="fu">select</span>(species_label, <span class="fu">all_of</span>(<span class="fu">names</span>(behaviours))) <span class="sc">|&gt;</span></span>
+<span id="cb12-146"><a href="#cb12-146"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>species_label, <span class="at">names_to =</span> <span class="st">"behaviour"</span>, <span class="at">values_to =</span> <span class="st">"flag"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-147"><a href="#cb12-147"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(flag)) <span class="sc">|&gt;</span></span>
+<span id="cb12-148"><a href="#cb12-148"></a>  <span class="fu">group_by</span>(species_label, behaviour) <span class="sc">|&gt;</span></span>
+<span id="cb12-149"><a href="#cb12-149"></a>  <span class="fu">summarise</span>(<span class="at">share =</span> <span class="fu">mean</span>(flag), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-150"><a href="#cb12-150"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-151"><a href="#cb12-151"></a>    <span class="at">behaviour =</span> <span class="fu">factor</span>(behaviour,</span>
+<span id="cb12-152"><a href="#cb12-152"></a>                       <span class="at">levels =</span> <span class="fu">names</span>(behaviours),</span>
+<span id="cb12-153"><a href="#cb12-153"></a>                       <span class="at">labels =</span> behaviours)</span>
+<span id="cb12-154"><a href="#cb12-154"></a>  )</span>
+<span id="cb12-155"><a href="#cb12-155"></a></span>
+<span id="cb12-156"><a href="#cb12-156"></a><span class="fu">ggplot</span>(beh_long,</span>
+<span id="cb12-157"><a href="#cb12-157"></a>       <span class="fu">aes</span>(<span class="at">x =</span> behaviour, <span class="at">y =</span> species_label, <span class="at">fill =</span> share)) <span class="sc">+</span></span>
+<span id="cb12-158"><a href="#cb12-158"></a>  <span class="fu">geom_tile</span>(<span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb12-159"><a href="#cb12-159"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">ifelse</span>(share <span class="sc">&gt;=</span> <span class="fl">0.05</span>,</span>
+<span id="cb12-160"><a href="#cb12-160"></a>                               <span class="fu">sprintf</span>(<span class="st">"%.0f%%"</span>, <span class="dv">100</span> <span class="sc">*</span> share), <span class="st">""</span>)),</span>
+<span id="cb12-161"><a href="#cb12-161"></a>            <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"grey15"</span>) <span class="sc">+</span></span>
+<span id="cb12-162"><a href="#cb12-162"></a>  <span class="fu">scale_fill_gradient2</span>(</span>
+<span id="cb12-163"><a href="#cb12-163"></a>    <span class="at">low =</span> <span class="st">"#f3f5f8"</span>, <span class="at">mid =</span> <span class="st">"#d4af37"</span>, <span class="at">high =</span> <span class="st">"#b8412d"</span>,</span>
+<span id="cb12-164"><a href="#cb12-164"></a>    <span class="at">midpoint =</span> <span class="fl">0.35</span>,</span>
+<span id="cb12-165"><a href="#cb12-165"></a>    <span class="at">name =</span> <span class="st">"Share of</span><span class="sc">\n</span><span class="st">sightings"</span>,</span>
+<span id="cb12-166"><a href="#cb12-166"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb12-167"><a href="#cb12-167"></a>    <span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>)</span>
+<span id="cb12-168"><a href="#cb12-168"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-169"><a href="#cb12-169"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
+<span id="cb12-170"><a href="#cb12-170"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-171"><a href="#cb12-171"></a>    <span class="at">title    =</span> <span class="st">"Every species sits in its own behavioural niche with respect to the ship"</span>,</span>
+<span id="cb12-172"><a href="#cb12-172"></a>    <span class="at">subtitle =</span> <span class="st">"Share of sightings in each behavioural mode, top 14 recorded species, 1969–1990"</span>,</span>
+<span id="cb12-173"><a href="#cb12-173"></a>    <span class="at">x        =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-174"><a href="#cb12-174"></a>    <span class="at">caption  =</span> <span class="st">"Source: Te Papa Tongarewa / Australasian Seabird Mapping Scheme · TidyTuesday 2026 Wk 15 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb12-175"><a href="#cb12-175"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-176"><a href="#cb12-176"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb12-177"><a href="#cb12-177"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-178"><a href="#cb12-178"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb12-179"><a href="#cb12-179"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb12-180"><a href="#cb12-180"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb12-181"><a href="#cb12-181"></a>    <span class="at">panel.grid    =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-182"><a href="#cb12-182"></a>    <span class="at">axis.text.x   =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">lineheight =</span> <span class="fl">0.9</span>),</span>
+<span id="cb12-183"><a href="#cb12-183"></a>    <span class="at">axis.text.y   =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb12-184"><a href="#cb12-184"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>,</span>
+<span id="cb12-185"><a href="#cb12-185"></a>    <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="fl">1.1</span>, <span class="st">"cm"</span>)</span>
+<span id="cb12-186"><a href="#cb12-186"></a>  )</span>
+<span id="cb12-187"><a href="#cb12-187"></a><span class="in">```</span></span>
+<span id="cb12-188"><a href="#cb12-188"></a></span>
+<span id="cb12-189"><a href="#cb12-189"></a>The heatmap reads as a behavioural niche map. Each row is a species; each</span>
+<span id="cb12-190"><a href="#cb12-190"></a>column is a behaviour; the cell intensity is the share of that species'</span>
+<span id="cb12-191"><a href="#cb12-191"></a>sightings in which the behaviour was recorded. Numbers appear in cells</span>
+<span id="cb12-192"><a href="#cb12-192"></a>where the behaviour accounts for at least 5 percent of sightings, to keep</span>
+<span id="cb12-193"><a href="#cb12-193"></a>the plot legible. A distinct block structure is immediately visible.</span>
+<span id="cb12-194"><a href="#cb12-194"></a>The "Following wake" and "Flying alongside" columns light up strongly for</span>
+<span id="cb12-195"><a href="#cb12-195"></a>the albatrosses, giant petrels, and cape petrels at the top — the species</span>
+<span id="cb12-196"><a href="#cb12-196"></a>that seabird ecologists describe as ship-followers. The "Flying past"</span>
+<span id="cb12-197"><a href="#cb12-197"></a>column dominates for the small tube-nosed species: prions, storm petrels,</span>
+<span id="cb12-198"><a href="#cb12-198"></a>shearwaters. "Sitting on water" shows up in species that use the ocean</span>
+<span id="cb12-199"><a href="#cb12-199"></a>surface as a platform for prolonged rest or local foraging (shearwaters,</span>
+<span id="cb12-200"><a href="#cb12-200"></a>cape petrels) rather than actively trailing the ship. Two species — the</span>
+<span id="cb12-201"><a href="#cb12-201"></a>black-browed albatross and the cape petrel — sit at the intersection of</span>
+<span id="cb12-202"><a href="#cb12-202"></a>two columns ("flying past" and "following ship"), consistent with their</span>
+<span id="cb12-203"><a href="#cb12-203"></a>status as flexible generalists that can either follow vessels or not</span>
+<span id="cb12-204"><a href="#cb12-204"></a>depending on circumstance. The behavioural division is not a dichotomy</span>
+<span id="cb12-205"><a href="#cb12-205"></a>of two clean groups. It is a structured gradient that the taxonomy</span>
+<span id="cb12-206"><a href="#cb12-206"></a>anticipates.</span>
+<span id="cb12-207"><a href="#cb12-207"></a></span>
+<span id="cb12-208"><a href="#cb12-208"></a><span class="fu">## Visualization 2: Where the Behaviours Happen</span></span>
+<span id="cb12-209"><a href="#cb12-209"></a></span>
+<span id="cb12-212"><a href="#cb12-212"></a><span class="in">```{r}</span></span>
+<span id="cb12-213"><a href="#cb12-213"></a><span class="co">#| label: viz2-spatial</span></span>
+<span id="cb12-214"><a href="#cb12-214"></a><span class="co">#| fig-width: 11</span></span>
+<span id="cb12-215"><a href="#cb12-215"></a><span class="co">#| fig-height: 6.2</span></span>
+<span id="cb12-216"><a href="#cb12-216"></a></span>
+<span id="cb12-217"><a href="#cb12-217"></a><span class="co"># Collapse each observation to one behaviour class: wake-follower,</span></span>
+<span id="cb12-218"><a href="#cb12-218"></a><span class="co"># water-user, or flying past, using the dominant recorded behaviour.</span></span>
+<span id="cb12-219"><a href="#cb12-219"></a>obs_class <span class="ot">&lt;-</span> bird_ship <span class="sc">|&gt;</span></span>
+<span id="cb12-220"><a href="#cb12-220"></a>  <span class="fu">filter</span>(species_label <span class="sc">%in%</span> top_species,</span>
+<span id="cb12-221"><a href="#cb12-221"></a>         <span class="sc">!</span><span class="fu">is.na</span>(latitude), <span class="sc">!</span><span class="fu">is.na</span>(longitude),</span>
+<span id="cb12-222"><a href="#cb12-222"></a>         <span class="fu">between</span>(latitude, <span class="sc">-</span><span class="dv">75</span>, <span class="dv">10</span>),</span>
+<span id="cb12-223"><a href="#cb12-223"></a>         <span class="fu">between</span>(longitude, <span class="dv">100</span>, <span class="dv">220</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb12-224"><a href="#cb12-224"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-225"><a href="#cb12-225"></a>    <span class="at">behaviour_class =</span> <span class="fu">case_when</span>(</span>
+<span id="cb12-226"><a href="#cb12-226"></a>      following_ship <span class="sc">|</span> accompanying             <span class="sc">~</span> <span class="st">"Wake-followers"</span>,</span>
+<span id="cb12-227"><a href="#cb12-227"></a>      sitting_on_water <span class="sc">&amp;</span> <span class="sc">!</span>flying_past           <span class="sc">~</span> <span class="st">"Water-users"</span>,</span>
+<span id="cb12-228"><a href="#cb12-228"></a>      flying_past                               <span class="sc">~</span> <span class="st">"Passers-by"</span>,</span>
+<span id="cb12-229"><a href="#cb12-229"></a>      <span class="cn">TRUE</span>                                      <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb12-230"><a href="#cb12-230"></a>    ),</span>
+<span id="cb12-231"><a href="#cb12-231"></a>    <span class="at">behaviour_class =</span> <span class="fu">factor</span>(behaviour_class,</span>
+<span id="cb12-232"><a href="#cb12-232"></a>                             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Wake-followers"</span>,</span>
+<span id="cb12-233"><a href="#cb12-233"></a>                                        <span class="st">"Passers-by"</span>,</span>
+<span id="cb12-234"><a href="#cb12-234"></a>                                        <span class="st">"Water-users"</span>,</span>
+<span id="cb12-235"><a href="#cb12-235"></a>                                        <span class="st">"Other"</span>))</span>
+<span id="cb12-236"><a href="#cb12-236"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-237"><a href="#cb12-237"></a>  <span class="fu">filter</span>(behaviour_class <span class="sc">!=</span> <span class="st">"Other"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-238"><a href="#cb12-238"></a>  <span class="co"># Bin longitudes past the antimeridian (east of 180) into positive space</span></span>
+<span id="cb12-239"><a href="#cb12-239"></a>  <span class="fu">mutate</span>(<span class="at">lon_wrapped =</span> <span class="fu">ifelse</span>(longitude <span class="sc">&lt;</span> <span class="dv">0</span>, longitude <span class="sc">+</span> <span class="dv">360</span>, longitude))</span>
+<span id="cb12-240"><a href="#cb12-240"></a></span>
+<span id="cb12-241"><a href="#cb12-241"></a>class_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb12-242"><a href="#cb12-242"></a>  <span class="st">"Wake-followers"</span> <span class="ot">=</span> <span class="st">"#b8412d"</span>,</span>
+<span id="cb12-243"><a href="#cb12-243"></a>  <span class="st">"Passers-by"</span>     <span class="ot">=</span> <span class="st">"#4a90d9"</span>,</span>
+<span id="cb12-244"><a href="#cb12-244"></a>  <span class="st">"Water-users"</span>    <span class="ot">=</span> <span class="st">"#5aab6d"</span></span>
+<span id="cb12-245"><a href="#cb12-245"></a>)</span>
+<span id="cb12-246"><a href="#cb12-246"></a></span>
+<span id="cb12-247"><a href="#cb12-247"></a><span class="fu">ggplot</span>(obs_class,</span>
+<span id="cb12-248"><a href="#cb12-248"></a>       <span class="fu">aes</span>(<span class="at">x =</span> lon_wrapped, <span class="at">y =</span> latitude, <span class="at">colour =</span> behaviour_class)) <span class="sc">+</span></span>
+<span id="cb12-249"><a href="#cb12-249"></a>  <span class="co"># very light lat/lon grid</span></span>
+<span id="cb12-250"><a href="#cb12-250"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">40</span>, <span class="sc">-</span><span class="dv">20</span>, <span class="dv">0</span>),</span>
+<span id="cb12-251"><a href="#cb12-251"></a>             <span class="at">colour =</span> <span class="st">"grey90"</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb12-252"><a href="#cb12-252"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">140</span>, <span class="dv">160</span>, <span class="dv">180</span>, <span class="dv">200</span>),</span>
+<span id="cb12-253"><a href="#cb12-253"></a>             <span class="at">colour =</span> <span class="st">"grey90"</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb12-254"><a href="#cb12-254"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">stroke =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb12-255"><a href="#cb12-255"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> behaviour_class, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-256"><a href="#cb12-256"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> class_pal, <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb12-257"><a href="#cb12-257"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">140</span>, <span class="dv">160</span>, <span class="dv">180</span>, <span class="dv">200</span>),</span>
+<span id="cb12-258"><a href="#cb12-258"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"120°E"</span>, <span class="st">"140°E"</span>, <span class="st">"160°E"</span>, <span class="st">"180°"</span>, <span class="st">"160°W"</span>)) <span class="sc">+</span></span>
+<span id="cb12-259"><a href="#cb12-259"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="dv">0</span>, <span class="dv">20</span>),</span>
+<span id="cb12-260"><a href="#cb12-260"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"60°S"</span>, <span class="st">"40°S"</span>, <span class="st">"20°S"</span>, <span class="st">"0°"</span>)) <span class="sc">+</span></span>
+<span id="cb12-261"><a href="#cb12-261"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">220</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">75</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb12-262"><a href="#cb12-262"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-263"><a href="#cb12-263"></a>    <span class="at">title    =</span> <span class="st">"Wake-followers cluster around the New Zealand shelf; passers-by fill the southern ocean"</span>,</span>
+<span id="cb12-264"><a href="#cb12-264"></a>    <span class="at">subtitle =</span> <span class="st">"Observation locations by behavioural class, Australasian Seabird Mapping Scheme 1969–1990"</span>,</span>
+<span id="cb12-265"><a href="#cb12-265"></a>    <span class="at">x        =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-266"><a href="#cb12-266"></a>    <span class="at">caption  =</span> <span class="st">"Source: Te Papa Tongarewa / Australasian Seabird Mapping Scheme · TidyTuesday 2026 Wk 15 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb12-267"><a href="#cb12-267"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-268"><a href="#cb12-268"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb12-269"><a href="#cb12-269"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-270"><a href="#cb12-270"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb12-271"><a href="#cb12-271"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb12-272"><a href="#cb12-272"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb12-273"><a href="#cb12-273"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb12-274"><a href="#cb12-274"></a>    <span class="at">panel.grid    =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-275"><a href="#cb12-275"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"lines"</span>)</span>
+<span id="cb12-276"><a href="#cb12-276"></a>  )</span>
+<span id="cb12-277"><a href="#cb12-277"></a><span class="in">```</span></span>
+<span id="cb12-278"><a href="#cb12-278"></a></span>
+<span id="cb12-279"><a href="#cb12-279"></a>The three-panel map takes each observation's dominant behaviour and plots</span>
+<span id="cb12-280"><a href="#cb12-280"></a>where in the ocean it was recorded, from the Australian coast in the west</span>
+<span id="cb12-281"><a href="#cb12-281"></a>to roughly 160°W in the east. The panels differ. Wake-following sightings,</span>
+<span id="cb12-282"><a href="#cb12-282"></a>in red, cluster strikingly around the waters immediately east and south of</span>
+<span id="cb12-283"><a href="#cb12-283"></a>New Zealand, with a second concentration along the eastern Australian</span>
+<span id="cb12-284"><a href="#cb12-284"></a>shelf — the areas where the commercial trawl and longline fishery was</span>
+<span id="cb12-285"><a href="#cb12-285"></a>most active in this period, and where the hungry, ship-following</span>
+<span id="cb12-286"><a href="#cb12-286"></a>albatrosses and giant petrels would most reliably find food scraps. The</span>
+<span id="cb12-287"><a href="#cb12-287"></a>passer-by cloud, in blue, is diffuse across nearly the entire range — a</span>
+<span id="cb12-288"><a href="#cb12-288"></a>reflection of how the smaller tube-noses move through the southern ocean</span>
+<span id="cb12-289"><a href="#cb12-289"></a>on their own migratory and foraging business regardless of the ships</span>
+<span id="cb12-290"><a href="#cb12-290"></a>present. Water-users, in green, share the coastal footprint of the</span>
+<span id="cb12-291"><a href="#cb12-291"></a>wake-followers but extend into the open ocean wherever sightings were</span>
+<span id="cb12-292"><a href="#cb12-292"></a>recorded. The shape of each panel is a product of where ships actually</span>
+<span id="cb12-293"><a href="#cb12-293"></a>went, not of independent random sampling of the ocean — but within that</span>
+<span id="cb12-294"><a href="#cb12-294"></a>sampling footprint, the behavioural signature of each class is visible in</span>
+<span id="cb12-295"><a href="#cb12-295"></a>a very different spatial signature.</span>
+<span id="cb12-296"><a href="#cb12-296"></a></span>
+<span id="cb12-297"><a href="#cb12-297"></a><span class="fu">## Takeaway</span></span>
+<span id="cb12-298"><a href="#cb12-298"></a></span>
+<span id="cb12-299"><a href="#cb12-299"></a>The Australasian seabird log book, assembled over two decades by observers</span>
+<span id="cb12-300"><a href="#cb12-300"></a>on ships passing through one of the wildest seabird theatres on earth, is</span>
+<span id="cb12-301"><a href="#cb12-301"></a>rich enough that the behavioural structure of the community emerges without</span>
+<span id="cb12-302"><a href="#cb12-302"></a>any modelling at all. Species do not interact with ships uniformly. They</span>
+<span id="cb12-303"><a href="#cb12-303"></a>split into groups the taxonomy predicts: the big pelagic scavengers —</span>
+<span id="cb12-304"><a href="#cb12-304"></a>wandering and royal albatross, giant petrels, cape petrels — trail vessels</span>
+<span id="cb12-305"><a href="#cb12-305"></a>and cluster in the same ocean patches as the commercial fisheries that</span>
+<span id="cb12-306"><a href="#cb12-306"></a>those vessels fed into. The smaller tube-noses — fairy prions, sooty</span>
+<span id="cb12-307"><a href="#cb12-307"></a>shearwaters, Wilson's storm petrel — mostly ignore ships and distribute</span>
+<span id="cb12-308"><a href="#cb12-308"></a>widely across the southern ocean.</span>
+<span id="cb12-309"><a href="#cb12-309"></a></span>
+<span id="cb12-310"><a href="#cb12-310"></a>The dataset predates the period in which longline bycatch was recognised</span>
+<span id="cb12-311"><a href="#cb12-311"></a>as a principal cause of albatross decline, and it predates the spatial</span>
+<span id="cb12-312"><a href="#cb12-312"></a>management tools now used to mitigate that decline. What it shows, in</span>
+<span id="cb12-313"><a href="#cb12-313"></a>retrospect, is the behavioural substrate the problem was built on. The</span>
+<span id="cb12-314"><a href="#cb12-314"></a>exact same species that follow ships in the 1975 log are the species now</span>
+<span id="cb12-315"><a href="#cb12-315"></a>documented as most vulnerable to hook-and-line mortality. The log book</span>
+<span id="cb12-316"><a href="#cb12-316"></a>did not know that yet. It simply recorded what the birds did. The</span>
+<span id="cb12-317"><a href="#cb12-317"></a>continuity between the behaviour and the modern conservation record is</span>
+<span id="cb12-318"><a href="#cb12-318"></a>a good reminder that historical natural-history data, collected without</span>
+<span id="cb12-319"><a href="#cb12-319"></a>a specific management question in mind, can turn out to answer one.</span>
+<span id="cb12-320"><a href="#cb12-320"></a></span>
+<span id="cb12-323"><a href="#cb12-323"></a><span class="in">```{r}</span></span>
+<span id="cb12-324"><a href="#cb12-324"></a><span class="co">#| label: session-info</span></span>
+<span id="cb12-325"><a href="#cb12-325"></a><span class="co">#| include: false</span></span>
+<span id="cb12-326"><a href="#cb12-326"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb12-327"><a href="#cb12-327"></a><span class="in">```</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

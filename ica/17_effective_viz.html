@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-18">
+<title>17 — Effective Visualization – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/18_interactive_viz.html" rel="next">
+<link href="../ica/16_databases_sql.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/17_effective_viz.html"><span class="chapter-title">17 — Effective Visualization</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-what-africa-will-look-like-in-100-years-the-telegraph-march-2016" id="toc-data-story-critique-what-africa-will-look-like-in-100-years-the-telegraph-march-2016" class="nav-link" data-scroll-target="#data-story-critique-what-africa-will-look-like-in-100-years-the-telegraph-march-2016">🔥 Data Story Critique — <em>What Africa will look like in 100 years</em> (The Telegraph, March 2016)</a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story?</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#exercise-present-your-visual" id="toc-exercise-present-your-visual" class="nav-link" data-scroll-target="#exercise-present-your-visual">Exercise — Present Your Visual</a>
+  <ul class="collapse">
+<li><a href="#motivation-context" id="toc-motivation-context" class="nav-link" data-scroll-target="#motivation-context">Motivation &amp; Context</a></li>
+  <li><a href="#orientation" id="toc-orientation" class="nav-link" data-scroll-target="#orientation">Orientation</a></li>
+  <li><a href="#highlight" id="toc-highlight" class="nav-link" data-scroll-target="#highlight">Highlight</a></li>
+  <li><a href="#big-picture" id="toc-big-picture" class="nav-link" data-scroll-target="#big-picture">Big Picture</a></li>
+  <li><a href="#applying-the-six-guidelines" id="toc-applying-the-six-guidelines" class="nav-link" data-scroll-target="#applying-the-six-guidelines">Applying the Six Guidelines</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#exercise-human-centered-data-science" id="toc-exercise-human-centered-data-science" class="nav-link" data-scroll-target="#exercise-human-centered-data-science">Exercise — Human-Centered Data Science</a>
+  <ul class="collapse">
+<li><a href="#what-the-dear-abby-letters-reveal-that-no-dataset-would" id="toc-what-the-dear-abby-letters-reveal-that-no-dataset-would" class="nav-link" data-scroll-target="#what-the-dear-abby-letters-reveal-that-no-dataset-would">What the Dear Abby letters reveal that no dataset would</a></li>
+  <li><a href="#hidden-context-in-my-projects-dataset" id="toc-hidden-context-in-my-projects-dataset" class="nav-link" data-scroll-target="#hidden-context-in-my-projects-dataset">Hidden context in my project’s dataset</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#exercise-project-in-3-visuals" id="toc-exercise-project-in-3-visuals" class="nav-link" data-scroll-target="#exercise-project-in-3-visuals">Exercise — Project in 3 Visuals</a>
+  <ul class="collapse">
+<li><a href="#candidate-roles-for-the-three-visuals" id="toc-candidate-roles-for-the-three-visuals" class="nav-link" data-scroll-target="#candidate-roles-for-the-three-visuals">Candidate roles for the three visuals</a></li>
+  <li><a href="#for-my-project" id="toc-for-my-project" class="nav-link" data-scroll-target="#for-my-project">For my project</a></li>
+  </ul>
+</li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/17_effective_viz.html"><span class="chapter-title">17 — Effective Visualization</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">17 — Effective Visualization</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-what-africa-will-look-like-in-100-years-the-telegraph-march-2016" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-what-africa-will-look-like-in-100-years-the-telegraph-march-2016">🔥 Data Story Critique — <em>What Africa will look like in 100 years</em> (The Telegraph, March 2016)</h2>
+<p>Source: <a href="http://s.telegraph.co.uk/graphics/projects/Africa-in-100-years/index.html" class="uri">http://s.telegraph.co.uk/graphics/projects/Africa-in-100-years/index.html</a></p>
+<p>Author: Ashley Kirk, Telegraph data journalist.</p>
+<section id="what-is-the-data-story" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story?</h3>
+<p>The piece takes UN population projections — Africa reaching 4.4 billion by 2100, a roughly fourfold increase — and builds a continent-scale prognostic narrative around the challenges and opportunities of that growth. Chapters move through urbanization (projecting 56.5% urban-dweller share by 2050), housing and slums (with a profile of Lydia, a young woman from Nairobi’s Kibera), public health (HIV, malaria, maternal mortality), conflict (Boko Haram, South Sudan, the Fragile States Index), education (primary-school enrollment, illiteracy projections), and life expectancy. Each chapter interleaves data charts with expert quotes — primarily from UN agencies (Joan Clos, Dr Davison Munodawafa), UK government bodies (Justine Greening, DFID figures), and Western-linked institutions (Barclays Africa, Africa Educational Trust, The Borgen Project). The piece closes on a qualified note of opportunity: African urbanization is a late-starting transition that could embrace “new urban paradigms,” provided it is accompanied by international support and better data.</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<p><strong>The underlying demographic data is solid and the projection is important to communicate.</strong> UN population projections showing Africa’s quadrupling by 2100 are a consequential fact that most readers have not internalized. Getting this number into broadsheet readership with the accompanying structural implications (working-age cohort composition, urbanization pace, health-system strain) is a legitimate journalistic contribution.</p>
+<p><strong>Interleaving a named first-person testimony — Lydia from Kibera — gives the abstract demographic projection a texture that pure charts cannot.</strong> Whatever the problems with how her voice is positioned (see below), having an African woman speak in her own words at substantial length is above the norm for this genre and register.</p>
+<p><strong>Naming specific success cases alongside the challenges.</strong> Burundi’s doubling of primary-school enrollment between 2000 and 2010 and Mozambique’s 35-percentage-point gain in the same window are given explicit space. This is not a piece that argues every African country is on the same trajectory; it at least gestures at heterogeneity in outcomes.</p>
+<p><strong>The closing framing borrows from demographic-dividend thinking.</strong> “Given the comparatively late onset of the urban transition in Africa, there exist real opportunities for embracing new urban paradigms” is drawn from the scholarly literature that treats Africa’s youth-heavy demographic profile as an asset if paired with right policy. That framing appears only at the end and is not developed, but its presence at all is worth noting.</p>
+</section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<p><strong>The piece operates in an external-observation register that flattens Africa’s analytical autonomy.</strong> The entire document reads as <em>the Telegraph looking at</em> Africa and reporting on its future — not as Africans authoring their own trajectory. No comparable Telegraph feature would ask “What will America look like in 100 years?” in the same anxious-prognostic register, despite America’s demographic shifts being similarly substantial. The genre convention this piece sits inside — broadsheet European development journalism — has a long history going back to colonial-era reportage, and the piece does not distance itself from that inheritance. A reader learns what the world should worry about regarding Africa, not what Africans are doing about Africa.</p>
+<p><strong>“Africa” is treated as a single analytical object when the data does not support aggregation at that level.</strong> The continent contains 54 states with radically different state capacities, resource profiles, governance configurations, colonial-inheritance structures, and demographic trajectories. Rwanda and DRC are not one story. Botswana and Zimbabwe are not one story. Tunisia and Sudan are not one story. The piece moves between “Africa” generalizations (“Africa’s poor health is linked to its people’s poverty”) and country-specific data points as if the two scales are interchangeable — this is the same analytical error as treating “Europe” as a single object when discussing Greek debt. The charting compounds this: “Continent populations” plots Africa as a single line against Asia, Europe, LAC, and North America, baking the aggregation into the visual grammar.</p>
+<p><strong>Causal framing is absent where it is most needed.</strong> Poverty, conflict, low education, weak health systems are presented as <em>conditions of the continent</em>, not as outcomes of identifiable historical and structural processes. The piece does not name colonial boundary-drawing (every African state border was externally imposed within two lifetimes), structural adjustment programs of the 1980s–90s that systematically defunded African health and education under IMF/World Bank conditionalities, extractive trade arrangements that still favor raw-commodity exports, or capital flight — the African Development Bank and others have estimated net illicit financial outflows from Africa at magnitudes exceeding inward aid. By presenting effects without causes, the piece frames African poverty as something to be alleviated by intervention rather than as something produced by interaction with the global economic order. This is the single most serious framing problem in the piece.</p>
+<p><strong>The epistemic hierarchy between who gets to analyze and who gets to illustrate is stark.</strong> Analytical authority speaking <em>about</em> Africa in the piece: UN Under-Secretary-General Joan Clos, the UK’s International Development Minister Justine Greening, the UK’s Department for International Development, a World Bank lead economist, the CEO of Barclays Africa, the executive director of the Africa Educational Trust (UK-based), the Borgen Project (US-based). The Kenyan voices quoted are Lydia (Kibera resident, positioned as experiential) and Dr Munodawafa (WHO programme manager, speaking within the international-institutional frame). No African economist, African demographer, African political scientist, or African development scholar is quoted as an analyst of Africa’s future. This is a systematic editorial pattern. The Telegraph has the resources to reach African scholars. It didn’t.</p>
+<p><strong>Lydia’s voice is selected to confirm the narrative, not to challenge it.</strong> Her childhood memory — “I would make dolls from thread and plastic bags” — is the conventional slum-poverty aesthetic, poverty-as-innocence in visual grammar. When she offers analysis, it aligns with Western development-NGO orthodoxy: skills training, self-employment. What’s absent is any critique by her of the structural conditions — land tenure in Nairobi, urban-planning decisions that created Kibera’s informal status, Kenyan state response to slum dwellers — that a resident of Kibera could offer and that would contradict the piece’s frame of “opportunity combined with right government intervention.” A meaningful inclusion of a slum resident’s voice would let her analyze, not just feel.</p>
+<p><strong>The “data-collection flaws in Africa” disclaimer papers over a deeper epistemological problem.</strong> The piece notes that “there are flaws in data collection and publication processes in Africa” — framing African data infrastructure as deficient — and then proceeds to trust aggregate figures to drive the narrative. What it doesn’t name is that much of the data <em>about</em> Africa is produced by non-African institutions (UN, World Bank, IMF, Western-based indices like the Fragile States Index from the Fund for Peace) whose methodological choices and political-economic interests shape what gets measured and how. “African data” in this piece is often “data about Africa produced by people who are not African,” and the gatekeeping that entails is invisible.</p>
+<p><strong>Visual grammar is dominated by crisis imagery.</strong> The photographs in the piece are dominated by Ebola signage, rubbish offloading, military patrols, armed security. A piece that wanted to center the “opportunity” framing would have chosen images that aren’t exclusively drawn from the crisis aesthetic — images of African urban innovation, African scholars, African science, African economic production. The ratio of crisis imagery to opportunity imagery tells the reader what the piece actually thinks Africa is.</p>
+<p><strong>Proportionality.</strong> This is a serious broadsheet feature by a competent data journalist using real UN data. The problems above are not technical deficits but framing choices, and the framing is specifically the inherited British-development-journalism frame that Africa-studies scholars have critiqued for decades. Naming these problems is fair because this piece is positioned as authoritative public communication, not as student work. A 2026 version of this piece — with African analytical voices centered, causal framing acknowledged, the aggregation of “Africa” disciplined — would be a meaningfully different document.</p>
+<hr></section></section><section id="exercise-present-your-visual" class="level2"><h2 class="anchored" data-anchor-id="exercise-present-your-visual">Exercise — Present Your Visual</h2>
+<p>This is a scaffold for presenting visualizations from my course project. The presentation walks the audience through four stages — motivation, orientation, highlight, big picture — and applies the six guidelines from <em>Mastering Software Development in R</em>.</p>
+<section id="motivation-context" class="level3"><h3 class="anchored" data-anchor-id="motivation-context">Motivation &amp; Context</h3>
+<p>The research question my project addresses is <em>[fill in: the specific question this visual is answering]</em>. It matters because <em>[fill in: why the question has stakes — who is affected by the answer, what decision or understanding is downstream]</em>. The audience for this presentation is <em>[fill in: course reviewers / peers / an imagined external reader]</em>, which shapes both what prior context I can assume and what level of terminology I should use.</p>
+</section><section id="orientation" class="level3"><h3 class="anchored" data-anchor-id="orientation">Orientation</h3>
+<p>Before the audience can interpret the visual, they need the following orientation: <em>[fill in: x-axis meaning and units, y-axis meaning and units, colour legend, any filters or subsets applied to the data, time window and geographic scope, what each point/line/bar represents]</em>. The specific data decisions that shaped this visual — what was included, what was excluded, what transformations were applied — are <em>[fill in]</em>.</p>
+</section><section id="highlight" class="level3"><h3 class="anchored" data-anchor-id="highlight">Highlight</h3>
+<p>The most important single data point or pattern the visual shows is <em>[fill in the specific observation]</em>. It matters because <em>[fill in the interpretive consequence]</em>. The visual design choices that make this highlight legible are <em>[fill in: the colour that isolates it, the annotation that labels it, the reference line it sits against, the ordering that foregrounds it]</em>.</p>
+</section><section id="big-picture" class="level3"><h3 class="anchored" data-anchor-id="big-picture">Big Picture</h3>
+<p>The overall comparison the visual invites is <em>[fill in: A vs B, trend over time, distribution across groups]</em>. The takeaway is <em>[fill in]</em>. The implication for the project’s larger argument is <em>[fill in]</em>.</p>
+</section><section id="applying-the-six-guidelines" class="level3"><h3 class="anchored" data-anchor-id="applying-the-six-guidelines">Applying the Six Guidelines</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead><tr class="header">
+<th>Guideline</th>
+<th>How my visual implements it</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Aim for high data density</td>
+<td><em>[fill in]</em></td>
+</tr>
+<tr class="even">
+<td>Use clear, meaningful labels</td>
+<td><em>[fill in]</em></td>
+</tr>
+<tr class="odd">
+<td>Provide useful references</td>
+<td><em>[fill in: reference lines, benchmark values, comparison groups]</em></td>
+</tr>
+<tr class="even">
+<td>Highlight interesting aspects</td>
+<td><em>[fill in: colour, annotation, subset-emphasis]</em></td>
+</tr>
+<tr class="odd">
+<td>Consider small multiples</td>
+<td><em>[fill in: did I break comparison into facets? why/why not?]</em></td>
+</tr>
+<tr class="even">
+<td>Make order meaningful</td>
+<td><em>[fill in: sorted bars by value, chronological lines, ordinal axis]</em></td>
+</tr>
+</tbody>
+</table>
+<p>The overarching test: <em>what comparison am I making, and have I made it as easy as possible for the viewer to perform that comparison?</em> If the viewer has to work to see what the visual is arguing, the visual is still rhetoric waiting to happen.</p>
+<hr></section></section><section id="exercise-human-centered-data-science" class="level2"><h2 class="anchored" data-anchor-id="exercise-human-centered-data-science">Exercise — Human-Centered Data Science</h2>
+<section id="what-the-dear-abby-letters-reveal-that-no-dataset-would" class="level3"><h3 class="anchored" data-anchor-id="what-the-dear-abby-letters-reveal-that-no-dataset-would">What the Dear Abby letters reveal that no dataset would</h3>
+<p>The Pudding’s <em>30 Years of American Anxieties</em> works with the text of letters to an advice column — and the letters themselves do analytical work that a tabular dataset cannot do. Five kinds of context that are present in letters and absent from aggregated survey data:</p>
+<p><strong>Temporal-emotional register.</strong> A letter written at 2 a.m. after a fight with a spouse has a different tone and content than the same person’s answer to a survey question about “marital satisfaction” six weeks later in a calmer moment. The letter captures the state; the survey captures the summary. Aggregated data cannot reconstruct the states that produced it.</p>
+<p><strong>Relational and circumstantial context.</strong> Letters embed their subject matter in explanation — <em>“I have been married forty years, have eight children, am sixty and feel eighty-five”</em> (from a 1985 letter in the dataset). This is the full scaffold of a life situation. A survey variable “age = 60” flattens it entirely.</p>
+<p><strong>Social norms that govern what people can say aloud.</strong> What letter-writers worry about, what they assume the advice columnist and her public audience will find reasonable, and what they frame as shameful or forbidden all reveal the prevailing moral framework of the decade more precisely than any explicit measure of “values.” The letters document norms by <em>performing within them</em>.</p>
+<p><strong>The selection and gatekeeping of what becomes data.</strong> Not all letters are published. Editorial choices by the columnist and newspaper determine which anxieties become visible and which stay private. The dataset The Pudding worked with is already a filtered artefact — the worries of people who wrote in, as curated by editors for public readership.</p>
+<p><strong>Language itself as context.</strong> Word choice, formality, structure, length — the same underlying problem articulated in 1985 uses different vocabulary, different euphemisms, different appeals to authority than the same problem articulated in 2017. Computational text analysis can surface these shifts, but only because the texts carry them; a numeric survey could not.</p>
+</section><section id="hidden-context-in-my-projects-dataset" class="level3"><h3 class="anchored" data-anchor-id="hidden-context-in-my-projects-dataset">Hidden context in my project’s dataset</h3>
+<p><em>The questions below are scaffolded for reflection on my course project dataset; I complete them in context of the project write-up.</em></p>
+<ul>
+<li>
+<strong>Who collected this data and why?</strong> <em>[fill in: the producing institution, the institutional purpose that motivated the collection, the audience the data was produced for]</em>
+</li>
+<li>
+<strong>What might have been the collectors’ agenda, and how might that have shaped what is in the data?</strong> <em>[fill in: what interests the producer had in measuring certain outcomes and not others]</em>
+</li>
+<li>
+<strong>What cases are present and absent?</strong> <em>[fill in: eligibility criteria, sampling frame, non-response, censoring, selection-into-observation dynamics]</em>
+</li>
+<li>
+<strong>What variables are available, and in what format?</strong> <em>[fill in: what gets binned into categories, which categories are treated as ordered/unordered, which continuous quantities are recorded at what precision]</em>
+</li>
+<li>
+<strong>Whose labor is visible in the data, and whose is invisible?</strong> <em>[fill in: the visible producers — named authors, named agencies — and the invisible producers — enumerators, data entry workers, domain-expert respondents, households providing unpaid information]</em>
+</li>
+<li>
+<strong>What additional information would give a more full picture of the lives connected to this data?</strong> <em>[fill in: qualitative interviews, administrative texture, historical records, first-person testimony, community-held knowledge]</em>
+</li>
+</ul>
+<p>The move this exercise is asking for — treating the dataset as a <em>produced artefact</em> rather than as a natural object — is the move that separates descriptive data work from accountable data work. A dataset is not the thing itself; it is a specific institutional choice about what counted as worth recording.</p>
+<hr></section></section><section id="exercise-project-in-3-visuals" class="level2"><h2 class="anchored" data-anchor-id="exercise-project-in-3-visuals">Exercise — Project in 3 Visuals</h2>
+<p>If the digital deliverable could only show three visuals, the decision rule is: <em>what three views together answer the research question with the least redundancy and the most interpretive coverage?</em> The framework below is what I use to choose.</p>
+<section id="candidate-roles-for-the-three-visuals" class="level3"><h3 class="anchored" data-anchor-id="candidate-roles-for-the-three-visuals">Candidate roles for the three visuals</h3>
+<p><strong>Visual 1 — Context / Scale.</strong> Establishes the problem. Answers: <em>what is the magnitude of the phenomenon? how does it compare across time, place, or groups?</em> This visual earns its space by making the reader care before any analysis happens.</p>
+<p><strong>Visual 2 — Structure / Mechanism.</strong> Shows the internal shape of the phenomenon. Answers: <em>what is the pattern behind the headline number? what is the distribution, the relationship between key variables, the within-group variation?</em> This is where the analytical work lives.</p>
+<p><strong>Visual 3 — Implication / Comparison.</strong> Drives toward the project’s argument. Answers: <em>what does this mean? what is the comparison that carries the interpretive payoff? what should the reader take away?</em> This visual should be the one the reader remembers.</p>
+</section><section id="for-my-project" class="level3"><h3 class="anchored" data-anchor-id="for-my-project">For my project</h3>
+<p><em>The candidate list, ordering, and combination decisions below are scaffolded; I complete them with project specifics.</em></p>
+<ul>
+<li>
+<strong>Visual 1 (Context):</strong> <em>[fill in: the chart type and data behind it — e.g., a time series showing the trend, a map showing the geographic distribution, a bar chart showing comparative scale]</em>
+</li>
+<li>
+<strong>Visual 2 (Structure):</strong> <em>[fill in]</em>
+</li>
+<li>
+<strong>Visual 3 (Implication):</strong> <em>[fill in]</em>
+</li>
+</ul>
+<p><strong>Ordering.</strong> The default sequence is Context → Structure → Implication, which moves the reader from “what are we looking at” through “what is happening inside it” to “what should we conclude.” Sometimes inverting — opening on the implication and then building back — works if the implication is counterintuitive enough to function as a hook.</p>
+<p><strong>Combining.</strong> Two visuals can sometimes fuse into one without losing analytical content: a small-multiples panel where each facet answers a different question, a dual-axis chart that pairs magnitude with rate, a map with an inset time series. The test for whether combining works: <em>does the combined figure still have one clear reading order, or does it fragment the reader’s attention?</em></p>
+<hr></section></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p><strong>Effective visualization is a chain from question → data → decisions → audience.</strong> Every one of the six guidelines — data density, clear labels, useful references, highlights, small multiples, meaningful order — is really a question about the audience’s cognition: <em>what will they pay attention to, what do they already know, what comparison do they need to perform, what would make that comparison easier?</em> When any visualization feels wrong, the diagnosis almost always traces back to a mismatch at one of these links. The chart has insufficient context because the decision about what the audience needs was unexamined; the highlight is buried because the designer hadn’t decided which comparison was load-bearing.</p>
+<p><strong>Human-centered data science is what stops the chain from running on autopilot.</strong> The Dear Abby letters exercise is a compact version of the broader discipline: <em>treat the data as a produced artefact, ask who produced it and why, ask whose labor is invisible, ask what additional context a complete picture would require.</em> A data scientist who skips these questions can still make technically competent visualizations — but those visualizations will carry forward whatever biases, omissions, and silences were already embedded in the data. The technical discipline and the human-centered discipline are not separate skills; the first is an application of the second.</p>
+<p><strong>The Africa-in-100-years critique earlier in this document is, at the end of the day, a failure of human-centered practice.</strong> The piece used real UN data and produced charts that are technically fine. What it did not do is ask the human-centered questions: <em>whose analysis is this? who gets to speak about this? what causal framing have I inherited from my editorial tradition, and is it the right one?</em> The consequence is a piece that describes Africa to an external audience rather than letting Africa’s people and scholars author their own representation. Every chart in that piece could be re-plotted with the same data and produce an entirely different document, once the human-centered questions were answered differently.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/16_databases_sql.html" class="pagination-link" aria-label="16 — Databases and SQL">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">16 — Databases and SQL</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/18_interactive_viz.html" class="pagination-link" aria-label="18 — Interactive Visualization: Shiny and plotly">
+        <span class="nav-page-text"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="an">title:</span><span class="co"> "17 — Effective Visualization"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="an">format:</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">  html:</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">    toc: true</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="an">execute:</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">  warning: false</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">  message: false</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">---</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="fu">## Setup</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="in">```{r}</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="in">```</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a></span>
+<span id="cb2-28"><a href="#cb2-28"></a>------------------------------------------------------------------------</span>
+<span id="cb2-29"><a href="#cb2-29"></a></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="fu">## 🔥 Data Story Critique — *What Africa will look like in 100 years* (The Telegraph, March 2016)</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a></span>
+<span id="cb2-32"><a href="#cb2-32"></a>Source: <span class="ot">&lt;http://s.telegraph.co.uk/graphics/projects/Africa-in-100-years/index.html&gt;</span></span>
+<span id="cb2-33"><a href="#cb2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34"></a>Author: Ashley Kirk, Telegraph data journalist.</span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="fu">### What is the data story?</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a></span>
+<span id="cb2-38"><a href="#cb2-38"></a>The piece takes UN population projections — Africa reaching 4.4 billion by 2100, a roughly fourfold increase — and builds a continent-scale prognostic narrative around the challenges and opportunities of that growth. Chapters move through urbanization (projecting 56.5% urban-dweller share by 2050), housing and slums (with a profile of Lydia, a young woman from Nairobi's Kibera), public health (HIV, malaria, maternal mortality), conflict (Boko Haram, South Sudan, the Fragile States Index), education (primary-school enrollment, illiteracy projections), and life expectancy. Each chapter interleaves data charts with expert quotes — primarily from UN agencies (Joan Clos, Dr Davison Munodawafa), UK government bodies (Justine Greening, DFID figures), and Western-linked institutions (Barclays Africa, Africa Educational Trust, The Borgen Project). The piece closes on a qualified note of opportunity: African urbanization is a late-starting transition that could embrace "new urban paradigms," provided it is accompanied by international support and better data.</span>
+<span id="cb2-39"><a href="#cb2-39"></a></span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="fu">### What is effective?</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a></span>
+<span id="cb2-42"><a href="#cb2-42"></a>**The underlying demographic data is solid and the projection is important to communicate.** UN population projections showing Africa's quadrupling by 2100 are a consequential fact that most readers have not internalized. Getting this number into broadsheet readership with the accompanying structural implications (working-age cohort composition, urbanization pace, health-system strain) is a legitimate journalistic contribution.</span>
+<span id="cb2-43"><a href="#cb2-43"></a></span>
+<span id="cb2-44"><a href="#cb2-44"></a>**Interleaving a named first-person testimony — Lydia from Kibera — gives the abstract demographic projection a texture that pure charts cannot.** Whatever the problems with how her voice is positioned (see below), having an African woman speak in her own words at substantial length is above the norm for this genre and register.</span>
+<span id="cb2-45"><a href="#cb2-45"></a></span>
+<span id="cb2-46"><a href="#cb2-46"></a>**Naming specific success cases alongside the challenges.** Burundi's doubling of primary-school enrollment between 2000 and 2010 and Mozambique's 35-percentage-point gain in the same window are given explicit space. This is not a piece that argues every African country is on the same trajectory; it at least gestures at heterogeneity in outcomes.</span>
+<span id="cb2-47"><a href="#cb2-47"></a></span>
+<span id="cb2-48"><a href="#cb2-48"></a>**The closing framing borrows from demographic-dividend thinking.** "Given the comparatively late onset of the urban transition in Africa, there exist real opportunities for embracing new urban paradigms" is drawn from the scholarly literature that treats Africa's youth-heavy demographic profile as an asset if paired with right policy. That framing appears only at the end and is not developed, but its presence at all is worth noting.</span>
+<span id="cb2-49"><a href="#cb2-49"></a></span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb2-51"><a href="#cb2-51"></a></span>
+<span id="cb2-52"><a href="#cb2-52"></a>**The piece operates in an external-observation register that flattens Africa's analytical autonomy.** The entire document reads as *the Telegraph looking at* Africa and reporting on its future — not as Africans authoring their own trajectory. No comparable Telegraph feature would ask "What will America look like in 100 years?" in the same anxious-prognostic register, despite America's demographic shifts being similarly substantial. The genre convention this piece sits inside — broadsheet European development journalism — has a long history going back to colonial-era reportage, and the piece does not distance itself from that inheritance. A reader learns what the world should worry about regarding Africa, not what Africans are doing about Africa.</span>
+<span id="cb2-53"><a href="#cb2-53"></a></span>
+<span id="cb2-54"><a href="#cb2-54"></a>**"Africa" is treated as a single analytical object when the data does not support aggregation at that level.** The continent contains 54 states with radically different state capacities, resource profiles, governance configurations, colonial-inheritance structures, and demographic trajectories. Rwanda and DRC are not one story. Botswana and Zimbabwe are not one story. Tunisia and Sudan are not one story. The piece moves between "Africa" generalizations ("Africa's poor health is linked to its people's poverty") and country-specific data points as if the two scales are interchangeable — this is the same analytical error as treating "Europe" as a single object when discussing Greek debt. The charting compounds this: "Continent populations" plots Africa as a single line against Asia, Europe, LAC, and North America, baking the aggregation into the visual grammar.</span>
+<span id="cb2-55"><a href="#cb2-55"></a></span>
+<span id="cb2-56"><a href="#cb2-56"></a>**Causal framing is absent where it is most needed.** Poverty, conflict, low education, weak health systems are presented as *conditions of the continent*, not as outcomes of identifiable historical and structural processes. The piece does not name colonial boundary-drawing (every African state border was externally imposed within two lifetimes), structural adjustment programs of the 1980s–90s that systematically defunded African health and education under IMF/World Bank conditionalities, extractive trade arrangements that still favor raw-commodity exports, or capital flight — the African Development Bank and others have estimated net illicit financial outflows from Africa at magnitudes exceeding inward aid. By presenting effects without causes, the piece frames African poverty as something to be alleviated by intervention rather than as something produced by interaction with the global economic order. This is the single most serious framing problem in the piece.</span>
+<span id="cb2-57"><a href="#cb2-57"></a></span>
+<span id="cb2-58"><a href="#cb2-58"></a>**The epistemic hierarchy between who gets to analyze and who gets to illustrate is stark.** Analytical authority speaking *about* Africa in the piece: UN Under-Secretary-General Joan Clos, the UK's International Development Minister Justine Greening, the UK's Department for International Development, a World Bank lead economist, the CEO of Barclays Africa, the executive director of the Africa Educational Trust (UK-based), the Borgen Project (US-based). The Kenyan voices quoted are Lydia (Kibera resident, positioned as experiential) and Dr Munodawafa (WHO programme manager, speaking within the international-institutional frame). No African economist, African demographer, African political scientist, or African development scholar is quoted as an analyst of Africa's future. This is a systematic editorial pattern. The Telegraph has the resources to reach African scholars. It didn't.</span>
+<span id="cb2-59"><a href="#cb2-59"></a></span>
+<span id="cb2-60"><a href="#cb2-60"></a>**Lydia's voice is selected to confirm the narrative, not to challenge it.** Her childhood memory — "I would make dolls from thread and plastic bags" — is the conventional slum-poverty aesthetic, poverty-as-innocence in visual grammar. When she offers analysis, it aligns with Western development-NGO orthodoxy: skills training, self-employment. What's absent is any critique by her of the structural conditions — land tenure in Nairobi, urban-planning decisions that created Kibera's informal status, Kenyan state response to slum dwellers — that a resident of Kibera could offer and that would contradict the piece's frame of "opportunity combined with right government intervention." A meaningful inclusion of a slum resident's voice would let her analyze, not just feel.</span>
+<span id="cb2-61"><a href="#cb2-61"></a></span>
+<span id="cb2-62"><a href="#cb2-62"></a>**The "data-collection flaws in Africa" disclaimer papers over a deeper epistemological problem.** The piece notes that "there are flaws in data collection and publication processes in Africa" — framing African data infrastructure as deficient — and then proceeds to trust aggregate figures to drive the narrative. What it doesn't name is that much of the data *about* Africa is produced by non-African institutions (UN, World Bank, IMF, Western-based indices like the Fragile States Index from the Fund for Peace) whose methodological choices and political-economic interests shape what gets measured and how. "African data" in this piece is often "data about Africa produced by people who are not African," and the gatekeeping that entails is invisible.</span>
+<span id="cb2-63"><a href="#cb2-63"></a></span>
+<span id="cb2-64"><a href="#cb2-64"></a>**Visual grammar is dominated by crisis imagery.** The photographs in the piece are dominated by Ebola signage, rubbish offloading, military patrols, armed security. A piece that wanted to center the "opportunity" framing would have chosen images that aren't exclusively drawn from the crisis aesthetic — images of African urban innovation, African scholars, African science, African economic production. The ratio of crisis imagery to opportunity imagery tells the reader what the piece actually thinks Africa is.</span>
+<span id="cb2-65"><a href="#cb2-65"></a></span>
+<span id="cb2-66"><a href="#cb2-66"></a>**Proportionality.** This is a serious broadsheet feature by a competent data journalist using real UN data. The problems above are not technical deficits but framing choices, and the framing is specifically the inherited British-development-journalism frame that Africa-studies scholars have critiqued for decades. Naming these problems is fair because this piece is positioned as authoritative public communication, not as student work. A 2026 version of this piece — with African analytical voices centered, causal framing acknowledged, the aggregation of "Africa" disciplined — would be a meaningfully different document.</span>
+<span id="cb2-67"><a href="#cb2-67"></a></span>
+<span id="cb2-68"><a href="#cb2-68"></a>------------------------------------------------------------------------</span>
+<span id="cb2-69"><a href="#cb2-69"></a></span>
+<span id="cb2-70"><a href="#cb2-70"></a><span class="fu">## Exercise — Present Your Visual</span></span>
+<span id="cb2-71"><a href="#cb2-71"></a></span>
+<span id="cb2-72"><a href="#cb2-72"></a>This is a scaffold for presenting visualizations from my course project. The presentation walks the audience through four stages — motivation, orientation, highlight, big picture — and applies the six guidelines from *Mastering Software Development in R*.</span>
+<span id="cb2-73"><a href="#cb2-73"></a></span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="fu">### Motivation &amp; Context</span></span>
+<span id="cb2-75"><a href="#cb2-75"></a></span>
+<span id="cb2-76"><a href="#cb2-76"></a>The research question my project addresses is *[fill in: the specific question this visual is answering]*. It matters because *[fill in: why the question has stakes — who is affected by the answer, what decision or understanding is downstream]*. The audience for this presentation is *[fill in: course reviewers / peers / an imagined external reader]*, which shapes both what prior context I can assume and what level of terminology I should use.</span>
+<span id="cb2-77"><a href="#cb2-77"></a></span>
+<span id="cb2-78"><a href="#cb2-78"></a><span class="fu">### Orientation</span></span>
+<span id="cb2-79"><a href="#cb2-79"></a></span>
+<span id="cb2-80"><a href="#cb2-80"></a>Before the audience can interpret the visual, they need the following orientation: *[fill in: x-axis meaning and units, y-axis meaning and units, colour legend, any filters or subsets applied to the data, time window and geographic scope, what each point/line/bar represents]*. The specific data decisions that shaped this visual — what was included, what was excluded, what transformations were applied — are *[fill in]*.</span>
+<span id="cb2-81"><a href="#cb2-81"></a></span>
+<span id="cb2-82"><a href="#cb2-82"></a><span class="fu">### Highlight</span></span>
+<span id="cb2-83"><a href="#cb2-83"></a></span>
+<span id="cb2-84"><a href="#cb2-84"></a>The most important single data point or pattern the visual shows is *[fill in the specific observation]*. It matters because *[fill in the interpretive consequence]*. The visual design choices that make this highlight legible are *[fill in: the colour that isolates it, the annotation that labels it, the reference line it sits against, the ordering that foregrounds it]*.</span>
+<span id="cb2-85"><a href="#cb2-85"></a></span>
+<span id="cb2-86"><a href="#cb2-86"></a><span class="fu">### Big Picture</span></span>
+<span id="cb2-87"><a href="#cb2-87"></a></span>
+<span id="cb2-88"><a href="#cb2-88"></a>The overall comparison the visual invites is *[fill in: A vs B, trend over time, distribution across groups]*. The takeaway is *[fill in]*. The implication for the project's larger argument is *[fill in]*.</span>
+<span id="cb2-89"><a href="#cb2-89"></a></span>
+<span id="cb2-90"><a href="#cb2-90"></a><span class="fu">### Applying the Six Guidelines</span></span>
+<span id="cb2-91"><a href="#cb2-91"></a></span>
+<span id="cb2-92"><a href="#cb2-92"></a><span class="pp">|</span> Guideline <span class="pp">|</span> How my visual implements it <span class="pp">|</span></span>
+<span id="cb2-93"><a href="#cb2-93"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-94"><a href="#cb2-94"></a><span class="pp">|</span> Aim for high data density <span class="pp">|</span> *[fill in]* <span class="pp">|</span></span>
+<span id="cb2-95"><a href="#cb2-95"></a><span class="pp">|</span> Use clear, meaningful labels <span class="pp">|</span> *[fill in]* <span class="pp">|</span></span>
+<span id="cb2-96"><a href="#cb2-96"></a><span class="pp">|</span> Provide useful references <span class="pp">|</span> *[fill in: reference lines, benchmark values, comparison groups]* <span class="pp">|</span></span>
+<span id="cb2-97"><a href="#cb2-97"></a><span class="pp">|</span> Highlight interesting aspects <span class="pp">|</span> *[fill in: colour, annotation, subset-emphasis]* <span class="pp">|</span></span>
+<span id="cb2-98"><a href="#cb2-98"></a><span class="pp">|</span> Consider small multiples <span class="pp">|</span> *[fill in: did I break comparison into facets? why/why not?]* <span class="pp">|</span></span>
+<span id="cb2-99"><a href="#cb2-99"></a><span class="pp">|</span> Make order meaningful <span class="pp">|</span> *[fill in: sorted bars by value, chronological lines, ordinal axis]* <span class="pp">|</span></span>
+<span id="cb2-100"><a href="#cb2-100"></a></span>
+<span id="cb2-101"><a href="#cb2-101"></a>The overarching test: *what comparison am I making, and have I made it as easy as possible for the viewer to perform that comparison?* If the viewer has to work to see what the visual is arguing, the visual is still rhetoric waiting to happen.</span>
+<span id="cb2-102"><a href="#cb2-102"></a></span>
+<span id="cb2-103"><a href="#cb2-103"></a>------------------------------------------------------------------------</span>
+<span id="cb2-104"><a href="#cb2-104"></a></span>
+<span id="cb2-105"><a href="#cb2-105"></a><span class="fu">## Exercise — Human-Centered Data Science</span></span>
+<span id="cb2-106"><a href="#cb2-106"></a></span>
+<span id="cb2-107"><a href="#cb2-107"></a><span class="fu">### What the Dear Abby letters reveal that no dataset would</span></span>
+<span id="cb2-108"><a href="#cb2-108"></a></span>
+<span id="cb2-109"><a href="#cb2-109"></a>The Pudding's *30 Years of American Anxieties* works with the text of letters to an advice column — and the letters themselves do analytical work that a tabular dataset cannot do. Five kinds of context that are present in letters and absent from aggregated survey data:</span>
+<span id="cb2-110"><a href="#cb2-110"></a></span>
+<span id="cb2-111"><a href="#cb2-111"></a>**Temporal-emotional register.** A letter written at 2 a.m. after a fight with a spouse has a different tone and content than the same person's answer to a survey question about "marital satisfaction" six weeks later in a calmer moment. The letter captures the state; the survey captures the summary. Aggregated data cannot reconstruct the states that produced it.</span>
+<span id="cb2-112"><a href="#cb2-112"></a></span>
+<span id="cb2-113"><a href="#cb2-113"></a>**Relational and circumstantial context.** Letters embed their subject matter in explanation — *"I have been married forty years, have eight children, am sixty and feel eighty-five"* (from a 1985 letter in the dataset). This is the full scaffold of a life situation. A survey variable "age = 60" flattens it entirely.</span>
+<span id="cb2-114"><a href="#cb2-114"></a></span>
+<span id="cb2-115"><a href="#cb2-115"></a>**Social norms that govern what people can say aloud.** What letter-writers worry about, what they assume the advice columnist and her public audience will find reasonable, and what they frame as shameful or forbidden all reveal the prevailing moral framework of the decade more precisely than any explicit measure of "values." The letters document norms by *performing within them*.</span>
+<span id="cb2-116"><a href="#cb2-116"></a></span>
+<span id="cb2-117"><a href="#cb2-117"></a>**The selection and gatekeeping of what becomes data.** Not all letters are published. Editorial choices by the columnist and newspaper determine which anxieties become visible and which stay private. The dataset The Pudding worked with is already a filtered artefact — the worries of people who wrote in, as curated by editors for public readership.</span>
+<span id="cb2-118"><a href="#cb2-118"></a></span>
+<span id="cb2-119"><a href="#cb2-119"></a>**Language itself as context.** Word choice, formality, structure, length — the same underlying problem articulated in 1985 uses different vocabulary, different euphemisms, different appeals to authority than the same problem articulated in 2017. Computational text analysis can surface these shifts, but only because the texts carry them; a numeric survey could not.</span>
+<span id="cb2-120"><a href="#cb2-120"></a></span>
+<span id="cb2-121"><a href="#cb2-121"></a><span class="fu">### Hidden context in my project's dataset</span></span>
+<span id="cb2-122"><a href="#cb2-122"></a></span>
+<span id="cb2-123"><a href="#cb2-123"></a>*The questions below are scaffolded for reflection on my course project dataset; I complete them in context of the project write-up.*</span>
+<span id="cb2-124"><a href="#cb2-124"></a></span>
+<span id="cb2-125"><a href="#cb2-125"></a><span class="ss">- </span>**Who collected this data and why?** *[fill in: the producing institution, the institutional purpose that motivated the collection, the audience the data was produced for]*</span>
+<span id="cb2-126"><a href="#cb2-126"></a><span class="ss">- </span>**What might have been the collectors' agenda, and how might that have shaped what is in the data?** *[fill in: what interests the producer had in measuring certain outcomes and not others]*</span>
+<span id="cb2-127"><a href="#cb2-127"></a><span class="ss">- </span>**What cases are present and absent?** *[fill in: eligibility criteria, sampling frame, non-response, censoring, selection-into-observation dynamics]*</span>
+<span id="cb2-128"><a href="#cb2-128"></a><span class="ss">- </span>**What variables are available, and in what format?** *[fill in: what gets binned into categories, which categories are treated as ordered/unordered, which continuous quantities are recorded at what precision]*</span>
+<span id="cb2-129"><a href="#cb2-129"></a><span class="ss">- </span>**Whose labor is visible in the data, and whose is invisible?** *[fill in: the visible producers — named authors, named agencies — and the invisible producers — enumerators, data entry workers, domain-expert respondents, households providing unpaid information]*</span>
+<span id="cb2-130"><a href="#cb2-130"></a><span class="ss">- </span>**What additional information would give a more full picture of the lives connected to this data?** *[fill in: qualitative interviews, administrative texture, historical records, first-person testimony, community-held knowledge]*</span>
+<span id="cb2-131"><a href="#cb2-131"></a></span>
+<span id="cb2-132"><a href="#cb2-132"></a>The move this exercise is asking for — treating the dataset as a *produced artefact* rather than as a natural object — is the move that separates descriptive data work from accountable data work. A dataset is not the thing itself; it is a specific institutional choice about what counted as worth recording.</span>
+<span id="cb2-133"><a href="#cb2-133"></a></span>
+<span id="cb2-134"><a href="#cb2-134"></a>------------------------------------------------------------------------</span>
+<span id="cb2-135"><a href="#cb2-135"></a></span>
+<span id="cb2-136"><a href="#cb2-136"></a><span class="fu">## Exercise — Project in 3 Visuals</span></span>
+<span id="cb2-137"><a href="#cb2-137"></a></span>
+<span id="cb2-138"><a href="#cb2-138"></a>If the digital deliverable could only show three visuals, the decision rule is: *what three views together answer the research question with the least redundancy and the most interpretive coverage?* The framework below is what I use to choose.</span>
+<span id="cb2-139"><a href="#cb2-139"></a></span>
+<span id="cb2-140"><a href="#cb2-140"></a><span class="fu">### Candidate roles for the three visuals</span></span>
+<span id="cb2-141"><a href="#cb2-141"></a></span>
+<span id="cb2-142"><a href="#cb2-142"></a>**Visual 1 — Context / Scale.** Establishes the problem. Answers: *what is the magnitude of the phenomenon? how does it compare across time, place, or groups?* This visual earns its space by making the reader care before any analysis happens.</span>
+<span id="cb2-143"><a href="#cb2-143"></a></span>
+<span id="cb2-144"><a href="#cb2-144"></a>**Visual 2 — Structure / Mechanism.** Shows the internal shape of the phenomenon. Answers: *what is the pattern behind the headline number? what is the distribution, the relationship between key variables, the within-group variation?* This is where the analytical work lives.</span>
+<span id="cb2-145"><a href="#cb2-145"></a></span>
+<span id="cb2-146"><a href="#cb2-146"></a>**Visual 3 — Implication / Comparison.** Drives toward the project's argument. Answers: *what does this mean? what is the comparison that carries the interpretive payoff? what should the reader take away?* This visual should be the one the reader remembers.</span>
+<span id="cb2-147"><a href="#cb2-147"></a></span>
+<span id="cb2-148"><a href="#cb2-148"></a><span class="fu">### For my project</span></span>
+<span id="cb2-149"><a href="#cb2-149"></a></span>
+<span id="cb2-150"><a href="#cb2-150"></a>*The candidate list, ordering, and combination decisions below are scaffolded; I complete them with project specifics.*</span>
+<span id="cb2-151"><a href="#cb2-151"></a></span>
+<span id="cb2-152"><a href="#cb2-152"></a><span class="ss">- </span>**Visual 1 (Context):** *[fill in: the chart type and data behind it — e.g., a time series showing the trend, a map showing the geographic distribution, a bar chart showing comparative scale]*</span>
+<span id="cb2-153"><a href="#cb2-153"></a><span class="ss">- </span>**Visual 2 (Structure):** *[fill in]*</span>
+<span id="cb2-154"><a href="#cb2-154"></a><span class="ss">- </span>**Visual 3 (Implication):** *[fill in]*</span>
+<span id="cb2-155"><a href="#cb2-155"></a></span>
+<span id="cb2-156"><a href="#cb2-156"></a>**Ordering.** The default sequence is Context → Structure → Implication, which moves the reader from "what are we looking at" through "what is happening inside it" to "what should we conclude." Sometimes inverting — opening on the implication and then building back — works if the implication is counterintuitive enough to function as a hook.</span>
+<span id="cb2-157"><a href="#cb2-157"></a></span>
+<span id="cb2-158"><a href="#cb2-158"></a>**Combining.** Two visuals can sometimes fuse into one without losing analytical content: a small-multiples panel where each facet answers a different question, a dual-axis chart that pairs magnitude with rate, a map with an inset time series. The test for whether combining works: *does the combined figure still have one clear reading order, or does it fragment the reader's attention?*</span>
+<span id="cb2-159"><a href="#cb2-159"></a></span>
+<span id="cb2-160"><a href="#cb2-160"></a>------------------------------------------------------------------------</span>
+<span id="cb2-161"><a href="#cb2-161"></a></span>
+<span id="cb2-162"><a href="#cb2-162"></a><span class="fu">## Reflection</span></span>
+<span id="cb2-163"><a href="#cb2-163"></a></span>
+<span id="cb2-164"><a href="#cb2-164"></a>**Effective visualization is a chain from question → data → decisions → audience.** Every one of the six guidelines — data density, clear labels, useful references, highlights, small multiples, meaningful order — is really a question about the audience's cognition: *what will they pay attention to, what do they already know, what comparison do they need to perform, what would make that comparison easier?* When any visualization feels wrong, the diagnosis almost always traces back to a mismatch at one of these links. The chart has insufficient context because the decision about what the audience needs was unexamined; the highlight is buried because the designer hadn't decided which comparison was load-bearing.</span>
+<span id="cb2-165"><a href="#cb2-165"></a></span>
+<span id="cb2-166"><a href="#cb2-166"></a>**Human-centered data science is what stops the chain from running on autopilot.** The Dear Abby letters exercise is a compact version of the broader discipline: *treat the data as a produced artefact, ask who produced it and why, ask whose labor is invisible, ask what additional context a complete picture would require.* A data scientist who skips these questions can still make technically competent visualizations — but those visualizations will carry forward whatever biases, omissions, and silences were already embedded in the data. The technical discipline and the human-centered discipline are not separate skills; the first is an application of the second.</span>
+<span id="cb2-167"><a href="#cb2-167"></a></span>
+<span id="cb2-168"><a href="#cb2-168"></a>**The Africa-in-100-years critique earlier in this document is, at the end of the day, a failure of human-centered practice.** The piece used real UN data and produced charts that are technically fine. What it did not do is ask the human-centered questions: *whose analysis is this? who gets to speak about this? what causal framing have I inherited from my editorial tradition, and is it the right one?* The consequence is a piece that describes Africa to an external audience rather than letting Africa's people and scholars author their own representation. Every chart in that piece could be re-plotted with the same data and produce an entirely different document, once the human-centered questions were answered differently.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

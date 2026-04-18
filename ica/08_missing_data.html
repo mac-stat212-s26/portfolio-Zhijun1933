@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-18">
+<title>8 — Missing Data: Mechanisms, Exploration, and Imputation – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/09_functions.html" rel="next">
+<link href="../ica/07_adv_data_wrangling_II.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/08_missing_data.html"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-goalkeepers-report-2019-examining-inequality" id="toc-data-story-critique-goalkeepers-report-2019-examining-inequality" class="nav-link" data-scroll-target="#data-story-critique-goalkeepers-report-2019-examining-inequality">🔥 Data Story Critique — <em>Goalkeepers Report 2019: Examining Inequality</em></a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story?</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#exercise-missing-data-mechanisms" id="toc-exercise-missing-data-mechanisms" class="nav-link" data-scroll-target="#exercise-missing-data-mechanisms">Exercise — Missing-Data Mechanisms</a>
+  <ul class="collapse">
+<li><a href="#clinical-trial-dropouts-reasons-unrecorded" id="toc-clinical-trial-dropouts-reasons-unrecorded" class="nav-link" data-scroll-target="#clinical-trial-dropouts-reasons-unrecorded">1. Clinical trial dropouts, reasons unrecorded</a></li>
+  <li><a href="#weather-station-hourly-temperature-humidity-wind" id="toc-weather-station-hourly-temperature-humidity-wind" class="nav-link" data-scroll-target="#weather-station-hourly-temperature-humidity-wind">2. Weather station: hourly temperature, humidity, wind</a></li>
+  <li><a href="#social-media-missing-interactions-due-to-bugs" id="toc-social-media-missing-interactions-due-to-bugs" class="nav-link" data-scroll-target="#social-media-missing-interactions-due-to-bugs">3. Social media: missing interactions due to bugs</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#exploring-missingness-in-airquality" id="toc-exploring-missingness-in-airquality" class="nav-link" data-scroll-target="#exploring-missingness-in-airquality">Exploring Missingness in <code>airquality</code></a>
+  <ul class="collapse">
+<li><a href="#missingness-by-variable" id="toc-missingness-by-variable" class="nav-link" data-scroll-target="#missingness-by-variable">Missingness by variable</a></li>
+  <li><a href="#missingness-by-case" id="toc-missingness-by-case" class="nav-link" data-scroll-target="#missingness-by-case">Missingness by case</a></li>
+  <li><a href="#is-ozone-missingness-related-to-solar.r" id="toc-is-ozone-missingness-related-to-solar.r" class="nav-link" data-scroll-target="#is-ozone-missingness-related-to-solar.r">Is Ozone missingness related to Solar.R?</a></li>
+  <li><a href="#can-solar.r-predict-ozone" id="toc-can-solar.r-predict-ozone" class="nav-link" data-scroll-target="#can-solar.r-predict-ozone">Can Solar.R predict Ozone?</a></li>
+  </ul>
+</li>
+  <li><a href="#exercise-mechanism-detection-practice-alt-1-vs.-alt-2" id="toc-exercise-mechanism-detection-practice-alt-1-vs.-alt-2" class="nav-link" data-scroll-target="#exercise-mechanism-detection-practice-alt-1-vs.-alt-2">Exercise — Mechanism Detection Practice (Alt 1 vs.&nbsp;Alt 2)</a></li>
+  <li>
+<a href="#exercise-ozone-mechanism-detection-continued" id="toc-exercise-ozone-mechanism-detection-continued" class="nav-link" data-scroll-target="#exercise-ozone-mechanism-detection-continued">Exercise — Ozone Mechanism Detection (continued)</a>
+  <ul class="collapse">
+<li><a href="#does-missingness-depend-on-month" id="toc-does-missingness-depend-on-month" class="nav-link" data-scroll-target="#does-missingness-depend-on-month">Does missingness depend on Month?</a></li>
+  <li><a href="#does-missingness-depend-on-wind-or-temp" id="toc-does-missingness-depend-on-wind-or-temp" class="nav-link" data-scroll-target="#does-missingness-depend-on-wind-or-temp">Does missingness depend on Wind or Temp?</a></li>
+  <li><a href="#do-these-variables-predict-the-value-of-ozone" id="toc-do-these-variables-predict-the-value-of-ozone" class="nav-link" data-scroll-target="#do-these-variables-predict-the-value-of-ozone">Do these variables predict the <em>value</em> of Ozone?</a></li>
+  <li><a href="#summary-for-the-imputation-model" id="toc-summary-for-the-imputation-model" class="nav-link" data-scroll-target="#summary-for-the-imputation-model">Summary for the imputation model</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#simulation-study-single-vs.-multiple-imputation" id="toc-simulation-study-single-vs.-multiple-imputation" class="nav-link" data-scroll-target="#simulation-study-single-vs.-multiple-imputation">Simulation Study — Single vs.&nbsp;Multiple Imputation</a>
+  <ul class="collapse">
+<li><a href="#the-setup" id="toc-the-setup" class="nav-link" data-scroll-target="#the-setup">The setup</a></li>
+  <li><a href="#helper-functions" id="toc-helper-functions" class="nav-link" data-scroll-target="#helper-functions">Helper functions</a></li>
+  <li><a href="#running-the-simulation" id="toc-running-the-simulation" class="nav-link" data-scroll-target="#running-the-simulation">Running the simulation</a></li>
+  <li><a href="#coverage-probability" id="toc-coverage-probability" class="nav-link" data-scroll-target="#coverage-probability">Coverage probability</a></li>
+  <li><a href="#what-the-simulation-shows" id="toc-what-the-simulation-shows" class="nav-link" data-scroll-target="#what-the-simulation-shows">What the simulation shows</a></li>
+  <li><a href="#visualizing-the-coverage-gap" id="toc-visualizing-the-coverage-gap" class="nav-link" data-scroll-target="#visualizing-the-coverage-gap">Visualizing the coverage gap</a></li>
+  </ul>
+</li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/08_missing_data.html"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(mice)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">data</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-goalkeepers-report-2019-examining-inequality" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-goalkeepers-report-2019-examining-inequality">🔥 Data Story Critique — <em>Goalkeepers Report 2019: Examining Inequality</em>
+</h2>
+<p>Source: <a href="https://www.gatesfoundation.org/goalkeepers/report/2019-report/#ExaminingInequality" class="uri">https://www.gatesfoundation.org/goalkeepers/report/2019-report/#ExaminingInequality</a></p>
+<section id="what-is-the-data-story" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story?</h3>
+<p>The 2019 Goalkeepers Report makes a data-driven argument that <strong>inequality within and between countries is the principal obstacle to meeting the Sustainable Development Goals by 2030</strong>, and that geography and gender together stack the deck against hundreds of millions of people. The piece is structured around a cartographic zoom-in: world map → the Sahel → Chad → a drought-prone region → a marginalized ethnic group → a single adolescent girl. It then pivots to two central visualizations — scatterplots of developing countries on child-mortality-versus-years-of-schooling axes in 2000 and 2017, followed by the same chart projected forward to 2030 — which make visible both universal progress and persistent gaps. A major methodological move is the use of new subnational (district-level) human-capital estimates: the India panel contrasts Kerala’s Kollam district (1 percent under-five mortality, 14 years of schooling) with Uttar Pradesh’s Budaun district (&gt;8 percent mortality, ~6 years of schooling), a gap invisible at the national average. Three case essays then supply qualitative depth: primary health care (Ethiopia, Rwanda, Kenya), digital inclusion through India’s JAM trinity, and climate adaptation in Ethiopia. The report’s core policy argument is that human capital investment is the engine of development, that it should be designed to reach girls and lagging districts first, and that exemplar countries show it can be done on modest budgets.</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<p>The <strong>district-level disaggregation is the single strongest contribution</strong>. Moving past national averages to sub-national units is genuinely important — the Budaun–Kollam contrast communicates within-India inequality in a way that a single national statistic cannot, and the same move for Nigeria’s LGAs reinforces the point that development is uneven at every administrative scale. The temporal-scatterplot device (2000 → 2017 → 2030 projection) is a legitimate visual forecasting exercise that communicates progress, persistent gaps, and policy stakes simultaneously.</p>
+<p>The <strong>first-person vignettes carry real weight</strong>. Githinji Gitahi walking with his mother to a rural dispensary, Kaba Urgessa situating Ethiopia’s 2015 drought against 1984, and particularly Mitselal Tekele Tesfay — who is given sustained space to articulate his own theory of his situation (“the weather is the will of God”), describe concrete adaptations (rainwater harvesting, mulching, switching from wheat to barley for his children), and name what is at stake for his family — anchor structural claims in texture without reducing the speakers to objects of compassion. That is more than most development communication achieves.</p>
+<p>The <strong>cartographic zoom-in is rhetorically powerful</strong> and the use of concrete ratios (“a child in Chad is nearly 55 times more likely to die than a child in Finland”) avoids the trap of presenting percentages in isolation.</p>
+</section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<p><strong>The framing moves inequality from <em>produced</em> to <em>distributed</em>.</strong> The opening metaphor — the Gateses describing themselves as lottery winners, “born in a wealthy country to white, well-off parents” — and the closing line “No one’s life should be a roll of the dice” work together to render inequality as a matter of random cosmic distribution rather than historical production. Colonial borders, extractive trade arrangements, aid conditionalities, and the political economy of the global tax regime (within which Microsoft’s fortune was itself accumulated) are absent from the analysis. The direction of the zoom-in is not neutral either: the camera moves steadily <em>toward</em> the individual to be helped and <em>away from</em> the named systems producing her condition. A symmetrically valid zoom-out — girl → community → Chadian state → French colonial borders → commodity markets → the global tax architecture — would produce a very different policy conclusion. The report’s framing forecloses that alternative without engaging it.</p>
+<p><strong>“Exemplar learning” conflates transferable practices with embedded institutional configurations.</strong> The report treats Ethiopia, Rwanda, and Thailand as models whose primary-care architectures other countries can adopt if they “spend a little more, spend on the right priorities, spend more efficiently.” But Rwanda’s community-health-worker system is not a line item; it is embedded in a post-genocide developmental state with specific capacities for mobilization (umuganda), compliance, and the suppression of exit options, capacities that are not available to governments operating in different political configurations. Ethiopia’s Productive Safety Net Programme similarly depends on a developmental-state apparatus with its own political costs. Thailand’s universal coverage is inseparable from its post-1997 social contract. Presenting these as swappable technical templates — rather than as three very different political achievements, each with its own corridor of viability — overstates the portability of success. The report would be strengthened by asking <em>what conditions made each exemplar possible</em> before prescribing its practices.</p>
+<p><strong>Policy preferences are presented as success stories without disclosure.</strong> The JAM-trinity essay celebrates Aadhaar and biometric authentication as empowering the poor, without engaging the well-documented exclusionary effects — biometric authentication failures for manual laborers whose fingerprints have worn down, ration denials in states like Jharkhand and Rajasthan tied to Aadhaar-linkage failures, and the broader question of what happens when a welfare floor is gated behind a biometric layer that fails disproportionately for the most marginalized. The Gates Foundation has institutional stakes in digital-ID infrastructure globally, which is a relevant disclosure that the essay does not make.</p>
+<p><strong>Uncertainty is not visualized.</strong> The 2030 projections are presented as confident trajectories without visible uncertainty bands, and the district-level estimates — particularly for small populations — are model outputs with non-trivial uncertainty that is collapsed into point estimates. For a document that will be used in policy contexts, that collapsing matters.</p>
+<hr></section></section><section id="exercise-missing-data-mechanisms" class="level2"><h2 class="anchored" data-anchor-id="exercise-missing-data-mechanisms">Exercise — Missing-Data Mechanisms</h2>
+<section id="clinical-trial-dropouts-reasons-unrecorded" class="level3"><h3 class="anchored" data-anchor-id="clinical-trial-dropouts-reasons-unrecorded">1. Clinical trial dropouts, reasons unrecorded</h3>
+<p>Most plausibly <strong>MNAR</strong>. Clinical-trial dropout is typically driven by side effects, worsening disease, or outcomes related to the very thing being measured — the probability of missingness is a function of the unobserved outcome itself. Without recorded reasons we cannot even partially control for it, which is the classic MNAR situation. A secondary possibility is MAR, if dropout correlates with baseline covariates (age, comorbidity, site) that <em>are</em> recorded. In practice analysts usually model it as MAR conditional on observed covariates and then run MNAR-style sensitivity analyses.</p>
+</section><section id="weather-station-hourly-temperature-humidity-wind" class="level3"><h3 class="anchored" data-anchor-id="weather-station-hourly-temperature-humidity-wind">2. Weather station: hourly temperature, humidity, wind</h3>
+<p><strong>All three mechanisms are plausible; the distinction is empirical.</strong></p>
+<ul>
+<li>
+<strong>MCAR</strong> if the device fails through truly random events — cosmic-ray bit flips, battery depletion unrelated to conditions.</li>
+<li>
+<strong>MAR</strong> if failures correlate with <em>other recorded</em> variables — e.g., humidity sensor drops out when rainfall (recorded) is high.</li>
+<li>
+<strong>MNAR</strong> if failures happen at extreme values of the variable itself — anemometer breaks in the highest winds, temperature probe saturates on the hottest afternoons. That is the scariest case because the missing values are systematically the ones you most want.</li>
+</ul></section><section id="social-media-missing-interactions-due-to-bugs" class="level3"><h3 class="anchored" data-anchor-id="social-media-missing-interactions-due-to-bugs">3. Social media: missing interactions due to bugs</h3>
+<ul>
+<li>
+<strong>MCAR</strong> if the bug is uniform across users and sessions.</li>
+<li>
+<strong>MAR</strong> if it affects an observable subgroup — e.g., mobile users vs.&nbsp;desktop users, and device type is logged.</li>
+<li>
+<strong>MNAR</strong> if it affects an unobserved subgroup — e.g., users on slow connections drop events more often, and connection quality is not measured.</li>
+</ul>
+<p>The general lesson: <strong>MCAR/MAR/MNAR is not a property of the phenomenon but of the joint distribution between missingness and observed-vs-unobserved variables in your specific dataset</strong>. Two datasets on the same topic can have different mechanisms depending on what was recorded.</p>
+<hr></section></section><section id="exploring-missingness-in-airquality" class="level2"><h2 class="anchored" data-anchor-id="exploring-missingness-in-airquality">Exploring Missingness in <code>airquality</code>
+</h2>
+<section id="missingness-by-variable" class="level3"><h3 class="anchored" data-anchor-id="missingness-by-variable">Missingness by variable</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">summary</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>     Ozone           Solar.R           Wind             Temp      
+ Min.   :  1.00   Min.   :  7.0   Min.   : 1.700   Min.   :56.00  
+ 1st Qu.: 18.00   1st Qu.:115.8   1st Qu.: 7.400   1st Qu.:72.00  
+ Median : 31.50   Median :205.0   Median : 9.700   Median :79.00  
+ Mean   : 42.13   Mean   :185.9   Mean   : 9.958   Mean   :77.88  
+ 3rd Qu.: 63.25   3rd Qu.:258.8   3rd Qu.:11.500   3rd Qu.:85.00  
+ Max.   :168.00   Max.   :334.0   Max.   :20.700   Max.   :97.00  
+ NA's   :37       NA's   :7                                       
+     Month            Day      
+ Min.   :5.000   Min.   : 1.0  
+ 1st Qu.:6.000   1st Qu.: 8.0  
+ Median :7.000   Median :16.0  
+ Mean   :6.993   Mean   :15.8  
+ 3rd Qu.:8.000   3rd Qu.:23.0  
+ Max.   :9.000   Max.   :31.0  
+                               </code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>naniar<span class="sc">::</span><span class="fu">vis_miss</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  variable n_miss pct_miss
+  &lt;chr&gt;     &lt;int&gt;    &lt;num&gt;
+1 Ozone        37    24.2 
+2 Solar.R       7     4.58
+3 Wind          0     0   
+4 Temp          0     0   
+5 Month         0     0   
+6 Day           0     0   </code></pre>
+</div>
+</div>
+<p><code>Ozone</code> has 37 missing values (24.2%) and <code>Solar.R</code> has 7 (4.6%). <code>Wind</code>, <code>Temp</code>, <code>Month</code>, and <code>Day</code> are complete.</p>
+</section><section id="missingness-by-case" class="level3"><h3 class="anchored" data-anchor-id="missingness-by-case">Missingness by case</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>naniar<span class="sc">::</span><span class="fu">miss_case_summary</span>(airquality) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 3
+    case n_miss pct_miss
+   &lt;int&gt;  &lt;int&gt;    &lt;dbl&gt;
+ 1     5      2     33.3
+ 2    27      2     33.3
+ 3     6      1     16.7
+ 4    10      1     16.7
+ 5    11      1     16.7
+ 6    25      1     16.7
+ 7    26      1     16.7
+ 8    32      1     16.7
+ 9    33      1     16.7
+10    34      1     16.7
+11    35      1     16.7
+12    36      1     16.7
+13    37      1     16.7
+14    39      1     16.7
+15    42      1     16.7</code></pre>
+</div>
+</div>
+<p>Cases 5 and 27 are missing on two variables (33% of fields). Most cases missing at all are missing only one field, so imputation is feasible — we have enough observed information per row to build a model from.</p>
+</section><section id="is-ozone-missingness-related-to-solar.r" class="level3"><h3 class="anchored" data-anchor-id="is-ozone-missingness-related-to-solar.r">Is Ozone missingness related to Solar.R?</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">is.na</span>(Ozone), <span class="at">y =</span> Solar.R)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ozone is missing"</span>, <span class="at">y =</span> <span class="st">"Solar.R"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>         <span class="at">title =</span> <span class="st">"Solar radiation by Ozone-missingness status"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> Solar.R, <span class="at">colour =</span> <span class="fu">is.na</span>(Ozone))) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>    <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Density of Solar.R, stratified by Ozone-missingness"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The two distributions largely overlap. Solar radiation does <strong>not</strong> look like a strong predictor of whether Ozone is missing.</p>
+</section><section id="can-solar.r-predict-ozone" class="level3"><h3 class="anchored" data-anchor-id="can-solar.r-predict-ozone">Can Solar.R predict Ozone?</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> Solar.R, <span class="at">y =</span> Ozone)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>    <span class="fu">geom_vline</span>(</span>
+<span id="cb11-5"><a href="#cb11-5"></a>        <span class="at">data =</span> airquality <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(Ozone)),</span>
+<span id="cb11-6"><a href="#cb11-6"></a>        <span class="fu">aes</span>(<span class="at">xintercept =</span> Solar.R),</span>
+<span id="cb11-7"><a href="#cb11-7"></a>        <span class="at">alpha =</span> <span class="fl">0.3</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>    ) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ozone vs. Solar.R, with Solar.R values of missing-Ozone cases"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The vertical lines (Solar.R values where Ozone is missing) fall <em>within</em> the observed Solar.R range. Imputation from Solar.R would not require extrapolation, which is what we want.</p>
+<hr></section></section><section id="exercise-mechanism-detection-practice-alt-1-vs.-alt-2" class="level2"><h2 class="anchored" data-anchor-id="exercise-mechanism-detection-practice-alt-1-vs.-alt-2">Exercise — Mechanism Detection Practice (Alt 1 vs.&nbsp;Alt 2)</h2>
+<p>The two alternative situations in the course materials share a common feature — <strong>Ozone is missing specifically when Solar.R is at higher values</strong> — but they differ in whether the missing region overlaps with observed data.</p>
+<p><strong>Alt 1.</strong> The high-Solar.R region where Ozone is missing partially overlaps with observed points. A regression of Ozone on Solar.R still has anchoring observations near the missing region, so the prediction is interpolation. The risk is moderate — the imputed values will depend on how well the fitted relationship extends into the high-Solar.R tail, but we are not flying blind.</p>
+<p><strong>Alt 2.</strong> The high-Solar.R region where Ozone is missing extends <em>beyond</em> any observed Ozone point. Imputation here is pure extrapolation: the model is guessing what the Ozone–Solar.R relationship looks like in a region the data never visited. This is dangerous because (a) the form of the relationship could change outside the observed range (non-linearity, saturation), and (b) there is no within-sample way to detect that it has.</p>
+<p><strong>Contrast with the actual airquality situation.</strong> In the real data, Ozone missingness is not strongly tied to any one end of the Solar.R distribution — the missing-Ozone vertical lines span the observed Solar.R range. That is the most favourable situation for imputation, and the weakest evidence for a simple MAR-via-Solar.R story (missingness here is probably explained by other variables, which the next exercise investigates).</p>
+<p><strong>Takeaway.</strong> When evaluating imputation feasibility, look not only at <em>whether</em> missingness relates to predictors but at <em>whether the missing region is within the convex hull of the observed predictor space</em>. Extrapolation-based imputation will produce values that look plausible in a table and are completely unreliable in reality.</p>
+<hr></section><section id="exercise-ozone-mechanism-detection-continued" class="level2"><h2 class="anchored" data-anchor-id="exercise-ozone-mechanism-detection-continued">Exercise — Ozone Mechanism Detection (continued)</h2>
+<p>We now check whether Ozone <em>missingness</em> and Ozone <em>value</em> relate to <code>Month</code>, <code>Wind</code>, and <code>Temp</code>.</p>
+<section id="does-missingness-depend-on-month" class="level3"><h3 class="anchored" data-anchor-id="does-missingness-depend-on-month">Does missingness depend on Month?</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">is.na</span>(Ozone), <span class="at">x =</span> <span class="fu">factor</span>(Month))) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Month"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4"></a>         <span class="at">fill =</span> <span class="st">"Ozone missing"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5"></a>         <span class="at">title =</span> <span class="st">"Proportion of missing Ozone by month"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Missingness is <strong>not uniform across months</strong> — June has a notably higher share of missing Ozone values. This is evidence that Ozone missingness is at least MAR with respect to Month.</p>
+</section><section id="does-missingness-depend-on-wind-or-temp" class="level3"><h3 class="anchored" data-anchor-id="does-missingness-depend-on-wind-or-temp">Does missingness depend on Wind or Temp?</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">is.na</span>(Ozone), <span class="at">y =</span> Wind)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ozone is missing"</span>, <span class="at">y =</span> <span class="st">"Wind"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4"></a>         <span class="at">title =</span> <span class="st">"Wind by Ozone-missingness status"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">is.na</span>(Ozone), <span class="at">y =</span> Temp)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ozone is missing"</span>, <span class="at">y =</span> <span class="st">"Temp"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>         <span class="at">title =</span> <span class="st">"Temperature by Ozone-missingness status"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Wind and Temp distributions look similar whether Ozone is missing or not — neither is a strong driver of Ozone missingness on its own.</p>
+</section><section id="do-these-variables-predict-the-value-of-ozone" class="level3"><h3 class="anchored" data-anchor-id="do-these-variables-predict-the-value-of-ozone">Do these variables predict the <em>value</em> of Ozone?</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Month), <span class="at">y =</span> Ozone)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Month"</span>, <span class="at">title =</span> <span class="st">"Ozone by month"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> Wind, <span class="at">y =</span> Ozone)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>    <span class="fu">geom_vline</span>(</span>
+<span id="cb16-5"><a href="#cb16-5"></a>        <span class="at">data =</span> airquality <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(Ozone)),</span>
+<span id="cb16-6"><a href="#cb16-6"></a>        <span class="fu">aes</span>(<span class="at">xintercept =</span> Wind),</span>
+<span id="cb16-7"><a href="#cb16-7"></a>        <span class="at">alpha =</span> <span class="fl">0.3</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>    ) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ozone vs. Wind (vertical lines = Wind where Ozone is missing)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> Temp, <span class="at">y =</span> Ozone)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>    <span class="fu">geom_vline</span>(</span>
+<span id="cb17-5"><a href="#cb17-5"></a>        <span class="at">data =</span> airquality <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(Ozone)),</span>
+<span id="cb17-6"><a href="#cb17-6"></a>        <span class="fu">aes</span>(<span class="at">xintercept =</span> Temp),</span>
+<span id="cb17-7"><a href="#cb17-7"></a>        <span class="at">alpha =</span> <span class="fl">0.3</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>    ) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ozone vs. Temp (vertical lines = Temp where Ozone is missing)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="summary-for-the-imputation-model" class="level3"><h3 class="anchored" data-anchor-id="summary-for-the-imputation-model">Summary for the imputation model</h3>
+<ul>
+<li>
+<strong>Missingness of Ozone</strong> is clearly related to <code>Month</code> (June higher); weakly related to Wind and Temp.</li>
+<li>
+<strong>Value of Ozone</strong> is related to <code>Month</code> (higher in July/August), negatively related to <code>Wind</code>, positively (and non-linearly) related to <code>Temp</code>.</li>
+<li>The Wind and Temp values of missing-Ozone cases fall within the observed range, so a regression model can interpolate rather than extrapolate.</li>
+</ul>
+<p>A linear regression with <code>Month</code>, <code>Wind</code>, and <code>Temp</code> — possibly with a log-transform on Ozone (strong right skew) or a quadratic Temp term — should be a reasonable imputation model. The story is most consistent with <strong>MAR</strong>: missingness is related to observed variables (Month in particular), not convincingly to unobserved values of Ozone itself.</p>
+<hr></section></section><section id="simulation-study-single-vs.-multiple-imputation" class="level2"><h2 class="anchored" data-anchor-id="simulation-study-single-vs.-multiple-imputation">Simulation Study — Single vs.&nbsp;Multiple Imputation</h2>
+<section id="the-setup" class="level3"><h3 class="anchored" data-anchor-id="the-setup">The setup</h3>
+<p>We generate data where we control both the mechanism of missingness and the true relationship:</p>
+<ul>
+<li><code>x1 ~ Uniform(0, 1)</code></li>
+<li>
+<code>x2 = x1 + Normal(0, 1)</code> — correlated with x1</li>
+<li>
+<code>P(x2 missing) = x1 / 2</code> — <strong>MAR</strong> missingness (probability depends on observed x1)</li>
+<li>
+<code>y = x1 + x2 + Normal(0, 1)</code> — true β for x2 is <strong>1</strong>
+</li>
+</ul>
+<p>We then fit <code>y ~ x1 + x2</code> after either single or multiple imputation and ask: <strong>how often does the 95% confidence interval for β₂ contain the truth (= 1)?</strong> A well-calibrated procedure should hit 95%.</p>
+</section><section id="helper-functions" class="level3"><h3 class="anchored" data-anchor-id="helper-functions">Helper functions</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Simulate one dataset of size n, with MAR missingness on x2</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>gen_sim_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb18-3"><a href="#cb18-3"></a>    tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb18-4"><a href="#cb18-4"></a>        <span class="at">x1 =</span> <span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">1</span>),</span>
+<span id="cb18-5"><a href="#cb18-5"></a>        <span class="at">x2 =</span> x1 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb18-6"><a href="#cb18-6"></a>        <span class="co"># P(missing) depends on x1 (observed) → MAR</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a>        <span class="at">x2_miss_bool =</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> x1 <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb18-8"><a href="#cb18-8"></a>        <span class="at">x2_NA =</span> dplyr<span class="sc">::</span><span class="fu">if_else</span>(x2_miss_bool <span class="sc">==</span> <span class="dv">1</span>, <span class="cn">NA</span>, x2),</span>
+<span id="cb18-9"><a href="#cb18-9"></a>        <span class="at">y =</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb18-10"><a href="#cb18-10"></a>    )</span>
+<span id="cb18-11"><a href="#cb18-11"></a>}</span>
+<span id="cb18-12"><a href="#cb18-12"></a></span>
+<span id="cb18-13"><a href="#cb18-13"></a><span class="co"># Build imputation model using MICE, fit lm on each imputed dataset</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a>build_imputation_model <span class="ot">&lt;-</span> <span class="cf">function</span>(data, num) {</span>
+<span id="cb18-15"><a href="#cb18-15"></a>    mice_obj <span class="ot">&lt;-</span> mice<span class="sc">::</span><span class="fu">mice</span>(</span>
+<span id="cb18-16"><a href="#cb18-16"></a>        data <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(x1, x2_NA, y),</span>
+<span id="cb18-17"><a href="#cb18-17"></a>        <span class="at">m =</span> num,               <span class="co"># number of imputed datasets</span></span>
+<span id="cb18-18"><a href="#cb18-18"></a>        <span class="at">method =</span> <span class="st">"norm"</span>,       <span class="co"># Bayesian linear regression imputation</span></span>
+<span id="cb18-19"><a href="#cb18-19"></a>        <span class="at">printFlag =</span> <span class="cn">FALSE</span></span>
+<span id="cb18-20"><a href="#cb18-20"></a>    )</span>
+<span id="cb18-21"><a href="#cb18-21"></a>    <span class="fu">with</span>(mice_obj, <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2_NA))</span>
+<span id="cb18-22"><a href="#cb18-22"></a>}</span>
+<span id="cb18-23"><a href="#cb18-23"></a></span>
+<span id="cb18-24"><a href="#cb18-24"></a><span class="co"># Pull 95% CI from a single-imputation fit</span></span>
+<span id="cb18-25"><a href="#cb18-25"></a>get_single_imputation_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(single_imputation_model) {</span>
+<span id="cb18-26"><a href="#cb18-26"></a>    ci <span class="ot">&lt;-</span> single_imputation_model<span class="sc">$</span>analyses[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> <span class="fu">confint</span>(<span class="at">level =</span> .<span class="dv">95</span>)</span>
+<span id="cb18-27"><a href="#cb18-27"></a>    <span class="fu">c</span>(ci[<span class="st">"x2_NA"</span>, <span class="st">"2.5 %"</span>], ci[<span class="st">"x2_NA"</span>, <span class="st">"97.5 %"</span>])</span>
+<span id="cb18-28"><a href="#cb18-28"></a>}</span>
+<span id="cb18-29"><a href="#cb18-29"></a></span>
+<span id="cb18-30"><a href="#cb18-30"></a><span class="co"># Pull 95% CI from a pooled multiple-imputation fit (Rubin's rules)</span></span>
+<span id="cb18-31"><a href="#cb18-31"></a>get_multiple_imputation_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(multiple_imputation_models) {</span>
+<span id="cb18-32"><a href="#cb18-32"></a>    pooled_res <span class="ot">&lt;-</span> mice<span class="sc">::</span><span class="fu">pool</span>(multiple_imputation_models)</span>
+<span id="cb18-33"><a href="#cb18-33"></a>    summ <span class="ot">&lt;-</span> <span class="fu">summary</span>(pooled_res, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb18-34"><a href="#cb18-34"></a>    row <span class="ot">&lt;-</span> summ <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"x2_NA"</span>)</span>
+<span id="cb18-35"><a href="#cb18-35"></a>    <span class="fu">c</span>(row <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">pull</span>(<span class="st">`</span><span class="at">2.5 %</span><span class="st">`</span>),</span>
+<span id="cb18-36"><a href="#cb18-36"></a>      row <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">pull</span>(<span class="st">`</span><span class="at">97.5 %</span><span class="st">`</span>))</span>
+<span id="cb18-37"><a href="#cb18-37"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section><section id="running-the-simulation" class="level3"><h3 class="anchored" data-anchor-id="running-the-simulation">Running the simulation</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">set.seed</span>(<span class="dv">224</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>num_simulations <span class="ot">&lt;-</span> <span class="dv">200</span>        <span class="co"># 1000 gives tighter estimates but is slow</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>dataset_size    <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5"></a>ci_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="at">length =</span> num_simulations)</span>
+<span id="cb19-6"><a href="#cb19-6"></a></span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="fu">system.time</span>({</span>
+<span id="cb19-8"><a href="#cb19-8"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(num_simulations)) {</span>
+<span id="cb19-9"><a href="#cb19-9"></a>        sim_data <span class="ot">&lt;-</span> <span class="fu">gen_sim_data</span>(dataset_size)</span>
+<span id="cb19-10"><a href="#cb19-10"></a></span>
+<span id="cb19-11"><a href="#cb19-11"></a>        model_single  <span class="ot">&lt;-</span> <span class="fu">build_imputation_model</span>(sim_data, <span class="dv">1</span>)</span>
+<span id="cb19-12"><a href="#cb19-12"></a>        ci_single     <span class="ot">&lt;-</span> <span class="fu">get_single_imputation_ci</span>(model_single)</span>
+<span id="cb19-13"><a href="#cb19-13"></a></span>
+<span id="cb19-14"><a href="#cb19-14"></a>        model_multiple <span class="ot">&lt;-</span> <span class="fu">build_imputation_model</span>(sim_data, <span class="dv">10</span>)</span>
+<span id="cb19-15"><a href="#cb19-15"></a>        ci_multiple    <span class="ot">&lt;-</span> <span class="fu">get_multiple_imputation_ci</span>(model_multiple)</span>
+<span id="cb19-16"><a href="#cb19-16"></a></span>
+<span id="cb19-17"><a href="#cb19-17"></a>        ci_list[[i]] <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb19-18"><a href="#cb19-18"></a>            <span class="sc">~</span>imputation, <span class="sc">~</span>ci_lower,        <span class="sc">~</span>ci_upper,</span>
+<span id="cb19-19"><a href="#cb19-19"></a>            <span class="st">"single"</span>,    ci_single[<span class="dv">1</span>],     ci_single[<span class="dv">2</span>],</span>
+<span id="cb19-20"><a href="#cb19-20"></a>            <span class="st">"multiple"</span>,  ci_multiple[<span class="dv">1</span>],   ci_multiple[<span class="dv">2</span>]</span>
+<span id="cb19-21"><a href="#cb19-21"></a>        )</span>
+<span id="cb19-22"><a href="#cb19-22"></a>    }</span>
+<span id="cb19-23"><a href="#cb19-23"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>   user  system elapsed 
+ 10.981   0.238  11.257 </code></pre>
+</div>
+</div>
+</section><section id="coverage-probability" class="level3"><h3 class="anchored" data-anchor-id="coverage-probability">Coverage probability</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>coverage_results <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(ci_list) <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb21-3"><a href="#cb21-3"></a>        <span class="at">contains_truth =</span> ci_lower <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> ci_upper <span class="sc">&gt;</span> <span class="dv">1</span>,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>        <span class="at">ci_width       =</span> ci_upper <span class="sc">-</span> ci_lower</span>
+<span id="cb21-5"><a href="#cb21-5"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>    dplyr<span class="sc">::</span><span class="fu">group_by</span>(imputation) <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb21-8"><a href="#cb21-8"></a>        <span class="at">coverage       =</span> <span class="fu">mean</span>(contains_truth),</span>
+<span id="cb21-9"><a href="#cb21-9"></a>        <span class="at">mean_ci_width  =</span> <span class="fu">mean</span>(ci_width),</span>
+<span id="cb21-10"><a href="#cb21-10"></a>        <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a>    )</span>
+<span id="cb21-12"><a href="#cb21-12"></a></span>
+<span id="cb21-13"><a href="#cb21-13"></a>coverage_results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  imputation coverage mean_ci_width
+  &lt;chr&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+1 multiple      0.955         0.448
+2 single        0.915         0.403</code></pre>
+</div>
+</div>
+</section><section id="what-the-simulation-shows" class="level3"><h3 class="anchored" data-anchor-id="what-the-simulation-shows">What the simulation shows</h3>
+<p>Two things:</p>
+<ol type="1">
+<li><p><strong>Coverage.</strong> The nominal level is 0.95. Multiple imputation should land close to it; single imputation lands noticeably below. This is the canonical result — single imputation treats filled-in values as if they were observed, which pretends the data contain more information than they actually do, which shrinks the standard errors, which makes the interval too narrow to cover the truth the advertised share of the time.</p></li>
+<li><p><strong>Interval width.</strong> Multiple-imputation intervals are wider than single-imputation intervals. That is not a failure — it is <em>honest accounting</em>. The extra width is Rubin’s rules adding the between-imputation variance to the within-imputation variance, which is the missing information we pretended not to have.</p></li>
+</ol></section><section id="visualizing-the-coverage-gap" class="level3"><h3 class="anchored" data-anchor-id="visualizing-the-coverage-gap">Visualizing the coverage gap</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(ci_list) <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb23-3"><a href="#cb23-3"></a>        <span class="at">sim_id         =</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(num_simulations), <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb23-4"><a href="#cb23-4"></a>        <span class="at">contains_truth =</span> ci_lower <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> ci_upper <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(sim_id <span class="sc">&lt;=</span> <span class="dv">50</span>) <span class="sc">|&gt;</span>   <span class="co"># first 50 sims for readability</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sim_id, <span class="at">ymin =</span> ci_lower, <span class="at">ymax =</span> ci_upper,</span>
+<span id="cb23-8"><a href="#cb23-8"></a>               <span class="at">colour =</span> contains_truth)) <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a>    <span class="fu">geom_errorbar</span>() <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> imputation, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"grey50"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"#b6345c"</span>)) <span class="sc">+</span></span>
+<span id="cb23-13"><a href="#cb23-13"></a>    <span class="fu">labs</span>(</span>
+<span id="cb23-14"><a href="#cb23-14"></a>        <span class="at">title    =</span> <span class="st">"95% CIs for β₂ across the first 50 simulations"</span>,</span>
+<span id="cb23-15"><a href="#cb23-15"></a>        <span class="at">subtitle =</span> <span class="st">"Dashed line = truth (β = 1). Red intervals miss the truth."</span>,</span>
+<span id="cb23-16"><a href="#cb23-16"></a>        <span class="at">x        =</span> <span class="st">"Simulation index"</span>,</span>
+<span id="cb23-17"><a href="#cb23-17"></a>        <span class="at">y        =</span> <span class="st">"CI for β₂"</span>,</span>
+<span id="cb23-18"><a href="#cb23-18"></a>        <span class="at">colour   =</span> <span class="st">"Contains truth"</span></span>
+<span id="cb23-19"><a href="#cb23-19"></a>    ) <span class="sc">+</span></span>
+<span id="cb23-20"><a href="#cb23-20"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="08_missing_data_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The single-imputation panel shows systematically narrower intervals and visibly more red (missed) intervals than the multiple-imputation panel. That is the picture you would expect a simulation study to produce — and it is the argument for always using multiple imputation when the missing data matter for the inference you care about.</p>
+<hr></section></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p>Two threads run through today’s material:</p>
+<p><strong>Mechanism is not a property of the variable; it is a property of the joint distribution between missingness and the observed/unobserved parts of the data.</strong> A variable can be MCAR in one study design and MAR in another that records an additional covariate. This has a practical implication: <em>recording more covariates changes the mechanism</em> — sometimes promoting what would have been MNAR into something analyzable as MAR. Designing data collection is therefore half of handling missingness.</p>
+<p><strong>Single imputation lies about how much you know; multiple imputation tells the truth.</strong> The uncertainty loss from single imputation is not visible in any single analysis — the point estimates look fine, the confidence intervals look reasonable, and the procedure produces an answer. The cost only becomes visible at the population-of-experiments level, which is exactly what simulation studies are for. This is a general lesson about statistical methods: methods that under-represent uncertainty look more decisive than methods that represent it honestly, and the apparent decisiveness is a bug, not a feature.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/07_adv_data_wrangling_II.html" class="pagination-link" aria-label="7 — Advanced Data Wrangling II: Strings and Regular Expressions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/09_functions.html" class="pagination-link" aria-label="9 — Functions and Control Structures">
+        <span class="nav-page-text"><span class="chapter-title">9 — Functions and Control Structures</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1"></a><span class="co">---</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="an">title:</span><span class="co"> "8 — Missing Data: Mechanisms, Exploration, and Imputation"</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="an">format:</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="co">  html:</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co">    toc: true</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="an">execute:</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="co">  warning: false</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a><span class="co">  message: false</span></span>
+<span id="cb24-17"><a href="#cb24-17"></a><span class="co">---</span></span>
+<span id="cb24-18"><a href="#cb24-18"></a></span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="fu">## Setup</span></span>
+<span id="cb24-20"><a href="#cb24-20"></a></span>
+<span id="cb24-23"><a href="#cb24-23"></a><span class="in">```{r}</span></span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb24-26"><a href="#cb24-26"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb24-27"><a href="#cb24-27"></a><span class="fu">library</span>(mice)</span>
+<span id="cb24-28"><a href="#cb24-28"></a></span>
+<span id="cb24-29"><a href="#cb24-29"></a><span class="fu">data</span>(airquality)</span>
+<span id="cb24-30"><a href="#cb24-30"></a><span class="in">```</span></span>
+<span id="cb24-31"><a href="#cb24-31"></a></span>
+<span id="cb24-32"><a href="#cb24-32"></a>------------------------------------------------------------------------</span>
+<span id="cb24-33"><a href="#cb24-33"></a></span>
+<span id="cb24-34"><a href="#cb24-34"></a><span class="fu">## 🔥 Data Story Critique — *Goalkeepers Report 2019: Examining Inequality*</span></span>
+<span id="cb24-35"><a href="#cb24-35"></a></span>
+<span id="cb24-36"><a href="#cb24-36"></a>Source: <span class="ot">&lt;https://www.gatesfoundation.org/goalkeepers/report/2019-report/#ExaminingInequality&gt;</span></span>
+<span id="cb24-37"><a href="#cb24-37"></a></span>
+<span id="cb24-38"><a href="#cb24-38"></a><span class="fu">### What is the data story?</span></span>
+<span id="cb24-39"><a href="#cb24-39"></a></span>
+<span id="cb24-40"><a href="#cb24-40"></a>The 2019 Goalkeepers Report makes a data-driven argument that **inequality within and between countries is the principal obstacle to meeting the Sustainable Development Goals by 2030**, and that geography and gender together stack the deck against hundreds of millions of people. The piece is structured around a cartographic zoom-in: world map → the Sahel → Chad → a drought-prone region → a marginalized ethnic group → a single adolescent girl. It then pivots to two central visualizations — scatterplots of developing countries on child-mortality-versus-years-of-schooling axes in 2000 and 2017, followed by the same chart projected forward to 2030 — which make visible both universal progress and persistent gaps. A major methodological move is the use of new subnational (district-level) human-capital estimates: the India panel contrasts Kerala's Kollam district (1 percent under-five mortality, 14 years of schooling) with Uttar Pradesh's Budaun district (&gt;8 percent mortality, ~6 years of schooling), a gap invisible at the national average. Three case essays then supply qualitative depth: primary health care (Ethiopia, Rwanda, Kenya), digital inclusion through India's JAM trinity, and climate adaptation in Ethiopia. The report's core policy argument is that human capital investment is the engine of development, that it should be designed to reach girls and lagging districts first, and that exemplar countries show it can be done on modest budgets.</span>
+<span id="cb24-41"><a href="#cb24-41"></a></span>
+<span id="cb24-42"><a href="#cb24-42"></a><span class="fu">### What is effective?</span></span>
+<span id="cb24-43"><a href="#cb24-43"></a></span>
+<span id="cb24-44"><a href="#cb24-44"></a>The **district-level disaggregation is the single strongest contribution**. Moving past national averages to sub-national units is genuinely important — the Budaun–Kollam contrast communicates within-India inequality in a way that a single national statistic cannot, and the same move for Nigeria's LGAs reinforces the point that development is uneven at every administrative scale. The temporal-scatterplot device (2000 → 2017 → 2030 projection) is a legitimate visual forecasting exercise that communicates progress, persistent gaps, and policy stakes simultaneously.</span>
+<span id="cb24-45"><a href="#cb24-45"></a></span>
+<span id="cb24-46"><a href="#cb24-46"></a>The **first-person vignettes carry real weight**. Githinji Gitahi walking with his mother to a rural dispensary, Kaba Urgessa situating Ethiopia's 2015 drought against 1984, and particularly Mitselal Tekele Tesfay — who is given sustained space to articulate his own theory of his situation ("the weather is the will of God"), describe concrete adaptations (rainwater harvesting, mulching, switching from wheat to barley for his children), and name what is at stake for his family — anchor structural claims in texture without reducing the speakers to objects of compassion. That is more than most development communication achieves.</span>
+<span id="cb24-47"><a href="#cb24-47"></a></span>
+<span id="cb24-48"><a href="#cb24-48"></a>The **cartographic zoom-in is rhetorically powerful** and the use of concrete ratios ("a child in Chad is nearly 55 times more likely to die than a child in Finland") avoids the trap of presenting percentages in isolation.</span>
+<span id="cb24-49"><a href="#cb24-49"></a></span>
+<span id="cb24-50"><a href="#cb24-50"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb24-51"><a href="#cb24-51"></a></span>
+<span id="cb24-52"><a href="#cb24-52"></a>**The framing moves inequality from *produced* to *distributed*.** The opening metaphor — the Gateses describing themselves as lottery winners, "born in a wealthy country to white, well-off parents" — and the closing line "No one's life should be a roll of the dice" work together to render inequality as a matter of random cosmic distribution rather than historical production. Colonial borders, extractive trade arrangements, aid conditionalities, and the political economy of the global tax regime (within which Microsoft's fortune was itself accumulated) are absent from the analysis. The direction of the zoom-in is not neutral either: the camera moves steadily *toward* the individual to be helped and *away from* the named systems producing her condition. A symmetrically valid zoom-out — girl → community → Chadian state → French colonial borders → commodity markets → the global tax architecture — would produce a very different policy conclusion. The report's framing forecloses that alternative without engaging it.</span>
+<span id="cb24-53"><a href="#cb24-53"></a></span>
+<span id="cb24-54"><a href="#cb24-54"></a>**"Exemplar learning" conflates transferable practices with embedded institutional configurations.** The report treats Ethiopia, Rwanda, and Thailand as models whose primary-care architectures other countries can adopt if they "spend a little more, spend on the right priorities, spend more efficiently." But Rwanda's community-health-worker system is not a line item; it is embedded in a post-genocide developmental state with specific capacities for mobilization (umuganda), compliance, and the suppression of exit options, capacities that are not available to governments operating in different political configurations. Ethiopia's Productive Safety Net Programme similarly depends on a developmental-state apparatus with its own political costs. Thailand's universal coverage is inseparable from its post-1997 social contract. Presenting these as swappable technical templates — rather than as three very different political achievements, each with its own corridor of viability — overstates the portability of success. The report would be strengthened by asking *what conditions made each exemplar possible* before prescribing its practices.</span>
+<span id="cb24-55"><a href="#cb24-55"></a></span>
+<span id="cb24-56"><a href="#cb24-56"></a>**Policy preferences are presented as success stories without disclosure.** The JAM-trinity essay celebrates Aadhaar and biometric authentication as empowering the poor, without engaging the well-documented exclusionary effects — biometric authentication failures for manual laborers whose fingerprints have worn down, ration denials in states like Jharkhand and Rajasthan tied to Aadhaar-linkage failures, and the broader question of what happens when a welfare floor is gated behind a biometric layer that fails disproportionately for the most marginalized. The Gates Foundation has institutional stakes in digital-ID infrastructure globally, which is a relevant disclosure that the essay does not make.</span>
+<span id="cb24-57"><a href="#cb24-57"></a></span>
+<span id="cb24-58"><a href="#cb24-58"></a>**Uncertainty is not visualized.** The 2030 projections are presented as confident trajectories without visible uncertainty bands, and the district-level estimates — particularly for small populations — are model outputs with non-trivial uncertainty that is collapsed into point estimates. For a document that will be used in policy contexts, that collapsing matters.</span>
+<span id="cb24-59"><a href="#cb24-59"></a></span>
+<span id="cb24-60"><a href="#cb24-60"></a>------------------------------------------------------------------------</span>
+<span id="cb24-61"><a href="#cb24-61"></a></span>
+<span id="cb24-62"><a href="#cb24-62"></a><span class="fu">## Exercise — Missing-Data Mechanisms</span></span>
+<span id="cb24-63"><a href="#cb24-63"></a></span>
+<span id="cb24-64"><a href="#cb24-64"></a><span class="fu">### 1. Clinical trial dropouts, reasons unrecorded</span></span>
+<span id="cb24-65"><a href="#cb24-65"></a></span>
+<span id="cb24-66"><a href="#cb24-66"></a>Most plausibly **MNAR**. Clinical-trial dropout is typically driven by side effects, worsening disease, or outcomes related to the very thing being measured — the probability of missingness is a function of the unobserved outcome itself. Without recorded reasons we cannot even partially control for it, which is the classic MNAR situation. A secondary possibility is MAR, if dropout correlates with baseline covariates (age, comorbidity, site) that *are* recorded. In practice analysts usually model it as MAR conditional on observed covariates and then run MNAR-style sensitivity analyses.</span>
+<span id="cb24-67"><a href="#cb24-67"></a></span>
+<span id="cb24-68"><a href="#cb24-68"></a><span class="fu">### 2. Weather station: hourly temperature, humidity, wind</span></span>
+<span id="cb24-69"><a href="#cb24-69"></a></span>
+<span id="cb24-70"><a href="#cb24-70"></a>**All three mechanisms are plausible; the distinction is empirical.**</span>
+<span id="cb24-71"><a href="#cb24-71"></a></span>
+<span id="cb24-72"><a href="#cb24-72"></a><span class="ss">- </span>**MCAR** if the device fails through truly random events — cosmic-ray bit flips, battery depletion unrelated to conditions.</span>
+<span id="cb24-73"><a href="#cb24-73"></a><span class="ss">- </span>**MAR** if failures correlate with *other recorded* variables — e.g., humidity sensor drops out when rainfall (recorded) is high.</span>
+<span id="cb24-74"><a href="#cb24-74"></a><span class="ss">- </span>**MNAR** if failures happen at extreme values of the variable itself — anemometer breaks in the highest winds, temperature probe saturates on the hottest afternoons. That is the scariest case because the missing values are systematically the ones you most want.</span>
+<span id="cb24-75"><a href="#cb24-75"></a></span>
+<span id="cb24-76"><a href="#cb24-76"></a><span class="fu">### 3. Social media: missing interactions due to bugs</span></span>
+<span id="cb24-77"><a href="#cb24-77"></a></span>
+<span id="cb24-78"><a href="#cb24-78"></a><span class="ss">- </span>**MCAR** if the bug is uniform across users and sessions.</span>
+<span id="cb24-79"><a href="#cb24-79"></a><span class="ss">- </span>**MAR** if it affects an observable subgroup — e.g., mobile users vs. desktop users, and device type is logged.</span>
+<span id="cb24-80"><a href="#cb24-80"></a><span class="ss">- </span>**MNAR** if it affects an unobserved subgroup — e.g., users on slow connections drop events more often, and connection quality is not measured.</span>
+<span id="cb24-81"><a href="#cb24-81"></a></span>
+<span id="cb24-82"><a href="#cb24-82"></a>The general lesson: **MCAR/MAR/MNAR is not a property of the phenomenon but of the joint distribution between missingness and observed-vs-unobserved variables in your specific dataset**. Two datasets on the same topic can have different mechanisms depending on what was recorded.</span>
+<span id="cb24-83"><a href="#cb24-83"></a></span>
+<span id="cb24-84"><a href="#cb24-84"></a>------------------------------------------------------------------------</span>
+<span id="cb24-85"><a href="#cb24-85"></a></span>
+<span id="cb24-86"><a href="#cb24-86"></a><span class="fu">## Exploring Missingness in `airquality`</span></span>
+<span id="cb24-87"><a href="#cb24-87"></a></span>
+<span id="cb24-88"><a href="#cb24-88"></a><span class="fu">### Missingness by variable</span></span>
+<span id="cb24-89"><a href="#cb24-89"></a></span>
+<span id="cb24-92"><a href="#cb24-92"></a><span class="in">```{r}</span></span>
+<span id="cb24-93"><a href="#cb24-93"></a><span class="fu">summary</span>(airquality)</span>
+<span id="cb24-94"><a href="#cb24-94"></a><span class="in">```</span></span>
+<span id="cb24-95"><a href="#cb24-95"></a></span>
+<span id="cb24-98"><a href="#cb24-98"></a><span class="in">```{r}</span></span>
+<span id="cb24-99"><a href="#cb24-99"></a>naniar<span class="sc">::</span><span class="fu">vis_miss</span>(airquality)</span>
+<span id="cb24-100"><a href="#cb24-100"></a><span class="in">```</span></span>
+<span id="cb24-101"><a href="#cb24-101"></a></span>
+<span id="cb24-104"><a href="#cb24-104"></a><span class="in">```{r}</span></span>
+<span id="cb24-105"><a href="#cb24-105"></a>naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>(airquality)</span>
+<span id="cb24-106"><a href="#cb24-106"></a><span class="in">```</span></span>
+<span id="cb24-107"><a href="#cb24-107"></a></span>
+<span id="cb24-108"><a href="#cb24-108"></a><span class="in">`Ozone`</span> has 37 missing values (24.2%) and <span class="in">`Solar.R`</span> has 7 (4.6%). <span class="in">`Wind`</span>, <span class="in">`Temp`</span>, <span class="in">`Month`</span>, and <span class="in">`Day`</span> are complete.</span>
+<span id="cb24-109"><a href="#cb24-109"></a></span>
+<span id="cb24-110"><a href="#cb24-110"></a><span class="fu">### Missingness by case</span></span>
+<span id="cb24-111"><a href="#cb24-111"></a></span>
+<span id="cb24-114"><a href="#cb24-114"></a><span class="in">```{r}</span></span>
+<span id="cb24-115"><a href="#cb24-115"></a>naniar<span class="sc">::</span><span class="fu">miss_case_summary</span>(airquality) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">15</span>)</span>
+<span id="cb24-116"><a href="#cb24-116"></a><span class="in">```</span></span>
+<span id="cb24-117"><a href="#cb24-117"></a></span>
+<span id="cb24-118"><a href="#cb24-118"></a>Cases 5 and 27 are missing on two variables (33% of fields). Most cases missing at all are missing only one field, so imputation is feasible — we have enough observed information per row to build a model from.</span>
+<span id="cb24-119"><a href="#cb24-119"></a></span>
+<span id="cb24-120"><a href="#cb24-120"></a><span class="fu">### Is Ozone missingness related to Solar.R?</span></span>
+<span id="cb24-121"><a href="#cb24-121"></a></span>
+<span id="cb24-124"><a href="#cb24-124"></a><span class="in">```{r}</span></span>
+<span id="cb24-125"><a href="#cb24-125"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">is.na</span>(Ozone), <span class="at">y =</span> Solar.R)) <span class="sc">+</span></span>
+<span id="cb24-126"><a href="#cb24-126"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb24-127"><a href="#cb24-127"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ozone is missing"</span>, <span class="at">y =</span> <span class="st">"Solar.R"</span>,</span>
+<span id="cb24-128"><a href="#cb24-128"></a>         <span class="at">title =</span> <span class="st">"Solar radiation by Ozone-missingness status"</span>)</span>
+<span id="cb24-129"><a href="#cb24-129"></a><span class="in">```</span></span>
+<span id="cb24-130"><a href="#cb24-130"></a></span>
+<span id="cb24-133"><a href="#cb24-133"></a><span class="in">```{r}</span></span>
+<span id="cb24-134"><a href="#cb24-134"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> Solar.R, <span class="at">colour =</span> <span class="fu">is.na</span>(Ozone))) <span class="sc">+</span></span>
+<span id="cb24-135"><a href="#cb24-135"></a>    <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb24-136"><a href="#cb24-136"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Density of Solar.R, stratified by Ozone-missingness"</span>)</span>
+<span id="cb24-137"><a href="#cb24-137"></a><span class="in">```</span></span>
+<span id="cb24-138"><a href="#cb24-138"></a></span>
+<span id="cb24-139"><a href="#cb24-139"></a>The two distributions largely overlap. Solar radiation does **not** look like a strong predictor of whether Ozone is missing.</span>
+<span id="cb24-140"><a href="#cb24-140"></a></span>
+<span id="cb24-141"><a href="#cb24-141"></a><span class="fu">### Can Solar.R predict Ozone?</span></span>
+<span id="cb24-142"><a href="#cb24-142"></a></span>
+<span id="cb24-145"><a href="#cb24-145"></a><span class="in">```{r}</span></span>
+<span id="cb24-146"><a href="#cb24-146"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> Solar.R, <span class="at">y =</span> Ozone)) <span class="sc">+</span></span>
+<span id="cb24-147"><a href="#cb24-147"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb24-148"><a href="#cb24-148"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb24-149"><a href="#cb24-149"></a>    <span class="fu">geom_vline</span>(</span>
+<span id="cb24-150"><a href="#cb24-150"></a>        <span class="at">data =</span> airquality <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(Ozone)),</span>
+<span id="cb24-151"><a href="#cb24-151"></a>        <span class="fu">aes</span>(<span class="at">xintercept =</span> Solar.R),</span>
+<span id="cb24-152"><a href="#cb24-152"></a>        <span class="at">alpha =</span> <span class="fl">0.3</span></span>
+<span id="cb24-153"><a href="#cb24-153"></a>    ) <span class="sc">+</span></span>
+<span id="cb24-154"><a href="#cb24-154"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ozone vs. Solar.R, with Solar.R values of missing-Ozone cases"</span>)</span>
+<span id="cb24-155"><a href="#cb24-155"></a><span class="in">```</span></span>
+<span id="cb24-156"><a href="#cb24-156"></a></span>
+<span id="cb24-157"><a href="#cb24-157"></a>The vertical lines (Solar.R values where Ozone is missing) fall *within* the observed Solar.R range. Imputation from Solar.R would not require extrapolation, which is what we want.</span>
+<span id="cb24-158"><a href="#cb24-158"></a></span>
+<span id="cb24-159"><a href="#cb24-159"></a>------------------------------------------------------------------------</span>
+<span id="cb24-160"><a href="#cb24-160"></a></span>
+<span id="cb24-161"><a href="#cb24-161"></a><span class="fu">## Exercise — Mechanism Detection Practice (Alt 1 vs. Alt 2)</span></span>
+<span id="cb24-162"><a href="#cb24-162"></a></span>
+<span id="cb24-163"><a href="#cb24-163"></a>The two alternative situations in the course materials share a common feature — **Ozone is missing specifically when Solar.R is at higher values** — but they differ in whether the missing region overlaps with observed data.</span>
+<span id="cb24-164"><a href="#cb24-164"></a></span>
+<span id="cb24-165"><a href="#cb24-165"></a>**Alt 1.** The high-Solar.R region where Ozone is missing partially overlaps with observed points. A regression of Ozone on Solar.R still has anchoring observations near the missing region, so the prediction is interpolation. The risk is moderate — the imputed values will depend on how well the fitted relationship extends into the high-Solar.R tail, but we are not flying blind.</span>
+<span id="cb24-166"><a href="#cb24-166"></a></span>
+<span id="cb24-167"><a href="#cb24-167"></a>**Alt 2.** The high-Solar.R region where Ozone is missing extends *beyond* any observed Ozone point. Imputation here is pure extrapolation: the model is guessing what the Ozone–Solar.R relationship looks like in a region the data never visited. This is dangerous because (a) the form of the relationship could change outside the observed range (non-linearity, saturation), and (b) there is no within-sample way to detect that it has.</span>
+<span id="cb24-168"><a href="#cb24-168"></a></span>
+<span id="cb24-169"><a href="#cb24-169"></a>**Contrast with the actual airquality situation.** In the real data, Ozone missingness is not strongly tied to any one end of the Solar.R distribution — the missing-Ozone vertical lines span the observed Solar.R range. That is the most favourable situation for imputation, and the weakest evidence for a simple MAR-via-Solar.R story (missingness here is probably explained by other variables, which the next exercise investigates).</span>
+<span id="cb24-170"><a href="#cb24-170"></a></span>
+<span id="cb24-171"><a href="#cb24-171"></a>**Takeaway.** When evaluating imputation feasibility, look not only at *whether* missingness relates to predictors but at *whether the missing region is within the convex hull of the observed predictor space*. Extrapolation-based imputation will produce values that look plausible in a table and are completely unreliable in reality.</span>
+<span id="cb24-172"><a href="#cb24-172"></a></span>
+<span id="cb24-173"><a href="#cb24-173"></a>------------------------------------------------------------------------</span>
+<span id="cb24-174"><a href="#cb24-174"></a></span>
+<span id="cb24-175"><a href="#cb24-175"></a><span class="fu">## Exercise — Ozone Mechanism Detection (continued)</span></span>
+<span id="cb24-176"><a href="#cb24-176"></a></span>
+<span id="cb24-177"><a href="#cb24-177"></a>We now check whether Ozone *missingness* and Ozone *value* relate to <span class="in">`Month`</span>, <span class="in">`Wind`</span>, and <span class="in">`Temp`</span>.</span>
+<span id="cb24-178"><a href="#cb24-178"></a></span>
+<span id="cb24-179"><a href="#cb24-179"></a><span class="fu">### Does missingness depend on Month?</span></span>
+<span id="cb24-180"><a href="#cb24-180"></a></span>
+<span id="cb24-183"><a href="#cb24-183"></a><span class="in">```{r}</span></span>
+<span id="cb24-184"><a href="#cb24-184"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">is.na</span>(Ozone), <span class="at">x =</span> <span class="fu">factor</span>(Month))) <span class="sc">+</span></span>
+<span id="cb24-185"><a href="#cb24-185"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb24-186"><a href="#cb24-186"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Month"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>,</span>
+<span id="cb24-187"><a href="#cb24-187"></a>         <span class="at">fill =</span> <span class="st">"Ozone missing"</span>,</span>
+<span id="cb24-188"><a href="#cb24-188"></a>         <span class="at">title =</span> <span class="st">"Proportion of missing Ozone by month"</span>)</span>
+<span id="cb24-189"><a href="#cb24-189"></a><span class="in">```</span></span>
+<span id="cb24-190"><a href="#cb24-190"></a></span>
+<span id="cb24-191"><a href="#cb24-191"></a>Missingness is **not uniform across months** — June has a notably higher share of missing Ozone values. This is evidence that Ozone missingness is at least MAR with respect to Month.</span>
+<span id="cb24-192"><a href="#cb24-192"></a></span>
+<span id="cb24-193"><a href="#cb24-193"></a><span class="fu">### Does missingness depend on Wind or Temp?</span></span>
+<span id="cb24-194"><a href="#cb24-194"></a></span>
+<span id="cb24-197"><a href="#cb24-197"></a><span class="in">```{r}</span></span>
+<span id="cb24-198"><a href="#cb24-198"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">is.na</span>(Ozone), <span class="at">y =</span> Wind)) <span class="sc">+</span></span>
+<span id="cb24-199"><a href="#cb24-199"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb24-200"><a href="#cb24-200"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ozone is missing"</span>, <span class="at">y =</span> <span class="st">"Wind"</span>,</span>
+<span id="cb24-201"><a href="#cb24-201"></a>         <span class="at">title =</span> <span class="st">"Wind by Ozone-missingness status"</span>)</span>
+<span id="cb24-202"><a href="#cb24-202"></a><span class="in">```</span></span>
+<span id="cb24-203"><a href="#cb24-203"></a></span>
+<span id="cb24-206"><a href="#cb24-206"></a><span class="in">```{r}</span></span>
+<span id="cb24-207"><a href="#cb24-207"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">is.na</span>(Ozone), <span class="at">y =</span> Temp)) <span class="sc">+</span></span>
+<span id="cb24-208"><a href="#cb24-208"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb24-209"><a href="#cb24-209"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ozone is missing"</span>, <span class="at">y =</span> <span class="st">"Temp"</span>,</span>
+<span id="cb24-210"><a href="#cb24-210"></a>         <span class="at">title =</span> <span class="st">"Temperature by Ozone-missingness status"</span>)</span>
+<span id="cb24-211"><a href="#cb24-211"></a><span class="in">```</span></span>
+<span id="cb24-212"><a href="#cb24-212"></a></span>
+<span id="cb24-213"><a href="#cb24-213"></a>Wind and Temp distributions look similar whether Ozone is missing or not — neither is a strong driver of Ozone missingness on its own.</span>
+<span id="cb24-214"><a href="#cb24-214"></a></span>
+<span id="cb24-215"><a href="#cb24-215"></a><span class="fu">### Do these variables predict the *value* of Ozone?</span></span>
+<span id="cb24-216"><a href="#cb24-216"></a></span>
+<span id="cb24-219"><a href="#cb24-219"></a><span class="in">```{r}</span></span>
+<span id="cb24-220"><a href="#cb24-220"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Month), <span class="at">y =</span> Ozone)) <span class="sc">+</span></span>
+<span id="cb24-221"><a href="#cb24-221"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb24-222"><a href="#cb24-222"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Month"</span>, <span class="at">title =</span> <span class="st">"Ozone by month"</span>)</span>
+<span id="cb24-223"><a href="#cb24-223"></a><span class="in">```</span></span>
+<span id="cb24-224"><a href="#cb24-224"></a></span>
+<span id="cb24-227"><a href="#cb24-227"></a><span class="in">```{r}</span></span>
+<span id="cb24-228"><a href="#cb24-228"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> Wind, <span class="at">y =</span> Ozone)) <span class="sc">+</span></span>
+<span id="cb24-229"><a href="#cb24-229"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb24-230"><a href="#cb24-230"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb24-231"><a href="#cb24-231"></a>    <span class="fu">geom_vline</span>(</span>
+<span id="cb24-232"><a href="#cb24-232"></a>        <span class="at">data =</span> airquality <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(Ozone)),</span>
+<span id="cb24-233"><a href="#cb24-233"></a>        <span class="fu">aes</span>(<span class="at">xintercept =</span> Wind),</span>
+<span id="cb24-234"><a href="#cb24-234"></a>        <span class="at">alpha =</span> <span class="fl">0.3</span></span>
+<span id="cb24-235"><a href="#cb24-235"></a>    ) <span class="sc">+</span></span>
+<span id="cb24-236"><a href="#cb24-236"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ozone vs. Wind (vertical lines = Wind where Ozone is missing)"</span>)</span>
+<span id="cb24-237"><a href="#cb24-237"></a><span class="in">```</span></span>
+<span id="cb24-238"><a href="#cb24-238"></a></span>
+<span id="cb24-241"><a href="#cb24-241"></a><span class="in">```{r}</span></span>
+<span id="cb24-242"><a href="#cb24-242"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(<span class="at">x =</span> Temp, <span class="at">y =</span> Ozone)) <span class="sc">+</span></span>
+<span id="cb24-243"><a href="#cb24-243"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb24-244"><a href="#cb24-244"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb24-245"><a href="#cb24-245"></a>    <span class="fu">geom_vline</span>(</span>
+<span id="cb24-246"><a href="#cb24-246"></a>        <span class="at">data =</span> airquality <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(Ozone)),</span>
+<span id="cb24-247"><a href="#cb24-247"></a>        <span class="fu">aes</span>(<span class="at">xintercept =</span> Temp),</span>
+<span id="cb24-248"><a href="#cb24-248"></a>        <span class="at">alpha =</span> <span class="fl">0.3</span></span>
+<span id="cb24-249"><a href="#cb24-249"></a>    ) <span class="sc">+</span></span>
+<span id="cb24-250"><a href="#cb24-250"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ozone vs. Temp (vertical lines = Temp where Ozone is missing)"</span>)</span>
+<span id="cb24-251"><a href="#cb24-251"></a><span class="in">```</span></span>
+<span id="cb24-252"><a href="#cb24-252"></a></span>
+<span id="cb24-253"><a href="#cb24-253"></a><span class="fu">### Summary for the imputation model</span></span>
+<span id="cb24-254"><a href="#cb24-254"></a></span>
+<span id="cb24-255"><a href="#cb24-255"></a><span class="ss">- </span>**Missingness of Ozone** is clearly related to <span class="in">`Month`</span> (June higher); weakly related to Wind and Temp.</span>
+<span id="cb24-256"><a href="#cb24-256"></a><span class="ss">- </span>**Value of Ozone** is related to <span class="in">`Month`</span> (higher in July/August), negatively related to <span class="in">`Wind`</span>, positively (and non-linearly) related to <span class="in">`Temp`</span>.</span>
+<span id="cb24-257"><a href="#cb24-257"></a><span class="ss">- </span>The Wind and Temp values of missing-Ozone cases fall within the observed range, so a regression model can interpolate rather than extrapolate.</span>
+<span id="cb24-258"><a href="#cb24-258"></a></span>
+<span id="cb24-259"><a href="#cb24-259"></a>A linear regression with <span class="in">`Month`</span>, <span class="in">`Wind`</span>, and <span class="in">`Temp`</span> — possibly with a log-transform on Ozone (strong right skew) or a quadratic Temp term — should be a reasonable imputation model. The story is most consistent with **MAR**: missingness is related to observed variables (Month in particular), not convincingly to unobserved values of Ozone itself.</span>
+<span id="cb24-260"><a href="#cb24-260"></a></span>
+<span id="cb24-261"><a href="#cb24-261"></a>------------------------------------------------------------------------</span>
+<span id="cb24-262"><a href="#cb24-262"></a></span>
+<span id="cb24-263"><a href="#cb24-263"></a><span class="fu">## Simulation Study — Single vs. Multiple Imputation</span></span>
+<span id="cb24-264"><a href="#cb24-264"></a></span>
+<span id="cb24-265"><a href="#cb24-265"></a><span class="fu">### The setup</span></span>
+<span id="cb24-266"><a href="#cb24-266"></a></span>
+<span id="cb24-267"><a href="#cb24-267"></a>We generate data where we control both the mechanism of missingness and the true relationship:</span>
+<span id="cb24-268"><a href="#cb24-268"></a></span>
+<span id="cb24-269"><a href="#cb24-269"></a><span class="ss">- </span><span class="in">`x1 ~ Uniform(0, 1)`</span></span>
+<span id="cb24-270"><a href="#cb24-270"></a><span class="ss">- </span><span class="in">`x2 = x1 + Normal(0, 1)`</span> — correlated with x1</span>
+<span id="cb24-271"><a href="#cb24-271"></a><span class="ss">- </span><span class="in">`P(x2 missing) = x1 / 2`</span> — **MAR** missingness (probability depends on observed x1)</span>
+<span id="cb24-272"><a href="#cb24-272"></a><span class="ss">- </span><span class="in">`y = x1 + x2 + Normal(0, 1)`</span> — true β for x2 is **1**</span>
+<span id="cb24-273"><a href="#cb24-273"></a></span>
+<span id="cb24-274"><a href="#cb24-274"></a>We then fit <span class="in">`y ~ x1 + x2`</span> after either single or multiple imputation and ask: **how often does the 95% confidence interval for β₂ contain the truth (= 1)?** A well-calibrated procedure should hit 95%.</span>
+<span id="cb24-275"><a href="#cb24-275"></a></span>
+<span id="cb24-276"><a href="#cb24-276"></a><span class="fu">### Helper functions</span></span>
+<span id="cb24-277"><a href="#cb24-277"></a></span>
+<span id="cb24-280"><a href="#cb24-280"></a><span class="in">```{r}</span></span>
+<span id="cb24-281"><a href="#cb24-281"></a><span class="co">#| label: simulation-helpers</span></span>
+<span id="cb24-282"><a href="#cb24-282"></a></span>
+<span id="cb24-283"><a href="#cb24-283"></a><span class="co"># Simulate one dataset of size n, with MAR missingness on x2</span></span>
+<span id="cb24-284"><a href="#cb24-284"></a>gen_sim_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb24-285"><a href="#cb24-285"></a>    tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb24-286"><a href="#cb24-286"></a>        <span class="at">x1 =</span> <span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">1</span>),</span>
+<span id="cb24-287"><a href="#cb24-287"></a>        <span class="at">x2 =</span> x1 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb24-288"><a href="#cb24-288"></a>        <span class="co"># P(missing) depends on x1 (observed) → MAR</span></span>
+<span id="cb24-289"><a href="#cb24-289"></a>        <span class="at">x2_miss_bool =</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> x1 <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb24-290"><a href="#cb24-290"></a>        <span class="at">x2_NA =</span> dplyr<span class="sc">::</span><span class="fu">if_else</span>(x2_miss_bool <span class="sc">==</span> <span class="dv">1</span>, <span class="cn">NA</span>, x2),</span>
+<span id="cb24-291"><a href="#cb24-291"></a>        <span class="at">y =</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb24-292"><a href="#cb24-292"></a>    )</span>
+<span id="cb24-293"><a href="#cb24-293"></a>}</span>
+<span id="cb24-294"><a href="#cb24-294"></a></span>
+<span id="cb24-295"><a href="#cb24-295"></a><span class="co"># Build imputation model using MICE, fit lm on each imputed dataset</span></span>
+<span id="cb24-296"><a href="#cb24-296"></a>build_imputation_model <span class="ot">&lt;-</span> <span class="cf">function</span>(data, num) {</span>
+<span id="cb24-297"><a href="#cb24-297"></a>    mice_obj <span class="ot">&lt;-</span> mice<span class="sc">::</span><span class="fu">mice</span>(</span>
+<span id="cb24-298"><a href="#cb24-298"></a>        data <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(x1, x2_NA, y),</span>
+<span id="cb24-299"><a href="#cb24-299"></a>        <span class="at">m =</span> num,               <span class="co"># number of imputed datasets</span></span>
+<span id="cb24-300"><a href="#cb24-300"></a>        <span class="at">method =</span> <span class="st">"norm"</span>,       <span class="co"># Bayesian linear regression imputation</span></span>
+<span id="cb24-301"><a href="#cb24-301"></a>        <span class="at">printFlag =</span> <span class="cn">FALSE</span></span>
+<span id="cb24-302"><a href="#cb24-302"></a>    )</span>
+<span id="cb24-303"><a href="#cb24-303"></a>    <span class="fu">with</span>(mice_obj, <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2_NA))</span>
+<span id="cb24-304"><a href="#cb24-304"></a>}</span>
+<span id="cb24-305"><a href="#cb24-305"></a></span>
+<span id="cb24-306"><a href="#cb24-306"></a><span class="co"># Pull 95% CI from a single-imputation fit</span></span>
+<span id="cb24-307"><a href="#cb24-307"></a>get_single_imputation_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(single_imputation_model) {</span>
+<span id="cb24-308"><a href="#cb24-308"></a>    ci <span class="ot">&lt;-</span> single_imputation_model<span class="sc">$</span>analyses[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> <span class="fu">confint</span>(<span class="at">level =</span> .<span class="dv">95</span>)</span>
+<span id="cb24-309"><a href="#cb24-309"></a>    <span class="fu">c</span>(ci[<span class="st">"x2_NA"</span>, <span class="st">"2.5 %"</span>], ci[<span class="st">"x2_NA"</span>, <span class="st">"97.5 %"</span>])</span>
+<span id="cb24-310"><a href="#cb24-310"></a>}</span>
+<span id="cb24-311"><a href="#cb24-311"></a></span>
+<span id="cb24-312"><a href="#cb24-312"></a><span class="co"># Pull 95% CI from a pooled multiple-imputation fit (Rubin's rules)</span></span>
+<span id="cb24-313"><a href="#cb24-313"></a>get_multiple_imputation_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(multiple_imputation_models) {</span>
+<span id="cb24-314"><a href="#cb24-314"></a>    pooled_res <span class="ot">&lt;-</span> mice<span class="sc">::</span><span class="fu">pool</span>(multiple_imputation_models)</span>
+<span id="cb24-315"><a href="#cb24-315"></a>    summ <span class="ot">&lt;-</span> <span class="fu">summary</span>(pooled_res, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb24-316"><a href="#cb24-316"></a>    row <span class="ot">&lt;-</span> summ <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"x2_NA"</span>)</span>
+<span id="cb24-317"><a href="#cb24-317"></a>    <span class="fu">c</span>(row <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">pull</span>(<span class="st">`</span><span class="at">2.5 %</span><span class="st">`</span>),</span>
+<span id="cb24-318"><a href="#cb24-318"></a>      row <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">pull</span>(<span class="st">`</span><span class="at">97.5 %</span><span class="st">`</span>))</span>
+<span id="cb24-319"><a href="#cb24-319"></a>}</span>
+<span id="cb24-320"><a href="#cb24-320"></a><span class="in">```</span></span>
+<span id="cb24-321"><a href="#cb24-321"></a></span>
+<span id="cb24-322"><a href="#cb24-322"></a><span class="fu">### Running the simulation</span></span>
+<span id="cb24-323"><a href="#cb24-323"></a></span>
+<span id="cb24-326"><a href="#cb24-326"></a><span class="in">```{r}</span></span>
+<span id="cb24-327"><a href="#cb24-327"></a><span class="co">#| label: run-simulation</span></span>
+<span id="cb24-328"><a href="#cb24-328"></a><span class="co">#| cache: true</span></span>
+<span id="cb24-329"><a href="#cb24-329"></a><span class="fu">set.seed</span>(<span class="dv">224</span>)</span>
+<span id="cb24-330"><a href="#cb24-330"></a>num_simulations <span class="ot">&lt;-</span> <span class="dv">200</span>        <span class="co"># 1000 gives tighter estimates but is slow</span></span>
+<span id="cb24-331"><a href="#cb24-331"></a>dataset_size    <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb24-332"><a href="#cb24-332"></a></span>
+<span id="cb24-333"><a href="#cb24-333"></a>ci_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="at">length =</span> num_simulations)</span>
+<span id="cb24-334"><a href="#cb24-334"></a></span>
+<span id="cb24-335"><a href="#cb24-335"></a><span class="fu">system.time</span>({</span>
+<span id="cb24-336"><a href="#cb24-336"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(num_simulations)) {</span>
+<span id="cb24-337"><a href="#cb24-337"></a>        sim_data <span class="ot">&lt;-</span> <span class="fu">gen_sim_data</span>(dataset_size)</span>
+<span id="cb24-338"><a href="#cb24-338"></a></span>
+<span id="cb24-339"><a href="#cb24-339"></a>        model_single  <span class="ot">&lt;-</span> <span class="fu">build_imputation_model</span>(sim_data, <span class="dv">1</span>)</span>
+<span id="cb24-340"><a href="#cb24-340"></a>        ci_single     <span class="ot">&lt;-</span> <span class="fu">get_single_imputation_ci</span>(model_single)</span>
+<span id="cb24-341"><a href="#cb24-341"></a></span>
+<span id="cb24-342"><a href="#cb24-342"></a>        model_multiple <span class="ot">&lt;-</span> <span class="fu">build_imputation_model</span>(sim_data, <span class="dv">10</span>)</span>
+<span id="cb24-343"><a href="#cb24-343"></a>        ci_multiple    <span class="ot">&lt;-</span> <span class="fu">get_multiple_imputation_ci</span>(model_multiple)</span>
+<span id="cb24-344"><a href="#cb24-344"></a></span>
+<span id="cb24-345"><a href="#cb24-345"></a>        ci_list[[i]] <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb24-346"><a href="#cb24-346"></a>            <span class="sc">~</span>imputation, <span class="sc">~</span>ci_lower,        <span class="sc">~</span>ci_upper,</span>
+<span id="cb24-347"><a href="#cb24-347"></a>            <span class="st">"single"</span>,    ci_single[<span class="dv">1</span>],     ci_single[<span class="dv">2</span>],</span>
+<span id="cb24-348"><a href="#cb24-348"></a>            <span class="st">"multiple"</span>,  ci_multiple[<span class="dv">1</span>],   ci_multiple[<span class="dv">2</span>]</span>
+<span id="cb24-349"><a href="#cb24-349"></a>        )</span>
+<span id="cb24-350"><a href="#cb24-350"></a>    }</span>
+<span id="cb24-351"><a href="#cb24-351"></a>})</span>
+<span id="cb24-352"><a href="#cb24-352"></a><span class="in">```</span></span>
+<span id="cb24-353"><a href="#cb24-353"></a></span>
+<span id="cb24-354"><a href="#cb24-354"></a><span class="fu">### Coverage probability</span></span>
+<span id="cb24-355"><a href="#cb24-355"></a></span>
+<span id="cb24-358"><a href="#cb24-358"></a><span class="in">```{r}</span></span>
+<span id="cb24-359"><a href="#cb24-359"></a>coverage_results <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(ci_list) <span class="sc">|&gt;</span></span>
+<span id="cb24-360"><a href="#cb24-360"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb24-361"><a href="#cb24-361"></a>        <span class="at">contains_truth =</span> ci_lower <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> ci_upper <span class="sc">&gt;</span> <span class="dv">1</span>,</span>
+<span id="cb24-362"><a href="#cb24-362"></a>        <span class="at">ci_width       =</span> ci_upper <span class="sc">-</span> ci_lower</span>
+<span id="cb24-363"><a href="#cb24-363"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb24-364"><a href="#cb24-364"></a>    dplyr<span class="sc">::</span><span class="fu">group_by</span>(imputation) <span class="sc">|&gt;</span></span>
+<span id="cb24-365"><a href="#cb24-365"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb24-366"><a href="#cb24-366"></a>        <span class="at">coverage       =</span> <span class="fu">mean</span>(contains_truth),</span>
+<span id="cb24-367"><a href="#cb24-367"></a>        <span class="at">mean_ci_width  =</span> <span class="fu">mean</span>(ci_width),</span>
+<span id="cb24-368"><a href="#cb24-368"></a>        <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb24-369"><a href="#cb24-369"></a>    )</span>
+<span id="cb24-370"><a href="#cb24-370"></a></span>
+<span id="cb24-371"><a href="#cb24-371"></a>coverage_results</span>
+<span id="cb24-372"><a href="#cb24-372"></a><span class="in">```</span></span>
+<span id="cb24-373"><a href="#cb24-373"></a></span>
+<span id="cb24-374"><a href="#cb24-374"></a><span class="fu">### What the simulation shows</span></span>
+<span id="cb24-375"><a href="#cb24-375"></a></span>
+<span id="cb24-376"><a href="#cb24-376"></a>Two things:</span>
+<span id="cb24-377"><a href="#cb24-377"></a></span>
+<span id="cb24-378"><a href="#cb24-378"></a><span class="ss">1. </span>**Coverage.** The nominal level is 0.95. Multiple imputation should land close to it; single imputation lands noticeably below. This is the canonical result — single imputation treats filled-in values as if they were observed, which pretends the data contain more information than they actually do, which shrinks the standard errors, which makes the interval too narrow to cover the truth the advertised share of the time.</span>
+<span id="cb24-379"><a href="#cb24-379"></a></span>
+<span id="cb24-380"><a href="#cb24-380"></a><span class="ss">2. </span>**Interval width.** Multiple-imputation intervals are wider than single-imputation intervals. That is not a failure — it is *honest accounting*. The extra width is Rubin's rules adding the between-imputation variance to the within-imputation variance, which is the missing information we pretended not to have.</span>
+<span id="cb24-381"><a href="#cb24-381"></a></span>
+<span id="cb24-382"><a href="#cb24-382"></a><span class="fu">### Visualizing the coverage gap</span></span>
+<span id="cb24-383"><a href="#cb24-383"></a></span>
+<span id="cb24-386"><a href="#cb24-386"></a><span class="in">```{r}</span></span>
+<span id="cb24-387"><a href="#cb24-387"></a>dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(ci_list) <span class="sc">|&gt;</span></span>
+<span id="cb24-388"><a href="#cb24-388"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb24-389"><a href="#cb24-389"></a>        <span class="at">sim_id         =</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(num_simulations), <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb24-390"><a href="#cb24-390"></a>        <span class="at">contains_truth =</span> ci_lower <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> ci_upper <span class="sc">&gt;</span> <span class="dv">1</span></span>
+<span id="cb24-391"><a href="#cb24-391"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb24-392"><a href="#cb24-392"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(sim_id <span class="sc">&lt;=</span> <span class="dv">50</span>) <span class="sc">|&gt;</span>   <span class="co"># first 50 sims for readability</span></span>
+<span id="cb24-393"><a href="#cb24-393"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sim_id, <span class="at">ymin =</span> ci_lower, <span class="at">ymax =</span> ci_upper,</span>
+<span id="cb24-394"><a href="#cb24-394"></a>               <span class="at">colour =</span> contains_truth)) <span class="sc">+</span></span>
+<span id="cb24-395"><a href="#cb24-395"></a>    <span class="fu">geom_errorbar</span>() <span class="sc">+</span></span>
+<span id="cb24-396"><a href="#cb24-396"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb24-397"><a href="#cb24-397"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> imputation, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb24-398"><a href="#cb24-398"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"grey50"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"#b6345c"</span>)) <span class="sc">+</span></span>
+<span id="cb24-399"><a href="#cb24-399"></a>    <span class="fu">labs</span>(</span>
+<span id="cb24-400"><a href="#cb24-400"></a>        <span class="at">title    =</span> <span class="st">"95% CIs for β₂ across the first 50 simulations"</span>,</span>
+<span id="cb24-401"><a href="#cb24-401"></a>        <span class="at">subtitle =</span> <span class="st">"Dashed line = truth (β = 1). Red intervals miss the truth."</span>,</span>
+<span id="cb24-402"><a href="#cb24-402"></a>        <span class="at">x        =</span> <span class="st">"Simulation index"</span>,</span>
+<span id="cb24-403"><a href="#cb24-403"></a>        <span class="at">y        =</span> <span class="st">"CI for β₂"</span>,</span>
+<span id="cb24-404"><a href="#cb24-404"></a>        <span class="at">colour   =</span> <span class="st">"Contains truth"</span></span>
+<span id="cb24-405"><a href="#cb24-405"></a>    ) <span class="sc">+</span></span>
+<span id="cb24-406"><a href="#cb24-406"></a>    <span class="fu">theme_minimal</span>()</span>
+<span id="cb24-407"><a href="#cb24-407"></a><span class="in">```</span></span>
+<span id="cb24-408"><a href="#cb24-408"></a></span>
+<span id="cb24-409"><a href="#cb24-409"></a>The single-imputation panel shows systematically narrower intervals and visibly more red (missed) intervals than the multiple-imputation panel. That is the picture you would expect a simulation study to produce — and it is the argument for always using multiple imputation when the missing data matter for the inference you care about.</span>
+<span id="cb24-410"><a href="#cb24-410"></a></span>
+<span id="cb24-411"><a href="#cb24-411"></a>------------------------------------------------------------------------</span>
+<span id="cb24-412"><a href="#cb24-412"></a></span>
+<span id="cb24-413"><a href="#cb24-413"></a><span class="fu">## Reflection</span></span>
+<span id="cb24-414"><a href="#cb24-414"></a></span>
+<span id="cb24-415"><a href="#cb24-415"></a>Two threads run through today's material:</span>
+<span id="cb24-416"><a href="#cb24-416"></a></span>
+<span id="cb24-417"><a href="#cb24-417"></a>**Mechanism is not a property of the variable; it is a property of the joint distribution between missingness and the observed/unobserved parts of the data.** A variable can be MCAR in one study design and MAR in another that records an additional covariate. This has a practical implication: *recording more covariates changes the mechanism* — sometimes promoting what would have been MNAR into something analyzable as MAR. Designing data collection is therefore half of handling missingness.</span>
+<span id="cb24-418"><a href="#cb24-418"></a></span>
+<span id="cb24-419"><a href="#cb24-419"></a>**Single imputation lies about how much you know; multiple imputation tells the truth.** The uncertainty loss from single imputation is not visible in any single analysis — the point estimates look fine, the confidence intervals look reasonable, and the procedure produces an answer. The cost only becomes visible at the population-of-experiments level, which is exactly what simulation studies are for. This is a general lesson about statistical methods: methods that under-represent uncertainty look more decisive than methods that represent it honestly, and the apparent decisiveness is a bug, not a feature.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

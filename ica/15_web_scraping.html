@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-18">
+<title>15 — Web Scraping with rvest – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/16_databases_sql.html" rel="next">
+<link href="../ica/icaa-14-apis-ii.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/15_web_scraping.html"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-equity-in-community-development-city-of-saint-paul" id="toc-data-story-critique-equity-in-community-development-city-of-saint-paul" class="nav-link" data-scroll-target="#data-story-critique-equity-in-community-development-city-of-saint-paul">🔥 Data Story Critique — <em>Equity in Community Development</em> (City of Saint Paul)</a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story?</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li><a href="#ethics-reading-robots.txt" id="toc-ethics-reading-robots.txt" class="nav-link" data-scroll-target="#ethics-reading-robots.txt">Ethics — Reading <code>robots.txt</code></a></li>
+  <li>
+<a href="#scraping-one-page-of-nih-news-releases" id="toc-scraping-one-page-of-nih-news-releases" class="nav-link" data-scroll-target="#scraping-one-page-of-nih-news-releases">Scraping One Page of NIH News Releases</a>
+  <ul class="collapse">
+<li><a href="#splitting-date-from-abstract" id="toc-splitting-date-from-abstract" class="nav-link" data-scroll-target="#splitting-date-from-abstract">Splitting date from abstract</a></li>
+  </ul>
+</li>
+  <li><a href="#function-izing-the-scraper" id="toc-function-izing-the-scraper" class="nav-link" data-scroll-target="#function-izing-the-scraper">Function-izing the Scraper</a></li>
+  <li>
+<a href="#iterating-across-pages-map-and-for-loop" id="toc-iterating-across-pages-map-and-for-loop" class="nav-link" data-scroll-target="#iterating-across-pages-map-and-for-loop">Iterating Across Pages — <code>map()</code> and <code>for</code> Loop</a>
+  <ul class="collapse">
+<li><a href="#url-pattern" id="toc-url-pattern" class="nav-link" data-scroll-target="#url-pattern">URL pattern</a></li>
+  <li><a href="#with-purrrmap" id="toc-with-purrrmap" class="nav-link" data-scroll-target="#with-purrrmap">With <code>purrr::map()</code></a></li>
+  <li><a href="#with-a-for-loop" id="toc-with-a-for-loop" class="nav-link" data-scroll-target="#with-a-for-loop">With a <code>for</code> loop</a></li>
+  <li><a href="#equivalence-check" id="toc-equivalence-check" class="nav-link" data-scroll-target="#equivalence-check">Equivalence check</a></li>
+  </ul>
+</li>
+  <li><a href="#scraped-data-summary" id="toc-scraped-data-summary" class="nav-link" data-scroll-target="#scraped-data-summary">Scraped Data — Summary</a></li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/15_web_scraping.html"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(rvest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-equity-in-community-development-city-of-saint-paul" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-equity-in-community-development-city-of-saint-paul">🔥 Data Story Critique — <em>Equity in Community Development</em> (City of Saint Paul)</h2>
+<p>Source: <a href="https://storymaps.arcgis.com/collections/7ccaef0b7a4b4166804f36e64e43c4cd?item=5" class="uri">https://storymaps.arcgis.com/collections/7ccaef0b7a4b4166804f36e64e43c4cd?item=5</a></p>
+<section id="what-is-the-data-story" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story?</h3>
+<p>The piece is a <strong>municipal data dashboard</strong> produced by the City of Saint Paul as part of its open-data initiative, framed explicitly around the vision of “a city where race does not predetermine opportunities in education, employment, housing, health, and safety.” It presents a racial-demographic dot map of Saint Paul (each resident a dot randomly placed within their census block group, color-coded by race/ethnicity from ACS responses) followed by six “core racial equity metrics” with definitions and charts: unemployment, labor force participation, per capita income, homeownership, cost-burdened households, and business ownership. The dashboard sits inside the city’s broader <em>Open Information Saint Paul</em> portal — so it functions both as a standalone piece of civic communication and as an entry point into the city’s public data infrastructure. Unlike the NGO and news pieces we’ve critiqued, this is a <strong>government document</strong>, which imposes a distinct set of responsibilities: residents-as-audience rather than donors, public-accountability obligations, and compliance with Minnesota’s open-records and open-data expectations.</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<p><strong>Upfront operational definitions for every metric.</strong> Unemployment is defined as “16 years and older, actively looking for work, not currently employed,” <em>and explicitly notes what it excludes</em> — discouraged workers, underemployed, skills-mismatched. This kind of operational transparency is unusual for municipal communication and is what separates data-as-civic-infrastructure from data-as-rhetoric. A reader can check what the number means and what it doesn’t.</p>
+<p><strong>Self-awareness about metric limitations.</strong> The cost-burdened households section names the known shortcomings of the 30%-of-income threshold: “a low-income household that earns $12,000 per year may not have enough money left over for other needed expenses after paying 30% of their income for housing. Additionally, the statistic makes no adjustment for family size.” This caveat rarely appears in government dashboards, and its presence here signals that the authors understand the residual-income critique of the HUD affordability threshold. Naming the limitation is the first step toward choosing better metrics.</p>
+<p><strong>The dot map is ethically designed.</strong> Random placement within census block groups, rather than at address-level precision, prevents the map from functioning as a targeting tool for anyone who might use racial demographics for discriminatory purposes. This is the design pattern pioneered by the University of Virginia’s Racial Dot Map (2013); Saint Paul correctly adopts it. The choice of block-group aggregation is also right — finer than tracts (preserves neighborhood texture), coarser than parcels (respects privacy).</p>
+<p><strong>Integration with the broader open-data portal.</strong> The dashboard is not a standalone marketing piece — it links out to <em>Open Information Saint Paul</em>, the city’s hub for public data. This positions the dashboard as part of an infrastructure of transparency rather than as a communications artifact, which is the correct institutional framing for municipal data work.</p>
+</section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<p><strong>“People of color” as a single category flattens heterogeneity that is uniquely important in Saint Paul.</strong> The city has one of the largest Hmong-American communities in the United States (~11% of the population, one of the highest concentrations nationally), plus substantial Somali, Ethiopian, Karen, and Latino populations. These communities have different immigration histories, different generational depths in Minnesota, and therefore different economic and housing trajectories — Hmong homeownership rates are much higher than Somali homeownership rates for structural reasons tied to arrival timing and refugee resettlement cohorts, not to any cross-group comparison of effort or values. Presenting aggregate “white vs.&nbsp;people of color” gaps obscures where the equity work is most acute and where it has been partially successful. The city has the ACS data to disaggregate — the decision not to is a communications choice that costs policy precision.</p>
+<p><strong>All six metrics are outcome metrics; none are process metrics under the city’s direct control.</strong> Unemployment, income, homeownership, cost-burden, business ownership — these are places in the system where inequity <em>arrives</em>. Missing are the upstream processes the city government itself has levers on: mortgage rejection rates by race (HMDA data is public), eviction filings by neighborhood demographic, police stop rates by neighborhood demographic, school-funding disparities, city contracting disaggregated by owner demographic, Section 8 voucher placement rates. A municipal equity dashboard without process metrics is a dashboard of the problem; adding process metrics turns it into a dashboard the city can be held accountable to.</p>
+<p><strong>The framing is point-in-time for a question that is fundamentally about trajectory.</strong> The piece notes that “the gap has widened in per capita income between white people and people of color” but the standard presentation is a snapshot. Equity work is about <em>direction and rate of change</em>: is the gap closing, at what pace, and relative to what target? A commitment to “a city where race does not predetermine opportunities” is meaningful only when paired with a temporal trajectory and a target trajectory. The ArcGIS host may support this through tabs or sliders, but the document as written does not foreground trend.</p>
+<p><strong>No commitments, no targets, no accountability mechanisms.</strong> The dashboard describes where Saint Paul is. It does not tell the reader what the city has promised to be, by when, measured how, or with what consequences if the gaps do not close. In municipal governance scholarship, the distance between describing inequity and committing to measurable correction is sometimes called “equity theater” — the performance of awareness without the commitment to change. For a city that has positioned this dashboard as part of an equity framework, the absence of linked commitments is the single most important next step.</p>
+<p><strong>Causal framing is absent where it is most needed.</strong> “People of color drove much of that [population] growth, while the white population has primarily remained the same over time” — presented as observation. The forces producing this pattern are not named: immigration, differential birth rates, white flight to suburban ring, differential cost-of-living displacement, the city’s own historical role (redlining of Rondo, the construction of I-94 through the heart of that Black neighborhood in the 1960s). A municipal equity dashboard that does not name the city government’s own historical production of current disparities — including the documented Rondo displacement — is accepting the disparities as demographic rather than structural. The accountability question is sharper when the production is acknowledged.</p>
+<p><strong>Proportionality.</strong> This is a credible municipal effort — above-median for city-produced equity dashboards nationally on definitional clarity, open-data integration, and ethical map design. The critiques above are directed at the <em>next iteration</em>: within-POC disaggregation, process metrics under city control, temporal trajectory, explicit targets with accountability, and causal acknowledgment. These are the moves that separate a civic-transparency document from a governance-accountability instrument.</p>
+<hr></section></section><section id="ethics-reading-robots.txt" class="level2"><h2 class="anchored" data-anchor-id="ethics-reading-robots.txt">Ethics — Reading <code>robots.txt</code>
+</h2>
+<p>Before scraping, check the site’s <code>robots.txt</code> file. For the National Institutes of Health, this is at <a href="https://www.nih.gov/robots.txt" class="uri">https://www.nih.gov/robots.txt</a>. The key fields to look for:</p>
+<ul>
+<li>
+<strong><code>User-agent: *</code></strong> — who is being addressed. <code>*</code> means everyone; specific bot names (<code>Googlebot</code>, <code>Bingbot</code>) mean only those.</li>
+<li>
+<strong><code>Disallow: /path/</code></strong> — paths you must not scrape.</li>
+<li>
+<strong><code>Crawl-delay: N</code></strong> — minimum wait between requests in seconds.</li>
+<li>
+<strong><code>Visit-time: HH:MM-HH:MM</code></strong> — permitted hours of scraping (rare).</li>
+</ul>
+<p>For the NIH news releases path we’re targeting, none of these are restrictive: scraping is allowed, no crawl-delay specified, no time-of-day restriction. Even so, the polite default is to <code>Sys.sleep(2)</code> between page requests — you’re sharing the server with the hospital systems and researchers who are the actual intended users.</p>
+<hr></section><section id="scraping-one-page-of-nih-news-releases" class="level2"><h2 class="anchored" data-anchor-id="scraping-one-page-of-nih-news-releases">Scraping One Page of NIH News Releases</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>nih_url <span class="ot">&lt;-</span> <span class="st">"https://www.nih.gov/news-events/news-releases"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Guarded live read — if the fetch fails at render time, fall back to a small</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># hardcoded HTML string with the right structure so downstream code keeps working.</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>nih_fallback_html <span class="ot">&lt;-</span> <span class="st">'&lt;html&gt;&lt;body&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="st">&lt;div class="thumbnail-teaser__heading"&gt;NIH-funded study example headline A&lt;/div&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="st">&lt;div class="thumbnail-teaser__heading"&gt;NIH-funded study example headline B&lt;/div&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="st">&lt;div class="thumbnail-teaser__heading"&gt;NIH-funded study example headline C&lt;/div&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="st">&lt;div class="thumbnail-teaser__description"&gt;January 1, 2026 — Placeholder abstract A describing a cached-sample study finding.&lt;/div&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="st">&lt;div class="thumbnail-teaser__description"&gt;January 2, 2026 — Placeholder abstract B describing a cached-sample study finding.&lt;/div&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="st">&lt;div class="thumbnail-teaser__description"&gt;January 3, 2026 — Placeholder abstract C describing a cached-sample study finding.&lt;/div&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="st">&lt;/body&gt;&lt;/html&gt;'</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a>nih <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    <span class="fu">read_html</span>(nih_url),</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb2-17"><a href="#cb2-17"></a>        <span class="fu">message</span>(<span class="st">"NIH read_html failed ("</span>, <span class="fu">conditionMessage</span>(e),</span>
+<span id="cb2-18"><a href="#cb2-18"></a>                <span class="st">"); using cached fallback HTML."</span>)</span>
+<span id="cb2-19"><a href="#cb2-19"></a>        <span class="fu">read_html</span>(nih_fallback_html)</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    }</span>
+<span id="cb2-21"><a href="#cb2-21"></a>)</span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co"># Article titles — `.thumbnail-teaser__heading` is the CSS selector</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>article_titles <span class="ot">&lt;-</span> nih <span class="sc">|&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>    <span class="fu">html_elements</span>(<span class="st">".thumbnail-teaser__heading"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a>    <span class="fu">html_text</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="fu">str_squish</span>()   <span class="co"># collapse whitespace / newlines to single spaces</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="fu">head</span>(article_titles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "NIH-funded breakthrough shrinks CRISPR for precision delivery in the body"                               
+[2] "Low-cost care model reduces blood pressure in high-risk populations"                                     
+[3] "NIH researchers discover pain-relieving drug with minimal addictive properties"                          
+[4] "NIH awards top scientific teams for innovations linking nutrition and autoimmune disease"                
+[5] "Dr. Elisabeth Armstrong named NIH Chief of Staff"                                                        
+[6] "Chronic inflammation leaves long-lasting impression on gut stem cells, increasing colorectal cancer risk"</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Dates and abstracts share the `.thumbnail-teaser__description` class —</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># they come back as a single string per article: "Date — Abstract text"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>article_descriptions <span class="ot">&lt;-</span> nih <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="fu">html_elements</span>(<span class="st">".thumbnail-teaser__description"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="fu">html_text</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="fu">str_squish</span>()</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">head</span>(article_descriptions, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "April 13, 2026 — Smaller gene-editing system could expand treatment options for cancer, ALS and other diseases."             
+[2] "April 8, 2026 — NIH-supported clinical trial shows coordinated care strategy more effective than standard care"              
+[3] "April 1, 2026 — Positive safety profile of novel drug compound is surprise for class of synthetic opioids shelved years ago."</code></pre>
+</div>
+</div>
+<section id="splitting-date-from-abstract" class="level3"><h3 class="anchored" data-anchor-id="splitting-date-from-abstract">Splitting date from abstract</h3>
+<p>The date-abstract separator on NIH pages is typically an em-dash (<code>—</code>) surrounded by spaces. <code>separate_wider_regex()</code> is the right tool here because it tolerates slight variations in dash type (em-dash <code>—</code>, en-dash <code>–</code>, or hyphen <code>-</code>):</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">tibble</span>(<span class="at">desc =</span> article_descriptions) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="fu">separate_wider_regex</span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>        desc,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>        <span class="at">patterns =</span> <span class="fu">c</span>(</span>
+<span id="cb6-5"><a href="#cb6-5"></a>            <span class="at">pub_date  =</span> <span class="st">"^[^—–-]+"</span>,        <span class="co"># everything up to the first dash</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>            <span class="st">"</span><span class="sc">\\</span><span class="st">s*[—–-]</span><span class="sc">\\</span><span class="st">s*"</span>,              <span class="co"># the dash separator (discarded)</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>            <span class="at">abstract  =</span> <span class="st">".*$"</span>              <span class="co"># everything after</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>        ),</span>
+<span id="cb6-9"><a href="#cb6-9"></a>        <span class="at">too_few =</span> <span class="st">"align_start"</span>            <span class="co"># graceful on rows without a dash</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb6-12"><a href="#cb6-12"></a>        <span class="at">pub_date =</span> <span class="fu">str_trim</span>(pub_date),</span>
+<span id="cb6-13"><a href="#cb6-13"></a>        <span class="at">abstract =</span> <span class="fu">str_trim</span>(abstract)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>    <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  pub_date       abstract                                                       
+  &lt;chr&gt;          &lt;chr&gt;                                                          
+1 April 13, 2026 Smaller gene-editing system could expand treatment options for…
+2 April 8, 2026  NIH-supported clinical trial shows coordinated care strategy m…
+3 April 1, 2026  Positive safety profile of novel drug compound is surprise for…</code></pre>
+</div>
+</div>
+<p>Using <code>separate_wider_regex()</code> rather than <code>separate_wider_delim(delim = " — ")</code> is the safer choice: the regex matches multiple dash types, and <code>too_few = "align_start"</code> prevents a single malformed row from crashing the whole pipeline.</p>
+<hr></section></section><section id="function-izing-the-scraper" class="level2"><h2 class="anchored" data-anchor-id="function-izing-the-scraper">Function-izing the Scraper</h2>
+<p>The ICA template wants one function that, given a URL, returns a tibble of title / pub_date / abstract for that page. Writing it this way matches the ICA 12 pattern: a reusable dispatcher that a map/for-loop can iterate over.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>get_text_from_page <span class="ot">&lt;-</span> <span class="cf">function</span>(page, css_selector) {</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    page <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>        <span class="fu">html_elements</span>(css_selector) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>        <span class="fu">html_text</span>() <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>        <span class="fu">str_squish</span>()</span>
+<span id="cb8-6"><a href="#cb8-6"></a>}</span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co"># Structured placeholder for when a live scrape fails. Same columns as the</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co"># success path so downstream bind_rows / mutate operate on a consistent shape.</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>nih_fallback_row <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb8-12"><a href="#cb8-12"></a>        <span class="at">title    =</span> <span class="st">"[live scrape unavailable — cached sample]"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13"></a>        <span class="at">pub_date =</span> <span class="st">"January 1, 2026"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14"></a>        <span class="at">abstract =</span> <span class="st">"Placeholder row inserted because the live NIH scrape failed at render time (network hiccup, rate limit, or upstream change). Re-render on a stable connection to repopulate."</span>,</span>
+<span id="cb8-15"><a href="#cb8-15"></a>        <span class="at">src_url  =</span> url</span>
+<span id="cb8-16"><a href="#cb8-16"></a>    )</span>
+<span id="cb8-17"><a href="#cb8-17"></a>}</span>
+<span id="cb8-18"><a href="#cb8-18"></a></span>
+<span id="cb8-19"><a href="#cb8-19"></a>scrape_nih_page <span class="ot">&lt;-</span> <span class="cf">function</span>(url, <span class="at">delay_sec =</span> <span class="dv">2</span>) {</span>
+<span id="cb8-20"><a href="#cb8-20"></a>    <span class="fu">Sys.sleep</span>(delay_sec)                    <span class="co"># respectful pacing</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a></span>
+<span id="cb8-22"><a href="#cb8-22"></a>    <span class="co"># Guard the network call. read_html() throws on DNS / timeout / empty reply;</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a>    <span class="co"># tryCatch returns the fallback row so render proceeds instead of halting.</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a>    <span class="fu">tryCatch</span>({</span>
+<span id="cb8-25"><a href="#cb8-25"></a>        page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb8-26"><a href="#cb8-26"></a></span>
+<span id="cb8-27"><a href="#cb8-27"></a>        titles       <span class="ot">&lt;-</span> <span class="fu">get_text_from_page</span>(page, <span class="st">".thumbnail-teaser__heading"</span>)</span>
+<span id="cb8-28"><a href="#cb8-28"></a>        descriptions <span class="ot">&lt;-</span> <span class="fu">get_text_from_page</span>(page, <span class="st">".thumbnail-teaser__description"</span>)</span>
+<span id="cb8-29"><a href="#cb8-29"></a></span>
+<span id="cb8-30"><a href="#cb8-30"></a>        <span class="co"># If the page loaded but selectors returned nothing (site redesign),</span></span>
+<span id="cb8-31"><a href="#cb8-31"></a>        <span class="co"># treat it as a failure and use the fallback.</span></span>
+<span id="cb8-32"><a href="#cb8-32"></a>        <span class="cf">if</span> (<span class="fu">length</span>(titles) <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> <span class="fu">length</span>(descriptions) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb8-33"><a href="#cb8-33"></a>            <span class="fu">message</span>(<span class="st">"NIH page returned no matching elements ("</span>, url,</span>
+<span id="cb8-34"><a href="#cb8-34"></a>                    <span class="st">"); using fallback."</span>)</span>
+<span id="cb8-35"><a href="#cb8-35"></a>            <span class="fu">return</span>(<span class="fu">nih_fallback_row</span>(url))</span>
+<span id="cb8-36"><a href="#cb8-36"></a>        }</span>
+<span id="cb8-37"><a href="#cb8-37"></a></span>
+<span id="cb8-38"><a href="#cb8-38"></a>        <span class="fu">tibble</span>(<span class="at">title =</span> titles, <span class="at">desc =</span> descriptions) <span class="sc">|&gt;</span></span>
+<span id="cb8-39"><a href="#cb8-39"></a>            <span class="fu">separate_wider_regex</span>(</span>
+<span id="cb8-40"><a href="#cb8-40"></a>                desc,</span>
+<span id="cb8-41"><a href="#cb8-41"></a>                <span class="at">patterns =</span> <span class="fu">c</span>(</span>
+<span id="cb8-42"><a href="#cb8-42"></a>                    <span class="at">pub_date =</span> <span class="st">"^[^—–-]+"</span>,</span>
+<span id="cb8-43"><a href="#cb8-43"></a>                    <span class="st">"</span><span class="sc">\\</span><span class="st">s*[—–-]</span><span class="sc">\\</span><span class="st">s*"</span>,</span>
+<span id="cb8-44"><a href="#cb8-44"></a>                    <span class="at">abstract =</span> <span class="st">".*$"</span></span>
+<span id="cb8-45"><a href="#cb8-45"></a>                ),</span>
+<span id="cb8-46"><a href="#cb8-46"></a>                <span class="at">too_few =</span> <span class="st">"align_start"</span></span>
+<span id="cb8-47"><a href="#cb8-47"></a>            ) <span class="sc">|&gt;</span></span>
+<span id="cb8-48"><a href="#cb8-48"></a>            <span class="fu">mutate</span>(</span>
+<span id="cb8-49"><a href="#cb8-49"></a>                <span class="at">pub_date =</span> <span class="fu">str_trim</span>(pub_date),</span>
+<span id="cb8-50"><a href="#cb8-50"></a>                <span class="at">abstract =</span> <span class="fu">str_trim</span>(abstract),</span>
+<span id="cb8-51"><a href="#cb8-51"></a>                <span class="at">src_url  =</span> url</span>
+<span id="cb8-52"><a href="#cb8-52"></a>            )</span>
+<span id="cb8-53"><a href="#cb8-53"></a>    },</span>
+<span id="cb8-54"><a href="#cb8-54"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb8-55"><a href="#cb8-55"></a>        <span class="fu">message</span>(<span class="st">"NIH scrape failed for "</span>, url,</span>
+<span id="cb8-56"><a href="#cb8-56"></a>                <span class="st">" ("</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"); using fallback."</span>)</span>
+<span id="cb8-57"><a href="#cb8-57"></a>        <span class="fu">nih_fallback_row</span>(url)</span>
+<span id="cb8-58"><a href="#cb8-58"></a>    })</span>
+<span id="cb8-59"><a href="#cb8-59"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Five deliberate choices here:</p>
+<ul>
+<li>
+<strong>Helper function <code>get_text_from_page()</code>.</strong> Two nearly-identical <code>html_elements() |&gt; html_text() |&gt; str_squish()</code> sequences would otherwise be copy-pasted; extracting the pattern into a small function makes the main scraper one step cleaner.</li>
+<li>
+<strong><code>delay_sec</code> as a parameter with a default of 2.</strong> If <code>robots.txt</code> specified <code>Crawl-delay: 5</code>, a caller can bump the default to 5 without modifying the function body. This is the parameterization lesson from ICA 9: don’t hardcode what could vary.</li>
+<li>
+<strong><code>src_url</code> column.</strong> Adding the source URL to every row makes downstream debugging trivial — if one row looks wrong, you can go directly to the page it came from.</li>
+<li>
+<strong><code>str_squish()</code> on every text extraction.</strong> HTML pages include a lot of incidental whitespace (newlines from indentation, leading/trailing spaces inside tags). Squishing once at extraction time prevents those artifacts from leaking into every downstream string operation.</li>
+<li>
+<strong><code>tryCatch</code> fallback to a structured placeholder row.</strong> Live scrapes fail for many reasons — transient network errors, site redesigns that invalidate the CSS selector, rate-limit responses, DNS hiccups during a long render. Rather than let one failed URL crash the whole <code>map()</code> pipeline, the function returns a clearly-labelled placeholder row for the failed URL and lets the rest of the iteration proceed. This mirrors the <code>req_error()</code> + <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> pattern used in the API chapter.</li>
+</ul>
+<hr></section><section id="iterating-across-pages-map-and-for-loop" class="level2"><h2 class="anchored" data-anchor-id="iterating-across-pages-map-and-for-loop">Iterating Across Pages — <code>map()</code> and <code>for</code> Loop</h2>
+<section id="url-pattern" class="level3"><h3 class="anchored" data-anchor-id="url-pattern">URL pattern</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Mousing over the pagination buttons at the bottom of the NIH page reveals</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co"># that page 1 is the base URL, and subsequent pages append `?page=1`, `?page=2`, etc.</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>base_url <span class="ot">&lt;-</span> <span class="st">"https://www.nih.gov/news-events/news-releases"</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>urls_5   <span class="ot">&lt;-</span> <span class="fu">c</span>(base_url, <span class="fu">str_c</span>(base_url, <span class="st">"?page="</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb9-5"><a href="#cb9-5"></a>urls_5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://www.nih.gov/news-events/news-releases"       
+[2] "https://www.nih.gov/news-events/news-releases?page=1"
+[3] "https://www.nih.gov/news-events/news-releases?page=2"
+[4] "https://www.nih.gov/news-events/news-releases?page=3"
+[5] "https://www.nih.gov/news-events/news-releases?page=4"</code></pre>
+</div>
+</div>
+</section><section id="with-purrrmap" class="level3"><h3 class="anchored" data-anchor-id="with-purrrmap">With <code>purrr::map()</code>
+</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>pages_map <span class="ot">&lt;-</span> <span class="fu">map</span>(urls_5, scrape_nih_page)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>df_map    <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(pages_map)</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">nrow</span>(df_map)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 50</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">head</span>(df_map, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  title                                                pub_date abstract src_url
+  &lt;chr&gt;                                                &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  
+1 NIH-funded breakthrough shrinks CRISPR for precisio… April 1… Smaller… https:…
+2 Low-cost care model reduces blood pressure in high-… April 8… NIH-sup… https:…
+3 NIH researchers discover pain-relieving drug with m… April 1… Positiv… https:…
+4 NIH awards top scientific teams for innovations lin… March 3… Competi… https:…
+5 Dr. Elisabeth Armstrong named NIH Chief of Staff     March 3… She wil… https:…</code></pre>
+</div>
+</div>
+</section><section id="with-a-for-loop" class="level3"><h3 class="anchored" data-anchor-id="with-a-for-loop">With a <code>for</code> loop</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>pages_for <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="at">length =</span> <span class="fu">length</span>(urls_5))</span>
+<span id="cb15-2"><a href="#cb15-2"></a></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(urls_5)) {</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    pages_for[[i]] <span class="ot">&lt;-</span> <span class="fu">scrape_nih_page</span>(urls_5[i])</span>
+<span id="cb15-5"><a href="#cb15-5"></a>}</span>
+<span id="cb15-6"><a href="#cb15-6"></a></span>
+<span id="cb15-7"><a href="#cb15-7"></a>df_for <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(pages_for)</span>
+<span id="cb15-8"><a href="#cb15-8"></a></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="fu">nrow</span>(df_for)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 50</code></pre>
+</div>
+</div>
+</section><section id="equivalence-check" class="level3"><h3 class="anchored" data-anchor-id="equivalence-check">Equivalence check</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">identical</span>(df_map, df_for)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>The <code>map()</code> version is shorter, reads more like a sentence (“map <code>scrape_nih_page</code> over the URL vector”), and avoids explicit storage allocation. The <code>for</code> loop earns its place when there’s iteration state that <code>map()</code> can’t carry — adaptive backoff after a rate-limit error, for instance, where iteration <code>i+1</code>’s behaviour depends on iteration <code>i</code>’s response. For straight parallel application, <code>map()</code> wins on readability every time.</p>
+<hr></section></section><section id="scraped-data-summary" class="level2"><h2 class="anchored" data-anchor-id="scraped-data-summary">Scraped Data — Summary</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df_map <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb19-3"><a href="#cb19-3"></a>        <span class="co"># Try to parse the publication date — NIH uses "Month D, YYYY" format</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>        <span class="at">pub_date_parsed =</span> lubridate<span class="sc">::</span><span class="fu">mdy</span>(pub_date)</span>
+<span id="cb19-5"><a href="#cb19-5"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(pub_date_parsed)) <span class="sc">|&gt;</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a>    <span class="fu">select</span>(pub_date, pub_date_parsed, title) <span class="sc">|&gt;</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   pub_date       pub_date_parsed title                                         
+   &lt;chr&gt;          &lt;date&gt;          &lt;chr&gt;                                         
+ 1 April 13, 2026 2026-04-13      NIH-funded breakthrough shrinks CRISPR for pr…
+ 2 April 8, 2026  2026-04-08      Low-cost care model reduces blood pressure in…
+ 3 April 1, 2026  2026-04-01      NIH researchers discover pain-relieving drug …
+ 4 March 30, 2026 2026-03-30      NIH awards top scientific teams for innovatio…
+ 5 March 30, 2026 2026-03-30      Dr. Elisabeth Armstrong named NIH Chief of St…
+ 6 March 25, 2026 2026-03-25      Chronic inflammation leaves long-lasting impr…
+ 7 March 18, 2026 2026-03-18      NIH invests $150 million in human-based resea…
+ 8 March 16, 2026 2026-03-16      Clinical trial results support use of weekly …
+ 9 March 13, 2026 2026-03-13      Researchers develop AI tool to predict patien…
+10 March 4, 2026  2026-03-04      Automated CT scan analysis could fast-track c…</code></pre>
+</div>
+</div>
+<p>Fifty news releases across five pages. The parsed publication dates let us see the temporal range the NIH News page is currently surfacing, which is useful context for any downstream analysis of news-release volume, topic cadence, etc.</p>
+<hr></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p><strong>CSS selectors are the interface between page design and scraping code.</strong> A selector like <code>.thumbnail-teaser__heading</code> is not a universal semantic ID — it is a class name chosen by the NIH web team for styling purposes. If they redesign the site tomorrow and rename that class to <code>.news-item__title</code>, every scraper keyed on the old name silently breaks. This is a genuine structural fragility of web scraping that APIs do not have: an API’s field names are part of a documented contract, but a website’s class names are an internal styling convention that can change without notice. The ICA’s warning — “save and date a copy of the website” — is the practical response. For any scraping pipeline intended to run beyond a single session, snapshot the HTML, re-verify selectors periodically, and write the code defensively (check that the number of elements returned matches expectations, and fail loudly if it doesn’t).</p>
+<p><strong>Scraping etiquette is not optional, even when <code>robots.txt</code> permits it.</strong> A scraper that hammers a server with unbounded parallel requests is a denial-of-service event, regardless of what the text file says. <code>Sys.sleep(2)</code> between requests, <code>User-Agent</code> identification when the library permits, caching of results to avoid re-scraping on every iteration, and running scrapes during off-peak hours are the minimum discipline. The NIH example is a public health agency whose website serves researchers, clinicians, and patients looking for trial information; a well-behaved scraper is a precondition for the long-term viability of scraping as a research technique.</p>
+<p><strong>The <code>crossing() + pmap()</code> skeleton still holds; scraping is just another <code>pmap()</code> target.</strong> The pattern of this ICA — write a function that handles one input, iterate over many inputs, bind results — is identical to the pattern in the API ICA, the case-study ICA in Loops I, and the simulation ICA in Missing Data. The only difference is what the function does inside: here it hits a URL, parses HTML, extracts fields; in the API case it hit a URL, parsed JSON, extracted fields. Almost every “do this analysis many times” pattern you will encounter in empirical work reduces to this skeleton. The skill being built across these weeks is the instinct for recognizing when a problem has that shape, and the discipline for wrapping the inner step cleanly enough that the outer iteration is trivial.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/icaa-14-apis-ii.html" class="pagination-link" aria-label="14 — APIs II: Web Requests, XML, and Nested JSON">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/16_databases_sql.html" class="pagination-link" aria-label="16 — Databases and SQL">
+        <span class="nav-page-text"><span class="chapter-title">16 — Databases and SQL</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">---</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="an">title:</span><span class="co"> "15 — Web Scraping with `rvest`"</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="an">format:</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="co">  html:</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="co">    toc: true</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb21-13"><a href="#cb21-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb21-14"><a href="#cb21-14"></a><span class="an">execute:</span></span>
+<span id="cb21-15"><a href="#cb21-15"></a><span class="co">  warning: false</span></span>
+<span id="cb21-16"><a href="#cb21-16"></a><span class="co">  message: false</span></span>
+<span id="cb21-17"><a href="#cb21-17"></a><span class="co">---</span></span>
+<span id="cb21-18"><a href="#cb21-18"></a></span>
+<span id="cb21-19"><a href="#cb21-19"></a><span class="fu">## Setup</span></span>
+<span id="cb21-20"><a href="#cb21-20"></a></span>
+<span id="cb21-23"><a href="#cb21-23"></a><span class="in">```{r}</span></span>
+<span id="cb21-24"><a href="#cb21-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb21-25"><a href="#cb21-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb21-26"><a href="#cb21-26"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb21-27"><a href="#cb21-27"></a><span class="in">```</span></span>
+<span id="cb21-28"><a href="#cb21-28"></a></span>
+<span id="cb21-29"><a href="#cb21-29"></a>------------------------------------------------------------------------</span>
+<span id="cb21-30"><a href="#cb21-30"></a></span>
+<span id="cb21-31"><a href="#cb21-31"></a><span class="fu">## 🔥 Data Story Critique — *Equity in Community Development* (City of Saint Paul)</span></span>
+<span id="cb21-32"><a href="#cb21-32"></a></span>
+<span id="cb21-33"><a href="#cb21-33"></a>Source: <span class="ot">&lt;https://storymaps.arcgis.com/collections/7ccaef0b7a4b4166804f36e64e43c4cd?item=5&gt;</span></span>
+<span id="cb21-34"><a href="#cb21-34"></a></span>
+<span id="cb21-35"><a href="#cb21-35"></a><span class="fu">### What is the data story?</span></span>
+<span id="cb21-36"><a href="#cb21-36"></a></span>
+<span id="cb21-37"><a href="#cb21-37"></a>The piece is a **municipal data dashboard** produced by the City of Saint Paul as part of its open-data initiative, framed explicitly around the vision of "a city where race does not predetermine opportunities in education, employment, housing, health, and safety." It presents a racial-demographic dot map of Saint Paul (each resident a dot randomly placed within their census block group, color-coded by race/ethnicity from ACS responses) followed by six "core racial equity metrics" with definitions and charts: unemployment, labor force participation, per capita income, homeownership, cost-burdened households, and business ownership. The dashboard sits inside the city's broader *Open Information Saint Paul* portal — so it functions both as a standalone piece of civic communication and as an entry point into the city's public data infrastructure. Unlike the NGO and news pieces we've critiqued, this is a **government document**, which imposes a distinct set of responsibilities: residents-as-audience rather than donors, public-accountability obligations, and compliance with Minnesota's open-records and open-data expectations.</span>
+<span id="cb21-38"><a href="#cb21-38"></a></span>
+<span id="cb21-39"><a href="#cb21-39"></a><span class="fu">### What is effective?</span></span>
+<span id="cb21-40"><a href="#cb21-40"></a></span>
+<span id="cb21-41"><a href="#cb21-41"></a>**Upfront operational definitions for every metric.** Unemployment is defined as "16 years and older, actively looking for work, not currently employed," *and explicitly notes what it excludes* — discouraged workers, underemployed, skills-mismatched. This kind of operational transparency is unusual for municipal communication and is what separates data-as-civic-infrastructure from data-as-rhetoric. A reader can check what the number means and what it doesn't.</span>
+<span id="cb21-42"><a href="#cb21-42"></a></span>
+<span id="cb21-43"><a href="#cb21-43"></a>**Self-awareness about metric limitations.** The cost-burdened households section names the known shortcomings of the 30%-of-income threshold: "a low-income household that earns $12,000 per year may not have enough money left over for other needed expenses after paying 30% of their income for housing. Additionally, the statistic makes no adjustment for family size." This caveat rarely appears in government dashboards, and its presence here signals that the authors understand the residual-income critique of the HUD affordability threshold. Naming the limitation is the first step toward choosing better metrics.</span>
+<span id="cb21-44"><a href="#cb21-44"></a></span>
+<span id="cb21-45"><a href="#cb21-45"></a>**The dot map is ethically designed.** Random placement within census block groups, rather than at address-level precision, prevents the map from functioning as a targeting tool for anyone who might use racial demographics for discriminatory purposes. This is the design pattern pioneered by the University of Virginia's Racial Dot Map (2013); Saint Paul correctly adopts it. The choice of block-group aggregation is also right — finer than tracts (preserves neighborhood texture), coarser than parcels (respects privacy).</span>
+<span id="cb21-46"><a href="#cb21-46"></a></span>
+<span id="cb21-47"><a href="#cb21-47"></a>**Integration with the broader open-data portal.** The dashboard is not a standalone marketing piece — it links out to *Open Information Saint Paul*, the city's hub for public data. This positions the dashboard as part of an infrastructure of transparency rather than as a communications artifact, which is the correct institutional framing for municipal data work.</span>
+<span id="cb21-48"><a href="#cb21-48"></a></span>
+<span id="cb21-49"><a href="#cb21-49"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb21-50"><a href="#cb21-50"></a></span>
+<span id="cb21-51"><a href="#cb21-51"></a>**"People of color" as a single category flattens heterogeneity that is uniquely important in Saint Paul.** The city has one of the largest Hmong-American communities in the United States (~11% of the population, one of the highest concentrations nationally), plus substantial Somali, Ethiopian, Karen, and Latino populations. These communities have different immigration histories, different generational depths in Minnesota, and therefore different economic and housing trajectories — Hmong homeownership rates are much higher than Somali homeownership rates for structural reasons tied to arrival timing and refugee resettlement cohorts, not to any cross-group comparison of effort or values. Presenting aggregate "white vs. people of color" gaps obscures where the equity work is most acute and where it has been partially successful. The city has the ACS data to disaggregate — the decision not to is a communications choice that costs policy precision.</span>
+<span id="cb21-52"><a href="#cb21-52"></a></span>
+<span id="cb21-53"><a href="#cb21-53"></a>**All six metrics are outcome metrics; none are process metrics under the city's direct control.** Unemployment, income, homeownership, cost-burden, business ownership — these are places in the system where inequity *arrives*. Missing are the upstream processes the city government itself has levers on: mortgage rejection rates by race (HMDA data is public), eviction filings by neighborhood demographic, police stop rates by neighborhood demographic, school-funding disparities, city contracting disaggregated by owner demographic, Section 8 voucher placement rates. A municipal equity dashboard without process metrics is a dashboard of the problem; adding process metrics turns it into a dashboard the city can be held accountable to.</span>
+<span id="cb21-54"><a href="#cb21-54"></a></span>
+<span id="cb21-55"><a href="#cb21-55"></a>**The framing is point-in-time for a question that is fundamentally about trajectory.** The piece notes that "the gap has widened in per capita income between white people and people of color" but the standard presentation is a snapshot. Equity work is about *direction and rate of change*: is the gap closing, at what pace, and relative to what target? A commitment to "a city where race does not predetermine opportunities" is meaningful only when paired with a temporal trajectory and a target trajectory. The ArcGIS host may support this through tabs or sliders, but the document as written does not foreground trend.</span>
+<span id="cb21-56"><a href="#cb21-56"></a></span>
+<span id="cb21-57"><a href="#cb21-57"></a>**No commitments, no targets, no accountability mechanisms.** The dashboard describes where Saint Paul is. It does not tell the reader what the city has promised to be, by when, measured how, or with what consequences if the gaps do not close. In municipal governance scholarship, the distance between describing inequity and committing to measurable correction is sometimes called "equity theater" — the performance of awareness without the commitment to change. For a city that has positioned this dashboard as part of an equity framework, the absence of linked commitments is the single most important next step.</span>
+<span id="cb21-58"><a href="#cb21-58"></a></span>
+<span id="cb21-59"><a href="#cb21-59"></a>**Causal framing is absent where it is most needed.** "People of color drove much of that <span class="co">[</span><span class="ot">population</span><span class="co">]</span> growth, while the white population has primarily remained the same over time" — presented as observation. The forces producing this pattern are not named: immigration, differential birth rates, white flight to suburban ring, differential cost-of-living displacement, the city's own historical role (redlining of Rondo, the construction of I-94 through the heart of that Black neighborhood in the 1960s). A municipal equity dashboard that does not name the city government's own historical production of current disparities — including the documented Rondo displacement — is accepting the disparities as demographic rather than structural. The accountability question is sharper when the production is acknowledged.</span>
+<span id="cb21-60"><a href="#cb21-60"></a></span>
+<span id="cb21-61"><a href="#cb21-61"></a>**Proportionality.** This is a credible municipal effort — above-median for city-produced equity dashboards nationally on definitional clarity, open-data integration, and ethical map design. The critiques above are directed at the *next iteration*: within-POC disaggregation, process metrics under city control, temporal trajectory, explicit targets with accountability, and causal acknowledgment. These are the moves that separate a civic-transparency document from a governance-accountability instrument.</span>
+<span id="cb21-62"><a href="#cb21-62"></a></span>
+<span id="cb21-63"><a href="#cb21-63"></a>------------------------------------------------------------------------</span>
+<span id="cb21-64"><a href="#cb21-64"></a></span>
+<span id="cb21-65"><a href="#cb21-65"></a><span class="fu">## Ethics — Reading `robots.txt`</span></span>
+<span id="cb21-66"><a href="#cb21-66"></a></span>
+<span id="cb21-67"><a href="#cb21-67"></a>Before scraping, check the site's <span class="in">`robots.txt`</span> file. For the National Institutes of Health, this is at <span class="ot">&lt;https://www.nih.gov/robots.txt&gt;</span>. The key fields to look for:</span>
+<span id="cb21-68"><a href="#cb21-68"></a></span>
+<span id="cb21-69"><a href="#cb21-69"></a><span class="ss">- </span>**`User-agent: *`** — who is being addressed. <span class="in">`*`</span> means everyone; specific bot names (<span class="in">`Googlebot`</span>, <span class="in">`Bingbot`</span>) mean only those.</span>
+<span id="cb21-70"><a href="#cb21-70"></a><span class="ss">- </span>**`Disallow: /path/`** — paths you must not scrape.</span>
+<span id="cb21-71"><a href="#cb21-71"></a><span class="ss">- </span>**`Crawl-delay: N`** — minimum wait between requests in seconds.</span>
+<span id="cb21-72"><a href="#cb21-72"></a><span class="ss">- </span>**`Visit-time: HH:MM-HH:MM`** — permitted hours of scraping (rare).</span>
+<span id="cb21-73"><a href="#cb21-73"></a></span>
+<span id="cb21-74"><a href="#cb21-74"></a>For the NIH news releases path we're targeting, none of these are restrictive: scraping is allowed, no crawl-delay specified, no time-of-day restriction. Even so, the polite default is to <span class="in">`Sys.sleep(2)`</span> between page requests — you're sharing the server with the hospital systems and researchers who are the actual intended users.</span>
+<span id="cb21-75"><a href="#cb21-75"></a></span>
+<span id="cb21-76"><a href="#cb21-76"></a>------------------------------------------------------------------------</span>
+<span id="cb21-77"><a href="#cb21-77"></a></span>
+<span id="cb21-78"><a href="#cb21-78"></a><span class="fu">## Scraping One Page of NIH News Releases</span></span>
+<span id="cb21-79"><a href="#cb21-79"></a></span>
+<span id="cb21-82"><a href="#cb21-82"></a><span class="in">```{r}</span></span>
+<span id="cb21-83"><a href="#cb21-83"></a><span class="co">#| label: scrape-single-page</span></span>
+<span id="cb21-84"><a href="#cb21-84"></a><span class="co">#| cache: true</span></span>
+<span id="cb21-85"><a href="#cb21-85"></a>nih_url <span class="ot">&lt;-</span> <span class="st">"https://www.nih.gov/news-events/news-releases"</span></span>
+<span id="cb21-86"><a href="#cb21-86"></a></span>
+<span id="cb21-87"><a href="#cb21-87"></a><span class="co"># Guarded live read — if the fetch fails at render time, fall back to a small</span></span>
+<span id="cb21-88"><a href="#cb21-88"></a><span class="co"># hardcoded HTML string with the right structure so downstream code keeps working.</span></span>
+<span id="cb21-89"><a href="#cb21-89"></a>nih_fallback_html <span class="ot">&lt;-</span> <span class="st">'&lt;html&gt;&lt;body&gt;</span></span>
+<span id="cb21-90"><a href="#cb21-90"></a><span class="st">&lt;div class="thumbnail-teaser__heading"&gt;NIH-funded study example headline A&lt;/div&gt;</span></span>
+<span id="cb21-91"><a href="#cb21-91"></a><span class="st">&lt;div class="thumbnail-teaser__heading"&gt;NIH-funded study example headline B&lt;/div&gt;</span></span>
+<span id="cb21-92"><a href="#cb21-92"></a><span class="st">&lt;div class="thumbnail-teaser__heading"&gt;NIH-funded study example headline C&lt;/div&gt;</span></span>
+<span id="cb21-93"><a href="#cb21-93"></a><span class="st">&lt;div class="thumbnail-teaser__description"&gt;January 1, 2026 — Placeholder abstract A describing a cached-sample study finding.&lt;/div&gt;</span></span>
+<span id="cb21-94"><a href="#cb21-94"></a><span class="st">&lt;div class="thumbnail-teaser__description"&gt;January 2, 2026 — Placeholder abstract B describing a cached-sample study finding.&lt;/div&gt;</span></span>
+<span id="cb21-95"><a href="#cb21-95"></a><span class="st">&lt;div class="thumbnail-teaser__description"&gt;January 3, 2026 — Placeholder abstract C describing a cached-sample study finding.&lt;/div&gt;</span></span>
+<span id="cb21-96"><a href="#cb21-96"></a><span class="st">&lt;/body&gt;&lt;/html&gt;'</span></span>
+<span id="cb21-97"><a href="#cb21-97"></a></span>
+<span id="cb21-98"><a href="#cb21-98"></a>nih <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb21-99"><a href="#cb21-99"></a>    <span class="fu">read_html</span>(nih_url),</span>
+<span id="cb21-100"><a href="#cb21-100"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb21-101"><a href="#cb21-101"></a>        <span class="fu">message</span>(<span class="st">"NIH read_html failed ("</span>, <span class="fu">conditionMessage</span>(e),</span>
+<span id="cb21-102"><a href="#cb21-102"></a>                <span class="st">"); using cached fallback HTML."</span>)</span>
+<span id="cb21-103"><a href="#cb21-103"></a>        <span class="fu">read_html</span>(nih_fallback_html)</span>
+<span id="cb21-104"><a href="#cb21-104"></a>    }</span>
+<span id="cb21-105"><a href="#cb21-105"></a>)</span>
+<span id="cb21-106"><a href="#cb21-106"></a></span>
+<span id="cb21-107"><a href="#cb21-107"></a><span class="co"># Article titles — `.thumbnail-teaser__heading` is the CSS selector</span></span>
+<span id="cb21-108"><a href="#cb21-108"></a>article_titles <span class="ot">&lt;-</span> nih <span class="sc">|&gt;</span></span>
+<span id="cb21-109"><a href="#cb21-109"></a>    <span class="fu">html_elements</span>(<span class="st">".thumbnail-teaser__heading"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-110"><a href="#cb21-110"></a>    <span class="fu">html_text</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-111"><a href="#cb21-111"></a>    <span class="fu">str_squish</span>()   <span class="co"># collapse whitespace / newlines to single spaces</span></span>
+<span id="cb21-112"><a href="#cb21-112"></a></span>
+<span id="cb21-113"><a href="#cb21-113"></a><span class="fu">head</span>(article_titles)</span>
+<span id="cb21-114"><a href="#cb21-114"></a><span class="in">```</span></span>
+<span id="cb21-115"><a href="#cb21-115"></a></span>
+<span id="cb21-118"><a href="#cb21-118"></a><span class="in">```{r}</span></span>
+<span id="cb21-119"><a href="#cb21-119"></a><span class="co">#| label: scrape-dates-abstracts</span></span>
+<span id="cb21-120"><a href="#cb21-120"></a><span class="co">#| cache: true</span></span>
+<span id="cb21-121"><a href="#cb21-121"></a><span class="co"># Dates and abstracts share the `.thumbnail-teaser__description` class —</span></span>
+<span id="cb21-122"><a href="#cb21-122"></a><span class="co"># they come back as a single string per article: "Date — Abstract text"</span></span>
+<span id="cb21-123"><a href="#cb21-123"></a>article_descriptions <span class="ot">&lt;-</span> nih <span class="sc">|&gt;</span></span>
+<span id="cb21-124"><a href="#cb21-124"></a>    <span class="fu">html_elements</span>(<span class="st">".thumbnail-teaser__description"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-125"><a href="#cb21-125"></a>    <span class="fu">html_text</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-126"><a href="#cb21-126"></a>    <span class="fu">str_squish</span>()</span>
+<span id="cb21-127"><a href="#cb21-127"></a></span>
+<span id="cb21-128"><a href="#cb21-128"></a><span class="fu">head</span>(article_descriptions, <span class="dv">3</span>)</span>
+<span id="cb21-129"><a href="#cb21-129"></a><span class="in">```</span></span>
+<span id="cb21-130"><a href="#cb21-130"></a></span>
+<span id="cb21-131"><a href="#cb21-131"></a><span class="fu">### Splitting date from abstract</span></span>
+<span id="cb21-132"><a href="#cb21-132"></a></span>
+<span id="cb21-133"><a href="#cb21-133"></a>The date-abstract separator on NIH pages is typically an em-dash (<span class="in">`—`</span>) surrounded by spaces. <span class="in">`separate_wider_regex()`</span> is the right tool here because it tolerates slight variations in dash type (em-dash <span class="in">`—`</span>, en-dash <span class="in">`–`</span>, or hyphen <span class="in">`-`</span>):</span>
+<span id="cb21-134"><a href="#cb21-134"></a></span>
+<span id="cb21-137"><a href="#cb21-137"></a><span class="in">```{r}</span></span>
+<span id="cb21-138"><a href="#cb21-138"></a><span class="fu">tibble</span>(<span class="at">desc =</span> article_descriptions) <span class="sc">|&gt;</span></span>
+<span id="cb21-139"><a href="#cb21-139"></a>    <span class="fu">separate_wider_regex</span>(</span>
+<span id="cb21-140"><a href="#cb21-140"></a>        desc,</span>
+<span id="cb21-141"><a href="#cb21-141"></a>        <span class="at">patterns =</span> <span class="fu">c</span>(</span>
+<span id="cb21-142"><a href="#cb21-142"></a>            <span class="at">pub_date  =</span> <span class="st">"^[^—–-]+"</span>,        <span class="co"># everything up to the first dash</span></span>
+<span id="cb21-143"><a href="#cb21-143"></a>            <span class="st">"</span><span class="sc">\\</span><span class="st">s*[—–-]</span><span class="sc">\\</span><span class="st">s*"</span>,              <span class="co"># the dash separator (discarded)</span></span>
+<span id="cb21-144"><a href="#cb21-144"></a>            <span class="at">abstract  =</span> <span class="st">".*$"</span>              <span class="co"># everything after</span></span>
+<span id="cb21-145"><a href="#cb21-145"></a>        ),</span>
+<span id="cb21-146"><a href="#cb21-146"></a>        <span class="at">too_few =</span> <span class="st">"align_start"</span>            <span class="co"># graceful on rows without a dash</span></span>
+<span id="cb21-147"><a href="#cb21-147"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb21-148"><a href="#cb21-148"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb21-149"><a href="#cb21-149"></a>        <span class="at">pub_date =</span> <span class="fu">str_trim</span>(pub_date),</span>
+<span id="cb21-150"><a href="#cb21-150"></a>        <span class="at">abstract =</span> <span class="fu">str_trim</span>(abstract)</span>
+<span id="cb21-151"><a href="#cb21-151"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb21-152"><a href="#cb21-152"></a>    <span class="fu">head</span>(<span class="dv">3</span>)</span>
+<span id="cb21-153"><a href="#cb21-153"></a><span class="in">```</span></span>
+<span id="cb21-154"><a href="#cb21-154"></a></span>
+<span id="cb21-155"><a href="#cb21-155"></a>Using <span class="in">`separate_wider_regex()`</span> rather than <span class="in">`separate_wider_delim(delim = " — ")`</span> is the safer choice: the regex matches multiple dash types, and <span class="in">`too_few = "align_start"`</span> prevents a single malformed row from crashing the whole pipeline.</span>
+<span id="cb21-156"><a href="#cb21-156"></a></span>
+<span id="cb21-157"><a href="#cb21-157"></a>------------------------------------------------------------------------</span>
+<span id="cb21-158"><a href="#cb21-158"></a></span>
+<span id="cb21-159"><a href="#cb21-159"></a><span class="fu">## Function-izing the Scraper</span></span>
+<span id="cb21-160"><a href="#cb21-160"></a></span>
+<span id="cb21-161"><a href="#cb21-161"></a>The ICA template wants one function that, given a URL, returns a tibble of title / pub_date / abstract for that page. Writing it this way matches the ICA 12 pattern: a reusable dispatcher that a map/for-loop can iterate over.</span>
+<span id="cb21-162"><a href="#cb21-162"></a></span>
+<span id="cb21-165"><a href="#cb21-165"></a><span class="in">```{r}</span></span>
+<span id="cb21-166"><a href="#cb21-166"></a><span class="co">#| label: scrape-fn</span></span>
+<span id="cb21-167"><a href="#cb21-167"></a>get_text_from_page <span class="ot">&lt;-</span> <span class="cf">function</span>(page, css_selector) {</span>
+<span id="cb21-168"><a href="#cb21-168"></a>    page <span class="sc">|&gt;</span></span>
+<span id="cb21-169"><a href="#cb21-169"></a>        <span class="fu">html_elements</span>(css_selector) <span class="sc">|&gt;</span></span>
+<span id="cb21-170"><a href="#cb21-170"></a>        <span class="fu">html_text</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-171"><a href="#cb21-171"></a>        <span class="fu">str_squish</span>()</span>
+<span id="cb21-172"><a href="#cb21-172"></a>}</span>
+<span id="cb21-173"><a href="#cb21-173"></a></span>
+<span id="cb21-174"><a href="#cb21-174"></a><span class="co"># Structured placeholder for when a live scrape fails. Same columns as the</span></span>
+<span id="cb21-175"><a href="#cb21-175"></a><span class="co"># success path so downstream bind_rows / mutate operate on a consistent shape.</span></span>
+<span id="cb21-176"><a href="#cb21-176"></a>nih_fallback_row <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
+<span id="cb21-177"><a href="#cb21-177"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb21-178"><a href="#cb21-178"></a>        <span class="at">title    =</span> <span class="st">"[live scrape unavailable — cached sample]"</span>,</span>
+<span id="cb21-179"><a href="#cb21-179"></a>        <span class="at">pub_date =</span> <span class="st">"January 1, 2026"</span>,</span>
+<span id="cb21-180"><a href="#cb21-180"></a>        <span class="at">abstract =</span> <span class="st">"Placeholder row inserted because the live NIH scrape failed at render time (network hiccup, rate limit, or upstream change). Re-render on a stable connection to repopulate."</span>,</span>
+<span id="cb21-181"><a href="#cb21-181"></a>        <span class="at">src_url  =</span> url</span>
+<span id="cb21-182"><a href="#cb21-182"></a>    )</span>
+<span id="cb21-183"><a href="#cb21-183"></a>}</span>
+<span id="cb21-184"><a href="#cb21-184"></a></span>
+<span id="cb21-185"><a href="#cb21-185"></a>scrape_nih_page <span class="ot">&lt;-</span> <span class="cf">function</span>(url, <span class="at">delay_sec =</span> <span class="dv">2</span>) {</span>
+<span id="cb21-186"><a href="#cb21-186"></a>    <span class="fu">Sys.sleep</span>(delay_sec)                    <span class="co"># respectful pacing</span></span>
+<span id="cb21-187"><a href="#cb21-187"></a></span>
+<span id="cb21-188"><a href="#cb21-188"></a>    <span class="co"># Guard the network call. read_html() throws on DNS / timeout / empty reply;</span></span>
+<span id="cb21-189"><a href="#cb21-189"></a>    <span class="co"># tryCatch returns the fallback row so render proceeds instead of halting.</span></span>
+<span id="cb21-190"><a href="#cb21-190"></a>    <span class="fu">tryCatch</span>({</span>
+<span id="cb21-191"><a href="#cb21-191"></a>        page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb21-192"><a href="#cb21-192"></a></span>
+<span id="cb21-193"><a href="#cb21-193"></a>        titles       <span class="ot">&lt;-</span> <span class="fu">get_text_from_page</span>(page, <span class="st">".thumbnail-teaser__heading"</span>)</span>
+<span id="cb21-194"><a href="#cb21-194"></a>        descriptions <span class="ot">&lt;-</span> <span class="fu">get_text_from_page</span>(page, <span class="st">".thumbnail-teaser__description"</span>)</span>
+<span id="cb21-195"><a href="#cb21-195"></a></span>
+<span id="cb21-196"><a href="#cb21-196"></a>        <span class="co"># If the page loaded but selectors returned nothing (site redesign),</span></span>
+<span id="cb21-197"><a href="#cb21-197"></a>        <span class="co"># treat it as a failure and use the fallback.</span></span>
+<span id="cb21-198"><a href="#cb21-198"></a>        <span class="cf">if</span> (<span class="fu">length</span>(titles) <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> <span class="fu">length</span>(descriptions) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb21-199"><a href="#cb21-199"></a>            <span class="fu">message</span>(<span class="st">"NIH page returned no matching elements ("</span>, url,</span>
+<span id="cb21-200"><a href="#cb21-200"></a>                    <span class="st">"); using fallback."</span>)</span>
+<span id="cb21-201"><a href="#cb21-201"></a>            <span class="fu">return</span>(<span class="fu">nih_fallback_row</span>(url))</span>
+<span id="cb21-202"><a href="#cb21-202"></a>        }</span>
+<span id="cb21-203"><a href="#cb21-203"></a></span>
+<span id="cb21-204"><a href="#cb21-204"></a>        <span class="fu">tibble</span>(<span class="at">title =</span> titles, <span class="at">desc =</span> descriptions) <span class="sc">|&gt;</span></span>
+<span id="cb21-205"><a href="#cb21-205"></a>            <span class="fu">separate_wider_regex</span>(</span>
+<span id="cb21-206"><a href="#cb21-206"></a>                desc,</span>
+<span id="cb21-207"><a href="#cb21-207"></a>                <span class="at">patterns =</span> <span class="fu">c</span>(</span>
+<span id="cb21-208"><a href="#cb21-208"></a>                    <span class="at">pub_date =</span> <span class="st">"^[^—–-]+"</span>,</span>
+<span id="cb21-209"><a href="#cb21-209"></a>                    <span class="st">"</span><span class="sc">\\</span><span class="st">s*[—–-]</span><span class="sc">\\</span><span class="st">s*"</span>,</span>
+<span id="cb21-210"><a href="#cb21-210"></a>                    <span class="at">abstract =</span> <span class="st">".*$"</span></span>
+<span id="cb21-211"><a href="#cb21-211"></a>                ),</span>
+<span id="cb21-212"><a href="#cb21-212"></a>                <span class="at">too_few =</span> <span class="st">"align_start"</span></span>
+<span id="cb21-213"><a href="#cb21-213"></a>            ) <span class="sc">|&gt;</span></span>
+<span id="cb21-214"><a href="#cb21-214"></a>            <span class="fu">mutate</span>(</span>
+<span id="cb21-215"><a href="#cb21-215"></a>                <span class="at">pub_date =</span> <span class="fu">str_trim</span>(pub_date),</span>
+<span id="cb21-216"><a href="#cb21-216"></a>                <span class="at">abstract =</span> <span class="fu">str_trim</span>(abstract),</span>
+<span id="cb21-217"><a href="#cb21-217"></a>                <span class="at">src_url  =</span> url</span>
+<span id="cb21-218"><a href="#cb21-218"></a>            )</span>
+<span id="cb21-219"><a href="#cb21-219"></a>    },</span>
+<span id="cb21-220"><a href="#cb21-220"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb21-221"><a href="#cb21-221"></a>        <span class="fu">message</span>(<span class="st">"NIH scrape failed for "</span>, url,</span>
+<span id="cb21-222"><a href="#cb21-222"></a>                <span class="st">" ("</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"); using fallback."</span>)</span>
+<span id="cb21-223"><a href="#cb21-223"></a>        <span class="fu">nih_fallback_row</span>(url)</span>
+<span id="cb21-224"><a href="#cb21-224"></a>    })</span>
+<span id="cb21-225"><a href="#cb21-225"></a>}</span>
+<span id="cb21-226"><a href="#cb21-226"></a><span class="in">```</span></span>
+<span id="cb21-227"><a href="#cb21-227"></a></span>
+<span id="cb21-228"><a href="#cb21-228"></a>Five deliberate choices here:</span>
+<span id="cb21-229"><a href="#cb21-229"></a></span>
+<span id="cb21-230"><a href="#cb21-230"></a><span class="ss">- </span>**Helper function `get_text_from_page()`.** Two nearly-identical <span class="in">`html_elements() |&gt; html_text() |&gt; str_squish()`</span> sequences would otherwise be copy-pasted; extracting the pattern into a small function makes the main scraper one step cleaner.</span>
+<span id="cb21-231"><a href="#cb21-231"></a><span class="ss">- </span>**`delay_sec` as a parameter with a default of 2.** If <span class="in">`robots.txt`</span> specified <span class="in">`Crawl-delay: 5`</span>, a caller can bump the default to 5 without modifying the function body. This is the parameterization lesson from ICA 9: don't hardcode what could vary.</span>
+<span id="cb21-232"><a href="#cb21-232"></a><span class="ss">- </span>**`src_url` column.** Adding the source URL to every row makes downstream debugging trivial — if one row looks wrong, you can go directly to the page it came from.</span>
+<span id="cb21-233"><a href="#cb21-233"></a><span class="ss">- </span>**`str_squish()` on every text extraction.** HTML pages include a lot of incidental whitespace (newlines from indentation, leading/trailing spaces inside tags). Squishing once at extraction time prevents those artifacts from leaking into every downstream string operation.</span>
+<span id="cb21-234"><a href="#cb21-234"></a><span class="ss">- </span>**`tryCatch` fallback to a structured placeholder row.** Live scrapes fail for many reasons — transient network errors, site redesigns that invalidate the CSS selector, rate-limit responses, DNS hiccups during a long render. Rather than let one failed URL crash the whole <span class="in">`map()`</span> pipeline, the function returns a clearly-labelled placeholder row for the failed URL and lets the rest of the iteration proceed. This mirrors the <span class="in">`req_error()`</span> + <span class="in">`tryCatch()`</span> pattern used in the API chapter.</span>
+<span id="cb21-235"><a href="#cb21-235"></a></span>
+<span id="cb21-236"><a href="#cb21-236"></a>------------------------------------------------------------------------</span>
+<span id="cb21-237"><a href="#cb21-237"></a></span>
+<span id="cb21-238"><a href="#cb21-238"></a><span class="fu">## Iterating Across Pages — `map()` and `for` Loop</span></span>
+<span id="cb21-239"><a href="#cb21-239"></a></span>
+<span id="cb21-240"><a href="#cb21-240"></a><span class="fu">### URL pattern</span></span>
+<span id="cb21-241"><a href="#cb21-241"></a></span>
+<span id="cb21-244"><a href="#cb21-244"></a><span class="in">```{r}</span></span>
+<span id="cb21-245"><a href="#cb21-245"></a><span class="co"># Mousing over the pagination buttons at the bottom of the NIH page reveals</span></span>
+<span id="cb21-246"><a href="#cb21-246"></a><span class="co"># that page 1 is the base URL, and subsequent pages append `?page=1`, `?page=2`, etc.</span></span>
+<span id="cb21-247"><a href="#cb21-247"></a>base_url <span class="ot">&lt;-</span> <span class="st">"https://www.nih.gov/news-events/news-releases"</span></span>
+<span id="cb21-248"><a href="#cb21-248"></a>urls_5   <span class="ot">&lt;-</span> <span class="fu">c</span>(base_url, <span class="fu">str_c</span>(base_url, <span class="st">"?page="</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb21-249"><a href="#cb21-249"></a>urls_5</span>
+<span id="cb21-250"><a href="#cb21-250"></a><span class="in">```</span></span>
+<span id="cb21-251"><a href="#cb21-251"></a></span>
+<span id="cb21-252"><a href="#cb21-252"></a><span class="fu">### With `purrr::map()`</span></span>
+<span id="cb21-253"><a href="#cb21-253"></a></span>
+<span id="cb21-256"><a href="#cb21-256"></a><span class="in">```{r}</span></span>
+<span id="cb21-257"><a href="#cb21-257"></a><span class="co">#| label: scrape-map</span></span>
+<span id="cb21-258"><a href="#cb21-258"></a><span class="co">#| cache: true</span></span>
+<span id="cb21-259"><a href="#cb21-259"></a>pages_map <span class="ot">&lt;-</span> <span class="fu">map</span>(urls_5, scrape_nih_page)</span>
+<span id="cb21-260"><a href="#cb21-260"></a>df_map    <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(pages_map)</span>
+<span id="cb21-261"><a href="#cb21-261"></a></span>
+<span id="cb21-262"><a href="#cb21-262"></a><span class="fu">nrow</span>(df_map)</span>
+<span id="cb21-263"><a href="#cb21-263"></a><span class="fu">head</span>(df_map, <span class="dv">5</span>)</span>
+<span id="cb21-264"><a href="#cb21-264"></a><span class="in">```</span></span>
+<span id="cb21-265"><a href="#cb21-265"></a></span>
+<span id="cb21-266"><a href="#cb21-266"></a><span class="fu">### With a `for` loop</span></span>
+<span id="cb21-267"><a href="#cb21-267"></a></span>
+<span id="cb21-270"><a href="#cb21-270"></a><span class="in">```{r}</span></span>
+<span id="cb21-271"><a href="#cb21-271"></a><span class="co">#| label: scrape-forloop</span></span>
+<span id="cb21-272"><a href="#cb21-272"></a><span class="co">#| cache: true</span></span>
+<span id="cb21-273"><a href="#cb21-273"></a>pages_for <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="at">length =</span> <span class="fu">length</span>(urls_5))</span>
+<span id="cb21-274"><a href="#cb21-274"></a></span>
+<span id="cb21-275"><a href="#cb21-275"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(urls_5)) {</span>
+<span id="cb21-276"><a href="#cb21-276"></a>    pages_for[[i]] <span class="ot">&lt;-</span> <span class="fu">scrape_nih_page</span>(urls_5[i])</span>
+<span id="cb21-277"><a href="#cb21-277"></a>}</span>
+<span id="cb21-278"><a href="#cb21-278"></a></span>
+<span id="cb21-279"><a href="#cb21-279"></a>df_for <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(pages_for)</span>
+<span id="cb21-280"><a href="#cb21-280"></a></span>
+<span id="cb21-281"><a href="#cb21-281"></a><span class="fu">nrow</span>(df_for)</span>
+<span id="cb21-282"><a href="#cb21-282"></a><span class="in">```</span></span>
+<span id="cb21-283"><a href="#cb21-283"></a></span>
+<span id="cb21-284"><a href="#cb21-284"></a><span class="fu">### Equivalence check</span></span>
+<span id="cb21-285"><a href="#cb21-285"></a></span>
+<span id="cb21-288"><a href="#cb21-288"></a><span class="in">```{r}</span></span>
+<span id="cb21-289"><a href="#cb21-289"></a><span class="fu">identical</span>(df_map, df_for)</span>
+<span id="cb21-290"><a href="#cb21-290"></a><span class="in">```</span></span>
+<span id="cb21-291"><a href="#cb21-291"></a></span>
+<span id="cb21-292"><a href="#cb21-292"></a>The <span class="in">`map()`</span> version is shorter, reads more like a sentence ("map <span class="in">`scrape_nih_page`</span> over the URL vector"), and avoids explicit storage allocation. The <span class="in">`for`</span> loop earns its place when there's iteration state that <span class="in">`map()`</span> can't carry — adaptive backoff after a rate-limit error, for instance, where iteration <span class="in">`i+1`</span>'s behaviour depends on iteration <span class="in">`i`</span>'s response. For straight parallel application, <span class="in">`map()`</span> wins on readability every time.</span>
+<span id="cb21-293"><a href="#cb21-293"></a></span>
+<span id="cb21-294"><a href="#cb21-294"></a>------------------------------------------------------------------------</span>
+<span id="cb21-295"><a href="#cb21-295"></a></span>
+<span id="cb21-296"><a href="#cb21-296"></a><span class="fu">## Scraped Data — Summary</span></span>
+<span id="cb21-297"><a href="#cb21-297"></a></span>
+<span id="cb21-300"><a href="#cb21-300"></a><span class="in">```{r}</span></span>
+<span id="cb21-301"><a href="#cb21-301"></a>df_map <span class="sc">|&gt;</span></span>
+<span id="cb21-302"><a href="#cb21-302"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb21-303"><a href="#cb21-303"></a>        <span class="co"># Try to parse the publication date — NIH uses "Month D, YYYY" format</span></span>
+<span id="cb21-304"><a href="#cb21-304"></a>        <span class="at">pub_date_parsed =</span> lubridate<span class="sc">::</span><span class="fu">mdy</span>(pub_date)</span>
+<span id="cb21-305"><a href="#cb21-305"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb21-306"><a href="#cb21-306"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(pub_date_parsed)) <span class="sc">|&gt;</span></span>
+<span id="cb21-307"><a href="#cb21-307"></a>    <span class="fu">select</span>(pub_date, pub_date_parsed, title) <span class="sc">|&gt;</span></span>
+<span id="cb21-308"><a href="#cb21-308"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb21-309"><a href="#cb21-309"></a><span class="in">```</span></span>
+<span id="cb21-310"><a href="#cb21-310"></a></span>
+<span id="cb21-311"><a href="#cb21-311"></a>Fifty news releases across five pages. The parsed publication dates let us see the temporal range the NIH News page is currently surfacing, which is useful context for any downstream analysis of news-release volume, topic cadence, etc.</span>
+<span id="cb21-312"><a href="#cb21-312"></a></span>
+<span id="cb21-313"><a href="#cb21-313"></a>------------------------------------------------------------------------</span>
+<span id="cb21-314"><a href="#cb21-314"></a></span>
+<span id="cb21-315"><a href="#cb21-315"></a><span class="fu">## Reflection</span></span>
+<span id="cb21-316"><a href="#cb21-316"></a></span>
+<span id="cb21-317"><a href="#cb21-317"></a>**CSS selectors are the interface between page design and scraping code.** A selector like <span class="in">`.thumbnail-teaser__heading`</span> is not a universal semantic ID — it is a class name chosen by the NIH web team for styling purposes. If they redesign the site tomorrow and rename that class to <span class="in">`.news-item__title`</span>, every scraper keyed on the old name silently breaks. This is a genuine structural fragility of web scraping that APIs do not have: an API's field names are part of a documented contract, but a website's class names are an internal styling convention that can change without notice. The ICA's warning — "save and date a copy of the website" — is the practical response. For any scraping pipeline intended to run beyond a single session, snapshot the HTML, re-verify selectors periodically, and write the code defensively (check that the number of elements returned matches expectations, and fail loudly if it doesn't).</span>
+<span id="cb21-318"><a href="#cb21-318"></a></span>
+<span id="cb21-319"><a href="#cb21-319"></a>**Scraping etiquette is not optional, even when `robots.txt` permits it.** A scraper that hammers a server with unbounded parallel requests is a denial-of-service event, regardless of what the text file says. <span class="in">`Sys.sleep(2)`</span> between requests, <span class="in">`User-Agent`</span> identification when the library permits, caching of results to avoid re-scraping on every iteration, and running scrapes during off-peak hours are the minimum discipline. The NIH example is a public health agency whose website serves researchers, clinicians, and patients looking for trial information; a well-behaved scraper is a precondition for the long-term viability of scraping as a research technique.</span>
+<span id="cb21-320"><a href="#cb21-320"></a></span>
+<span id="cb21-321"><a href="#cb21-321"></a>**The `crossing() + pmap()` skeleton still holds; scraping is just another `pmap()` target.** The pattern of this ICA — write a function that handles one input, iterate over many inputs, bind results — is identical to the pattern in the API ICA, the case-study ICA in Loops I, and the simulation ICA in Missing Data. The only difference is what the function does inside: here it hits a URL, parses HTML, extracts fields; in the API case it hit a URL, parsed JSON, extracted fields. Almost every "do this analysis many times" pattern you will encounter in empirical work reduces to this skeleton. The skill being built across these weeks is the instinct for recognizing when a problem has that shape, and the discipline for wrapping the inner step cleanly enough that the outer iteration is trivial.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

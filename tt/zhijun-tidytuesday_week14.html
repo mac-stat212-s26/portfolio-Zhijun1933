@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-17">
+<title>Some Things Still Get Fixed – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../tt/zhijun-tidytuesday_week15.html" rel="next">
+<link href="../tt/zhijun-tidytuesday_week13.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week4.html">TidyTuesday</a></li><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week14.html"><span class="chapter-title">Some Things Still Get Fixed</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#motivation-research-question" id="toc-motivation-research-question" class="nav-link" data-scroll-target="#motivation-research-question">Motivation &amp; Research Question</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
+  <li><a href="#visualization-1-repair-success-by-year-of-production" id="toc-visualization-1-repair-success-by-year-of-production" class="nav-link" data-scroll-target="#visualization-1-repair-success-by-year-of-production">Visualization 1: Repair Success by Year of Production</a></li>
+  <li><a href="#visualization-2-which-categories-repair-caf%C3%A9s-can-actually-save" id="toc-visualization-2-which-categories-repair-cafés-can-actually-save" class="nav-link" data-scroll-target="#visualization-2-which-categories-repair-caf%C3%A9s-can-actually-save">Visualization 2: Which Categories Repair Cafés Can Actually Save</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">Takeaway</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week4.html">TidyTuesday</a></li><li class="breadcrumb-item"><a href="../tt/zhijun-tidytuesday_week14.html"><span class="chapter-title">Some Things Still Get Fixed</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Some Things Still Get Fixed</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">TidyTuesday 2026 · Week 14 · Repair Café Outcomes, 2015–2026</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 17, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>repairs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-07/repairs.csv"</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="background" class="level2"><h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>Repair Cafés began in Amsterdam in 2009, when journalist Martine Postma organised a pop-up event where residents could bring broken household objects and have them fixed for free by volunteer tinkerers. The model was unusually sticky. There are now more than 3,000 Repair Café branches operating across more than forty countries, and since 2015 a shared tracking system called Repair Monitor has logged the outcomes of individual repair attempts — what was brought in, what went wrong, and whether it got fixed. The combined log now contains tens of thousands of cases.</p>
+<p>The project sits at an awkward junction of several larger debates. Consumer-protection advocates argue that modern products are engineered to fail and designed to resist repair — the “planned obsolescence” claim that has reached the European Parliament (the 2024 Right to Repair Directive), the US Federal Trade Commission, and courtrooms in France. Manufacturers counter that repairability has not declined, that consumers value thinness and affordability over serviceability, and that the data supporting the obsolescence claim is anecdotal. Repair Monitor is, as far as I know, the largest open-access dataset from people who actually try to fix things. If the obsolescence claim leaves any visible fingerprint in observational data at scale, this is where it should leave it.</p>
+</section><section id="motivation-research-question" class="level2"><h2 class="anchored" data-anchor-id="motivation-research-question">Motivation &amp; Research Question</h2>
+<p>The planned-obsolescence claim makes a falsifiable prediction. Holding the category of product constant — a toaster versus a toaster, a vacuum cleaner versus a vacuum cleaner — a newer item should be harder to repair than an older one. A Repair Monitor entry for a 2005 vacuum cleaner and a 2022 vacuum cleaner is, in this respect, a natural experiment: the same category of appliance, presented to the same kind of volunteer with the same kind of toolkit, carrying a different age. If obsolescence is real, the success rate should decline with year of manufacture. If repairability has in fact been improving (as manufacturers sometimes argue), it should increase.</p>
+<p><strong>Research question: Within each category of product, do repair success rates decline as year of manufacture approaches the present, and are some categories visibly worse-affected than others?</strong></p>
+</section><section id="data-preparation" class="level2"><h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Keep attempts where both the outcome and a plausible production year are</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># recorded. "Plausible" = 1970–2025 (a handful of entries list years like</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># 19 or 2050 which are clearly typos).</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>repairs_clean <span class="ot">&lt;-</span> repairs <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">filter</span>(</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="sc">!</span><span class="fu">is.na</span>(repaired),</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="sc">!</span><span class="fu">is.na</span>(estimated_year_of_production),</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="fu">between</span>(estimated_year_of_production, <span class="dv">1970</span>, <span class="dv">2025</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="at">outcome =</span> <span class="fu">factor</span>(repaired,</span>
+<span id="cb2-12"><a href="#cb2-12"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"half"</span>, <span class="st">"yes"</span>),</span>
+<span id="cb2-13"><a href="#cb2-13"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not repaired"</span>, <span class="st">"Partially repaired"</span>, <span class="st">"Repaired"</span>)),</span>
+<span id="cb2-14"><a href="#cb2-14"></a>    <span class="at">category =</span> <span class="fu">str_replace</span>(category, <span class="st">" / "</span>, <span class="st">" /</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    <span class="at">repair_success =</span> repaired <span class="sc">==</span> <span class="st">"yes"</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>  )</span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co"># For the age-vs-success analysis, drop any category with very few records</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co"># (they would produce wild estimates)</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>cat_counts <span class="ot">&lt;-</span> repairs_clean <span class="sc">|&gt;</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="fu">count</span>(category, <span class="at">name =</span> <span class="st">"n_cat"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="fu">filter</span>(n_cat <span class="sc">&gt;=</span> <span class="dv">500</span>)</span>
+<span id="cb2-23"><a href="#cb2-23"></a></span>
+<span id="cb2-24"><a href="#cb2-24"></a>repairs_mainstream <span class="ot">&lt;-</span> repairs_clean <span class="sc">|&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="fu">inner_join</span>(cat_counts, <span class="at">by =</span> <span class="st">"category"</span>)</span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="fu">cat</span>(<span class="st">"Total repair attempts:"</span>, <span class="fu">format</span>(<span class="fu">nrow</span>(repairs), <span class="at">big.mark =</span> <span class="st">","</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Total repair attempts: 178,749 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">cat</span>(<span class="st">"With outcome + year:  "</span>, <span class="fu">format</span>(<span class="fu">nrow</span>(repairs_clean), <span class="at">big.mark =</span> <span class="st">","</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>With outcome + year:   61,243 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">cat</span>(<span class="st">"Countries:            "</span>, <span class="fu">n_distinct</span>(repairs_clean<span class="sc">$</span>country), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Countries:             21 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">cat</span>(<span class="st">"Categories (all):     "</span>, <span class="fu">n_distinct</span>(repairs_clean<span class="sc">$</span>category), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Categories (all):      15 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">cat</span>(<span class="st">"Categories (≥500 obs):"</span>, <span class="fu">nrow</span>(cat_counts), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Categories (≥500 obs): 12 </code></pre>
+</div>
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Top-level headline: share repaired over all data</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>overall <span class="ot">&lt;-</span> repairs_clean <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="at">n          =</span> <span class="fu">n</span>(),</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    <span class="at">full       =</span> <span class="fu">mean</span>(repaired <span class="sc">==</span> <span class="st">"yes"</span>),</span>
+<span id="cb12-6"><a href="#cb12-6"></a>    <span class="at">partial    =</span> <span class="fu">mean</span>(repaired <span class="sc">==</span> <span class="st">"half"</span>),</span>
+<span id="cb12-7"><a href="#cb12-7"></a>    <span class="at">failed     =</span> <span class="fu">mean</span>(repaired <span class="sc">==</span> <span class="st">"no"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8"></a>  )</span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="fu">cat</span>(<span class="st">"Overall: "</span>, <span class="fu">percent</span>(overall<span class="sc">$</span>full, <span class="at">accuracy =</span> <span class="dv">1</span>), <span class="st">" fully repaired, "</span>,</span>
+<span id="cb12-10"><a href="#cb12-10"></a>    <span class="fu">percent</span>(overall<span class="sc">$</span>partial, <span class="at">accuracy =</span> <span class="dv">1</span>), <span class="st">" partial, "</span>,</span>
+<span id="cb12-11"><a href="#cb12-11"></a>    <span class="fu">percent</span>(overall<span class="sc">$</span>failed, <span class="at">accuracy =</span> <span class="dv">1</span>), <span class="st">" not repaired.</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Overall: 59% fully repaired, 14% partial, 28% not repaired.</code></pre>
+</div>
+</div>
+</section><section id="visualization-1-repair-success-by-year-of-production" class="level2"><h2 class="anchored" data-anchor-id="visualization-1-repair-success-by-year-of-production">Visualization 1: Repair Success by Year of Production</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Pick the 8 biggest categories for clean faceting</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>top_cats <span class="ot">&lt;-</span> cat_counts <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">slice_max</span>(n_cat, <span class="at">n =</span> <span class="dv">8</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">pull</span>(category)</span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a>age_df <span class="ot">&lt;-</span> repairs_mainstream <span class="sc">|&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">filter</span>(category <span class="sc">%in%</span> top_cats,</span>
+<span id="cb14-8"><a href="#cb14-8"></a>         estimated_year_of_production <span class="sc">&gt;=</span> <span class="dv">1990</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a>  <span class="fu">mutate</span>(<span class="at">category =</span> <span class="fu">factor</span>(category, <span class="at">levels =</span> top_cats))</span>
+<span id="cb14-10"><a href="#cb14-10"></a></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="co"># Year-category success rate with 2σ binomial CIs</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a>year_rates <span class="ot">&lt;-</span> age_df <span class="sc">|&gt;</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a>  <span class="fu">group_by</span>(category, estimated_year_of_production) <span class="sc">|&gt;</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-15"><a href="#cb14-15"></a>    <span class="at">n       =</span> <span class="fu">n</span>(),</span>
+<span id="cb14-16"><a href="#cb14-16"></a>    <span class="at">success =</span> <span class="fu">sum</span>(repair_success),</span>
+<span id="cb14-17"><a href="#cb14-17"></a>    <span class="at">rate    =</span> success <span class="sc">/</span> n,</span>
+<span id="cb14-18"><a href="#cb14-18"></a>    <span class="at">se      =</span> <span class="fu">sqrt</span>(rate <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> rate) <span class="sc">/</span> n),</span>
+<span id="cb14-19"><a href="#cb14-19"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb14-20"><a href="#cb14-20"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-21"><a href="#cb14-21"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">15</span>)</span>
+<span id="cb14-22"><a href="#cb14-22"></a></span>
+<span id="cb14-23"><a href="#cb14-23"></a><span class="fu">ggplot</span>(year_rates, <span class="fu">aes</span>(<span class="at">x =</span> estimated_year_of_production, <span class="at">y =</span> rate)) <span class="sc">+</span></span>
+<span id="cb14-24"><a href="#cb14-24"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="fu">pmax</span>(<span class="dv">0</span>, rate <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> se),</span>
+<span id="cb14-25"><a href="#cb14-25"></a>                  <span class="at">ymax =</span> <span class="fu">pmin</span>(<span class="dv">1</span>, rate <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> se)),</span>
+<span id="cb14-26"><a href="#cb14-26"></a>              <span class="at">fill =</span> <span class="st">"#4a90d9"</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb14-27"><a href="#cb14-27"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> n), <span class="at">alpha =</span> <span class="fl">0.55</span>, <span class="at">colour =</span> <span class="st">"#2e5f8a"</span>) <span class="sc">+</span></span>
+<span id="cb14-28"><a href="#cb14-28"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="fl">0.9</span>,</span>
+<span id="cb14-29"><a href="#cb14-29"></a>              <span class="at">colour =</span> <span class="st">"#b8412d"</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb14-30"><a href="#cb14-30"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb14-31"><a href="#cb14-31"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb14-32"><a href="#cb14-32"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1990</span>, <span class="dv">2000</span>, <span class="dv">2010</span>, <span class="dv">2020</span>)) <span class="sc">+</span></span>
+<span id="cb14-33"><a href="#cb14-33"></a>  <span class="fu">scale_size_area</span>(<span class="at">max_size =</span> <span class="fl">3.5</span>, <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb14-34"><a href="#cb14-34"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> category, <span class="at">ncol =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb14-35"><a href="#cb14-35"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-36"><a href="#cb14-36"></a>    <span class="at">title    =</span> <span class="st">"Newer products are harder to fix — but the gap varies wildly by category"</span>,</span>
+<span id="cb14-37"><a href="#cb14-37"></a>    <span class="at">subtitle =</span> <span class="st">"Share of repair attempts that succeeded, by estimated year of production (top eight categories)"</span>,</span>
+<span id="cb14-38"><a href="#cb14-38"></a>    <span class="at">x        =</span> <span class="st">"Estimated year of production"</span>,</span>
+<span id="cb14-39"><a href="#cb14-39"></a>    <span class="at">y        =</span> <span class="st">"Share repaired successfully"</span>,</span>
+<span id="cb14-40"><a href="#cb14-40"></a>    <span class="at">caption  =</span> <span class="st">"Source: Repair Monitor (Repair Café international network) · TidyTuesday 2026 Wk 14 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb14-41"><a href="#cb14-41"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-42"><a href="#cb14-42"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb14-43"><a href="#cb14-43"></a>  <span class="fu">theme</span>(</span>
+<span id="cb14-44"><a href="#cb14-44"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb14-45"><a href="#cb14-45"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb14-46"><a href="#cb14-46"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb14-47"><a href="#cb14-47"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">9.5</span>, <span class="at">lineheight =</span> <span class="fl">0.95</span>),</span>
+<span id="cb14-48"><a href="#cb14-48"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-49"><a href="#cb14-49"></a>    <span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="fl">0.9</span>, <span class="st">"lines"</span>),</span>
+<span id="cb14-50"><a href="#cb14-50"></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="fl">1.0</span>, <span class="st">"lines"</span>)</span>
+<span id="cb14-51"><a href="#cb14-51"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="zhijun-tidytuesday_week14_files/figure-html/viz1-age-vs-success-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Each small panel is one category of household product, with each point a production-year success rate and point area proportional to sample size. The blue ribbon is the two-sigma binomial confidence band; the red curve is a LOESS smooth through the yearly rates. The story across the eight panels is two-layered. In almost every category, the red smooth slopes downward from the 1990s to the 2020s, consistent with a general decline in reparability over time. But the slope varies dramatically across categories. For vacuum cleaners, coffee makers, and household appliances, the fall from the oldest to newest bins is sharp — success rates above 60 percent for products from the 1990s fall to below 40 percent for products manufactured in the last five years. For textiles and non-electric tools, the slope is essentially flat; a 1995 pair of trousers and a 2022 pair of trousers are repaired with similar frequency. The pattern is not uniform decline in “things,” but category-specific — concentrated in the kinds of products where manufacturers have the most control over repairability: glued assemblies, proprietary cartridges, firmware-locked circuit boards.</p>
+</section><section id="visualization-2-which-categories-repair-cafés-can-actually-save" class="level2"><h2 class="anchored" data-anchor-id="visualization-2-which-categories-repair-cafés-can-actually-save">Visualization 2: Which Categories Repair Cafés Can Actually Save</h2>
+<div class="cell">
+<details class="code-fold"><summary>Show code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>cat_outcomes <span class="ot">&lt;-</span> repairs_clean <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">inner_join</span>(cat_counts, <span class="at">by =</span> <span class="st">"category"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">count</span>(category, outcome, n_cat) <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">group_by</span>(category) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">mutate</span>(<span class="at">share =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># Order categories by share successfully repaired (high to low)</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>order_df <span class="ot">&lt;-</span> cat_outcomes <span class="sc">|&gt;</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">filter</span>(outcome <span class="sc">==</span> <span class="st">"Repaired"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>  <span class="fu">arrange</span>(share)</span>
+<span id="cb15-12"><a href="#cb15-12"></a></span>
+<span id="cb15-13"><a href="#cb15-13"></a>cat_outcomes <span class="ot">&lt;-</span> cat_outcomes <span class="sc">|&gt;</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a>  <span class="fu">mutate</span>(<span class="at">category =</span> <span class="fu">factor</span>(category, <span class="at">levels =</span> order_df<span class="sc">$</span>category))</span>
+<span id="cb15-15"><a href="#cb15-15"></a></span>
+<span id="cb15-16"><a href="#cb15-16"></a>outcome_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb15-17"><a href="#cb15-17"></a>  <span class="st">"Repaired"</span>           <span class="ot">=</span> <span class="st">"#5aab6d"</span>,</span>
+<span id="cb15-18"><a href="#cb15-18"></a>  <span class="st">"Partially repaired"</span> <span class="ot">=</span> <span class="st">"#d4af37"</span>,</span>
+<span id="cb15-19"><a href="#cb15-19"></a>  <span class="st">"Not repaired"</span>       <span class="ot">=</span> <span class="st">"#b8412d"</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a>)</span>
+<span id="cb15-21"><a href="#cb15-21"></a></span>
+<span id="cb15-22"><a href="#cb15-22"></a><span class="co"># Label data — show sample size after the bar</span></span>
+<span id="cb15-23"><a href="#cb15-23"></a>sample_labels <span class="ot">&lt;-</span> order_df <span class="sc">|&gt;</span></span>
+<span id="cb15-24"><a href="#cb15-24"></a>  <span class="fu">left_join</span>(<span class="fu">count</span>(repairs_clean <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(cat_counts, <span class="at">by =</span> <span class="st">"category"</span>),</span>
+<span id="cb15-25"><a href="#cb15-25"></a>                  category, <span class="at">name =</span> <span class="st">"total"</span>),</span>
+<span id="cb15-26"><a href="#cb15-26"></a>            <span class="at">by =</span> <span class="st">"category"</span>)</span>
+<span id="cb15-27"><a href="#cb15-27"></a></span>
+<span id="cb15-28"><a href="#cb15-28"></a><span class="fu">ggplot</span>(cat_outcomes,</span>
+<span id="cb15-29"><a href="#cb15-29"></a>       <span class="fu">aes</span>(<span class="at">x =</span> share, <span class="at">y =</span> category, <span class="at">fill =</span> <span class="fu">fct_rev</span>(outcome))) <span class="sc">+</span></span>
+<span id="cb15-30"><a href="#cb15-30"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.78</span>) <span class="sc">+</span></span>
+<span id="cb15-31"><a href="#cb15-31"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> sample_labels,</span>
+<span id="cb15-32"><a href="#cb15-32"></a>            <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.02</span>, <span class="at">y =</span> category,</span>
+<span id="cb15-33"><a href="#cb15-33"></a>                <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"n = "</span>, <span class="fu">comma</span>(total))),</span>
+<span id="cb15-34"><a href="#cb15-34"></a>            <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>,</span>
+<span id="cb15-35"><a href="#cb15-35"></a>            <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb15-36"><a href="#cb15-36"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> outcome_pal, <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb15-37"><a href="#cb15-37"></a>                    <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
+<span id="cb15-38"><a href="#cb15-38"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb15-39"><a href="#cb15-39"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.15</span>),</span>
+<span id="cb15-40"><a href="#cb15-40"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.25</span>),</span>
+<span id="cb15-41"><a href="#cb15-41"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb15-42"><a href="#cb15-42"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-43"><a href="#cb15-43"></a>    <span class="at">title    =</span> <span class="st">"Textiles and mechanical tools still win; small electronics and coffee makers do not"</span>,</span>
+<span id="cb15-44"><a href="#cb15-44"></a>    <span class="at">subtitle =</span> <span class="st">"Repair outcome by product category, Repair Monitor 2015–2026"</span>,</span>
+<span id="cb15-45"><a href="#cb15-45"></a>    <span class="at">x        =</span> <span class="st">"Share of attempts"</span>,</span>
+<span id="cb15-46"><a href="#cb15-46"></a>    <span class="at">y        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb15-47"><a href="#cb15-47"></a>    <span class="at">caption  =</span> <span class="st">"Source: Repair Monitor (Repair Café international network) · TidyTuesday 2026 Wk 14 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb15-48"><a href="#cb15-48"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-49"><a href="#cb15-49"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb15-50"><a href="#cb15-50"></a>  <span class="fu">theme</span>(</span>
+<span id="cb15-51"><a href="#cb15-51"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb15-52"><a href="#cb15-52"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb15-53"><a href="#cb15-53"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb15-54"><a href="#cb15-54"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb15-55"><a href="#cb15-55"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-56"><a href="#cb15-56"></a>    <span class="at">panel.grid.minor   =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-57"><a href="#cb15-57"></a>    <span class="at">axis.text.y  =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb15-58"><a href="#cb15-58"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="zhijun-tidytuesday_week14_files/figure-html/viz2-category-outcomes-1.png" class="img-fluid figure-img" width="1008"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The second view answers a different question: leaving aside trends over time, <em>what</em> do Repair Cafés actually succeed at? Categories are ordered by the share of attempts that resulted in a full repair, from the most-fixable at the top to the least-fixable at the bottom. The top half is dominated by mechanical and textile categories: clothing, bicycles, jewellery, non-electric tools, furniture. These are categories where a competent volunteer with a needle, glue, or wrench can usually produce a working item. The bottom half is dominated by categories that involve firmware, sealed batteries, proprietary cartridges, or printed circuit boards: computer equipment, printers, small kitchen appliances, coffee makers. In the least-fixable categories, fewer than four in ten attempts succeed fully. The Repair Café model is not a general solution to e-waste; it is a very effective solution for one half of the problem and a much weaker one for the other.</p>
+</section><section id="takeaway" class="level2"><h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
+<p>Repair Café data does two things with unusual clarity. First, it confirms, at scale and across a decade, that newer products are on average harder to repair than older products of the same kind. The effect is real, it is visible year over year, and it has the expected sign. Second, it shows that the problem is not distributed uniformly across household goods. Textiles and mechanical items are close to time-invariant in their repairability; the steep decline is concentrated in a specific family of categories — small appliances, consumer electronics, coffee-makers, printers — where manufacturing choices about adhesives, proprietary parts, and firmware locks have the most room to raise the cost of entry for a volunteer fixer.</p>
+<p>The data cannot, on its own, prove that these design choices are deliberate obsolescence rather than side-effects of other engineering goals. What it can do is shift the burden of proof. The claim that products are not getting harder to repair is harder to hold when the global network of people who actually attempt to repair them has recorded, in open data, a pattern that looks exactly like the one the obsolescence hypothesis predicts. Whether policy responses — the EU Right to Repair Directive, France’s repairability index, state-level US initiatives — are calibrated correctly is a separate question. Whether there is something to respond to, this data has settled.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-body"><div class="nav-page nav-page-previous">
+      <a href="../tt/zhijun-tidytuesday_week13.html" class="pagination-link" aria-label="A Column of Water">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">A Column of Water</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../tt/zhijun-tidytuesday_week15.html" class="pagination-link" aria-label="Who Follows the Ship">
+        <span class="nav-page-text"><span class="chapter-title">Who Follows the Ship</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">---</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="an">title:</span><span class="co"> "Some Things Still Get Fixed"</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="an">subtitle:</span><span class="co"> "TidyTuesday 2026 · Week 14 · Repair Café Outcomes, 2015–2026"</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="an">date:</span><span class="co"> "2026-04-17"</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="an">format:</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">  html:</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="co">    theme: flatly</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co">    toc: true</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="co">    code-fold: true</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a><span class="co">    code-summary: "Show code"</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="co">    fig-align: center</span></span>
+<span id="cb16-13"><a href="#cb16-13"></a><span class="an">execute:</span></span>
+<span id="cb16-14"><a href="#cb16-14"></a><span class="co">  warning: false</span></span>
+<span id="cb16-15"><a href="#cb16-15"></a><span class="co">  message: false</span></span>
+<span id="cb16-16"><a href="#cb16-16"></a><span class="co">---</span></span>
+<span id="cb16-17"><a href="#cb16-17"></a></span>
+<span id="cb16-20"><a href="#cb16-20"></a><span class="in">```{r}</span></span>
+<span id="cb16-21"><a href="#cb16-21"></a><span class="co">#| label: setup</span></span>
+<span id="cb16-22"><a href="#cb16-22"></a></span>
+<span id="cb16-23"><a href="#cb16-23"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-24"><a href="#cb16-24"></a><span class="fu">library</span>(scales)</span>
+<span id="cb16-25"><a href="#cb16-25"></a></span>
+<span id="cb16-26"><a href="#cb16-26"></a>repairs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb16-27"><a href="#cb16-27"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-04-07/repairs.csv"</span></span>
+<span id="cb16-28"><a href="#cb16-28"></a>)</span>
+<span id="cb16-29"><a href="#cb16-29"></a><span class="in">```</span></span>
+<span id="cb16-30"><a href="#cb16-30"></a></span>
+<span id="cb16-31"><a href="#cb16-31"></a><span class="fu">## Background</span></span>
+<span id="cb16-32"><a href="#cb16-32"></a></span>
+<span id="cb16-33"><a href="#cb16-33"></a>Repair Cafés began in Amsterdam in 2009, when journalist Martine Postma</span>
+<span id="cb16-34"><a href="#cb16-34"></a>organised a pop-up event where residents could bring broken household</span>
+<span id="cb16-35"><a href="#cb16-35"></a>objects and have them fixed for free by volunteer tinkerers. The model</span>
+<span id="cb16-36"><a href="#cb16-36"></a>was unusually sticky. There are now more than 3,000 Repair Café branches</span>
+<span id="cb16-37"><a href="#cb16-37"></a>operating across more than forty countries, and since 2015 a shared</span>
+<span id="cb16-38"><a href="#cb16-38"></a>tracking system called Repair Monitor has logged the outcomes of</span>
+<span id="cb16-39"><a href="#cb16-39"></a>individual repair attempts — what was brought in, what went wrong, and</span>
+<span id="cb16-40"><a href="#cb16-40"></a>whether it got fixed. The combined log now contains tens of thousands</span>
+<span id="cb16-41"><a href="#cb16-41"></a>of cases.</span>
+<span id="cb16-42"><a href="#cb16-42"></a></span>
+<span id="cb16-43"><a href="#cb16-43"></a>The project sits at an awkward junction of several larger debates.</span>
+<span id="cb16-44"><a href="#cb16-44"></a>Consumer-protection advocates argue that modern products are engineered</span>
+<span id="cb16-45"><a href="#cb16-45"></a>to fail and designed to resist repair — the "planned obsolescence" claim</span>
+<span id="cb16-46"><a href="#cb16-46"></a>that has reached the European Parliament (the 2024 Right to Repair</span>
+<span id="cb16-47"><a href="#cb16-47"></a>Directive), the US Federal Trade Commission, and courtrooms in France.</span>
+<span id="cb16-48"><a href="#cb16-48"></a>Manufacturers counter that repairability has not declined, that</span>
+<span id="cb16-49"><a href="#cb16-49"></a>consumers value thinness and affordability over serviceability, and that</span>
+<span id="cb16-50"><a href="#cb16-50"></a>the data supporting the obsolescence claim is anecdotal. Repair Monitor</span>
+<span id="cb16-51"><a href="#cb16-51"></a>is, as far as I know, the largest open-access dataset from people who</span>
+<span id="cb16-52"><a href="#cb16-52"></a>actually try to fix things. If the obsolescence claim leaves any visible</span>
+<span id="cb16-53"><a href="#cb16-53"></a>fingerprint in observational data at scale, this is where it should</span>
+<span id="cb16-54"><a href="#cb16-54"></a>leave it.</span>
+<span id="cb16-55"><a href="#cb16-55"></a></span>
+<span id="cb16-56"><a href="#cb16-56"></a><span class="fu">## Motivation &amp; Research Question</span></span>
+<span id="cb16-57"><a href="#cb16-57"></a></span>
+<span id="cb16-58"><a href="#cb16-58"></a>The planned-obsolescence claim makes a falsifiable prediction. Holding</span>
+<span id="cb16-59"><a href="#cb16-59"></a>the category of product constant — a toaster versus a toaster, a</span>
+<span id="cb16-60"><a href="#cb16-60"></a>vacuum cleaner versus a vacuum cleaner — a newer item should be harder</span>
+<span id="cb16-61"><a href="#cb16-61"></a>to repair than an older one. A Repair Monitor entry for a 2005 vacuum</span>
+<span id="cb16-62"><a href="#cb16-62"></a>cleaner and a 2022 vacuum cleaner is, in this respect, a natural</span>
+<span id="cb16-63"><a href="#cb16-63"></a>experiment: the same category of appliance, presented to the same kind</span>
+<span id="cb16-64"><a href="#cb16-64"></a>of volunteer with the same kind of toolkit, carrying a different age.</span>
+<span id="cb16-65"><a href="#cb16-65"></a>If obsolescence is real, the success rate should decline with year of</span>
+<span id="cb16-66"><a href="#cb16-66"></a>manufacture. If repairability has in fact been improving (as</span>
+<span id="cb16-67"><a href="#cb16-67"></a>manufacturers sometimes argue), it should increase.</span>
+<span id="cb16-68"><a href="#cb16-68"></a></span>
+<span id="cb16-69"><a href="#cb16-69"></a>**Research question: Within each category of product, do repair success</span>
+<span id="cb16-70"><a href="#cb16-70"></a>rates decline as year of manufacture approaches the present, and are</span>
+<span id="cb16-71"><a href="#cb16-71"></a>some categories visibly worse-affected than others?**</span>
+<span id="cb16-72"><a href="#cb16-72"></a></span>
+<span id="cb16-73"><a href="#cb16-73"></a><span class="fu">## Data Preparation</span></span>
+<span id="cb16-74"><a href="#cb16-74"></a></span>
+<span id="cb16-77"><a href="#cb16-77"></a><span class="in">```{r}</span></span>
+<span id="cb16-78"><a href="#cb16-78"></a><span class="co">#| label: data-prep</span></span>
+<span id="cb16-79"><a href="#cb16-79"></a></span>
+<span id="cb16-80"><a href="#cb16-80"></a><span class="co"># Keep attempts where both the outcome and a plausible production year are</span></span>
+<span id="cb16-81"><a href="#cb16-81"></a><span class="co"># recorded. "Plausible" = 1970–2025 (a handful of entries list years like</span></span>
+<span id="cb16-82"><a href="#cb16-82"></a><span class="co"># 19 or 2050 which are clearly typos).</span></span>
+<span id="cb16-83"><a href="#cb16-83"></a>repairs_clean <span class="ot">&lt;-</span> repairs <span class="sc">|&gt;</span></span>
+<span id="cb16-84"><a href="#cb16-84"></a>  <span class="fu">filter</span>(</span>
+<span id="cb16-85"><a href="#cb16-85"></a>    <span class="sc">!</span><span class="fu">is.na</span>(repaired),</span>
+<span id="cb16-86"><a href="#cb16-86"></a>    <span class="sc">!</span><span class="fu">is.na</span>(estimated_year_of_production),</span>
+<span id="cb16-87"><a href="#cb16-87"></a>    <span class="fu">between</span>(estimated_year_of_production, <span class="dv">1970</span>, <span class="dv">2025</span>)</span>
+<span id="cb16-88"><a href="#cb16-88"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb16-89"><a href="#cb16-89"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-90"><a href="#cb16-90"></a>    <span class="at">outcome =</span> <span class="fu">factor</span>(repaired,</span>
+<span id="cb16-91"><a href="#cb16-91"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"half"</span>, <span class="st">"yes"</span>),</span>
+<span id="cb16-92"><a href="#cb16-92"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not repaired"</span>, <span class="st">"Partially repaired"</span>, <span class="st">"Repaired"</span>)),</span>
+<span id="cb16-93"><a href="#cb16-93"></a>    <span class="at">category =</span> <span class="fu">str_replace</span>(category, <span class="st">" / "</span>, <span class="st">" /</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb16-94"><a href="#cb16-94"></a>    <span class="at">repair_success =</span> repaired <span class="sc">==</span> <span class="st">"yes"</span></span>
+<span id="cb16-95"><a href="#cb16-95"></a>  )</span>
+<span id="cb16-96"><a href="#cb16-96"></a></span>
+<span id="cb16-97"><a href="#cb16-97"></a><span class="co"># For the age-vs-success analysis, drop any category with very few records</span></span>
+<span id="cb16-98"><a href="#cb16-98"></a><span class="co"># (they would produce wild estimates)</span></span>
+<span id="cb16-99"><a href="#cb16-99"></a>cat_counts <span class="ot">&lt;-</span> repairs_clean <span class="sc">|&gt;</span></span>
+<span id="cb16-100"><a href="#cb16-100"></a>  <span class="fu">count</span>(category, <span class="at">name =</span> <span class="st">"n_cat"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-101"><a href="#cb16-101"></a>  <span class="fu">filter</span>(n_cat <span class="sc">&gt;=</span> <span class="dv">500</span>)</span>
+<span id="cb16-102"><a href="#cb16-102"></a></span>
+<span id="cb16-103"><a href="#cb16-103"></a>repairs_mainstream <span class="ot">&lt;-</span> repairs_clean <span class="sc">|&gt;</span></span>
+<span id="cb16-104"><a href="#cb16-104"></a>  <span class="fu">inner_join</span>(cat_counts, <span class="at">by =</span> <span class="st">"category"</span>)</span>
+<span id="cb16-105"><a href="#cb16-105"></a></span>
+<span id="cb16-106"><a href="#cb16-106"></a><span class="fu">cat</span>(<span class="st">"Total repair attempts:"</span>, <span class="fu">format</span>(<span class="fu">nrow</span>(repairs), <span class="at">big.mark =</span> <span class="st">","</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb16-107"><a href="#cb16-107"></a><span class="fu">cat</span>(<span class="st">"With outcome + year:  "</span>, <span class="fu">format</span>(<span class="fu">nrow</span>(repairs_clean), <span class="at">big.mark =</span> <span class="st">","</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb16-108"><a href="#cb16-108"></a><span class="fu">cat</span>(<span class="st">"Countries:            "</span>, <span class="fu">n_distinct</span>(repairs_clean<span class="sc">$</span>country), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb16-109"><a href="#cb16-109"></a><span class="fu">cat</span>(<span class="st">"Categories (all):     "</span>, <span class="fu">n_distinct</span>(repairs_clean<span class="sc">$</span>category), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb16-110"><a href="#cb16-110"></a><span class="fu">cat</span>(<span class="st">"Categories (≥500 obs):"</span>, <span class="fu">nrow</span>(cat_counts), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb16-111"><a href="#cb16-111"></a></span>
+<span id="cb16-112"><a href="#cb16-112"></a><span class="co"># Top-level headline: share repaired over all data</span></span>
+<span id="cb16-113"><a href="#cb16-113"></a>overall <span class="ot">&lt;-</span> repairs_clean <span class="sc">|&gt;</span></span>
+<span id="cb16-114"><a href="#cb16-114"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb16-115"><a href="#cb16-115"></a>    <span class="at">n          =</span> <span class="fu">n</span>(),</span>
+<span id="cb16-116"><a href="#cb16-116"></a>    <span class="at">full       =</span> <span class="fu">mean</span>(repaired <span class="sc">==</span> <span class="st">"yes"</span>),</span>
+<span id="cb16-117"><a href="#cb16-117"></a>    <span class="at">partial    =</span> <span class="fu">mean</span>(repaired <span class="sc">==</span> <span class="st">"half"</span>),</span>
+<span id="cb16-118"><a href="#cb16-118"></a>    <span class="at">failed     =</span> <span class="fu">mean</span>(repaired <span class="sc">==</span> <span class="st">"no"</span>)</span>
+<span id="cb16-119"><a href="#cb16-119"></a>  )</span>
+<span id="cb16-120"><a href="#cb16-120"></a><span class="fu">cat</span>(<span class="st">"Overall: "</span>, <span class="fu">percent</span>(overall<span class="sc">$</span>full, <span class="at">accuracy =</span> <span class="dv">1</span>), <span class="st">" fully repaired, "</span>,</span>
+<span id="cb16-121"><a href="#cb16-121"></a>    <span class="fu">percent</span>(overall<span class="sc">$</span>partial, <span class="at">accuracy =</span> <span class="dv">1</span>), <span class="st">" partial, "</span>,</span>
+<span id="cb16-122"><a href="#cb16-122"></a>    <span class="fu">percent</span>(overall<span class="sc">$</span>failed, <span class="at">accuracy =</span> <span class="dv">1</span>), <span class="st">" not repaired.</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb16-123"><a href="#cb16-123"></a><span class="in">```</span></span>
+<span id="cb16-124"><a href="#cb16-124"></a></span>
+<span id="cb16-125"><a href="#cb16-125"></a><span class="fu">## Visualization 1: Repair Success by Year of Production</span></span>
+<span id="cb16-126"><a href="#cb16-126"></a></span>
+<span id="cb16-129"><a href="#cb16-129"></a><span class="in">```{r}</span></span>
+<span id="cb16-130"><a href="#cb16-130"></a><span class="co">#| label: viz1-age-vs-success</span></span>
+<span id="cb16-131"><a href="#cb16-131"></a><span class="co">#| fig-width: 11</span></span>
+<span id="cb16-132"><a href="#cb16-132"></a><span class="co">#| fig-height: 6.5</span></span>
+<span id="cb16-133"><a href="#cb16-133"></a></span>
+<span id="cb16-134"><a href="#cb16-134"></a><span class="co"># Pick the 8 biggest categories for clean faceting</span></span>
+<span id="cb16-135"><a href="#cb16-135"></a>top_cats <span class="ot">&lt;-</span> cat_counts <span class="sc">|&gt;</span></span>
+<span id="cb16-136"><a href="#cb16-136"></a>  <span class="fu">slice_max</span>(n_cat, <span class="at">n =</span> <span class="dv">8</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-137"><a href="#cb16-137"></a>  <span class="fu">pull</span>(category)</span>
+<span id="cb16-138"><a href="#cb16-138"></a></span>
+<span id="cb16-139"><a href="#cb16-139"></a>age_df <span class="ot">&lt;-</span> repairs_mainstream <span class="sc">|&gt;</span></span>
+<span id="cb16-140"><a href="#cb16-140"></a>  <span class="fu">filter</span>(category <span class="sc">%in%</span> top_cats,</span>
+<span id="cb16-141"><a href="#cb16-141"></a>         estimated_year_of_production <span class="sc">&gt;=</span> <span class="dv">1990</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-142"><a href="#cb16-142"></a>  <span class="fu">mutate</span>(<span class="at">category =</span> <span class="fu">factor</span>(category, <span class="at">levels =</span> top_cats))</span>
+<span id="cb16-143"><a href="#cb16-143"></a></span>
+<span id="cb16-144"><a href="#cb16-144"></a><span class="co"># Year-category success rate with 2σ binomial CIs</span></span>
+<span id="cb16-145"><a href="#cb16-145"></a>year_rates <span class="ot">&lt;-</span> age_df <span class="sc">|&gt;</span></span>
+<span id="cb16-146"><a href="#cb16-146"></a>  <span class="fu">group_by</span>(category, estimated_year_of_production) <span class="sc">|&gt;</span></span>
+<span id="cb16-147"><a href="#cb16-147"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb16-148"><a href="#cb16-148"></a>    <span class="at">n       =</span> <span class="fu">n</span>(),</span>
+<span id="cb16-149"><a href="#cb16-149"></a>    <span class="at">success =</span> <span class="fu">sum</span>(repair_success),</span>
+<span id="cb16-150"><a href="#cb16-150"></a>    <span class="at">rate    =</span> success <span class="sc">/</span> n,</span>
+<span id="cb16-151"><a href="#cb16-151"></a>    <span class="at">se      =</span> <span class="fu">sqrt</span>(rate <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> rate) <span class="sc">/</span> n),</span>
+<span id="cb16-152"><a href="#cb16-152"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb16-153"><a href="#cb16-153"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb16-154"><a href="#cb16-154"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">15</span>)</span>
+<span id="cb16-155"><a href="#cb16-155"></a></span>
+<span id="cb16-156"><a href="#cb16-156"></a><span class="fu">ggplot</span>(year_rates, <span class="fu">aes</span>(<span class="at">x =</span> estimated_year_of_production, <span class="at">y =</span> rate)) <span class="sc">+</span></span>
+<span id="cb16-157"><a href="#cb16-157"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="fu">pmax</span>(<span class="dv">0</span>, rate <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> se),</span>
+<span id="cb16-158"><a href="#cb16-158"></a>                  <span class="at">ymax =</span> <span class="fu">pmin</span>(<span class="dv">1</span>, rate <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> se)),</span>
+<span id="cb16-159"><a href="#cb16-159"></a>              <span class="at">fill =</span> <span class="st">"#4a90d9"</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb16-160"><a href="#cb16-160"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> n), <span class="at">alpha =</span> <span class="fl">0.55</span>, <span class="at">colour =</span> <span class="st">"#2e5f8a"</span>) <span class="sc">+</span></span>
+<span id="cb16-161"><a href="#cb16-161"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="fl">0.9</span>,</span>
+<span id="cb16-162"><a href="#cb16-162"></a>              <span class="at">colour =</span> <span class="st">"#b8412d"</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb16-163"><a href="#cb16-163"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb16-164"><a href="#cb16-164"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb16-165"><a href="#cb16-165"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1990</span>, <span class="dv">2000</span>, <span class="dv">2010</span>, <span class="dv">2020</span>)) <span class="sc">+</span></span>
+<span id="cb16-166"><a href="#cb16-166"></a>  <span class="fu">scale_size_area</span>(<span class="at">max_size =</span> <span class="fl">3.5</span>, <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb16-167"><a href="#cb16-167"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> category, <span class="at">ncol =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb16-168"><a href="#cb16-168"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-169"><a href="#cb16-169"></a>    <span class="at">title    =</span> <span class="st">"Newer products are harder to fix — but the gap varies wildly by category"</span>,</span>
+<span id="cb16-170"><a href="#cb16-170"></a>    <span class="at">subtitle =</span> <span class="st">"Share of repair attempts that succeeded, by estimated year of production (top eight categories)"</span>,</span>
+<span id="cb16-171"><a href="#cb16-171"></a>    <span class="at">x        =</span> <span class="st">"Estimated year of production"</span>,</span>
+<span id="cb16-172"><a href="#cb16-172"></a>    <span class="at">y        =</span> <span class="st">"Share repaired successfully"</span>,</span>
+<span id="cb16-173"><a href="#cb16-173"></a>    <span class="at">caption  =</span> <span class="st">"Source: Repair Monitor (Repair Café international network) · TidyTuesday 2026 Wk 14 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb16-174"><a href="#cb16-174"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-175"><a href="#cb16-175"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb16-176"><a href="#cb16-176"></a>  <span class="fu">theme</span>(</span>
+<span id="cb16-177"><a href="#cb16-177"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb16-178"><a href="#cb16-178"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb16-179"><a href="#cb16-179"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb16-180"><a href="#cb16-180"></a>    <span class="at">strip.text    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">9.5</span>, <span class="at">lineheight =</span> <span class="fl">0.95</span>),</span>
+<span id="cb16-181"><a href="#cb16-181"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb16-182"><a href="#cb16-182"></a>    <span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="fl">0.9</span>, <span class="st">"lines"</span>),</span>
+<span id="cb16-183"><a href="#cb16-183"></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="fl">1.0</span>, <span class="st">"lines"</span>)</span>
+<span id="cb16-184"><a href="#cb16-184"></a>  )</span>
+<span id="cb16-185"><a href="#cb16-185"></a><span class="in">```</span></span>
+<span id="cb16-186"><a href="#cb16-186"></a></span>
+<span id="cb16-187"><a href="#cb16-187"></a>Each small panel is one category of household product, with each point a</span>
+<span id="cb16-188"><a href="#cb16-188"></a>production-year success rate and point area proportional to sample size.</span>
+<span id="cb16-189"><a href="#cb16-189"></a>The blue ribbon is the two-sigma binomial confidence band; the red</span>
+<span id="cb16-190"><a href="#cb16-190"></a>curve is a LOESS smooth through the yearly rates. The story across the</span>
+<span id="cb16-191"><a href="#cb16-191"></a>eight panels is two-layered. In almost every category, the red smooth</span>
+<span id="cb16-192"><a href="#cb16-192"></a>slopes downward from the 1990s to the 2020s, consistent with a general</span>
+<span id="cb16-193"><a href="#cb16-193"></a>decline in reparability over time. But the slope varies dramatically</span>
+<span id="cb16-194"><a href="#cb16-194"></a>across categories. For vacuum cleaners, coffee makers, and household</span>
+<span id="cb16-195"><a href="#cb16-195"></a>appliances, the fall from the oldest to newest bins is sharp — success</span>
+<span id="cb16-196"><a href="#cb16-196"></a>rates above 60 percent for products from the 1990s fall to below 40</span>
+<span id="cb16-197"><a href="#cb16-197"></a>percent for products manufactured in the last five years. For textiles</span>
+<span id="cb16-198"><a href="#cb16-198"></a>and non-electric tools, the slope is essentially flat; a 1995 pair of</span>
+<span id="cb16-199"><a href="#cb16-199"></a>trousers and a 2022 pair of trousers are repaired with similar</span>
+<span id="cb16-200"><a href="#cb16-200"></a>frequency. The pattern is not uniform decline in "things," but</span>
+<span id="cb16-201"><a href="#cb16-201"></a>category-specific — concentrated in the kinds of products where</span>
+<span id="cb16-202"><a href="#cb16-202"></a>manufacturers have the most control over repairability: glued</span>
+<span id="cb16-203"><a href="#cb16-203"></a>assemblies, proprietary cartridges, firmware-locked circuit boards.</span>
+<span id="cb16-204"><a href="#cb16-204"></a></span>
+<span id="cb16-205"><a href="#cb16-205"></a><span class="fu">## Visualization 2: Which Categories Repair Cafés Can Actually Save</span></span>
+<span id="cb16-206"><a href="#cb16-206"></a></span>
+<span id="cb16-209"><a href="#cb16-209"></a><span class="in">```{r}</span></span>
+<span id="cb16-210"><a href="#cb16-210"></a><span class="co">#| label: viz2-category-outcomes</span></span>
+<span id="cb16-211"><a href="#cb16-211"></a><span class="co">#| fig-width: 10.5</span></span>
+<span id="cb16-212"><a href="#cb16-212"></a><span class="co">#| fig-height: 6.5</span></span>
+<span id="cb16-213"><a href="#cb16-213"></a></span>
+<span id="cb16-214"><a href="#cb16-214"></a>cat_outcomes <span class="ot">&lt;-</span> repairs_clean <span class="sc">|&gt;</span></span>
+<span id="cb16-215"><a href="#cb16-215"></a>  <span class="fu">inner_join</span>(cat_counts, <span class="at">by =</span> <span class="st">"category"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-216"><a href="#cb16-216"></a>  <span class="fu">count</span>(category, outcome, n_cat) <span class="sc">|&gt;</span></span>
+<span id="cb16-217"><a href="#cb16-217"></a>  <span class="fu">group_by</span>(category) <span class="sc">|&gt;</span></span>
+<span id="cb16-218"><a href="#cb16-218"></a>  <span class="fu">mutate</span>(<span class="at">share =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb16-219"><a href="#cb16-219"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb16-220"><a href="#cb16-220"></a></span>
+<span id="cb16-221"><a href="#cb16-221"></a><span class="co"># Order categories by share successfully repaired (high to low)</span></span>
+<span id="cb16-222"><a href="#cb16-222"></a>order_df <span class="ot">&lt;-</span> cat_outcomes <span class="sc">|&gt;</span></span>
+<span id="cb16-223"><a href="#cb16-223"></a>  <span class="fu">filter</span>(outcome <span class="sc">==</span> <span class="st">"Repaired"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-224"><a href="#cb16-224"></a>  <span class="fu">arrange</span>(share)</span>
+<span id="cb16-225"><a href="#cb16-225"></a></span>
+<span id="cb16-226"><a href="#cb16-226"></a>cat_outcomes <span class="ot">&lt;-</span> cat_outcomes <span class="sc">|&gt;</span></span>
+<span id="cb16-227"><a href="#cb16-227"></a>  <span class="fu">mutate</span>(<span class="at">category =</span> <span class="fu">factor</span>(category, <span class="at">levels =</span> order_df<span class="sc">$</span>category))</span>
+<span id="cb16-228"><a href="#cb16-228"></a></span>
+<span id="cb16-229"><a href="#cb16-229"></a>outcome_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb16-230"><a href="#cb16-230"></a>  <span class="st">"Repaired"</span>           <span class="ot">=</span> <span class="st">"#5aab6d"</span>,</span>
+<span id="cb16-231"><a href="#cb16-231"></a>  <span class="st">"Partially repaired"</span> <span class="ot">=</span> <span class="st">"#d4af37"</span>,</span>
+<span id="cb16-232"><a href="#cb16-232"></a>  <span class="st">"Not repaired"</span>       <span class="ot">=</span> <span class="st">"#b8412d"</span></span>
+<span id="cb16-233"><a href="#cb16-233"></a>)</span>
+<span id="cb16-234"><a href="#cb16-234"></a></span>
+<span id="cb16-235"><a href="#cb16-235"></a><span class="co"># Label data — show sample size after the bar</span></span>
+<span id="cb16-236"><a href="#cb16-236"></a>sample_labels <span class="ot">&lt;-</span> order_df <span class="sc">|&gt;</span></span>
+<span id="cb16-237"><a href="#cb16-237"></a>  <span class="fu">left_join</span>(<span class="fu">count</span>(repairs_clean <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(cat_counts, <span class="at">by =</span> <span class="st">"category"</span>),</span>
+<span id="cb16-238"><a href="#cb16-238"></a>                  category, <span class="at">name =</span> <span class="st">"total"</span>),</span>
+<span id="cb16-239"><a href="#cb16-239"></a>            <span class="at">by =</span> <span class="st">"category"</span>)</span>
+<span id="cb16-240"><a href="#cb16-240"></a></span>
+<span id="cb16-241"><a href="#cb16-241"></a><span class="fu">ggplot</span>(cat_outcomes,</span>
+<span id="cb16-242"><a href="#cb16-242"></a>       <span class="fu">aes</span>(<span class="at">x =</span> share, <span class="at">y =</span> category, <span class="at">fill =</span> <span class="fu">fct_rev</span>(outcome))) <span class="sc">+</span></span>
+<span id="cb16-243"><a href="#cb16-243"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.78</span>) <span class="sc">+</span></span>
+<span id="cb16-244"><a href="#cb16-244"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> sample_labels,</span>
+<span id="cb16-245"><a href="#cb16-245"></a>            <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.02</span>, <span class="at">y =</span> category,</span>
+<span id="cb16-246"><a href="#cb16-246"></a>                <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"n = "</span>, <span class="fu">comma</span>(total))),</span>
+<span id="cb16-247"><a href="#cb16-247"></a>            <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>,</span>
+<span id="cb16-248"><a href="#cb16-248"></a>            <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb16-249"><a href="#cb16-249"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> outcome_pal, <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb16-250"><a href="#cb16-250"></a>                    <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
+<span id="cb16-251"><a href="#cb16-251"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb16-252"><a href="#cb16-252"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.15</span>),</span>
+<span id="cb16-253"><a href="#cb16-253"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.25</span>),</span>
+<span id="cb16-254"><a href="#cb16-254"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb16-255"><a href="#cb16-255"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-256"><a href="#cb16-256"></a>    <span class="at">title    =</span> <span class="st">"Textiles and mechanical tools still win; small electronics and coffee makers do not"</span>,</span>
+<span id="cb16-257"><a href="#cb16-257"></a>    <span class="at">subtitle =</span> <span class="st">"Repair outcome by product category, Repair Monitor 2015–2026"</span>,</span>
+<span id="cb16-258"><a href="#cb16-258"></a>    <span class="at">x        =</span> <span class="st">"Share of attempts"</span>,</span>
+<span id="cb16-259"><a href="#cb16-259"></a>    <span class="at">y        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb16-260"><a href="#cb16-260"></a>    <span class="at">caption  =</span> <span class="st">"Source: Repair Monitor (Repair Café international network) · TidyTuesday 2026 Wk 14 · Zhijun He · 2026-04-17"</span></span>
+<span id="cb16-261"><a href="#cb16-261"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-262"><a href="#cb16-262"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb16-263"><a href="#cb16-263"></a>  <span class="fu">theme</span>(</span>
+<span id="cb16-264"><a href="#cb16-264"></a>    <span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">13.5</span>),</span>
+<span id="cb16-265"><a href="#cb16-265"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="fl">10.5</span>),</span>
+<span id="cb16-266"><a href="#cb16-266"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb16-267"><a href="#cb16-267"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb16-268"><a href="#cb16-268"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb16-269"><a href="#cb16-269"></a>    <span class="at">panel.grid.minor   =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb16-270"><a href="#cb16-270"></a>    <span class="at">axis.text.y  =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb16-271"><a href="#cb16-271"></a>  )</span>
+<span id="cb16-272"><a href="#cb16-272"></a><span class="in">```</span></span>
+<span id="cb16-273"><a href="#cb16-273"></a></span>
+<span id="cb16-274"><a href="#cb16-274"></a>The second view answers a different question: leaving aside trends over</span>
+<span id="cb16-275"><a href="#cb16-275"></a>time, *what* do Repair Cafés actually succeed at? Categories are ordered</span>
+<span id="cb16-276"><a href="#cb16-276"></a>by the share of attempts that resulted in a full repair, from the</span>
+<span id="cb16-277"><a href="#cb16-277"></a>most-fixable at the top to the least-fixable at the bottom. The top</span>
+<span id="cb16-278"><a href="#cb16-278"></a>half is dominated by mechanical and textile categories: clothing,</span>
+<span id="cb16-279"><a href="#cb16-279"></a>bicycles, jewellery, non-electric tools, furniture. These are categories</span>
+<span id="cb16-280"><a href="#cb16-280"></a>where a competent volunteer with a needle, glue, or wrench can usually</span>
+<span id="cb16-281"><a href="#cb16-281"></a>produce a working item. The bottom half is dominated by categories</span>
+<span id="cb16-282"><a href="#cb16-282"></a>that involve firmware, sealed batteries, proprietary cartridges, or</span>
+<span id="cb16-283"><a href="#cb16-283"></a>printed circuit boards: computer equipment, printers, small kitchen</span>
+<span id="cb16-284"><a href="#cb16-284"></a>appliances, coffee makers. In the least-fixable categories, fewer than</span>
+<span id="cb16-285"><a href="#cb16-285"></a>four in ten attempts succeed fully. The Repair Café model is not a</span>
+<span id="cb16-286"><a href="#cb16-286"></a>general solution to e-waste; it is a very effective solution for one</span>
+<span id="cb16-287"><a href="#cb16-287"></a>half of the problem and a much weaker one for the other.</span>
+<span id="cb16-288"><a href="#cb16-288"></a></span>
+<span id="cb16-289"><a href="#cb16-289"></a><span class="fu">## Takeaway</span></span>
+<span id="cb16-290"><a href="#cb16-290"></a></span>
+<span id="cb16-291"><a href="#cb16-291"></a>Repair Café data does two things with unusual clarity. First, it</span>
+<span id="cb16-292"><a href="#cb16-292"></a>confirms, at scale and across a decade, that newer products are on</span>
+<span id="cb16-293"><a href="#cb16-293"></a>average harder to repair than older products of the same kind. The</span>
+<span id="cb16-294"><a href="#cb16-294"></a>effect is real, it is visible year over year, and it has the expected</span>
+<span id="cb16-295"><a href="#cb16-295"></a>sign. Second, it shows that the problem is not distributed uniformly</span>
+<span id="cb16-296"><a href="#cb16-296"></a>across household goods. Textiles and mechanical items are close to</span>
+<span id="cb16-297"><a href="#cb16-297"></a>time-invariant in their repairability; the steep decline is concentrated</span>
+<span id="cb16-298"><a href="#cb16-298"></a>in a specific family of categories — small appliances, consumer</span>
+<span id="cb16-299"><a href="#cb16-299"></a>electronics, coffee-makers, printers — where manufacturing choices</span>
+<span id="cb16-300"><a href="#cb16-300"></a>about adhesives, proprietary parts, and firmware locks have the most</span>
+<span id="cb16-301"><a href="#cb16-301"></a>room to raise the cost of entry for a volunteer fixer.</span>
+<span id="cb16-302"><a href="#cb16-302"></a></span>
+<span id="cb16-303"><a href="#cb16-303"></a>The data cannot, on its own, prove that these design choices are</span>
+<span id="cb16-304"><a href="#cb16-304"></a>deliberate obsolescence rather than side-effects of other engineering</span>
+<span id="cb16-305"><a href="#cb16-305"></a>goals. What it can do is shift the burden of proof. The claim that</span>
+<span id="cb16-306"><a href="#cb16-306"></a>products are not getting harder to repair is harder to hold when the</span>
+<span id="cb16-307"><a href="#cb16-307"></a>global network of people who actually attempt to repair them has</span>
+<span id="cb16-308"><a href="#cb16-308"></a>recorded, in open data, a pattern that looks exactly like the one the</span>
+<span id="cb16-309"><a href="#cb16-309"></a>obsolescence hypothesis predicts. Whether policy responses — the EU</span>
+<span id="cb16-310"><a href="#cb16-310"></a>Right to Repair Directive, France's repairability index, state-level</span>
+<span id="cb16-311"><a href="#cb16-311"></a>US initiatives — are calibrated correctly is a separate question.</span>
+<span id="cb16-312"><a href="#cb16-312"></a>Whether there is something to respond to, this data has settled.</span>
+<span id="cb16-313"><a href="#cb16-313"></a></span>
+<span id="cb16-316"><a href="#cb16-316"></a><span class="in">```{r}</span></span>
+<span id="cb16-317"><a href="#cb16-317"></a><span class="co">#| label: session-info</span></span>
+<span id="cb16-318"><a href="#cb16-318"></a><span class="co">#| include: false</span></span>
+<span id="cb16-319"><a href="#cb16-319"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb16-320"><a href="#cb16-320"></a><span class="in">```</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
