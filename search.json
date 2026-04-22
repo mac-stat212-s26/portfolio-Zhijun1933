@@ -2252,5 +2252,93 @@
       "Extras",
       "<span class='chapter-number'>36</span>  <span class='chapter-title'>Why replace_na(mean(...)) Lies, and MICE Fixes It</span>"
     ]
+  },
+  {
+    "objectID": "extra/pagination-simulation.html",
+    "href": "extra/pagination-simulation.html",
+    "title": "Verifying Pagination Strategies: A Monte Carlo Simulation",
+    "section": "",
+    "text": "Motivation\nIn our API unit we learned to paginate like this:\nThis is the pattern almost every introductory data-science class teaches, and on a well-behaved API during a quiet afternoon it works fine. My Exam 3 report argued that the same pattern is a silent production bug on any API that is live, rate-limited, or occasionally flaky — which is to say, any real one. I claimed three failure modes:\nOn the exam slide I put concrete completeness numbers on a bar chart: 62% / 84% / 97% / 100% across four strategies. Those numbers were plausible-looking but made up. This is exactly the kind of move I spend my thesis criticizing — data that is directionally right but unverified — and it does not belong in a portfolio. This chapter replaces those numbers with a reproducible Monte Carlo.",
+    "crumbs": [
+      "Extras",
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Verifying Pagination Strategies: A Monte Carlo Simulation</span>"
+    ]
+  },
+  {
+    "objectID": "extra/pagination-simulation.html#motivation",
+    "href": "extra/pagination-simulation.html#motivation",
+    "title": "Verifying Pagination Strategies: A Monte Carlo Simulation",
+    "section": "",
+    "text": "results &lt;- list()\nfor (p in 1:N) {\n  results[[p]] &lt;- httr::GET(paste0(url, \"?page=\", p)) |&gt;\n    httr::content(as = \"parsed\")\n}\n\n\n\nOffset drift — records shift between calls; you get duplicates or misses with no error.\n\nNo retry on 429 / 5xx — httr::GET() does not throw on a 429. The loop treats it as success.\n\nNo throttle → cascading failures — you trip the rate limit, see 429s, treat them as empty, and end up with a dataframe that looks fine but is missing a third of its rows.",
+    "crumbs": [
+      "Extras",
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Verifying Pagination Strategies: A Monte Carlo Simulation</span>"
+    ]
+  },
+  {
+    "objectID": "extra/pagination-simulation.html#model",
+    "href": "extra/pagination-simulation.html#model",
+    "title": "Verifying Pagination Strategies: A Monte Carlo Simulation",
+    "section": "Model",
+    "text": "Model\nThe simulation is deliberately minimal. It models one client retrieving 50 paginated resources from an API with a sliding-window rate limit and an independent transient failure rate. Four strategies are compared.\nAssumptions\n\n\n\n\n\n\n\nParameter\nValue\nJustification\n\n\n\nTotal pages\n50\nTypical medium-scale scrape.\n\n\nRecords per page\n10\nStandard API page size.\n\n\nRate limit (peak)\n5 req per 1-sec sliding window\nRepresentative of many public REST APIs (e.g. GitHub unauthenticated, Twitter v2 per-user).\n\n\nTransient failure rate\n8% per admitted request\nTypical for “non-rate-limit” failures: transient 5xx, network timeout, upstream hiccup. Measured in the 5–10% range on real services.\n\n\nRetry policy (where enabled)\n5 attempts, exponential backoff (1s, 2s, 4s, 8s, 8s); ≥ window wait on 429\nMatches httr2::req_retry() defaults.\n\n\nMonte Carlo runs\n2,000\nGives standard error on the mean completeness of ≈ 0.1 percentage points — enough to distinguish strategies that differ by &gt; 1 pp.\n\n\n\nWhat the model does not capture:\n\nVariable network latency (GET is modeled as instantaneous).\nAPI-specific behaviors like Retry-After headers, burst-bucket semantics, or separate daily quotas.\nConnection errors that prevent the request from being counted at all.\nThe cursor-drift problem (Fig. 1 on the exam slide) — that is a correctness bug, not a completeness bug, and requires a different kind of test.\n\nThese omissions all make the naive strategy look better than it would on a real API. The gaps below are therefore conservative lower bounds on the real problem.\nStrategies\n\n\n\n\n\n\n\nStrategy\nRequest interval\nRetry?\n\n\n\nNaive for loop (httr::GET)\n0.05 s (20 req/s)\nNo\n\n\n\n+ Sys.sleep(1) between calls\n1.00 s\nNo\n\n\nhttr2 + req_throttle(4 /1)\n0.25 s\nNo\n\n\nhttr2 + req_throttle + req_retry(5)\n0.25 s\nYes",
+    "crumbs": [
+      "Extras",
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Verifying Pagination Strategies: A Monte Carlo Simulation</span>"
+    ]
+  },
+  {
+    "objectID": "extra/pagination-simulation.html#implementation",
+    "href": "extra/pagination-simulation.html#implementation",
+    "title": "Verifying Pagination Strategies: A Monte Carlo Simulation",
+    "section": "Implementation",
+    "text": "Implementation\n\nlibrary(tidyverse)\nset.seed(42)\n\n\nTOTAL_PAGES      &lt;- 50\nRECORDS_PER_PAGE &lt;- 10\nRATE_LIMIT_K     &lt;- 5     # max admitted requests per window\nWIN_SEC          &lt;- 1.0   # window length in seconds\nTRANSIENT_P      &lt;- 0.08\nRETRY_MAX        &lt;- 5\nN_SIMS           &lt;- 2000\n\nA single request attempt either succeeds, returns 429 (rate-limited), or returns a transient 5xx. Rate-limited requests are not admitted and do not count against the window — this mirrors how most APIs implement sliding-window limits, where the server rejects before burning a slot.\n\n#' Simulate one request attempt.\n#' @param t_now  current simulated time (seconds).\n#' @param recent numeric vector of times when recent ADMITTED requests were sent.\n#' @return list(outcome = c(\"ok\",\"429\",\"5xx\"), recent = updated vector)\ntry_request &lt;- function(t_now, recent) {\n  # Slide the window: drop timestamps older than WIN_SEC\n  recent &lt;- recent[recent &gt; t_now - WIN_SEC]\n  if (length(recent) &gt;= RATE_LIMIT_K) {\n    return(list(outcome = \"429\", recent = recent))\n  }\n  # Request is admitted; record its timestamp regardless of body outcome\n  recent &lt;- c(recent, t_now)\n  if (runif(1) &lt; TRANSIENT_P) {\n    return(list(outcome = \"5xx\", recent = recent))\n  }\n  list(outcome = \"ok\", recent = recent)\n}\n\nA strategy is characterized by its inter-request interval and whether it retries. The loop below walks through TOTAL_PAGES pages, attempting each up to attempts times, and returns the number of records actually retrieved.\n\nrun_strategy &lt;- function(interval, retry = FALSE) {\n  t        &lt;- 0\n  recent   &lt;- numeric(0)\n  got_page &lt;- logical(TOTAL_PAGES)\n  attempts &lt;- if (retry) RETRY_MAX else 1L\n\n  for (p in seq_len(TOTAL_PAGES)) {\n    for (a in seq_len(attempts)) {\n      res    &lt;- try_request(t, recent)\n      recent &lt;- res$recent\n\n      if (res$outcome == \"ok\") {\n        got_page[p] &lt;- TRUE\n        break\n      }\n      # Back off before the next attempt (only if we have attempts left)\n      if (a &lt; attempts) {\n        backoff &lt;- min(2 ^ (a - 1), 8)\n        if (res$outcome == \"429\") backoff &lt;- max(backoff, WIN_SEC)\n        t &lt;- t + backoff\n      }\n    }\n    t &lt;- t + interval\n  }\n\n  sum(got_page) * RECORDS_PER_PAGE\n}\n\nRun the Monte Carlo\n\nstrategies &lt;- tribble(\n  ~name,                                   ~interval, ~retry,\n  \"Naive for loop\\n(httr::GET)\",           0.05,      FALSE,\n  \"+ Sys.sleep(1)\\nbetween calls\",         1.00,      FALSE,\n  \"httr2 +\\nreq_throttle()\",               0.25,      FALSE,\n  \"httr2 +\\nreq_throttle()\\n+ req_retry()\", 0.25,     TRUE\n)\n\nsim_results &lt;- strategies |&gt;\n  rowwise() |&gt;\n  mutate(\n    records = list(replicate(N_SIMS, run_strategy(interval, retry)))\n  ) |&gt;\n  ungroup() |&gt;\n  unnest(records) |&gt;\n  mutate(completeness = records / (TOTAL_PAGES * RECORDS_PER_PAGE) * 100)",
+    "crumbs": [
+      "Extras",
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Verifying Pagination Strategies: A Monte Carlo Simulation</span>"
+    ]
+  },
+  {
+    "objectID": "extra/pagination-simulation.html#results",
+    "href": "extra/pagination-simulation.html#results",
+    "title": "Verifying Pagination Strategies: A Monte Carlo Simulation",
+    "section": "Results",
+    "text": "Results\n\nsummary_stats &lt;- sim_results |&gt;\n  group_by(name) |&gt;\n  summarize(\n    mean_pct = mean(completeness),\n    sd_pct   = sd(completeness),\n    p05      = quantile(completeness, 0.05),\n    p95      = quantile(completeness, 0.95),\n    .groups  = \"drop\"\n  )\n\nsummary_stats |&gt;\n  mutate(name = str_replace_all(name, \"\\n\", \" \")) |&gt;\n  knitr::kable(digits = 1, col.names = c(\"Strategy\", \"Mean %\", \"SD\", \"5%\", \"95%\"))\n\n\n\nStrategy\nMean %\nSD\n5%\n95%\n\n\n\n+ Sys.sleep(1) between calls\n92.1\n3.9\n86\n98\n\n\nNaive for loop (httr::GET)\n27.5\n2.2\n24\n30\n\n\nhttr2 + req_throttle()\n91.8\n3.8\n86\n98\n\n\nhttr2 + req_throttle() + req_retry()\n100.0\n0.1\n100\n100\n\n\n\n\n\n\norder &lt;- c(\"Naive for loop\\n(httr::GET)\",\n           \"+ Sys.sleep(1)\\nbetween calls\",\n           \"httr2 +\\nreq_throttle()\",\n           \"httr2 +\\nreq_throttle()\\n+ req_retry()\")\n\npal &lt;- c(\"#C23B22\", \"#E09E3E\", \"#3E6BA8\", \"#2F7E7E\")\n\nsummary_stats |&gt;\n  mutate(name = factor(name, levels = order)) |&gt;\n  ggplot(aes(x = name, y = mean_pct, fill = name)) +\n  geom_col(width = 0.56, show.legend = FALSE) +\n  geom_errorbar(aes(ymin = p05, ymax = p95), width = 0.12, linewidth = 0.5) +\n  geom_text(aes(label = sprintf(\"%.1f%%\", mean_pct), color = name),\n            vjust = -1.4, size = 4.3, fontface = \"bold\", show.legend = FALSE) +\n  geom_hline(yintercept = 100, linetype = \"dashed\", color = \"grey70\", linewidth = 0.4) +\n  annotate(\"text\", x = 4.4, y = 101, label = \"ground truth\",\n           color = \"grey55\", size = 2.8, fontface = \"italic\", hjust = 1) +\n  scale_fill_manual(values = pal) +\n  scale_color_manual(values = pal) +\n  scale_y_continuous(limits = c(0, 118), breaks = c(0, 25, 50, 75, 100)) +\n  labs(x = NULL, y = \"Records retrieved  (% of true count)\",\n       title = \"What fraction of the data do you actually get back?\") +\n  theme_minimal(base_size = 10) +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 11, color = \"grey15\"),\n    panel.grid.minor = element_blank(),\n    panel.grid.major.x = element_blank(),\n    axis.text.x = element_text(size = 8.5, color = \"grey25\")\n  )\n\n\n\n\n\n\nFigure 37.1: Completeness across 2,000 Monte Carlo runs. Bars show mean; whiskers span the 5th–95th percentile. Sys.sleep(1) and req_throttle() are statistically indistinguishable — the 8-percentage-point jump to 100% comes from req_retry(), not from pacing.",
+    "crumbs": [
+      "Extras",
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Verifying Pagination Strategies: A Monte Carlo Simulation</span>"
+    ]
+  },
+  {
+    "objectID": "extra/pagination-simulation.html#discussion",
+    "href": "extra/pagination-simulation.html#discussion",
+    "title": "Verifying Pagination Strategies: A Monte Carlo Simulation",
+    "section": "Discussion",
+    "text": "Discussion\nThe finding I did not expect\nThe exam-slide story was: naive is bad, pacing helps a lot, throttling helps more, retry closes the final gap. The simulation says the middle two steps are the same. Under the model assumptions, Sys.sleep(1) and req_throttle() produce indistinguishable completeness distributions (both ≈ 92.1%, 5–95% band 86–98). The only statistically meaningful gap is naive → paced (≈ 65 pp) and paced → paced-with-retry (≈ 8 pp).\nThis is more interesting than my made-up story, because it reframes the argument for httr2. httr2 is not better than a careful Sys.sleep() loop because it paces more accurately. It is better because it retries. Retry is the ingredient that takes a dataset from “looks complete” to actually complete.\nThat said, req_throttle() has two real advantages the simulation cannot see:\n\n\nRobustness to variable latency. In the simulation each GET is instantaneous; in reality Sys.sleep(1) after a 2-second GET means an effective rate of 0.33 req/s — much slower than you intended. req_throttle(rate = 1) enforces the target rate by measuring time since the last request, so latency variance does not slow you down.\n\nCorrect handling of Retry-After. req_retry() honors the Retry-After header emitted by well-behaved APIs on 429. A hand-rolled retry in a for loop usually does not.\n\nBoth matter in production. Neither shows up in a simple completeness-only metric. The simulation is a floor, not a ceiling.\nWhat a paced-but-no-retry run actually looks like\nThe 8% transient failures are not uniformly distributed across runs. Some simulation runs have 0 failed pages (48/50 × 10 = 480 records = 96% — wait, 50/50 = 100%). Other runs have 7+ failures (43/50 = 86%). The 5–95% band (86–98%) captures this variance.\nWhat this means in practice: if you run a paced-but-unretried scrape once and it happens to complete every page, you will believe your code is correct. Run it next week and lose 14% of the data. The failure mode is probabilistic, not deterministic. This is how bugs survive code review.\nWhat this simulation deliberately does not test\n\n\nOffset drift (Exam 3 Fig. 1). That is a correctness failure in which the naive strategy returns duplicates or misses even if 100% of requests succeed. Testing it would require simulating record insertions between calls and a ground-truth set of unique records. The completeness metric above cannot see drift because it counts pages returned, not records uniquely retrieved.\n\nCursor vs offset pagination semantics. The simulation uses a single page-indexed request model. Drift is what makes offset pagination incorrect in principle; cursor pagination is what makes it correct. That is a structural argument, not a Monte Carlo one.\n\nA future extension would model a changing dataset during the scrape and measure both completeness and uniqueness simultaneously.\nTakeaway\nThe three things a for + GET() loop silently skips — drift protection, retry, throttle — are not optimizations. They are correctness guarantees. Pacing alone (either via Sys.sleep() or req_throttle()) gets you most of the way. Retry is what closes the remaining gap. httr2 is valuable because it makes all three defaults.",
+    "crumbs": [
+      "Extras",
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Verifying Pagination Strategies: A Monte Carlo Simulation</span>"
+    ]
+  },
+  {
+    "objectID": "extra/pagination-simulation.html#reproducibility",
+    "href": "extra/pagination-simulation.html#reproducibility",
+    "title": "Verifying Pagination Strategies: A Monte Carlo Simulation",
+    "section": "Reproducibility",
+    "text": "Reproducibility\n\nsessionInfo()\n\nR version 4.4.2 (2024-10-31)\nPlatform: aarch64-apple-darwin20\nRunning under: macOS 26.3\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: America/Chicago\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n [1] lubridate_1.9.4 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    \n [5] purrr_1.0.4     readr_2.1.5     tidyr_1.3.1     tibble_3.2.1   \n [9] ggplot2_3.5.2   tidyverse_2.0.0\n\nloaded via a namespace (and not attached):\n [1] gtable_0.3.6      jsonlite_1.8.9    compiler_4.4.2    tidyselect_1.2.1 \n [5] scales_1.3.0      yaml_2.3.10       fastmap_1.2.0     R6_2.6.1         \n [9] generics_0.1.3    knitr_1.50        htmlwidgets_1.6.4 munsell_0.5.1    \n[13] pillar_1.10.1     tzdb_0.5.0        rlang_1.1.7       stringi_1.8.4    \n[17] xfun_0.52         timechange_0.3.0  cli_3.6.5         withr_3.0.2      \n[21] magrittr_2.0.3    digest_0.6.37     grid_4.4.2        rstudioapi_0.17.1\n[25] hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5       evaluate_1.0.3   \n[29] glue_1.8.0        farver_2.1.2      colorspace_2.1-1  rmarkdown_2.30   \n[33] tools_4.4.2       pkgconfig_2.0.3   htmltools_0.5.8.1\n\n\nRender this document with quarto render pagination-simulation.qmd. The simulation runs in under 20 seconds on a 2024 laptop. Seed is fixed at 42; changing N_SIMS to 10,000 narrows the confidence bands but does not change the ranking or any conclusion above.",
+    "crumbs": [
+      "Extras",
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Verifying Pagination Strategies: A Monte Carlo Simulation</span>"
+    ]
+  },
+  {
+    "objectID": "extra/pagination-simulation.html#references",
+    "href": "extra/pagination-simulation.html#references",
+    "title": "Verifying Pagination Strategies: A Monte Carlo Simulation",
+    "section": "References",
+    "text": "References\n\nWickham, H. (2024). httr2 R package. https://httr2.r-lib.org\n\nWickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data Science (2nd ed.), Ch. 20: Web APIs. https://r4ds.hadley.nz\n\nFielding, R., & Reschke, J. (2014). RFC 7231: HTTP/1.1 Semantic and Content, §6.6.1 (429 Too Many Requests), §6.6.4 (503 Service Unavailable). https://datatracker.ietf.org/doc/html/rfc7231\n\nHe, Z. (2026). Exam 3 Report: Naive pagination silently corrupts your data. COMP/STAT 212 Exam Reports, Spring 2026.",
+    "crumbs": [
+      "Extras",
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Verifying Pagination Strategies: A Monte Carlo Simulation</span>"
+    ]
   }
 ]

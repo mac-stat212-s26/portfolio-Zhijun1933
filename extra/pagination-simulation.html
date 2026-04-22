@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-21">
+<title>Verifying Pagination Strategies: A Monte Carlo Simulation – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../extra/mice_demo_2.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../extra/extra-sample1.html">Extras</a></li><li class="breadcrumb-item"><a href="../extra/pagination-simulation.html"><span class="chapter-title">Verifying Pagination Strategies: A Monte Carlo Simulation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/pagination-simulation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Verifying Pagination Strategies: A Monte Carlo Simulation</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li>
+<a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a>
+  <ul class="collapse">
+<li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
+  <li><a href="#strategies" id="toc-strategies" class="nav-link" data-scroll-target="#strategies">Strategies</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a>
+  <ul class="collapse">
+<li><a href="#run-the-monte-carlo" id="toc-run-the-monte-carlo" class="nav-link" data-scroll-target="#run-the-monte-carlo">Run the Monte Carlo</a></li>
+  </ul>
+</li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li>
+<a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a>
+  <ul class="collapse">
+<li><a href="#the-finding-i-did-not-expect" id="toc-the-finding-i-did-not-expect" class="nav-link" data-scroll-target="#the-finding-i-did-not-expect">The finding I did not expect</a></li>
+  <li><a href="#what-a-paced-but-no-retry-run-actually-looks-like" id="toc-what-a-paced-but-no-retry-run-actually-looks-like" class="nav-link" data-scroll-target="#what-a-paced-but-no-retry-run-actually-looks-like">What a paced-but-no-retry run actually looks like</a></li>
+  <li><a href="#what-this-simulation-deliberately-does-not-test" id="toc-what-this-simulation-deliberately-does-not-test" class="nav-link" data-scroll-target="#what-this-simulation-deliberately-does-not-test">What this simulation deliberately does not test</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">Takeaway</a></li>
+  </ul>
+</li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../extra/extra-sample1.html">Extras</a></li><li class="breadcrumb-item"><a href="../extra/pagination-simulation.html"><span class="chapter-title">Verifying Pagination Strategies: A Monte Carlo Simulation</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Verifying Pagination Strategies: A Monte Carlo Simulation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 21, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="motivation" class="level2"><h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>In our API unit we learned to paginate like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="cf">for</span> (p <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  results[[p]] <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(<span class="fu">paste0</span>(url, <span class="st">"?page="</span>, p)) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    httr<span class="sc">::</span><span class="fu">content</span>(<span class="at">as =</span> <span class="st">"parsed"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is the pattern almost every introductory data-science class teaches, and on a well-behaved API during a quiet afternoon it works fine. My Exam 3 report argued that the same pattern is a <em>silent production bug</em> on any API that is live, rate-limited, or occasionally flaky — which is to say, any real one. I claimed three failure modes:</p>
+<ol type="1">
+<li>
+<strong>Offset drift</strong> — records shift between calls; you get duplicates or misses with no error.</li>
+<li>
+<strong>No retry on 429 / 5xx</strong> — <code><a href="https://httr.r-lib.org/reference/GET.html">httr::GET()</a></code> does not throw on a 429. The loop treats it as success.</li>
+<li>
+<strong>No throttle → cascading failures</strong> — you trip the rate limit, see 429s, treat them as empty, and end up with a dataframe that looks fine but is missing a third of its rows.</li>
+</ol>
+<p>On the exam slide I put concrete completeness numbers on a bar chart: 62% / 84% / 97% / 100% across four strategies. Those numbers were <em>plausible-looking but made up.</em> This is exactly the kind of move I spend my thesis criticizing — data that is directionally right but unverified — and it does not belong in a portfolio. This chapter replaces those numbers with a reproducible Monte Carlo.</p>
+</section><section id="model" class="level2"><h2 class="anchored" data-anchor-id="model">Model</h2>
+<p>The simulation is deliberately minimal. It models one client retrieving 50 paginated resources from an API with a sliding-window rate limit and an independent transient failure rate. Four strategies are compared.</p>
+<section id="assumptions" class="level3"><h3 class="anchored" data-anchor-id="assumptions">Assumptions</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 22%">
+<col style="width: 47%">
+</colgroup>
+<thead><tr class="header">
+<th>Parameter</th>
+<th>Value</th>
+<th>Justification</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Total pages</td>
+<td>50</td>
+<td>Typical medium-scale scrape.</td>
+</tr>
+<tr class="even">
+<td>Records per page</td>
+<td>10</td>
+<td>Standard API page size.</td>
+</tr>
+<tr class="odd">
+<td>Rate limit (peak)</td>
+<td>5 req per 1-sec sliding window</td>
+<td>Representative of many public REST APIs (e.g.&nbsp;GitHub unauthenticated, Twitter v2 per-user).</td>
+</tr>
+<tr class="even">
+<td>Transient failure rate</td>
+<td>8% per admitted request</td>
+<td>Typical for “non-rate-limit” failures: transient 5xx, network timeout, upstream hiccup. Measured in the 5–10% range on real services.</td>
+</tr>
+<tr class="odd">
+<td>Retry policy (where enabled)</td>
+<td>5 attempts, exponential backoff (1s, 2s, 4s, 8s, 8s); ≥ window wait on 429</td>
+<td>Matches <code><a href="https://httr2.r-lib.org/reference/req_retry.html">httr2::req_retry()</a></code> defaults.</td>
+</tr>
+<tr class="even">
+<td>Monte Carlo runs</td>
+<td>2,000</td>
+<td>Gives standard error on the mean completeness of ≈ 0.1 percentage points — enough to distinguish strategies that differ by &gt; 1 pp.</td>
+</tr>
+</tbody>
+</table>
+<p>What the model does <strong>not</strong> capture:</p>
+<ul>
+<li>Variable network latency (GET is modeled as instantaneous).</li>
+<li>API-specific behaviors like <code>Retry-After</code> headers, burst-bucket semantics, or separate daily quotas.</li>
+<li>Connection errors that prevent the request from being counted at all.</li>
+<li>The cursor-drift problem (Fig. 1 on the exam slide) — that is a correctness bug, not a completeness bug, and requires a different kind of test.</li>
+</ul>
+<p>These omissions all make the naive strategy look <em>better</em> than it would on a real API. The gaps below are therefore conservative lower bounds on the real problem.</p>
+</section><section id="strategies" class="level3"><h3 class="anchored" data-anchor-id="strategies">Strategies</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 48%">
+<col style="width: 27%">
+<col style="width: 24%">
+</colgroup>
+<thead><tr class="header">
+<th>Strategy</th>
+<th>Request interval</th>
+<th>Retry?</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Naive for loop (<code><a href="https://httr.r-lib.org/reference/GET.html">httr::GET</a></code>)</td>
+<td>0.05 s (20 req/s)</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>
+<code>+ Sys.sleep(1)</code> between calls</td>
+<td>1.00 s</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td><code>httr2 + req_throttle(4 /1)</code></td>
+<td>0.25 s</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td><code>httr2 + req_throttle + req_retry(5)</code></td>
+<td>0.25 s</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table></section></section><section id="implementation" class="level2"><h2 class="anchored" data-anchor-id="implementation">Implementation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>TOTAL_PAGES      <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>RECORDS_PER_PAGE <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>RATE_LIMIT_K     <span class="ot">&lt;-</span> <span class="dv">5</span>     <span class="co"># max admitted requests per window</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>WIN_SEC          <span class="ot">&lt;-</span> <span class="fl">1.0</span>   <span class="co"># window length in seconds</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>TRANSIENT_P      <span class="ot">&lt;-</span> <span class="fl">0.08</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>RETRY_MAX        <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>N_SIMS           <span class="ot">&lt;-</span> <span class="dv">2000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A single request attempt either succeeds, returns 429 (rate-limited), or returns a transient 5xx. Rate-limited requests are <em>not</em> admitted and do not count against the window — this mirrors how most APIs implement sliding-window limits, where the server rejects before burning a slot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#' Simulate one request attempt.</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#' @param t_now  current simulated time (seconds).</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#' @param recent numeric vector of times when recent ADMITTED requests were sent.</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#' @return list(outcome = c("ok","429","5xx"), recent = updated vector)</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>try_request <span class="ot">&lt;-</span> <span class="cf">function</span>(t_now, recent) {</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="co"># Slide the window: drop timestamps older than WIN_SEC</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  recent <span class="ot">&lt;-</span> recent[recent <span class="sc">&gt;</span> t_now <span class="sc">-</span> WIN_SEC]</span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="cf">if</span> (<span class="fu">length</span>(recent) <span class="sc">&gt;=</span> RATE_LIMIT_K) {</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">outcome =</span> <span class="st">"429"</span>, <span class="at">recent =</span> recent))</span>
+<span id="cb4-10"><a href="#cb4-10"></a>  }</span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="co"># Request is admitted; record its timestamp regardless of body outcome</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>  recent <span class="ot">&lt;-</span> <span class="fu">c</span>(recent, t_now)</span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> TRANSIENT_P) {</span>
+<span id="cb4-14"><a href="#cb4-14"></a>    <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">outcome =</span> <span class="st">"5xx"</span>, <span class="at">recent =</span> recent))</span>
+<span id="cb4-15"><a href="#cb4-15"></a>  }</span>
+<span id="cb4-16"><a href="#cb4-16"></a>  <span class="fu">list</span>(<span class="at">outcome =</span> <span class="st">"ok"</span>, <span class="at">recent =</span> recent)</span>
+<span id="cb4-17"><a href="#cb4-17"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A strategy is characterized by its inter-request interval and whether it retries. The loop below walks through <code>TOTAL_PAGES</code> pages, attempting each up to <code>attempts</code> times, and returns the number of records actually retrieved.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>run_strategy <span class="ot">&lt;-</span> <span class="cf">function</span>(interval, <span class="at">retry =</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  t        <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  recent   <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  got_page <span class="ot">&lt;-</span> <span class="fu">logical</span>(TOTAL_PAGES)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  attempts <span class="ot">&lt;-</span> <span class="cf">if</span> (retry) RETRY_MAX <span class="cf">else</span> <span class="dv">1</span>L</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="cf">for</span> (p <span class="cf">in</span> <span class="fu">seq_len</span>(TOTAL_PAGES)) {</span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="cf">for</span> (a <span class="cf">in</span> <span class="fu">seq_len</span>(attempts)) {</span>
+<span id="cb5-9"><a href="#cb5-9"></a>      res    <span class="ot">&lt;-</span> <span class="fu">try_request</span>(t, recent)</span>
+<span id="cb5-10"><a href="#cb5-10"></a>      recent <span class="ot">&lt;-</span> res<span class="sc">$</span>recent</span>
+<span id="cb5-11"><a href="#cb5-11"></a></span>
+<span id="cb5-12"><a href="#cb5-12"></a>      <span class="cf">if</span> (res<span class="sc">$</span>outcome <span class="sc">==</span> <span class="st">"ok"</span>) {</span>
+<span id="cb5-13"><a href="#cb5-13"></a>        got_page[p] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>        <span class="cf">break</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>      }</span>
+<span id="cb5-16"><a href="#cb5-16"></a>      <span class="co"># Back off before the next attempt (only if we have attempts left)</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a>      <span class="cf">if</span> (a <span class="sc">&lt;</span> attempts) {</span>
+<span id="cb5-18"><a href="#cb5-18"></a>        backoff <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="dv">2</span> <span class="sc">^</span> (a <span class="sc">-</span> <span class="dv">1</span>), <span class="dv">8</span>)</span>
+<span id="cb5-19"><a href="#cb5-19"></a>        <span class="cf">if</span> (res<span class="sc">$</span>outcome <span class="sc">==</span> <span class="st">"429"</span>) backoff <span class="ot">&lt;-</span> <span class="fu">max</span>(backoff, WIN_SEC)</span>
+<span id="cb5-20"><a href="#cb5-20"></a>        t <span class="ot">&lt;-</span> t <span class="sc">+</span> backoff</span>
+<span id="cb5-21"><a href="#cb5-21"></a>      }</span>
+<span id="cb5-22"><a href="#cb5-22"></a>    }</span>
+<span id="cb5-23"><a href="#cb5-23"></a>    t <span class="ot">&lt;-</span> t <span class="sc">+</span> interval</span>
+<span id="cb5-24"><a href="#cb5-24"></a>  }</span>
+<span id="cb5-25"><a href="#cb5-25"></a></span>
+<span id="cb5-26"><a href="#cb5-26"></a>  <span class="fu">sum</span>(got_page) <span class="sc">*</span> RECORDS_PER_PAGE</span>
+<span id="cb5-27"><a href="#cb5-27"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="run-the-monte-carlo" class="level3"><h3 class="anchored" data-anchor-id="run-the-monte-carlo">Run the Monte Carlo</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>strategies <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="sc">~</span>name,                                   <span class="sc">~</span>interval, <span class="sc">~</span>retry,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="st">"Naive for loop</span><span class="sc">\n</span><span class="st">(httr::GET)"</span>,           <span class="fl">0.05</span>,      <span class="cn">FALSE</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="st">"+ Sys.sleep(1)</span><span class="sc">\n</span><span class="st">between calls"</span>,         <span class="fl">1.00</span>,      <span class="cn">FALSE</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="st">"httr2 +</span><span class="sc">\n</span><span class="st">req_throttle()"</span>,               <span class="fl">0.25</span>,      <span class="cn">FALSE</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="st">"httr2 +</span><span class="sc">\n</span><span class="st">req_throttle()</span><span class="sc">\n</span><span class="st">+ req_retry()"</span>, <span class="fl">0.25</span>,     <span class="cn">TRUE</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>)</span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a>sim_results <span class="ot">&lt;-</span> strategies <span class="sc">|&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    <span class="at">records =</span> <span class="fu">list</span>(<span class="fu">replicate</span>(N_SIMS, <span class="fu">run_strategy</span>(interval, retry)))</span>
+<span id="cb6-13"><a href="#cb6-13"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>  <span class="fu">unnest</span>(records) <span class="sc">|&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>  <span class="fu">mutate</span>(<span class="at">completeness =</span> records <span class="sc">/</span> (TOTAL_PAGES <span class="sc">*</span> RECORDS_PER_PAGE) <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section></section><section id="results" class="level2"><h2 class="anchored" data-anchor-id="results">Results</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>summary_stats <span class="ot">&lt;-</span> sim_results <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">group_by</span>(name) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="at">mean_pct =</span> <span class="fu">mean</span>(completeness),</span>
+<span id="cb7-5"><a href="#cb7-5"></a>    <span class="at">sd_pct   =</span> <span class="fu">sd</span>(completeness),</span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="at">p05      =</span> <span class="fu">quantile</span>(completeness, <span class="fl">0.05</span>),</span>
+<span id="cb7-7"><a href="#cb7-7"></a>    <span class="at">p95      =</span> <span class="fu">quantile</span>(completeness, <span class="fl">0.95</span>),</span>
+<span id="cb7-8"><a href="#cb7-8"></a>    <span class="at">.groups  =</span> <span class="st">"drop"</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  )</span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a>summary_stats <span class="sc">|&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">str_replace_all</span>(name, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">" "</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">1</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Strategy"</span>, <span class="st">"Mean %"</span>, <span class="st">"SD"</span>, <span class="st">"5%"</span>, <span class="st">"95%"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Strategy</th>
+<th style="text-align: right;">Mean %</th>
+<th style="text-align: right;">SD</th>
+<th style="text-align: right;">5%</th>
+<th style="text-align: right;">95%</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">+ Sys.sleep(1) between calls</td>
+<td style="text-align: right;">92.1</td>
+<td style="text-align: right;">3.9</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Naive for loop (httr::GET)</td>
+<td style="text-align: right;">27.5</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">httr2 + req_throttle()</td>
+<td style="text-align: right;">91.8</td>
+<td style="text-align: right;">3.8</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">httr2 + req_throttle() + req_retry()</td>
+<td style="text-align: right;">100.0</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>order <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Naive for loop</span><span class="sc">\n</span><span class="st">(httr::GET)"</span>,</span>
+<span id="cb8-2"><a href="#cb8-2"></a>           <span class="st">"+ Sys.sleep(1)</span><span class="sc">\n</span><span class="st">between calls"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3"></a>           <span class="st">"httr2 +</span><span class="sc">\n</span><span class="st">req_throttle()"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>           <span class="st">"httr2 +</span><span class="sc">\n</span><span class="st">req_throttle()</span><span class="sc">\n</span><span class="st">+ req_retry()"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#C23B22"</span>, <span class="st">"#E09E3E"</span>, <span class="st">"#3E6BA8"</span>, <span class="st">"#2F7E7E"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a>summary_stats <span class="sc">|&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> order)) <span class="sc">|&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> mean_pct, <span class="at">fill =</span> name)) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.56</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> p05, <span class="at">ymax =</span> p95), <span class="at">width =</span> <span class="fl">0.12</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, mean_pct), <span class="at">color =</span> name),</span>
+<span id="cb8-14"><a href="#cb8-14"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">1.4</span>, <span class="at">size =</span> <span class="fl">4.3</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">100</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"grey70"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">4.4</span>, <span class="at">y =</span> <span class="dv">101</span>, <span class="at">label =</span> <span class="st">"ground truth"</span>,</span>
+<span id="cb8-17"><a href="#cb8-17"></a>           <span class="at">color =</span> <span class="st">"grey55"</span>, <span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>, <span class="at">hjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">118</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Records retrieved  (% of true count)"</span>,</span>
+<span id="cb8-22"><a href="#cb8-22"></a>       <span class="at">title =</span> <span class="st">"What fraction of the data do you actually get back?"</span>) <span class="sc">+</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a>  <span class="fu">theme</span>(</span>
+<span id="cb8-25"><a href="#cb8-25"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">11</span>, <span class="at">color =</span> <span class="st">"grey15"</span>),</span>
+<span id="cb8-26"><a href="#cb8-26"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-27"><a href="#cb8-27"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-28"><a href="#cb8-28"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fl">8.5</span>, <span class="at">color =</span> <span class="st">"grey25"</span>)</span>
+<span id="cb8-29"><a href="#cb8-29"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-completeness" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-completeness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pagination-simulation_files/figure-html/fig-completeness-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-completeness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;37.1: Completeness across 2,000 Monte Carlo runs. Bars show mean; whiskers span the 5th–95th percentile. <code>Sys.sleep(1)</code> and <code>req_throttle()</code> are statistically indistinguishable — the 8-percentage-point jump to 100% comes from <code>req_retry()</code>, not from pacing.
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="discussion" class="level2"><h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<section id="the-finding-i-did-not-expect" class="level3"><h3 class="anchored" data-anchor-id="the-finding-i-did-not-expect">The finding I did not expect</h3>
+<p>The exam-slide story was: naive is bad, pacing helps a lot, throttling helps more, retry closes the final gap. The simulation says the middle two steps are the same. Under the model assumptions, <strong><code>Sys.sleep(1)</code> and <code>req_throttle()</code> produce indistinguishable completeness distributions</strong> (both ≈ 92.1%, 5–95% band 86–98). The only statistically meaningful gap is naive → paced (≈ 65 pp) and paced → paced-with-retry (≈ 8 pp).</p>
+<p>This is more interesting than my made-up story, because it reframes the argument for <code>httr2</code>. <code>httr2</code> is not better than a careful <code><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep()</a></code> loop because it paces more accurately. It is better because it <em>retries</em>. Retry is the ingredient that takes a dataset from “looks complete” to <em>actually</em> complete.</p>
+<p>That said, <code>req_throttle()</code> has two real advantages the simulation cannot see:</p>
+<ul>
+<li>
+<strong>Robustness to variable latency.</strong> In the simulation each GET is instantaneous; in reality <code>Sys.sleep(1)</code> after a 2-second GET means an effective rate of 0.33 req/s — much slower than you intended. <code>req_throttle(rate = 1)</code> enforces the target rate by measuring time since the last request, so latency variance does not slow you down.</li>
+<li>
+<strong>Correct handling of <code>Retry-After</code>.</strong> <code>req_retry()</code> honors the <code>Retry-After</code> header emitted by well-behaved APIs on 429. A hand-rolled retry in a <code>for</code> loop usually does not.</li>
+</ul>
+<p>Both matter in production. Neither shows up in a simple completeness-only metric. The simulation is a floor, not a ceiling.</p>
+</section><section id="what-a-paced-but-no-retry-run-actually-looks-like" class="level3"><h3 class="anchored" data-anchor-id="what-a-paced-but-no-retry-run-actually-looks-like">What a paced-but-no-retry run actually looks like</h3>
+<p>The 8% transient failures are not uniformly distributed across runs. Some simulation runs have 0 failed pages (48/50 × 10 = 480 records = 96% — wait, 50/50 = 100%). Other runs have 7+ failures (43/50 = 86%). The 5–95% band (86–98%) captures this variance.</p>
+<p>What this means in practice: if you run a paced-but-unretried scrape <em>once</em> and it happens to complete every page, you will believe your code is correct. Run it next week and lose 14% of the data. The failure mode is probabilistic, not deterministic. This is how bugs survive code review.</p>
+</section><section id="what-this-simulation-deliberately-does-not-test" class="level3"><h3 class="anchored" data-anchor-id="what-this-simulation-deliberately-does-not-test">What this simulation deliberately does not test</h3>
+<ul>
+<li>
+<strong>Offset drift (Exam 3 Fig. 1).</strong> That is a correctness failure in which the naive strategy returns duplicates or misses even if 100% of requests succeed. Testing it would require simulating record insertions between calls and a ground-truth set of unique records. The completeness metric above cannot see drift because it counts pages returned, not records uniquely retrieved.</li>
+<li>
+<strong>Cursor vs offset pagination semantics.</strong> The simulation uses a single page-indexed request model. Drift is what makes offset pagination incorrect in principle; cursor pagination is what makes it correct. That is a structural argument, not a Monte Carlo one.</li>
+</ul>
+<p>A future extension would model a <em>changing</em> dataset during the scrape and measure both completeness and uniqueness simultaneously.</p>
+</section><section id="takeaway" class="level3"><h3 class="anchored" data-anchor-id="takeaway">Takeaway</h3>
+<p>The three things a <code>for</code> + <code>GET()</code> loop silently skips — drift protection, retry, throttle — are not optimizations. They are correctness guarantees. Pacing alone (either via <code><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep()</a></code> or <code>req_throttle()</code>) gets you most of the way. Retry is what closes the remaining gap. <code>httr2</code> is valuable because it makes all three defaults.</p>
+</section></section><section id="reproducibility" class="level2"><h2 class="anchored" data-anchor-id="reproducibility">Reproducibility</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31)
+Platform: aarch64-apple-darwin20
+Running under: macOS 26.3
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/Chicago
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] lubridate_1.9.4 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    
+ [5] purrr_1.0.4     readr_2.1.5     tidyr_1.3.1     tibble_3.2.1   
+ [9] ggplot2_3.5.2   tidyverse_2.0.0
+
+loaded via a namespace (and not attached):
+ [1] gtable_0.3.6      jsonlite_1.8.9    compiler_4.4.2    tidyselect_1.2.1 
+ [5] scales_1.3.0      yaml_2.3.10       fastmap_1.2.0     R6_2.6.1         
+ [9] generics_0.1.3    knitr_1.50        htmlwidgets_1.6.4 munsell_0.5.1    
+[13] pillar_1.10.1     tzdb_0.5.0        rlang_1.1.7       stringi_1.8.4    
+[17] xfun_0.52         timechange_0.3.0  cli_3.6.5         withr_3.0.2      
+[21] magrittr_2.0.3    digest_0.6.37     grid_4.4.2        rstudioapi_0.17.1
+[25] hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5       evaluate_1.0.3   
+[29] glue_1.8.0        farver_2.1.2      colorspace_2.1-1  rmarkdown_2.30   
+[33] tools_4.4.2       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
+</div>
+</div>
+<p>Render this document with <code>quarto render pagination-simulation.qmd</code>. The simulation runs in under 20 seconds on a 2024 laptop. Seed is fixed at <code>42</code>; changing <code>N_SIMS</code> to 10,000 narrows the confidence bands but does not change the ranking or any conclusion above.</p>
+</section><section id="references" class="level2"><h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Wickham, H. (2024). <em>httr2</em> R package. <a href="https://httr2.r-lib.org" class="uri">https://httr2.r-lib.org</a>
+</li>
+<li>Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). <em>R for Data Science</em> (2nd ed.), Ch. 20: Web APIs. <a href="https://r4ds.hadley.nz" class="uri">https://r4ds.hadley.nz</a>
+</li>
+<li>Fielding, R., &amp; Reschke, J. (2014). <em>RFC 7231: HTTP/1.1 Semantic and Content</em>, §6.6.1 (429 Too Many Requests), §6.6.4 (503 Service Unavailable). <a href="https://datatracker.ietf.org/doc/html/rfc7231" class="uri">https://datatracker.ietf.org/doc/html/rfc7231</a>
+</li>
+<li>He, Z. (2026). Exam 3 Report: Naive pagination silently corrupts your data. COMP/STAT 212 Exam Reports, Spring 2026.</li>
+</ul>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-body"><div class="nav-page nav-page-previous">
+      <a href="../extra/mice_demo_2.html" class="pagination-link" aria-label="Why replace_na(mean(...)) Lies, and MICE Fixes It">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">---</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="an">title:</span><span class="co"> "Verifying Pagination Strategies: A Monte Carlo Simulation"</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="an">date:</span><span class="co"> "2026-04-21"</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="an">format:</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">  html:</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">    toc: true</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">    code-fold: false</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">    fig-width: 7</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">    fig-height: 4</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co">    fig-align: center</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a><span class="an">execute:</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a><span class="co">  warning: false</span></span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="co">  message: false</span></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co">---</span></span>
+<span id="cb11-18"><a href="#cb11-18"></a></span>
+<span id="cb11-19"><a href="#cb11-19"></a><span class="fu">## Motivation</span></span>
+<span id="cb11-20"><a href="#cb11-20"></a></span>
+<span id="cb11-21"><a href="#cb11-21"></a>In our API unit we learned to paginate like this:</span>
+<span id="cb11-22"><a href="#cb11-22"></a></span>
+<span id="cb11-23"><a href="#cb11-23"></a><span class="in">``` r</span></span>
+<span id="cb11-24"><a href="#cb11-24"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb11-25"><a href="#cb11-25"></a><span class="cf">for</span> (p <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb11-26"><a href="#cb11-26"></a>  results[[p]] <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(<span class="fu">paste0</span>(url, <span class="st">"?page="</span>, p)) <span class="sc">|&gt;</span></span>
+<span id="cb11-27"><a href="#cb11-27"></a>    httr<span class="sc">::</span><span class="fu">content</span>(<span class="at">as =</span> <span class="st">"parsed"</span>)</span>
+<span id="cb11-28"><a href="#cb11-28"></a>}</span>
+<span id="cb11-29"><a href="#cb11-29"></a><span class="in">```</span></span>
+<span id="cb11-30"><a href="#cb11-30"></a></span>
+<span id="cb11-31"><a href="#cb11-31"></a>This is the pattern almost every introductory data-science class teaches, and on a well-behaved API during a quiet afternoon it works fine. My Exam 3 report argued that the same pattern is a *silent production bug* on any API that is live, rate-limited, or occasionally flaky — which is to say, any real one. I claimed three failure modes:</span>
+<span id="cb11-32"><a href="#cb11-32"></a></span>
+<span id="cb11-33"><a href="#cb11-33"></a><span class="ss">1.  </span>**Offset drift** — records shift between calls; you get duplicates or misses with no error.</span>
+<span id="cb11-34"><a href="#cb11-34"></a><span class="ss">2.  </span>**No retry on 429 / 5xx** — <span class="in">`httr::GET()`</span> does not throw on a 429. The loop treats it as success.</span>
+<span id="cb11-35"><a href="#cb11-35"></a><span class="ss">3.  </span>**No throttle → cascading failures** — you trip the rate limit, see 429s, treat them as empty, and end up with a dataframe that looks fine but is missing a third of its rows.</span>
+<span id="cb11-36"><a href="#cb11-36"></a></span>
+<span id="cb11-37"><a href="#cb11-37"></a>On the exam slide I put concrete completeness numbers on a bar chart: 62% / 84% / 97% / 100% across four strategies. Those numbers were *plausible-looking but made up.* This is exactly the kind of move I spend my thesis criticizing — data that is directionally right but unverified — and it does not belong in a portfolio. This chapter replaces those numbers with a reproducible Monte Carlo.</span>
+<span id="cb11-38"><a href="#cb11-38"></a></span>
+<span id="cb11-39"><a href="#cb11-39"></a><span class="fu">## Model</span></span>
+<span id="cb11-40"><a href="#cb11-40"></a></span>
+<span id="cb11-41"><a href="#cb11-41"></a>The simulation is deliberately minimal. It models one client retrieving <span class="in">`r 50`</span> paginated resources from an API with a sliding-window rate limit and an independent transient failure rate. Four strategies are compared.</span>
+<span id="cb11-42"><a href="#cb11-42"></a></span>
+<span id="cb11-43"><a href="#cb11-43"></a><span class="fu">### Assumptions</span></span>
+<span id="cb11-44"><a href="#cb11-44"></a></span>
+<span id="cb11-45"><a href="#cb11-45"></a><span class="pp">|</span> Parameter                         <span class="pp">|</span> Value           <span class="pp">|</span> Justification                                                                                                                      <span class="pp">|</span></span>
+<span id="cb11-46"><a href="#cb11-46"></a><span class="pp">|----------------------|----------------|----------------------------------|</span></span>
+<span id="cb11-47"><a href="#cb11-47"></a><span class="pp">|</span> Total pages                       <span class="pp">|</span> 50              <span class="pp">|</span> Typical medium-scale scrape.                                                                                                        <span class="pp">|</span></span>
+<span id="cb11-48"><a href="#cb11-48"></a><span class="pp">|</span> Records per page                  <span class="pp">|</span> 10              <span class="pp">|</span> Standard API page size.                                                                                                              <span class="pp">|</span></span>
+<span id="cb11-49"><a href="#cb11-49"></a><span class="pp">|</span> Rate limit (peak)                 <span class="pp">|</span> 5 req per 1-sec sliding window <span class="pp">|</span> Representative of many public REST APIs (e.g. GitHub unauthenticated, Twitter v2 per-user).                                          <span class="pp">|</span></span>
+<span id="cb11-50"><a href="#cb11-50"></a><span class="pp">|</span> Transient failure rate            <span class="pp">|</span> 8% per admitted request <span class="pp">|</span> Typical for "non-rate-limit" failures: transient 5xx, network timeout, upstream hiccup. Measured in the 5–10% range on real services. <span class="pp">|</span></span>
+<span id="cb11-51"><a href="#cb11-51"></a><span class="pp">|</span> Retry policy (where enabled)      <span class="pp">|</span> 5 attempts, exponential backoff (1s, 2s, 4s, 8s, 8s); ≥ window wait on 429 <span class="pp">|</span> Matches <span class="in">`httr2::req_retry()`</span> defaults.                                                                                                <span class="pp">|</span></span>
+<span id="cb11-52"><a href="#cb11-52"></a><span class="pp">|</span> Monte Carlo runs                  <span class="pp">|</span> 2,000           <span class="pp">|</span> Gives standard error on the mean completeness of ≈ 0.1 percentage points — enough to distinguish strategies that differ by &gt; 1 pp.    <span class="pp">|</span></span>
+<span id="cb11-53"><a href="#cb11-53"></a></span>
+<span id="cb11-54"><a href="#cb11-54"></a>What the model does **not** capture:</span>
+<span id="cb11-55"><a href="#cb11-55"></a></span>
+<span id="cb11-56"><a href="#cb11-56"></a><span class="ss">-   </span>Variable network latency (GET is modeled as instantaneous).</span>
+<span id="cb11-57"><a href="#cb11-57"></a><span class="ss">-   </span>API-specific behaviors like <span class="in">`Retry-After`</span> headers, burst-bucket semantics, or separate daily quotas.</span>
+<span id="cb11-58"><a href="#cb11-58"></a><span class="ss">-   </span>Connection errors that prevent the request from being counted at all.</span>
+<span id="cb11-59"><a href="#cb11-59"></a><span class="ss">-   </span>The cursor-drift problem (Fig. 1 on the exam slide) — that is a correctness bug, not a completeness bug, and requires a different kind of test.</span>
+<span id="cb11-60"><a href="#cb11-60"></a></span>
+<span id="cb11-61"><a href="#cb11-61"></a>These omissions all make the naive strategy look *better* than it would on a real API. The gaps below are therefore conservative lower bounds on the real problem.</span>
+<span id="cb11-62"><a href="#cb11-62"></a></span>
+<span id="cb11-63"><a href="#cb11-63"></a><span class="fu">### Strategies</span></span>
+<span id="cb11-64"><a href="#cb11-64"></a></span>
+<span id="cb11-65"><a href="#cb11-65"></a><span class="pp">|</span> Strategy                       <span class="pp">|</span> Request interval <span class="pp">|</span> Retry?         <span class="pp">|</span></span>
+<span id="cb11-66"><a href="#cb11-66"></a><span class="pp">|--------------------------------|------------------|----------------|</span></span>
+<span id="cb11-67"><a href="#cb11-67"></a><span class="pp">|</span> Naive for loop (<span class="in">`httr::GET`</span>)   <span class="pp">|</span> 0.05 s (20 req/s) <span class="pp">|</span> No             <span class="pp">|</span></span>
+<span id="cb11-68"><a href="#cb11-68"></a><span class="pp">|</span> <span class="in">`+ Sys.sleep(1)`</span> between calls <span class="pp">|</span> 1.00 s            <span class="pp">|</span> No             <span class="pp">|</span></span>
+<span id="cb11-69"><a href="#cb11-69"></a><span class="pp">|</span> <span class="in">`httr2 + req_throttle(4 /1)`</span>   <span class="pp">|</span> 0.25 s            <span class="pp">|</span> No             <span class="pp">|</span></span>
+<span id="cb11-70"><a href="#cb11-70"></a><span class="pp">|</span> <span class="in">`httr2 + req_throttle + req_retry(5)`</span> <span class="pp">|</span> 0.25 s         <span class="pp">|</span> Yes            <span class="pp">|</span></span>
+<span id="cb11-71"><a href="#cb11-71"></a></span>
+<span id="cb11-72"><a href="#cb11-72"></a><span class="fu">## Implementation</span></span>
+<span id="cb11-73"><a href="#cb11-73"></a></span>
+<span id="cb11-76"><a href="#cb11-76"></a><span class="in">```{r}</span></span>
+<span id="cb11-77"><a href="#cb11-77"></a><span class="co">#| label: setup</span></span>
+<span id="cb11-78"><a href="#cb11-78"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-79"><a href="#cb11-79"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb11-80"><a href="#cb11-80"></a><span class="in">```</span></span>
+<span id="cb11-81"><a href="#cb11-81"></a></span>
+<span id="cb11-84"><a href="#cb11-84"></a><span class="in">```{r}</span></span>
+<span id="cb11-85"><a href="#cb11-85"></a><span class="co">#| label: params</span></span>
+<span id="cb11-86"><a href="#cb11-86"></a>TOTAL_PAGES      <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb11-87"><a href="#cb11-87"></a>RECORDS_PER_PAGE <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb11-88"><a href="#cb11-88"></a>RATE_LIMIT_K     <span class="ot">&lt;-</span> <span class="dv">5</span>     <span class="co"># max admitted requests per window</span></span>
+<span id="cb11-89"><a href="#cb11-89"></a>WIN_SEC          <span class="ot">&lt;-</span> <span class="fl">1.0</span>   <span class="co"># window length in seconds</span></span>
+<span id="cb11-90"><a href="#cb11-90"></a>TRANSIENT_P      <span class="ot">&lt;-</span> <span class="fl">0.08</span></span>
+<span id="cb11-91"><a href="#cb11-91"></a>RETRY_MAX        <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb11-92"><a href="#cb11-92"></a>N_SIMS           <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb11-93"><a href="#cb11-93"></a><span class="in">```</span></span>
+<span id="cb11-94"><a href="#cb11-94"></a></span>
+<span id="cb11-95"><a href="#cb11-95"></a>A single request attempt either succeeds, returns 429 (rate-limited), or returns a transient 5xx. Rate-limited requests are *not* admitted and do not count against the window — this mirrors how most APIs implement sliding-window limits, where the server rejects before burning a slot.</span>
+<span id="cb11-96"><a href="#cb11-96"></a></span>
+<span id="cb11-99"><a href="#cb11-99"></a><span class="in">```{r}</span></span>
+<span id="cb11-100"><a href="#cb11-100"></a><span class="co">#| label: request-fn</span></span>
+<span id="cb11-101"><a href="#cb11-101"></a><span class="co">#' Simulate one request attempt.</span></span>
+<span id="cb11-102"><a href="#cb11-102"></a><span class="co">#' @param t_now  current simulated time (seconds).</span></span>
+<span id="cb11-103"><a href="#cb11-103"></a><span class="co">#' @param recent numeric vector of times when recent ADMITTED requests were sent.</span></span>
+<span id="cb11-104"><a href="#cb11-104"></a><span class="co">#' @return list(outcome = c("ok","429","5xx"), recent = updated vector)</span></span>
+<span id="cb11-105"><a href="#cb11-105"></a>try_request <span class="ot">&lt;-</span> <span class="cf">function</span>(t_now, recent) {</span>
+<span id="cb11-106"><a href="#cb11-106"></a>  <span class="co"># Slide the window: drop timestamps older than WIN_SEC</span></span>
+<span id="cb11-107"><a href="#cb11-107"></a>  recent <span class="ot">&lt;-</span> recent[recent <span class="sc">&gt;</span> t_now <span class="sc">-</span> WIN_SEC]</span>
+<span id="cb11-108"><a href="#cb11-108"></a>  <span class="cf">if</span> (<span class="fu">length</span>(recent) <span class="sc">&gt;=</span> RATE_LIMIT_K) {</span>
+<span id="cb11-109"><a href="#cb11-109"></a>    <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">outcome =</span> <span class="st">"429"</span>, <span class="at">recent =</span> recent))</span>
+<span id="cb11-110"><a href="#cb11-110"></a>  }</span>
+<span id="cb11-111"><a href="#cb11-111"></a>  <span class="co"># Request is admitted; record its timestamp regardless of body outcome</span></span>
+<span id="cb11-112"><a href="#cb11-112"></a>  recent <span class="ot">&lt;-</span> <span class="fu">c</span>(recent, t_now)</span>
+<span id="cb11-113"><a href="#cb11-113"></a>  <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> TRANSIENT_P) {</span>
+<span id="cb11-114"><a href="#cb11-114"></a>    <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">outcome =</span> <span class="st">"5xx"</span>, <span class="at">recent =</span> recent))</span>
+<span id="cb11-115"><a href="#cb11-115"></a>  }</span>
+<span id="cb11-116"><a href="#cb11-116"></a>  <span class="fu">list</span>(<span class="at">outcome =</span> <span class="st">"ok"</span>, <span class="at">recent =</span> recent)</span>
+<span id="cb11-117"><a href="#cb11-117"></a>}</span>
+<span id="cb11-118"><a href="#cb11-118"></a><span class="in">```</span></span>
+<span id="cb11-119"><a href="#cb11-119"></a></span>
+<span id="cb11-120"><a href="#cb11-120"></a>A strategy is characterized by its inter-request interval and whether it retries. The loop below walks through <span class="in">`TOTAL_PAGES`</span> pages, attempting each up to <span class="in">`attempts`</span> times, and returns the number of records actually retrieved.</span>
+<span id="cb11-121"><a href="#cb11-121"></a></span>
+<span id="cb11-124"><a href="#cb11-124"></a><span class="in">```{r}</span></span>
+<span id="cb11-125"><a href="#cb11-125"></a><span class="co">#| label: strategy-fn</span></span>
+<span id="cb11-126"><a href="#cb11-126"></a>run_strategy <span class="ot">&lt;-</span> <span class="cf">function</span>(interval, <span class="at">retry =</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb11-127"><a href="#cb11-127"></a>  t        <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb11-128"><a href="#cb11-128"></a>  recent   <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb11-129"><a href="#cb11-129"></a>  got_page <span class="ot">&lt;-</span> <span class="fu">logical</span>(TOTAL_PAGES)</span>
+<span id="cb11-130"><a href="#cb11-130"></a>  attempts <span class="ot">&lt;-</span> <span class="cf">if</span> (retry) RETRY_MAX <span class="cf">else</span> <span class="dv">1</span>L</span>
+<span id="cb11-131"><a href="#cb11-131"></a></span>
+<span id="cb11-132"><a href="#cb11-132"></a>  <span class="cf">for</span> (p <span class="cf">in</span> <span class="fu">seq_len</span>(TOTAL_PAGES)) {</span>
+<span id="cb11-133"><a href="#cb11-133"></a>    <span class="cf">for</span> (a <span class="cf">in</span> <span class="fu">seq_len</span>(attempts)) {</span>
+<span id="cb11-134"><a href="#cb11-134"></a>      res    <span class="ot">&lt;-</span> <span class="fu">try_request</span>(t, recent)</span>
+<span id="cb11-135"><a href="#cb11-135"></a>      recent <span class="ot">&lt;-</span> res<span class="sc">$</span>recent</span>
+<span id="cb11-136"><a href="#cb11-136"></a></span>
+<span id="cb11-137"><a href="#cb11-137"></a>      <span class="cf">if</span> (res<span class="sc">$</span>outcome <span class="sc">==</span> <span class="st">"ok"</span>) {</span>
+<span id="cb11-138"><a href="#cb11-138"></a>        got_page[p] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb11-139"><a href="#cb11-139"></a>        <span class="cf">break</span></span>
+<span id="cb11-140"><a href="#cb11-140"></a>      }</span>
+<span id="cb11-141"><a href="#cb11-141"></a>      <span class="co"># Back off before the next attempt (only if we have attempts left)</span></span>
+<span id="cb11-142"><a href="#cb11-142"></a>      <span class="cf">if</span> (a <span class="sc">&lt;</span> attempts) {</span>
+<span id="cb11-143"><a href="#cb11-143"></a>        backoff <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="dv">2</span> <span class="sc">^</span> (a <span class="sc">-</span> <span class="dv">1</span>), <span class="dv">8</span>)</span>
+<span id="cb11-144"><a href="#cb11-144"></a>        <span class="cf">if</span> (res<span class="sc">$</span>outcome <span class="sc">==</span> <span class="st">"429"</span>) backoff <span class="ot">&lt;-</span> <span class="fu">max</span>(backoff, WIN_SEC)</span>
+<span id="cb11-145"><a href="#cb11-145"></a>        t <span class="ot">&lt;-</span> t <span class="sc">+</span> backoff</span>
+<span id="cb11-146"><a href="#cb11-146"></a>      }</span>
+<span id="cb11-147"><a href="#cb11-147"></a>    }</span>
+<span id="cb11-148"><a href="#cb11-148"></a>    t <span class="ot">&lt;-</span> t <span class="sc">+</span> interval</span>
+<span id="cb11-149"><a href="#cb11-149"></a>  }</span>
+<span id="cb11-150"><a href="#cb11-150"></a></span>
+<span id="cb11-151"><a href="#cb11-151"></a>  <span class="fu">sum</span>(got_page) <span class="sc">*</span> RECORDS_PER_PAGE</span>
+<span id="cb11-152"><a href="#cb11-152"></a>}</span>
+<span id="cb11-153"><a href="#cb11-153"></a><span class="in">```</span></span>
+<span id="cb11-154"><a href="#cb11-154"></a></span>
+<span id="cb11-155"><a href="#cb11-155"></a><span class="fu">### Run the Monte Carlo</span></span>
+<span id="cb11-156"><a href="#cb11-156"></a></span>
+<span id="cb11-159"><a href="#cb11-159"></a><span class="in">```{r}</span></span>
+<span id="cb11-160"><a href="#cb11-160"></a><span class="co">#| label: run-sim</span></span>
+<span id="cb11-161"><a href="#cb11-161"></a><span class="co">#| cache: true</span></span>
+<span id="cb11-162"><a href="#cb11-162"></a>strategies <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb11-163"><a href="#cb11-163"></a>  <span class="sc">~</span>name,                                   <span class="sc">~</span>interval, <span class="sc">~</span>retry,</span>
+<span id="cb11-164"><a href="#cb11-164"></a>  <span class="st">"Naive for loop</span><span class="sc">\n</span><span class="st">(httr::GET)"</span>,           <span class="fl">0.05</span>,      <span class="cn">FALSE</span>,</span>
+<span id="cb11-165"><a href="#cb11-165"></a>  <span class="st">"+ Sys.sleep(1)</span><span class="sc">\n</span><span class="st">between calls"</span>,         <span class="fl">1.00</span>,      <span class="cn">FALSE</span>,</span>
+<span id="cb11-166"><a href="#cb11-166"></a>  <span class="st">"httr2 +</span><span class="sc">\n</span><span class="st">req_throttle()"</span>,               <span class="fl">0.25</span>,      <span class="cn">FALSE</span>,</span>
+<span id="cb11-167"><a href="#cb11-167"></a>  <span class="st">"httr2 +</span><span class="sc">\n</span><span class="st">req_throttle()</span><span class="sc">\n</span><span class="st">+ req_retry()"</span>, <span class="fl">0.25</span>,     <span class="cn">TRUE</span></span>
+<span id="cb11-168"><a href="#cb11-168"></a>)</span>
+<span id="cb11-169"><a href="#cb11-169"></a></span>
+<span id="cb11-170"><a href="#cb11-170"></a>sim_results <span class="ot">&lt;-</span> strategies <span class="sc">|&gt;</span></span>
+<span id="cb11-171"><a href="#cb11-171"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-172"><a href="#cb11-172"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-173"><a href="#cb11-173"></a>    <span class="at">records =</span> <span class="fu">list</span>(<span class="fu">replicate</span>(N_SIMS, <span class="fu">run_strategy</span>(interval, retry)))</span>
+<span id="cb11-174"><a href="#cb11-174"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb11-175"><a href="#cb11-175"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-176"><a href="#cb11-176"></a>  <span class="fu">unnest</span>(records) <span class="sc">|&gt;</span></span>
+<span id="cb11-177"><a href="#cb11-177"></a>  <span class="fu">mutate</span>(<span class="at">completeness =</span> records <span class="sc">/</span> (TOTAL_PAGES <span class="sc">*</span> RECORDS_PER_PAGE) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb11-178"><a href="#cb11-178"></a><span class="in">```</span></span>
+<span id="cb11-179"><a href="#cb11-179"></a></span>
+<span id="cb11-180"><a href="#cb11-180"></a><span class="fu">## Results</span></span>
+<span id="cb11-181"><a href="#cb11-181"></a></span>
+<span id="cb11-184"><a href="#cb11-184"></a><span class="in">```{r}</span></span>
+<span id="cb11-185"><a href="#cb11-185"></a><span class="co">#| label: summary-table</span></span>
+<span id="cb11-186"><a href="#cb11-186"></a>summary_stats <span class="ot">&lt;-</span> sim_results <span class="sc">|&gt;</span></span>
+<span id="cb11-187"><a href="#cb11-187"></a>  <span class="fu">group_by</span>(name) <span class="sc">|&gt;</span></span>
+<span id="cb11-188"><a href="#cb11-188"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb11-189"><a href="#cb11-189"></a>    <span class="at">mean_pct =</span> <span class="fu">mean</span>(completeness),</span>
+<span id="cb11-190"><a href="#cb11-190"></a>    <span class="at">sd_pct   =</span> <span class="fu">sd</span>(completeness),</span>
+<span id="cb11-191"><a href="#cb11-191"></a>    <span class="at">p05      =</span> <span class="fu">quantile</span>(completeness, <span class="fl">0.05</span>),</span>
+<span id="cb11-192"><a href="#cb11-192"></a>    <span class="at">p95      =</span> <span class="fu">quantile</span>(completeness, <span class="fl">0.95</span>),</span>
+<span id="cb11-193"><a href="#cb11-193"></a>    <span class="at">.groups  =</span> <span class="st">"drop"</span></span>
+<span id="cb11-194"><a href="#cb11-194"></a>  )</span>
+<span id="cb11-195"><a href="#cb11-195"></a></span>
+<span id="cb11-196"><a href="#cb11-196"></a>summary_stats <span class="sc">|&gt;</span></span>
+<span id="cb11-197"><a href="#cb11-197"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">str_replace_all</span>(name, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">" "</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb11-198"><a href="#cb11-198"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">1</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Strategy"</span>, <span class="st">"Mean %"</span>, <span class="st">"SD"</span>, <span class="st">"5%"</span>, <span class="st">"95%"</span>))</span>
+<span id="cb11-199"><a href="#cb11-199"></a><span class="in">```</span></span>
+<span id="cb11-200"><a href="#cb11-200"></a></span>
+<span id="cb11-203"><a href="#cb11-203"></a><span class="in">```{r}</span></span>
+<span id="cb11-204"><a href="#cb11-204"></a><span class="co">#| label: fig-completeness</span></span>
+<span id="cb11-205"><a href="#cb11-205"></a><span class="co">#| fig-cap: "Completeness across 2,000 Monte Carlo runs. Bars show mean; whiskers span the 5th–95th percentile. `Sys.sleep(1)` and `req_throttle()` are statistically indistinguishable — the 8-percentage-point jump to 100% comes from `req_retry()`, not from pacing."</span></span>
+<span id="cb11-206"><a href="#cb11-206"></a></span>
+<span id="cb11-207"><a href="#cb11-207"></a>order <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Naive for loop</span><span class="sc">\n</span><span class="st">(httr::GET)"</span>,</span>
+<span id="cb11-208"><a href="#cb11-208"></a>           <span class="st">"+ Sys.sleep(1)</span><span class="sc">\n</span><span class="st">between calls"</span>,</span>
+<span id="cb11-209"><a href="#cb11-209"></a>           <span class="st">"httr2 +</span><span class="sc">\n</span><span class="st">req_throttle()"</span>,</span>
+<span id="cb11-210"><a href="#cb11-210"></a>           <span class="st">"httr2 +</span><span class="sc">\n</span><span class="st">req_throttle()</span><span class="sc">\n</span><span class="st">+ req_retry()"</span>)</span>
+<span id="cb11-211"><a href="#cb11-211"></a></span>
+<span id="cb11-212"><a href="#cb11-212"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#C23B22"</span>, <span class="st">"#E09E3E"</span>, <span class="st">"#3E6BA8"</span>, <span class="st">"#2F7E7E"</span>)</span>
+<span id="cb11-213"><a href="#cb11-213"></a></span>
+<span id="cb11-214"><a href="#cb11-214"></a>summary_stats <span class="sc">|&gt;</span></span>
+<span id="cb11-215"><a href="#cb11-215"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> order)) <span class="sc">|&gt;</span></span>
+<span id="cb11-216"><a href="#cb11-216"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> mean_pct, <span class="at">fill =</span> name)) <span class="sc">+</span></span>
+<span id="cb11-217"><a href="#cb11-217"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.56</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-218"><a href="#cb11-218"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> p05, <span class="at">ymax =</span> p95), <span class="at">width =</span> <span class="fl">0.12</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb11-219"><a href="#cb11-219"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, mean_pct), <span class="at">color =</span> name),</span>
+<span id="cb11-220"><a href="#cb11-220"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">1.4</span>, <span class="at">size =</span> <span class="fl">4.3</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-221"><a href="#cb11-221"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">100</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"grey70"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb11-222"><a href="#cb11-222"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">4.4</span>, <span class="at">y =</span> <span class="dv">101</span>, <span class="at">label =</span> <span class="st">"ground truth"</span>,</span>
+<span id="cb11-223"><a href="#cb11-223"></a>           <span class="at">color =</span> <span class="st">"grey55"</span>, <span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>, <span class="at">hjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb11-224"><a href="#cb11-224"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb11-225"><a href="#cb11-225"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb11-226"><a href="#cb11-226"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">118</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb11-227"><a href="#cb11-227"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Records retrieved  (% of true count)"</span>,</span>
+<span id="cb11-228"><a href="#cb11-228"></a>       <span class="at">title =</span> <span class="st">"What fraction of the data do you actually get back?"</span>) <span class="sc">+</span></span>
+<span id="cb11-229"><a href="#cb11-229"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb11-230"><a href="#cb11-230"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-231"><a href="#cb11-231"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">11</span>, <span class="at">color =</span> <span class="st">"grey15"</span>),</span>
+<span id="cb11-232"><a href="#cb11-232"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb11-233"><a href="#cb11-233"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb11-234"><a href="#cb11-234"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fl">8.5</span>, <span class="at">color =</span> <span class="st">"grey25"</span>)</span>
+<span id="cb11-235"><a href="#cb11-235"></a>  )</span>
+<span id="cb11-236"><a href="#cb11-236"></a><span class="in">```</span></span>
+<span id="cb11-237"><a href="#cb11-237"></a></span>
+<span id="cb11-238"><a href="#cb11-238"></a><span class="fu">## Discussion</span></span>
+<span id="cb11-239"><a href="#cb11-239"></a></span>
+<span id="cb11-240"><a href="#cb11-240"></a><span class="fu">### The finding I did not expect</span></span>
+<span id="cb11-241"><a href="#cb11-241"></a></span>
+<span id="cb11-242"><a href="#cb11-242"></a>The exam-slide story was: naive is bad, pacing helps a lot, throttling helps more, retry closes the final gap. The simulation says the middle two steps are the same. Under the model assumptions, **`Sys.sleep(1)` and `req_throttle()` produce indistinguishable completeness distributions** (both ≈ 92.1%, 5–95% band 86–98). The only statistically meaningful gap is naive → paced (≈ 65 pp) and paced → paced-with-retry (≈ 8 pp).</span>
+<span id="cb11-243"><a href="#cb11-243"></a></span>
+<span id="cb11-244"><a href="#cb11-244"></a>This is more interesting than my made-up story, because it reframes the argument for <span class="in">`httr2`</span>. <span class="in">`httr2`</span> is not better than a careful <span class="in">`Sys.sleep()`</span> loop because it paces more accurately. It is better because it *retries*. Retry is the ingredient that takes a dataset from "looks complete" to *actually* complete.</span>
+<span id="cb11-245"><a href="#cb11-245"></a></span>
+<span id="cb11-246"><a href="#cb11-246"></a>That said, <span class="in">`req_throttle()`</span> has two real advantages the simulation cannot see:</span>
+<span id="cb11-247"><a href="#cb11-247"></a></span>
+<span id="cb11-248"><a href="#cb11-248"></a><span class="ss">-   </span>**Robustness to variable latency.** In the simulation each GET is instantaneous; in reality <span class="in">`Sys.sleep(1)`</span> after a 2-second GET means an effective rate of 0.33 req/s — much slower than you intended. <span class="in">`req_throttle(rate = 1)`</span> enforces the target rate by measuring time since the last request, so latency variance does not slow you down.</span>
+<span id="cb11-249"><a href="#cb11-249"></a><span class="ss">-   </span>**Correct handling of `Retry-After`.** <span class="in">`req_retry()`</span> honors the <span class="in">`Retry-After`</span> header emitted by well-behaved APIs on 429. A hand-rolled retry in a <span class="in">`for`</span> loop usually does not.</span>
+<span id="cb11-250"><a href="#cb11-250"></a></span>
+<span id="cb11-251"><a href="#cb11-251"></a>Both matter in production. Neither shows up in a simple completeness-only metric. The simulation is a floor, not a ceiling.</span>
+<span id="cb11-252"><a href="#cb11-252"></a></span>
+<span id="cb11-253"><a href="#cb11-253"></a><span class="fu">### What a paced-but-no-retry run actually looks like</span></span>
+<span id="cb11-254"><a href="#cb11-254"></a></span>
+<span id="cb11-255"><a href="#cb11-255"></a>The 8% transient failures are not uniformly distributed across runs. Some simulation runs have 0 failed pages (48/50 × 10 = 480 records = 96% — wait, 50/50 = 100%). Other runs have 7+ failures (43/50 = 86%). The 5–95% band (86–98%) captures this variance.</span>
+<span id="cb11-256"><a href="#cb11-256"></a></span>
+<span id="cb11-257"><a href="#cb11-257"></a>What this means in practice: if you run a paced-but-unretried scrape *once* and it happens to complete every page, you will believe your code is correct. Run it next week and lose 14% of the data. The failure mode is probabilistic, not deterministic. This is how bugs survive code review.</span>
+<span id="cb11-258"><a href="#cb11-258"></a></span>
+<span id="cb11-259"><a href="#cb11-259"></a><span class="fu">### What this simulation deliberately does not test</span></span>
+<span id="cb11-260"><a href="#cb11-260"></a></span>
+<span id="cb11-261"><a href="#cb11-261"></a><span class="ss">-   </span>**Offset drift (Exam 3 Fig. 1).** That is a correctness failure in which the naive strategy returns duplicates or misses even if 100% of requests succeed. Testing it would require simulating record insertions between calls and a ground-truth set of unique records. The completeness metric above cannot see drift because it counts pages returned, not records uniquely retrieved.</span>
+<span id="cb11-262"><a href="#cb11-262"></a><span class="ss">-   </span>**Cursor vs offset pagination semantics.** The simulation uses a single page-indexed request model. Drift is what makes offset pagination incorrect in principle; cursor pagination is what makes it correct. That is a structural argument, not a Monte Carlo one.</span>
+<span id="cb11-263"><a href="#cb11-263"></a></span>
+<span id="cb11-264"><a href="#cb11-264"></a>A future extension would model a *changing* dataset during the scrape and measure both completeness and uniqueness simultaneously.</span>
+<span id="cb11-265"><a href="#cb11-265"></a></span>
+<span id="cb11-266"><a href="#cb11-266"></a><span class="fu">### Takeaway</span></span>
+<span id="cb11-267"><a href="#cb11-267"></a></span>
+<span id="cb11-268"><a href="#cb11-268"></a>The three things a <span class="in">`for`</span> + <span class="in">`GET()`</span> loop silently skips — drift protection, retry, throttle — are not optimizations. They are correctness guarantees. Pacing alone (either via <span class="in">`Sys.sleep()`</span> or <span class="in">`req_throttle()`</span>) gets you most of the way. Retry is what closes the remaining gap. <span class="in">`httr2`</span> is valuable because it makes all three defaults.</span>
+<span id="cb11-269"><a href="#cb11-269"></a></span>
+<span id="cb11-270"><a href="#cb11-270"></a><span class="fu">## Reproducibility</span></span>
+<span id="cb11-271"><a href="#cb11-271"></a></span>
+<span id="cb11-274"><a href="#cb11-274"></a><span class="in">```{r}</span></span>
+<span id="cb11-275"><a href="#cb11-275"></a><span class="co">#| label: session-info</span></span>
+<span id="cb11-276"><a href="#cb11-276"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb11-277"><a href="#cb11-277"></a><span class="in">```</span></span>
+<span id="cb11-278"><a href="#cb11-278"></a></span>
+<span id="cb11-279"><a href="#cb11-279"></a>Render this document with <span class="in">`quarto render pagination-simulation.qmd`</span>. The simulation runs in under 20 seconds on a 2024 laptop. Seed is fixed at <span class="in">`42`</span>; changing <span class="in">`N_SIMS`</span> to 10,000 narrows the confidence bands but does not change the ranking or any conclusion above.</span>
+<span id="cb11-280"><a href="#cb11-280"></a></span>
+<span id="cb11-281"><a href="#cb11-281"></a><span class="fu">## References</span></span>
+<span id="cb11-282"><a href="#cb11-282"></a></span>
+<span id="cb11-283"><a href="#cb11-283"></a><span class="ss">-   </span>Wickham, H. (2024). *httr2* R package. <span class="ot">&lt;https://httr2.r-lib.org&gt;</span></span>
+<span id="cb11-284"><a href="#cb11-284"></a><span class="ss">-   </span>Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). *R for Data Science* (2nd ed.), Ch. 20: Web APIs. <span class="ot">&lt;https://r4ds.hadley.nz&gt;</span></span>
+<span id="cb11-285"><a href="#cb11-285"></a><span class="ss">-   </span>Fielding, R., &amp; Reschke, J. (2014). *RFC 7231: HTTP/1.1 Semantic and Content*, §6.6.1 (429 Too Many Requests), §6.6.4 (503 Service Unavailable). <span class="ot">&lt;https://datatracker.ietf.org/doc/html/rfc7231&gt;</span></span>
+<span id="cb11-286"><a href="#cb11-286"></a><span class="ss">-   </span>He, Z. (2026). Exam 3 Report: Naive pagination silently corrupts your data. COMP/STAT 212 Exam Reports, Spring 2026.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
