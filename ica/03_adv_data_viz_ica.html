@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-22">
+<title>03 — Adv Data Viz – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/04-adv-maps-1-notes.html" rel="next">
+<link href="../ica/02_review.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/03_adv_data_viz_ica.html"><span class="chapter-title">03 — Adv Data Viz</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 3</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/01_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/02_review.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/03_adv_data_viz_ica.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">03 — Adv Data Viz</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6 - Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/capital_without_category_v3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/pagination-simulation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verifying Pagination Strategies: A Monte Carlo Simulation</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li>
+<a href="#exercise-1-data-storytelling-analysis" id="toc-exercise-1-data-storytelling-analysis" class="nav-link" data-scroll-target="#exercise-1-data-storytelling-analysis">Exercise 1: Data Storytelling Analysis</a>
+  <ul class="collapse">
+<li><a href="#what-key-message-does-nytimes-want-readers-to-explore" id="toc-what-key-message-does-nytimes-want-readers-to-explore" class="nav-link" data-scroll-target="#what-key-message-does-nytimes-want-readers-to-explore">What key message does NYTimes want readers to explore?</a></li>
+  <li><a href="#how-did-this-goal-inform-the-visualization-design" id="toc-how-did-this-goal-inform-the-visualization-design" class="nav-link" data-scroll-target="#how-did-this-goal-inform-the-visualization-design">How did this goal inform the visualization design?</a></li>
+  <li><a href="#aesthetic-mapping-analysis" id="toc-aesthetic-mapping-analysis" class="nav-link" data-scroll-target="#aesthetic-mapping-analysis">Aesthetic Mapping Analysis</a></li>
+  </ul>
+</li>
+  <li><a href="#exercise-2-identifying-appropriate-geoms" id="toc-exercise-2-identifying-appropriate-geoms" class="nav-link" data-scroll-target="#exercise-2-identifying-appropriate-geoms">Exercise 2: Identifying Appropriate Geoms</a></li>
+  <li><a href="#exercise-3-layering-temperature-ranges" id="toc-exercise-3-layering-temperature-ranges" class="nav-link" data-scroll-target="#exercise-3-layering-temperature-ranges">Exercise 3: Layering Temperature Ranges</a></li>
+  <li><a href="#exercise-4-adding-month-demarcations" id="toc-exercise-4-adding-month-demarcations" class="nav-link" data-scroll-target="#exercise-4-adding-month-demarcations">Exercise 4: Adding Month Demarcations</a></li>
+  <li><a href="#exercise-5-custom-x-axis-labels" id="toc-exercise-5-custom-x-axis-labels" class="nav-link" data-scroll-target="#exercise-5-custom-x-axis-labels">Exercise 5: Custom X-Axis Labels</a></li>
+  <li><a href="#exercise-6-precipitation-visualization" id="toc-exercise-6-precipitation-visualization" class="nav-link" data-scroll-target="#exercise-6-precipitation-visualization">Exercise 6: Precipitation Visualization</a></li>
+  <li><a href="#concluding-reflection" id="toc-concluding-reflection" class="nav-link" data-scroll-target="#concluding-reflection">Concluding Reflection</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/03_adv_data_viz_ica.html"><span class="chapter-title">03 — Adv Data Viz</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">03 — Adv Data Viz</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 22, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This assignment challenges us to recreate the <a href="https://www.nytimes.com/interactive/2015/us/weather-2014.html">New York Times 2015 Temperature Visualization</a> using San Francisco weather data from 2011. The NYTimes visualization is a masterclass in data storytelling—it transforms abstract climate data into an immediately comprehensible narrative about our warming planet. Through this exercise, I aim to develop not only technical proficiency with <code>ggplot2</code> but also a deeper appreciation for how design choices serve communicative intent.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>weather <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://mac-stat.github.io/data/sfo_weather.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="exercise-1-data-storytelling-analysis" class="level2"><h2 class="anchored" data-anchor-id="exercise-1-data-storytelling-analysis">Exercise 1: Data Storytelling Analysis</h2>
+<section id="what-key-message-does-nytimes-want-readers-to-explore" class="level3"><h3 class="anchored" data-anchor-id="what-key-message-does-nytimes-want-readers-to-explore">What key message does NYTimes want readers to explore?</h3>
+<p>The introduction—“Scientists declared that 2015 was Earth’s hottest year on record”—immediately establishes the narrative frame. The visualization isn’t merely presenting temperature data; it’s inviting readers to <em>experience</em> the claim that our planet is warming. The key message is both empirical and visceral: 2015 wasn’t just statistically warmer—it <em>felt</em> anomalous when placed against historical context.</p>
+</section><section id="how-did-this-goal-inform-the-visualization-design" class="level3"><h3 class="anchored" data-anchor-id="how-did-this-goal-inform-the-visualization-design">How did this goal inform the visualization design?</h3>
+<p>The design choices flow directly from this communicative intent:</p>
+<ol type="1">
+<li><p><strong>Layered comparison</strong>: By displaying record ranges, normal ranges, and actual temperatures simultaneously, readers can see at a glance where 2015 sits relative to historical norms. The choice to layer rather than use facets keeps all comparisons in immediate visual proximity.</p></li>
+<li><p><strong>Color hierarchy</strong>: The visual emphasis (through color saturation and hue) draws attention to deviations from the norm, particularly warm anomalies. This isn’t neutral data presentation—it’s visual rhetoric that supports the narrative.</p></li>
+<li><p><strong>Temporal continuity</strong>: The continuous x-axis preserves the cyclical, seasonal nature of temperature while allowing readers to scan for patterns across the entire year.</p></li>
+</ol></section><section id="aesthetic-mapping-analysis" class="level3"><h3 class="anchored" data-anchor-id="aesthetic-mapping-analysis">Aesthetic Mapping Analysis</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 64%">
+</colgroup>
+<thead><tr class="header">
+<th>Variable</th>
+<th>Aesthetic Mapping</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>dateInYear</code></td>
+<td>x-position (horizontal placement)</td>
+</tr>
+<tr class="even">
+<td>
+<code>RecordLow</code>, <code>RecordHigh</code>
+</td>
+<td>y-position endpoints (record temperature band)</td>
+</tr>
+<tr class="odd">
+<td>
+<code>NormalLow</code>, <code>NormalHigh</code>
+</td>
+<td>y-position endpoints (normal temperature band)</td>
+</tr>
+<tr class="even">
+<td>
+<code>Low</code>, <code>High</code>
+</td>
+<td>y-position endpoints (actual temperature band)</td>
+</tr>
+<tr class="odd">
+<td>Temperature category</td>
+<td>fill color (distinguishing record/normal/actual)</td>
+</tr>
+</tbody>
+</table></section></section><section id="exercise-2-identifying-appropriate-geoms" class="level2"><h2 class="anchored" data-anchor-id="exercise-2-identifying-appropriate-geoms">Exercise 2: Identifying Appropriate Geoms</h2>
+<p>After reviewing the <a href="https://ggplot2.tidyverse.org/reference/">ggplot2 reference page</a>, several geoms emerge as candidates:</p>
+<ul>
+<li>
+<strong><code>geom_linerange</code></strong>: Draws vertical lines from ymin to ymax—ideal for temperature ranges at each date point</li>
+<li>
+<strong><code>geom_ribbon</code></strong>: Creates filled areas between ymin and ymax—could work but better suited for continuous shaded regions</li>
+<li>
+<strong><code>geom_rect</code></strong>: Draws rectangles with precise positioning—offers finer control over width</li>
+</ul>
+<p>For this visualization, <code>geom_linerange</code> provides the cleanest implementation since we want discrete vertical bars for each day, not continuous ribbons. The <code>geom_rect</code> offers more control over bar width if needed.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> RecordLow, <span class="at">ymax =</span> RecordHigh),</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="at">color =</span> <span class="st">"#ECEBE3"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="at">linewidth =</span> <span class="fl">0.5</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="at">x =</span> <span class="st">"Day of Year"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="at">title =</span> <span class="st">"San Francisco Weather Records (2011)"</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="03_adv_data_viz_ica_files/figure-html/exercise-2-1.png" class="img-fluid figure-img" width="1152"></p>
+<figcaption>SFO Weather Records in 2011</figcaption></figure>
+</div>
+</div>
+</div>
+<p><strong>Reflection</strong>: The initial plot reveals the envelope of historical temperature extremes. The light tan color (#ECEBE3) establishes this as background context—a canvas against which more salient information will be layered. This design choice follows Tufte’s principle of using visual hierarchy to guide attention.</p>
+</section><section id="exercise-3-layering-temperature-ranges" class="level2"><h2 class="anchored" data-anchor-id="exercise-3-layering-temperature-ranges">Exercise 3: Layering Temperature Ranges</h2>
+<p>Now I add the typical temperature range and the actual 2011 temperatures. The key insight here is that ggplot2 layers are drawn in order—later geoms overlay earlier ones. This means the most important information (actual temperatures) should come last.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="co"># Layer 1: Record temperature range (background)</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> RecordLow, <span class="at">ymax =</span> RecordHigh),</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="at">color =</span> <span class="st">"#ECEBE3"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="co"># Layer 2: Normal/typical temperature range (middle ground)</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> NormalLow, <span class="at">ymax =</span> NormalHigh),</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="at">color =</span> <span class="st">"#C8B8BA"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="co"># Layer 3: Actual 2011 temperatures (foreground)</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> Low, <span class="at">ymax =</span> High),</span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="at">color =</span> <span class="st">"#A90248"</span>,</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="at">x =</span> <span class="st">"Day of Year"</span>,</span>
+<span id="cb3-22"><a href="#cb3-22"></a>    <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23"></a>    <span class="at">title =</span> <span class="st">"San Francisco Daily Temperatures (2011)"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24"></a>    <span class="at">subtitle =</span> <span class="st">"Comparing actual temperatures against historical norms and records"</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="03_adv_data_viz_ica_files/figure-html/exercise-3-1.png" class="img-fluid figure-img" width="1152"></p>
+<figcaption>SFO Observed, Average, and Record Daily Temperatures in 2011</figcaption></figure>
+</div>
+</div>
+</div>
+<p><strong>Reflection</strong>: The layered structure now tells a richer story. The pink/magenta bars showing actual temperatures sit atop the neutral bands, making it immediately visible where 2011 deviated from norms. Days where the actual temperatures extend beyond the normal range demand attention—they’re anomalies worth investigating.</p>
+</section><section id="exercise-4-adding-month-demarcations" class="level2"><h2 class="anchored" data-anchor-id="exercise-4-adding-month-demarcations">Exercise 4: Adding Month Demarcations</h2>
+<p>To add vertical lines separating months, I need to identify where each month begins. This requires creating a subset of the data containing only the first day of each month.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Create data for month dividers</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>month_starts <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">filter</span>(Day <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">select</span>(dateInYear, Month)</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="co"># Temperature layers</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> RecordLow, <span class="at">ymax =</span> RecordHigh),</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="at">color =</span> <span class="st">"#ECEBE3"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb4-14"><a href="#cb4-14"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> NormalLow, <span class="at">ymax =</span> NormalHigh),</span>
+<span id="cb4-15"><a href="#cb4-15"></a>    <span class="at">color =</span> <span class="st">"#C8B8BA"</span>,</span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb4-19"><a href="#cb4-19"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> Low, <span class="at">ymax =</span> High),</span>
+<span id="cb4-20"><a href="#cb4-20"></a>    <span class="at">color =</span> <span class="st">"#A90248"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>  <span class="co"># Month dividers</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb4-25"><a href="#cb4-25"></a>    <span class="at">data =</span> month_starts,</span>
+<span id="cb4-26"><a href="#cb4-26"></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> dateInYear),</span>
+<span id="cb4-27"><a href="#cb4-27"></a>    <span class="at">color =</span> <span class="st">"gray70"</span>,</span>
+<span id="cb4-28"><a href="#cb4-28"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb4-29"><a href="#cb4-29"></a>    <span class="at">linewidth =</span> <span class="fl">0.3</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-32"><a href="#cb4-32"></a>    <span class="at">x =</span> <span class="st">"Day of Year"</span>,</span>
+<span id="cb4-33"><a href="#cb4-33"></a>    <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb4-34"><a href="#cb4-34"></a>    <span class="at">title =</span> <span class="st">"San Francisco Daily Temperatures (2011)"</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="03_adv_data_viz_ica_files/figure-html/exercise-4-1.png" class="img-fluid figure-img" width="1152"></p>
+<figcaption>SFO Daily Temperatures with Month Demarcations</figcaption></figure>
+</div>
+</div>
+</div>
+<p><strong>Reflection</strong>: The vertical lines provide crucial temporal anchoring. Without them, the continuous stream of days blurs together. With them, readers can quickly locate specific months and compare seasonal patterns. This demonstrates an important principle: good visualization often requires adding structure that isn’t inherent in the data itself.</p>
+</section><section id="exercise-5-custom-x-axis-labels" class="level2"><h2 class="anchored" data-anchor-id="exercise-5-custom-x-axis-labels">Exercise 5: Custom X-Axis Labels</h2>
+<p>The default numeric x-axis (1-365) is technically accurate but semantically opaque. Replacing it with month names centered within each month’s span transforms raw numbers into meaningful temporal markers.</p>
+<p><strong>Search Process Documentation</strong>:</p>
+<p>I searched Google for “ggplot2 custom axis labels at specific positions” which led me to <code>scale_x_continuous()</code> with the <code>breaks</code> and <code>labels</code> arguments. The key insight is that we need to calculate the midpoint of each month.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Calculate month midpoints for label positioning</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>month_midpoints <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">group_by</span>(Month) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="at">mid =</span> <span class="fu">mean</span>(dateInYear),</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  )</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> RecordLow, <span class="at">ymax =</span> RecordHigh),</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    <span class="at">color =</span> <span class="st">"#ECEBE3"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb5-16"><a href="#cb5-16"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> NormalLow, <span class="at">ymax =</span> NormalHigh),</span>
+<span id="cb5-17"><a href="#cb5-17"></a>    <span class="at">color =</span> <span class="st">"#C8B8BA"</span>,</span>
+<span id="cb5-18"><a href="#cb5-18"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb5-21"><a href="#cb5-21"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> Low, <span class="at">ymax =</span> High),</span>
+<span id="cb5-22"><a href="#cb5-22"></a>    <span class="at">color =</span> <span class="st">"#A90248"</span>,</span>
+<span id="cb5-23"><a href="#cb5-23"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb5-26"><a href="#cb5-26"></a>    <span class="at">data =</span> month_starts,</span>
+<span id="cb5-27"><a href="#cb5-27"></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> dateInYear),</span>
+<span id="cb5-28"><a href="#cb5-28"></a>    <span class="at">color =</span> <span class="st">"gray70"</span>,</span>
+<span id="cb5-29"><a href="#cb5-29"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb5-30"><a href="#cb5-30"></a>    <span class="at">linewidth =</span> <span class="fl">0.3</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb5-33"><a href="#cb5-33"></a>    <span class="at">breaks =</span> month_midpoints<span class="sc">$</span>mid,</span>
+<span id="cb5-34"><a href="#cb5-34"></a>    <span class="at">labels =</span> month.abb</span>
+<span id="cb5-35"><a href="#cb5-35"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-37"><a href="#cb5-37"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-38"><a href="#cb5-38"></a>    <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb5-39"><a href="#cb5-39"></a>    <span class="at">title =</span> <span class="st">"San Francisco Daily Temperatures (2011)"</span>,</span>
+<span id="cb5-40"><a href="#cb5-40"></a>    <span class="at">subtitle =</span> <span class="st">"Observed temperatures compared to historical averages and records"</span></span>
+<span id="cb5-41"><a href="#cb5-41"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-42"><a href="#cb5-42"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb5-43"><a href="#cb5-43"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-44"><a href="#cb5-44"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-45"><a href="#cb5-45"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb5-46"><a href="#cb5-46"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="03_adv_data_viz_ica_files/figure-html/exercise-5-1.png" class="img-fluid figure-img" width="1152"></p>
+<figcaption>SFO Daily Temperatures with Month Labels</figcaption></figure>
+</div>
+</div>
+</div>
+<p><strong>Reflection</strong>: This transformation—from numbers to names—seems minor but fundamentally changes how readers interact with the visualization. “Day 180” requires mental arithmetic; “July” is immediately meaningful. Good visualization meets readers where they are.</p>
+</section><section id="exercise-6-precipitation-visualization" class="level2"><h2 class="anchored" data-anchor-id="exercise-6-precipitation-visualization">Exercise 6: Precipitation Visualization</h2>
+<p>The precipitation plot requires different visual encodings: bars for daily precipitation, triangles for record-breaking days, and text annotations for monthly totals.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Calculate monthly precipitation totals</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>monthly_precip <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">group_by</span>(Month) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="at">total =</span> <span class="fu">sum</span>(Precip, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="at">mid_day =</span> <span class="fu">mean</span>(dateInYear),</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  )</span>
+<span id="cb6-9"><a href="#cb6-9"></a></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># Maximum precipitation for positioning text</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>max_precip <span class="ot">&lt;-</span> <span class="fu">max</span>(weather<span class="sc">$</span>Precip, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-12"><a href="#cb6-12"></a></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>  <span class="co"># Daily precipitation bars</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb6-16"><a href="#cb6-16"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">y =</span> Precip),</span>
+<span id="cb6-17"><a href="#cb6-17"></a>    <span class="at">fill =</span> <span class="st">"#32a3d8"</span>,</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    <span class="at">width =</span> <span class="dv">1</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a>  <span class="co"># Month dividers</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb6-22"><a href="#cb6-22"></a>    <span class="at">data =</span> month_starts,</span>
+<span id="cb6-23"><a href="#cb6-23"></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> dateInYear),</span>
+<span id="cb6-24"><a href="#cb6-24"></a>    <span class="at">color =</span> <span class="st">"gray70"</span>,</span>
+<span id="cb6-25"><a href="#cb6-25"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb6-26"><a href="#cb6-26"></a>    <span class="at">linewidth =</span> <span class="fl">0.3</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-28"><a href="#cb6-28"></a>  <span class="co"># Record precipitation markers (triangles)</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb6-30"><a href="#cb6-30"></a>    <span class="at">data =</span> weather <span class="sc">|&gt;</span> <span class="fu">filter</span>(RecordP <span class="sc">==</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-31"><a href="#cb6-31"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">y =</span> Precip),</span>
+<span id="cb6-32"><a href="#cb6-32"></a>    <span class="at">shape =</span> <span class="dv">17</span>,  <span class="co"># triangle</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a>    <span class="at">color =</span> <span class="st">"#32a3d8"</span>,</span>
+<span id="cb6-34"><a href="#cb6-34"></a>    <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb6-35"><a href="#cb6-35"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-36"><a href="#cb6-36"></a>  <span class="co"># Monthly total annotations</span></span>
+<span id="cb6-37"><a href="#cb6-37"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb6-38"><a href="#cb6-38"></a>    <span class="at">data =</span> monthly_precip,</span>
+<span id="cb6-39"><a href="#cb6-39"></a>    <span class="fu">aes</span>(<span class="at">x =</span> mid_day, <span class="at">y =</span> max_precip <span class="sc">*</span> <span class="fl">0.95</span>, <span class="at">label =</span> <span class="fu">round</span>(total, <span class="dv">2</span>)),</span>
+<span id="cb6-40"><a href="#cb6-40"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb6-41"><a href="#cb6-41"></a>    <span class="at">hjust =</span> <span class="fl">0.5</span>,</span>
+<span id="cb6-42"><a href="#cb6-42"></a>    <span class="at">vjust =</span> <span class="dv">1</span>,</span>
+<span id="cb6-43"><a href="#cb6-43"></a>    <span class="at">color =</span> <span class="st">"gray40"</span></span>
+<span id="cb6-44"><a href="#cb6-44"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-45"><a href="#cb6-45"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb6-46"><a href="#cb6-46"></a>    <span class="at">breaks =</span> month_midpoints<span class="sc">$</span>mid,</span>
+<span id="cb6-47"><a href="#cb6-47"></a>    <span class="at">labels =</span> month.abb</span>
+<span id="cb6-48"><a href="#cb6-48"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-49"><a href="#cb6-49"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-50"><a href="#cb6-50"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-51"><a href="#cb6-51"></a>    <span class="at">y =</span> <span class="st">"Precipitation (inches)"</span>,</span>
+<span id="cb6-52"><a href="#cb6-52"></a>    <span class="at">title =</span> <span class="st">"San Francisco Precipitation (2011)"</span>,</span>
+<span id="cb6-53"><a href="#cb6-53"></a>    <span class="at">subtitle =</span> <span class="st">"Daily rainfall with monthly totals; triangles indicate record-breaking days"</span></span>
+<span id="cb6-54"><a href="#cb6-54"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-55"><a href="#cb6-55"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb6-56"><a href="#cb6-56"></a>  <span class="fu">theme</span>(</span>
+<span id="cb6-57"><a href="#cb6-57"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb6-58"><a href="#cb6-58"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#ebeae2"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb6-59"><a href="#cb6-59"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#ebeae2"</span>, <span class="at">color =</span> <span class="cn">NA</span>)</span>
+<span id="cb6-60"><a href="#cb6-60"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="03_adv_data_viz_ica_files/figure-html/exercise-6-1.png" class="img-fluid figure-img" width="1152"></p>
+<figcaption>SFO Precipitation in 2011</figcaption></figure>
+</div>
+</div>
+</div>
+<p><strong>Reflection</strong>: The precipitation plot uses different visual vocabulary than the temperature plot—appropriately so, since precipitation is fundamentally different data. Temperature has natural ranges (low to high each day); precipitation is a single value per day. The triangular markers for record days provide a secondary narrative layer without cluttering the primary visualization.</p>
+</section><section id="concluding-reflection" class="level2"><h2 class="anchored" data-anchor-id="concluding-reflection">Concluding Reflection</h2>
+<p>This exercise illuminated several principles that extend beyond technical ggplot2 proficiency:</p>
+<ol type="1">
+<li><p><strong>Design serves story</strong>: Every aesthetic choice—color, layer order, axis labels—should advance the communicative intent. The NYTimes visualization succeeds because its design choices aren’t arbitrary; they’re rhetorical.</p></li>
+<li><p><strong>Layering creates hierarchy</strong>: The human eye naturally perceives layered elements as having different importance levels. By placing records at the back and actuals at the front, we guide attention toward the most meaningful comparisons.</p></li>
+<li><p><strong>Context enables interpretation</strong>: Raw data (temperatures, precipitation amounts) becomes meaningful only when contextualized against norms, records, and temporal structure. Visualization isn’t just displaying data—it’s constructing interpretive frameworks.</p></li>
+<li><p><strong>Documentation is exploration</strong>: The process of searching documentation, experimenting with parameters, and iterating toward solutions is itself a form of learning. The “answer” matters less than the capacity to navigate toward it.</p></li>
+</ol>
+<p>As someone working on institutional capacity analysis in development contexts, I’m struck by the parallel: just as good visualization requires layering context to enable interpretation, good policy analysis requires understanding the institutional scaffolding that gives interventions meaning. Data, like policy, speaks only within frameworks of interpretation.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-body"><div class="nav-page nav-page-previous">
+      <a href="../ica/02_review.html" class="pagination-link" aria-label="02 — Review: File Paths, Git, and Data Wrangling">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/04-adv-maps-1-notes.html" class="pagination-link" aria-label="Advanced Spatial Visualization: Minnesota Mapping">
+        <span class="nav-page-text"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="an">title:</span><span class="co"> "03 — Adv Data Viz"</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">  html:</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">    toc: true</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">    code-fold: false</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="an">execute:</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">  warning: false</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">  message: false</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">---</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="fu">## Introduction</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a></span>
+<span id="cb7-18"><a href="#cb7-18"></a>This assignment challenges us to recreate the <span class="co">[</span><span class="ot">New York Times 2015 Temperature Visualization</span><span class="co">](https://www.nytimes.com/interactive/2015/us/weather-2014.html)</span> using San Francisco weather data from 2011. The NYTimes visualization is a masterclass in data storytelling—it transforms abstract climate data into an immediately comprehensible narrative about our warming planet. Through this exercise, I aim to develop not only technical proficiency with <span class="in">`ggplot2`</span> but also a deeper appreciation for how design choices serve communicative intent.</span>
+<span id="cb7-19"><a href="#cb7-19"></a></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="in">```{r}</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#| label: setup</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-26"><a href="#cb7-26"></a>weather <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://mac-stat.github.io/data/sfo_weather.csv"</span>)</span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="in">```</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="fu">## Exercise 1: Data Storytelling Analysis</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="fu">### What key message does NYTimes want readers to explore?</span></span>
+<span id="cb7-32"><a href="#cb7-32"></a></span>
+<span id="cb7-33"><a href="#cb7-33"></a>The introduction—"Scientists declared that 2015 was Earth's hottest year on record"—immediately establishes the narrative frame. The visualization isn't merely presenting temperature data; it's inviting readers to *experience* the claim that our planet is warming. The key message is both empirical and visceral: 2015 wasn't just statistically warmer—it *felt* anomalous when placed against historical context.</span>
+<span id="cb7-34"><a href="#cb7-34"></a></span>
+<span id="cb7-35"><a href="#cb7-35"></a><span class="fu">### How did this goal inform the visualization design?</span></span>
+<span id="cb7-36"><a href="#cb7-36"></a></span>
+<span id="cb7-37"><a href="#cb7-37"></a>The design choices flow directly from this communicative intent:</span>
+<span id="cb7-38"><a href="#cb7-38"></a></span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="ss">1. </span>**Layered comparison**: By displaying record ranges, normal ranges, and actual temperatures simultaneously, readers can see at a glance where 2015 sits relative to historical norms. The choice to layer rather than use facets keeps all comparisons in immediate visual proximity.</span>
+<span id="cb7-40"><a href="#cb7-40"></a></span>
+<span id="cb7-41"><a href="#cb7-41"></a><span class="ss">2. </span>**Color hierarchy**: The visual emphasis (through color saturation and hue) draws attention to deviations from the norm, particularly warm anomalies. This isn't neutral data presentation—it's visual rhetoric that supports the narrative.</span>
+<span id="cb7-42"><a href="#cb7-42"></a></span>
+<span id="cb7-43"><a href="#cb7-43"></a><span class="ss">3. </span>**Temporal continuity**: The continuous x-axis preserves the cyclical, seasonal nature of temperature while allowing readers to scan for patterns across the entire year.</span>
+<span id="cb7-44"><a href="#cb7-44"></a></span>
+<span id="cb7-45"><a href="#cb7-45"></a><span class="fu">### Aesthetic Mapping Analysis</span></span>
+<span id="cb7-46"><a href="#cb7-46"></a></span>
+<span id="cb7-47"><a href="#cb7-47"></a><span class="pp">|</span> Variable <span class="pp">|</span> Aesthetic Mapping <span class="pp">|</span></span>
+<span id="cb7-48"><a href="#cb7-48"></a><span class="pp">|----------|------------------|</span></span>
+<span id="cb7-49"><a href="#cb7-49"></a><span class="pp">|</span> <span class="in">`dateInYear`</span> <span class="pp">|</span> x-position (horizontal placement) <span class="pp">|</span></span>
+<span id="cb7-50"><a href="#cb7-50"></a><span class="pp">|</span> <span class="in">`RecordLow`</span>, <span class="in">`RecordHigh`</span> <span class="pp">|</span> y-position endpoints (record temperature band) <span class="pp">|</span></span>
+<span id="cb7-51"><a href="#cb7-51"></a><span class="pp">|</span> <span class="in">`NormalLow`</span>, <span class="in">`NormalHigh`</span> <span class="pp">|</span> y-position endpoints (normal temperature band) <span class="pp">|</span></span>
+<span id="cb7-52"><a href="#cb7-52"></a><span class="pp">|</span> <span class="in">`Low`</span>, <span class="in">`High`</span> <span class="pp">|</span> y-position endpoints (actual temperature band) <span class="pp">|</span></span>
+<span id="cb7-53"><a href="#cb7-53"></a><span class="pp">|</span> Temperature category <span class="pp">|</span> fill color (distinguishing record/normal/actual) <span class="pp">|</span></span>
+<span id="cb7-54"><a href="#cb7-54"></a></span>
+<span id="cb7-55"><a href="#cb7-55"></a><span class="fu">## Exercise 2: Identifying Appropriate Geoms</span></span>
+<span id="cb7-56"><a href="#cb7-56"></a></span>
+<span id="cb7-57"><a href="#cb7-57"></a>After reviewing the <span class="co">[</span><span class="ot">ggplot2 reference page</span><span class="co">](https://ggplot2.tidyverse.org/reference/)</span>, several geoms emerge as candidates:</span>
+<span id="cb7-58"><a href="#cb7-58"></a></span>
+<span id="cb7-59"><a href="#cb7-59"></a><span class="ss">- </span>**`geom_linerange`**: Draws vertical lines from ymin to ymax—ideal for temperature ranges at each date point</span>
+<span id="cb7-60"><a href="#cb7-60"></a><span class="ss">- </span>**`geom_ribbon`**: Creates filled areas between ymin and ymax—could work but better suited for continuous shaded regions</span>
+<span id="cb7-61"><a href="#cb7-61"></a><span class="ss">- </span>**`geom_rect`**: Draws rectangles with precise positioning—offers finer control over width</span>
+<span id="cb7-62"><a href="#cb7-62"></a></span>
+<span id="cb7-63"><a href="#cb7-63"></a>For this visualization, <span class="in">`geom_linerange`</span> provides the cleanest implementation since we want discrete vertical bars for each day, not continuous ribbons. The <span class="in">`geom_rect`</span> offers more control over bar width if needed.</span>
+<span id="cb7-64"><a href="#cb7-64"></a></span>
+<span id="cb7-67"><a href="#cb7-67"></a><span class="in">```{r}</span></span>
+<span id="cb7-68"><a href="#cb7-68"></a><span class="co">#| label: exercise-2</span></span>
+<span id="cb7-69"><a href="#cb7-69"></a><span class="co">#| fig-cap: "SFO Weather Records in 2011"</span></span>
+<span id="cb7-70"><a href="#cb7-70"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb7-71"><a href="#cb7-71"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb7-72"><a href="#cb7-72"></a></span>
+<span id="cb7-73"><a href="#cb7-73"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb7-74"><a href="#cb7-74"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-75"><a href="#cb7-75"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> RecordLow, <span class="at">ymax =</span> RecordHigh),</span>
+<span id="cb7-76"><a href="#cb7-76"></a>    <span class="at">color =</span> <span class="st">"#ECEBE3"</span>,</span>
+<span id="cb7-77"><a href="#cb7-77"></a>    <span class="at">linewidth =</span> <span class="fl">0.5</span></span>
+<span id="cb7-78"><a href="#cb7-78"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-79"><a href="#cb7-79"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-80"><a href="#cb7-80"></a>    <span class="at">x =</span> <span class="st">"Day of Year"</span>,</span>
+<span id="cb7-81"><a href="#cb7-81"></a>    <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb7-82"><a href="#cb7-82"></a>    <span class="at">title =</span> <span class="st">"San Francisco Weather Records (2011)"</span></span>
+<span id="cb7-83"><a href="#cb7-83"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-84"><a href="#cb7-84"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb7-85"><a href="#cb7-85"></a><span class="in">```</span></span>
+<span id="cb7-86"><a href="#cb7-86"></a></span>
+<span id="cb7-87"><a href="#cb7-87"></a>**Reflection**: The initial plot reveals the envelope of historical temperature extremes. The light tan color (#ECEBE3) establishes this as background context—a canvas against which more salient information will be layered. This design choice follows Tufte's principle of using visual hierarchy to guide attention.</span>
+<span id="cb7-88"><a href="#cb7-88"></a></span>
+<span id="cb7-89"><a href="#cb7-89"></a><span class="fu">## Exercise 3: Layering Temperature Ranges</span></span>
+<span id="cb7-90"><a href="#cb7-90"></a></span>
+<span id="cb7-91"><a href="#cb7-91"></a>Now I add the typical temperature range and the actual 2011 temperatures. The key insight here is that ggplot2 layers are drawn in order—later geoms overlay earlier ones. This means the most important information (actual temperatures) should come last.</span>
+<span id="cb7-92"><a href="#cb7-92"></a></span>
+<span id="cb7-95"><a href="#cb7-95"></a><span class="in">```{r}</span></span>
+<span id="cb7-96"><a href="#cb7-96"></a><span class="co">#| label: exercise-3</span></span>
+<span id="cb7-97"><a href="#cb7-97"></a><span class="co">#| fig-cap: "SFO Observed, Average, and Record Daily Temperatures in 2011"</span></span>
+<span id="cb7-98"><a href="#cb7-98"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb7-99"><a href="#cb7-99"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb7-100"><a href="#cb7-100"></a></span>
+<span id="cb7-101"><a href="#cb7-101"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb7-102"><a href="#cb7-102"></a>  <span class="co"># Layer 1: Record temperature range (background)</span></span>
+<span id="cb7-103"><a href="#cb7-103"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-104"><a href="#cb7-104"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> RecordLow, <span class="at">ymax =</span> RecordHigh),</span>
+<span id="cb7-105"><a href="#cb7-105"></a>    <span class="at">color =</span> <span class="st">"#ECEBE3"</span>,</span>
+<span id="cb7-106"><a href="#cb7-106"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb7-107"><a href="#cb7-107"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-108"><a href="#cb7-108"></a>  <span class="co"># Layer 2: Normal/typical temperature range (middle ground)</span></span>
+<span id="cb7-109"><a href="#cb7-109"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-110"><a href="#cb7-110"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> NormalLow, <span class="at">ymax =</span> NormalHigh),</span>
+<span id="cb7-111"><a href="#cb7-111"></a>    <span class="at">color =</span> <span class="st">"#C8B8BA"</span>,</span>
+<span id="cb7-112"><a href="#cb7-112"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb7-113"><a href="#cb7-113"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-114"><a href="#cb7-114"></a>  <span class="co"># Layer 3: Actual 2011 temperatures (foreground)</span></span>
+<span id="cb7-115"><a href="#cb7-115"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-116"><a href="#cb7-116"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> Low, <span class="at">ymax =</span> High),</span>
+<span id="cb7-117"><a href="#cb7-117"></a>    <span class="at">color =</span> <span class="st">"#A90248"</span>,</span>
+<span id="cb7-118"><a href="#cb7-118"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb7-119"><a href="#cb7-119"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-120"><a href="#cb7-120"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-121"><a href="#cb7-121"></a>    <span class="at">x =</span> <span class="st">"Day of Year"</span>,</span>
+<span id="cb7-122"><a href="#cb7-122"></a>    <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb7-123"><a href="#cb7-123"></a>    <span class="at">title =</span> <span class="st">"San Francisco Daily Temperatures (2011)"</span>,</span>
+<span id="cb7-124"><a href="#cb7-124"></a>    <span class="at">subtitle =</span> <span class="st">"Comparing actual temperatures against historical norms and records"</span></span>
+<span id="cb7-125"><a href="#cb7-125"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-126"><a href="#cb7-126"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb7-127"><a href="#cb7-127"></a><span class="in">```</span></span>
+<span id="cb7-128"><a href="#cb7-128"></a></span>
+<span id="cb7-129"><a href="#cb7-129"></a>**Reflection**: The layered structure now tells a richer story. The pink/magenta bars showing actual temperatures sit atop the neutral bands, making it immediately visible where 2011 deviated from norms. Days where the actual temperatures extend beyond the normal range demand attention—they're anomalies worth investigating.</span>
+<span id="cb7-130"><a href="#cb7-130"></a></span>
+<span id="cb7-131"><a href="#cb7-131"></a><span class="fu">## Exercise 4: Adding Month Demarcations</span></span>
+<span id="cb7-132"><a href="#cb7-132"></a></span>
+<span id="cb7-133"><a href="#cb7-133"></a>To add vertical lines separating months, I need to identify where each month begins. This requires creating a subset of the data containing only the first day of each month.</span>
+<span id="cb7-134"><a href="#cb7-134"></a></span>
+<span id="cb7-137"><a href="#cb7-137"></a><span class="in">```{r}</span></span>
+<span id="cb7-138"><a href="#cb7-138"></a><span class="co">#| label: exercise-4</span></span>
+<span id="cb7-139"><a href="#cb7-139"></a><span class="co">#| fig-cap: "SFO Daily Temperatures with Month Demarcations"</span></span>
+<span id="cb7-140"><a href="#cb7-140"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb7-141"><a href="#cb7-141"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb7-142"><a href="#cb7-142"></a></span>
+<span id="cb7-143"><a href="#cb7-143"></a><span class="co"># Create data for month dividers</span></span>
+<span id="cb7-144"><a href="#cb7-144"></a>month_starts <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb7-145"><a href="#cb7-145"></a>  <span class="fu">filter</span>(Day <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-146"><a href="#cb7-146"></a>  <span class="fu">select</span>(dateInYear, Month)</span>
+<span id="cb7-147"><a href="#cb7-147"></a></span>
+<span id="cb7-148"><a href="#cb7-148"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb7-149"><a href="#cb7-149"></a>  <span class="co"># Temperature layers</span></span>
+<span id="cb7-150"><a href="#cb7-150"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-151"><a href="#cb7-151"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> RecordLow, <span class="at">ymax =</span> RecordHigh),</span>
+<span id="cb7-152"><a href="#cb7-152"></a>    <span class="at">color =</span> <span class="st">"#ECEBE3"</span>,</span>
+<span id="cb7-153"><a href="#cb7-153"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb7-154"><a href="#cb7-154"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-155"><a href="#cb7-155"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-156"><a href="#cb7-156"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> NormalLow, <span class="at">ymax =</span> NormalHigh),</span>
+<span id="cb7-157"><a href="#cb7-157"></a>    <span class="at">color =</span> <span class="st">"#C8B8BA"</span>,</span>
+<span id="cb7-158"><a href="#cb7-158"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb7-159"><a href="#cb7-159"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-160"><a href="#cb7-160"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-161"><a href="#cb7-161"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> Low, <span class="at">ymax =</span> High),</span>
+<span id="cb7-162"><a href="#cb7-162"></a>    <span class="at">color =</span> <span class="st">"#A90248"</span>,</span>
+<span id="cb7-163"><a href="#cb7-163"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb7-164"><a href="#cb7-164"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-165"><a href="#cb7-165"></a>  <span class="co"># Month dividers</span></span>
+<span id="cb7-166"><a href="#cb7-166"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb7-167"><a href="#cb7-167"></a>    <span class="at">data =</span> month_starts,</span>
+<span id="cb7-168"><a href="#cb7-168"></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> dateInYear),</span>
+<span id="cb7-169"><a href="#cb7-169"></a>    <span class="at">color =</span> <span class="st">"gray70"</span>,</span>
+<span id="cb7-170"><a href="#cb7-170"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb7-171"><a href="#cb7-171"></a>    <span class="at">linewidth =</span> <span class="fl">0.3</span></span>
+<span id="cb7-172"><a href="#cb7-172"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-173"><a href="#cb7-173"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-174"><a href="#cb7-174"></a>    <span class="at">x =</span> <span class="st">"Day of Year"</span>,</span>
+<span id="cb7-175"><a href="#cb7-175"></a>    <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb7-176"><a href="#cb7-176"></a>    <span class="at">title =</span> <span class="st">"San Francisco Daily Temperatures (2011)"</span></span>
+<span id="cb7-177"><a href="#cb7-177"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-178"><a href="#cb7-178"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb7-179"><a href="#cb7-179"></a><span class="in">```</span></span>
+<span id="cb7-180"><a href="#cb7-180"></a></span>
+<span id="cb7-181"><a href="#cb7-181"></a>**Reflection**: The vertical lines provide crucial temporal anchoring. Without them, the continuous stream of days blurs together. With them, readers can quickly locate specific months and compare seasonal patterns. This demonstrates an important principle: good visualization often requires adding structure that isn't inherent in the data itself.</span>
+<span id="cb7-182"><a href="#cb7-182"></a></span>
+<span id="cb7-183"><a href="#cb7-183"></a><span class="fu">## Exercise 5: Custom X-Axis Labels</span></span>
+<span id="cb7-184"><a href="#cb7-184"></a></span>
+<span id="cb7-185"><a href="#cb7-185"></a>The default numeric x-axis (1-365) is technically accurate but semantically opaque. Replacing it with month names centered within each month's span transforms raw numbers into meaningful temporal markers.</span>
+<span id="cb7-186"><a href="#cb7-186"></a></span>
+<span id="cb7-187"><a href="#cb7-187"></a>**Search Process Documentation**:</span>
+<span id="cb7-188"><a href="#cb7-188"></a></span>
+<span id="cb7-189"><a href="#cb7-189"></a>I searched Google for "ggplot2 custom axis labels at specific positions" which led me to <span class="in">`scale_x_continuous()`</span> with the <span class="in">`breaks`</span> and <span class="in">`labels`</span> arguments. The key insight is that we need to calculate the midpoint of each month.</span>
+<span id="cb7-190"><a href="#cb7-190"></a></span>
+<span id="cb7-193"><a href="#cb7-193"></a><span class="in">```{r}</span></span>
+<span id="cb7-194"><a href="#cb7-194"></a><span class="co">#| label: exercise-5</span></span>
+<span id="cb7-195"><a href="#cb7-195"></a><span class="co">#| fig-cap: "SFO Daily Temperatures with Month Labels"</span></span>
+<span id="cb7-196"><a href="#cb7-196"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb7-197"><a href="#cb7-197"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb7-198"><a href="#cb7-198"></a></span>
+<span id="cb7-199"><a href="#cb7-199"></a><span class="co"># Calculate month midpoints for label positioning</span></span>
+<span id="cb7-200"><a href="#cb7-200"></a>month_midpoints <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb7-201"><a href="#cb7-201"></a>  <span class="fu">group_by</span>(Month) <span class="sc">|&gt;</span></span>
+<span id="cb7-202"><a href="#cb7-202"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb7-203"><a href="#cb7-203"></a>    <span class="at">mid =</span> <span class="fu">mean</span>(dateInYear),</span>
+<span id="cb7-204"><a href="#cb7-204"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb7-205"><a href="#cb7-205"></a>  )</span>
+<span id="cb7-206"><a href="#cb7-206"></a></span>
+<span id="cb7-207"><a href="#cb7-207"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb7-208"><a href="#cb7-208"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-209"><a href="#cb7-209"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> RecordLow, <span class="at">ymax =</span> RecordHigh),</span>
+<span id="cb7-210"><a href="#cb7-210"></a>    <span class="at">color =</span> <span class="st">"#ECEBE3"</span>,</span>
+<span id="cb7-211"><a href="#cb7-211"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb7-212"><a href="#cb7-212"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-213"><a href="#cb7-213"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-214"><a href="#cb7-214"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> NormalLow, <span class="at">ymax =</span> NormalHigh),</span>
+<span id="cb7-215"><a href="#cb7-215"></a>    <span class="at">color =</span> <span class="st">"#C8B8BA"</span>,</span>
+<span id="cb7-216"><a href="#cb7-216"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb7-217"><a href="#cb7-217"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-218"><a href="#cb7-218"></a>  <span class="fu">geom_linerange</span>(</span>
+<span id="cb7-219"><a href="#cb7-219"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">ymin =</span> Low, <span class="at">ymax =</span> High),</span>
+<span id="cb7-220"><a href="#cb7-220"></a>    <span class="at">color =</span> <span class="st">"#A90248"</span>,</span>
+<span id="cb7-221"><a href="#cb7-221"></a>    <span class="at">linewidth =</span> <span class="fl">2.5</span></span>
+<span id="cb7-222"><a href="#cb7-222"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-223"><a href="#cb7-223"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb7-224"><a href="#cb7-224"></a>    <span class="at">data =</span> month_starts,</span>
+<span id="cb7-225"><a href="#cb7-225"></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> dateInYear),</span>
+<span id="cb7-226"><a href="#cb7-226"></a>    <span class="at">color =</span> <span class="st">"gray70"</span>,</span>
+<span id="cb7-227"><a href="#cb7-227"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb7-228"><a href="#cb7-228"></a>    <span class="at">linewidth =</span> <span class="fl">0.3</span></span>
+<span id="cb7-229"><a href="#cb7-229"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-230"><a href="#cb7-230"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb7-231"><a href="#cb7-231"></a>    <span class="at">breaks =</span> month_midpoints<span class="sc">$</span>mid,</span>
+<span id="cb7-232"><a href="#cb7-232"></a>    <span class="at">labels =</span> month.abb</span>
+<span id="cb7-233"><a href="#cb7-233"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-234"><a href="#cb7-234"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-235"><a href="#cb7-235"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb7-236"><a href="#cb7-236"></a>    <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb7-237"><a href="#cb7-237"></a>    <span class="at">title =</span> <span class="st">"San Francisco Daily Temperatures (2011)"</span>,</span>
+<span id="cb7-238"><a href="#cb7-238"></a>    <span class="at">subtitle =</span> <span class="st">"Observed temperatures compared to historical averages and records"</span></span>
+<span id="cb7-239"><a href="#cb7-239"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-240"><a href="#cb7-240"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb7-241"><a href="#cb7-241"></a>  <span class="fu">theme</span>(</span>
+<span id="cb7-242"><a href="#cb7-242"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-243"><a href="#cb7-243"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb7-244"><a href="#cb7-244"></a>  )</span>
+<span id="cb7-245"><a href="#cb7-245"></a><span class="in">```</span></span>
+<span id="cb7-246"><a href="#cb7-246"></a></span>
+<span id="cb7-247"><a href="#cb7-247"></a>**Reflection**: This transformation—from numbers to names—seems minor but fundamentally changes how readers interact with the visualization. "Day 180" requires mental arithmetic; "July" is immediately meaningful. Good visualization meets readers where they are.</span>
+<span id="cb7-248"><a href="#cb7-248"></a></span>
+<span id="cb7-249"><a href="#cb7-249"></a><span class="fu">## Exercise 6: Precipitation Visualization</span></span>
+<span id="cb7-250"><a href="#cb7-250"></a></span>
+<span id="cb7-251"><a href="#cb7-251"></a>The precipitation plot requires different visual encodings: bars for daily precipitation, triangles for record-breaking days, and text annotations for monthly totals.</span>
+<span id="cb7-252"><a href="#cb7-252"></a></span>
+<span id="cb7-255"><a href="#cb7-255"></a><span class="in">```{r}</span></span>
+<span id="cb7-256"><a href="#cb7-256"></a><span class="co">#| label: exercise-6</span></span>
+<span id="cb7-257"><a href="#cb7-257"></a><span class="co">#| fig-cap: "SFO Precipitation in 2011"</span></span>
+<span id="cb7-258"><a href="#cb7-258"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb7-259"><a href="#cb7-259"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb7-260"><a href="#cb7-260"></a></span>
+<span id="cb7-261"><a href="#cb7-261"></a><span class="co"># Calculate monthly precipitation totals</span></span>
+<span id="cb7-262"><a href="#cb7-262"></a>monthly_precip <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb7-263"><a href="#cb7-263"></a>  <span class="fu">group_by</span>(Month) <span class="sc">|&gt;</span></span>
+<span id="cb7-264"><a href="#cb7-264"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb7-265"><a href="#cb7-265"></a>    <span class="at">total =</span> <span class="fu">sum</span>(Precip, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-266"><a href="#cb7-266"></a>    <span class="at">mid_day =</span> <span class="fu">mean</span>(dateInYear),</span>
+<span id="cb7-267"><a href="#cb7-267"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb7-268"><a href="#cb7-268"></a>  )</span>
+<span id="cb7-269"><a href="#cb7-269"></a></span>
+<span id="cb7-270"><a href="#cb7-270"></a><span class="co"># Maximum precipitation for positioning text</span></span>
+<span id="cb7-271"><a href="#cb7-271"></a>max_precip <span class="ot">&lt;-</span> <span class="fu">max</span>(weather<span class="sc">$</span>Precip, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-272"><a href="#cb7-272"></a></span>
+<span id="cb7-273"><a href="#cb7-273"></a><span class="fu">ggplot</span>(weather) <span class="sc">+</span></span>
+<span id="cb7-274"><a href="#cb7-274"></a>  <span class="co"># Daily precipitation bars</span></span>
+<span id="cb7-275"><a href="#cb7-275"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb7-276"><a href="#cb7-276"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">y =</span> Precip),</span>
+<span id="cb7-277"><a href="#cb7-277"></a>    <span class="at">fill =</span> <span class="st">"#32a3d8"</span>,</span>
+<span id="cb7-278"><a href="#cb7-278"></a>    <span class="at">width =</span> <span class="dv">1</span></span>
+<span id="cb7-279"><a href="#cb7-279"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-280"><a href="#cb7-280"></a>  <span class="co"># Month dividers</span></span>
+<span id="cb7-281"><a href="#cb7-281"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb7-282"><a href="#cb7-282"></a>    <span class="at">data =</span> month_starts,</span>
+<span id="cb7-283"><a href="#cb7-283"></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> dateInYear),</span>
+<span id="cb7-284"><a href="#cb7-284"></a>    <span class="at">color =</span> <span class="st">"gray70"</span>,</span>
+<span id="cb7-285"><a href="#cb7-285"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb7-286"><a href="#cb7-286"></a>    <span class="at">linewidth =</span> <span class="fl">0.3</span></span>
+<span id="cb7-287"><a href="#cb7-287"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-288"><a href="#cb7-288"></a>  <span class="co"># Record precipitation markers (triangles)</span></span>
+<span id="cb7-289"><a href="#cb7-289"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb7-290"><a href="#cb7-290"></a>    <span class="at">data =</span> weather <span class="sc">|&gt;</span> <span class="fu">filter</span>(RecordP <span class="sc">==</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-291"><a href="#cb7-291"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dateInYear, <span class="at">y =</span> Precip),</span>
+<span id="cb7-292"><a href="#cb7-292"></a>    <span class="at">shape =</span> <span class="dv">17</span>,  <span class="co"># triangle</span></span>
+<span id="cb7-293"><a href="#cb7-293"></a>    <span class="at">color =</span> <span class="st">"#32a3d8"</span>,</span>
+<span id="cb7-294"><a href="#cb7-294"></a>    <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb7-295"><a href="#cb7-295"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-296"><a href="#cb7-296"></a>  <span class="co"># Monthly total annotations</span></span>
+<span id="cb7-297"><a href="#cb7-297"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb7-298"><a href="#cb7-298"></a>    <span class="at">data =</span> monthly_precip,</span>
+<span id="cb7-299"><a href="#cb7-299"></a>    <span class="fu">aes</span>(<span class="at">x =</span> mid_day, <span class="at">y =</span> max_precip <span class="sc">*</span> <span class="fl">0.95</span>, <span class="at">label =</span> <span class="fu">round</span>(total, <span class="dv">2</span>)),</span>
+<span id="cb7-300"><a href="#cb7-300"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb7-301"><a href="#cb7-301"></a>    <span class="at">hjust =</span> <span class="fl">0.5</span>,</span>
+<span id="cb7-302"><a href="#cb7-302"></a>    <span class="at">vjust =</span> <span class="dv">1</span>,</span>
+<span id="cb7-303"><a href="#cb7-303"></a>    <span class="at">color =</span> <span class="st">"gray40"</span></span>
+<span id="cb7-304"><a href="#cb7-304"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-305"><a href="#cb7-305"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb7-306"><a href="#cb7-306"></a>    <span class="at">breaks =</span> month_midpoints<span class="sc">$</span>mid,</span>
+<span id="cb7-307"><a href="#cb7-307"></a>    <span class="at">labels =</span> month.abb</span>
+<span id="cb7-308"><a href="#cb7-308"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-309"><a href="#cb7-309"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-310"><a href="#cb7-310"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb7-311"><a href="#cb7-311"></a>    <span class="at">y =</span> <span class="st">"Precipitation (inches)"</span>,</span>
+<span id="cb7-312"><a href="#cb7-312"></a>    <span class="at">title =</span> <span class="st">"San Francisco Precipitation (2011)"</span>,</span>
+<span id="cb7-313"><a href="#cb7-313"></a>    <span class="at">subtitle =</span> <span class="st">"Daily rainfall with monthly totals; triangles indicate record-breaking days"</span></span>
+<span id="cb7-314"><a href="#cb7-314"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-315"><a href="#cb7-315"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb7-316"><a href="#cb7-316"></a>  <span class="fu">theme</span>(</span>
+<span id="cb7-317"><a href="#cb7-317"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-318"><a href="#cb7-318"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#ebeae2"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb7-319"><a href="#cb7-319"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#ebeae2"</span>, <span class="at">color =</span> <span class="cn">NA</span>)</span>
+<span id="cb7-320"><a href="#cb7-320"></a>  )</span>
+<span id="cb7-321"><a href="#cb7-321"></a><span class="in">```</span></span>
+<span id="cb7-322"><a href="#cb7-322"></a></span>
+<span id="cb7-323"><a href="#cb7-323"></a>**Reflection**: The precipitation plot uses different visual vocabulary than the temperature plot—appropriately so, since precipitation is fundamentally different data. Temperature has natural ranges (low to high each day); precipitation is a single value per day. The triangular markers for record days provide a secondary narrative layer without cluttering the primary visualization.</span>
+<span id="cb7-324"><a href="#cb7-324"></a></span>
+<span id="cb7-325"><a href="#cb7-325"></a><span class="fu">## Concluding Reflection</span></span>
+<span id="cb7-326"><a href="#cb7-326"></a></span>
+<span id="cb7-327"><a href="#cb7-327"></a>This exercise illuminated several principles that extend beyond technical ggplot2 proficiency:</span>
+<span id="cb7-328"><a href="#cb7-328"></a></span>
+<span id="cb7-329"><a href="#cb7-329"></a><span class="ss">1. </span>**Design serves story**: Every aesthetic choice—color, layer order, axis labels—should advance the communicative intent. The NYTimes visualization succeeds because its design choices aren't arbitrary; they're rhetorical.</span>
+<span id="cb7-330"><a href="#cb7-330"></a></span>
+<span id="cb7-331"><a href="#cb7-331"></a><span class="ss">2. </span>**Layering creates hierarchy**: The human eye naturally perceives layered elements as having different importance levels. By placing records at the back and actuals at the front, we guide attention toward the most meaningful comparisons.</span>
+<span id="cb7-332"><a href="#cb7-332"></a></span>
+<span id="cb7-333"><a href="#cb7-333"></a><span class="ss">3. </span>**Context enables interpretation**: Raw data (temperatures, precipitation amounts) becomes meaningful only when contextualized against norms, records, and temporal structure. Visualization isn't just displaying data—it's constructing interpretive frameworks.</span>
+<span id="cb7-334"><a href="#cb7-334"></a></span>
+<span id="cb7-335"><a href="#cb7-335"></a><span class="ss">4. </span>**Documentation is exploration**: The process of searching documentation, experimenting with parameters, and iterating toward solutions is itself a form of learning. The "answer" matters less than the capacity to navigate toward it.</span>
+<span id="cb7-336"><a href="#cb7-336"></a></span>
+<span id="cb7-337"><a href="#cb7-337"></a>As someone working on institutional capacity analysis in development contexts, I'm struck by the parallel: just as good visualization requires layering context to enable interpretation, good policy analysis requires understanding the institutional scaffolding that gives interventions meaning. Data, like policy, speaks only within frameworks of interpretation.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

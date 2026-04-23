@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-22">
+<title>02 — Review: File Paths, Git, and Data Wrangling – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/03_adv_data_viz_ica.html" rel="next">
+<link href="../ica/01_introduction.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/02_review.html"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 3</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/01_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/02_review.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/03_adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">03 — Adv Data Viz</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6 - Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/capital_without_category_v3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/pagination-simulation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verifying Pagination Strategies: A Monte Carlo Simulation</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#data-story-critique-the-rhythm-of-food" id="toc-data-story-critique-the-rhythm-of-food" class="nav-link" data-scroll-target="#data-story-critique-the-rhythm-of-food">🔥 Data Story Critique — <em>The Rhythm of Food</em></a>
+  <ul class="collapse">
+<li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story?</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective?</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved?</a></li>
+  </ul>
+</li>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link" data-scroll-target="#learning-goals">🧩 Learning Goals</a></li>
+  <li><a href="#absolute-vs.-relative-paths-one-sentence-of-theory" id="toc-absolute-vs.-relative-paths-one-sentence-of-theory" class="nav-link" data-scroll-target="#absolute-vs.-relative-paths-one-sentence-of-theory">Absolute vs.&nbsp;Relative Paths — One Sentence of Theory</a></li>
+  <li>
+<a href="#exercise-cleaning-the-weather-data" id="toc-exercise-cleaning-the-weather-data" class="nav-link" data-scroll-target="#exercise-cleaning-the-weather-data">Exercise — Cleaning the Weather Data</a>
+  <ul class="collapse">
+<li><a href="#load-packages-and-read-in-data" id="toc-load-packages-and-read-in-data" class="nav-link" data-scroll-target="#load-packages-and-read-in-data">1. Load packages and read in data</a></li>
+  <li><a href="#clean-precipyr-replace-99999-with-na" id="toc-clean-precipyr-replace-99999-with-na" class="nav-link" data-scroll-target="#clean-precipyr-replace-99999-with-na">2. Clean <code>PrecipYr</code> — replace <code>99999</code> with <code>NA</code></a></li>
+  <li><a href="#add-a-dateinyear-variable" id="toc-add-a-dateinyear-variable" class="nav-link" data-scroll-target="#add-a-dateinyear-variable">3. Add a <code>dateInYear</code> variable</a></li>
+  <li><a href="#add-3-letter-month-abbreviations" id="toc-add-3-letter-month-abbreviations" class="nav-link" data-scroll-target="#add-3-letter-month-abbreviations">4. Add 3-letter month abbreviations</a></li>
+  <li><a href="#write-out-the-cleaned-data" id="toc-write-out-the-cleaned-data" class="nav-link" data-scroll-target="#write-out-the-cleaned-data">5. Write out the cleaned data</a></li>
+  </ul>
+</li>
+  <li><a href="#git-verbs-a-working-mental-model" id="toc-git-verbs-a-working-mental-model" class="nav-link" data-scroll-target="#git-verbs-a-working-mental-model">Git Verbs — A Working Mental Model</a></li>
+  <li><a href="#keyboard-shortcuts-a-short-list-that-pays-back" id="toc-keyboard-shortcuts-a-short-list-that-pays-back" class="nav-link" data-scroll-target="#keyboard-shortcuts-a-short-list-that-pays-back">Keyboard Shortcuts — A Short List That Pays Back</a></li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/02_review.html"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 22, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Gate exercise chunks on whether the data file is present. Lets the</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># qmd render cleanly on machines without the course data (CI, fresh</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># clones, a collaborator's machine) while still executing normally</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># when the data is there.</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>has_data <span class="ot">&lt;-</span> <span class="fu">file.exists</span>(<span class="st">"data/raw/weather.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="data-story-critique-the-rhythm-of-food" class="level2"><h2 class="anchored" data-anchor-id="data-story-critique-the-rhythm-of-food">🔥 Data Story Critique — <em>The Rhythm of Food</em>
+</h2>
+<p>Source: <a href="https://rhythm-of-food.net/#explore-foods" class="uri">https://rhythm-of-food.net/#explore-foods</a></p>
+<p>Creators: Moritz Stefaner / Truth &amp; Beauty (creative direction, design, viz); Yuri Vishnevsky (development); Google News Lab (Simon Rogers, Alberto Cairo); Stefanie Weigele (illustration); Destry Sibley (text). 12–15 years of weekly Google Trends data, US-focused, disambiguated through Google Knowledge Graph topics. 195 topics, 129,660 data points.</p>
+<section id="what-is-the-data-story" class="level3"><h3 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story?</h3>
+<p>The piece argues that <strong>food has measurable signatures of seasonality visible in how people search for it</strong>. Each food gets a radial “year clock”: the 52 angular segments are weeks of the year, distance from center encodes relative search interest, and color encodes which year the reading came from. Stacked over 12+ years, the charts surface two layers of pattern simultaneously — the <em>shape</em> of a food’s seasonality (does interest peak in November? in July? in no month at all?) and its <em>trend</em> (is the year-color drifting outward or inward over time?). The site builds its argument upward: an overview grid of many foods makes the existence of distinct seasonality signatures visible at a glance; the single-food detail views let the reader interrogate a specific rhythm; the annotated stories tie a handful of those rhythms to cultural events (Thanksgiving pumpkin, Easter lamb) or agricultural calendars (asparagus in April, corn in August).</p>
+</section><section id="what-is-effective" class="level3"><h3 class="anchored" data-anchor-id="what-is-effective">What is effective?</h3>
+<p><strong>The form genuinely matches the data.</strong> Seasonality is cyclical — December rolls into January. A linear line chart of weeks 1–52 forces the reader to mentally wrap the endpoints; a radial plot removes that translation step entirely. Decoding the chart as a clock is pre-cognitive, which is the right property for a chart that asks the reader to compare hundreds of foods.</p>
+<p><strong>Two variables in one mark, both used.</strong> Distance encodes interest; color encodes year. Most dual-encodings fail because one variable drowns out the other. Here it works because year is <em>ordered</em> and the color ramp is ordered — so a reader can see <em>trend over years</em> as a color gradient walking outward or inward, on top of the same radial shape that encodes <em>within-year seasonality</em>. Reading both axes at once is what makes “the rise of avocado” or “the collapse of kale” visible; a chart that showed only one axis would lose the argument.</p>
+<p><strong>Knowledge Graph disambiguation.</strong> “Apple” search interest is dominated by Apple Inc., not the fruit. The site uses Google Knowledge Graph topics rather than raw keyword strings, which resolves this and a long tail of similar ambiguities (rosemary the plant vs.&nbsp;the name, turkey the bird vs.&nbsp;the country). This is invisible engineering — it doesn’t appear in the UI — but it’s the difference between a dataset that supports the argument and a dataset that doesn’t. Naming it is worth a line because the tutorial-visualization genre often skips this step and then quietly serves the reader contaminated data.</p>
+<p><strong>The aggregate view earns the detail view.</strong> The overview grid is where the piece’s argument lives: looking at a wall of radial charts at once, you <em>see</em> that different foods have fundamentally different seasonality signatures — some spike sharply once, some have twin peaks, some are flat year-round. The detail view for any single food only lands because the aggregate has already established that “signatures exist” is a meaningful category.</p>
+</section><section id="what-could-be-improved" class="level3"><h3 class="anchored" data-anchor-id="what-could-be-improved">What could be improved?</h3>
+<p><strong>Search interest is not consumption.</strong> This is the central methodological issue and the site only glances at it. People search Google for <em>pumpkin pie</em> in November because Thanksgiving is coming and they don’t make pumpkin pie in the other eleven months — not because pumpkins are biologically in season. The rhythm being visualized is the rhythm of <em>when people ask about food</em>, which is correlated with but distinct from the rhythm of <em>eating food</em>. For stable-use commodity ingredients (salt, flour, oil), the signal is close to noise; for holiday-tied dishes, the signal is enormously amplified by a single cultural event. The title, <em>The Rhythm of Food</em>, collapses these two rhythms — cultural-attention rhythm and eating rhythm — into one word. A more careful framing would have been <em>The Rhythm of Food Attention</em>, which is a weaker title and a more honest one.</p>
+<p><strong>The radial form makes magnitude comparison harder, not easier.</strong> Polar coordinates turn linear differences in a value into nonlinear differences in visible area — area grows with the square of the radius. A week with search interest of 40 does not look twice as prominent as a week with interest of 20; it looks closer to four times as prominent. This is a well-documented failure mode of radial charts. The form’s elegance is not neutral: it visually exaggerates peak weeks and compresses trough weeks, which systematically <em>inflates</em> the apparent strength of any seasonality signature. The charts are more rhythmic-looking than the underlying data actually is.</p>
+<p><strong>Google Trends’ “search interest” is peak-normalized and opaque.</strong> Trends values are rescaled to 0–100 relative to the maximum within the query window, not absolute search counts. This means two foods’ radial charts cannot be compared by amplitude — each is normalized to its own peak. A reader who leaves the site thinking “pumpkin pie is more popular than oatmeal” has been misled, because the comparison is formally undefined by the data pipeline. This is disclosed on the methodology page but invisible in the main viewing experience.</p>
+<p><strong>“US data” is underdisclosed given the title.</strong> The site restricts to US searches. The rhythm detected is therefore Anglo-American search rhythm — which is not “the rhythm of food” in the universal sense the title implies. The seasonality of Lunar New Year foods, Diwali sweets, Ramadan breakfasts, Midsummer herring in Sweden, Jixi cold noodles in July — none of these appear, because the underlying searches don’t appear. A project that names itself after a universal would do well to either include the universal in the data or name its particularity in the title. “The Rhythm of American Food Searches” is the honest title; “The Rhythm of Food” is the marketable one.</p>
+<p><strong>The artifact is frozen; food culture is not.</strong> The data cuts off around 2019. It is now 2026. Foods that looked ascendant at launch (kale, turmeric, avocado) have continued their curves in either direction without being shown. A rhythm, by definition, continues. Presenting it as a finished object rather than a live feed converts an argument about ongoing cultural phenomenon into a historical exhibit.</p>
+<p><strong>Search-as-culture over-indexes on novelty.</strong> Google Trends captures a very specific slice of food attention — the “I want to know about X right now” kind, triggered by external stimulus (a TV mention, a magazine article, a holiday, a TikTok). It misses food culture that is <em>so normalized it generates no search</em> (daily rice, bread, eggs) and over-represents food culture driven by <em>novelty</em> (fads, diets, viral recipes). The rhythm you see is therefore the rhythm of food <em>novelty cycling</em>, not the rhythm of food as lived practice. This is the same bias that makes Google Trends a better tool for studying marketing than for studying consumption.</p>
+<hr></section></section><section id="learning-goals" class="level2"><h2 class="anchored" data-anchor-id="learning-goals">🧩 Learning Goals</h2>
+<p>By the end of this lesson I should be able to:</p>
+<ul>
+<li>Navigate the file system of my portfolio and homework repositories</li>
+<li>Explain the difference between absolute and relative file paths, and why relative paths are preferred for referencing files</li>
+<li>Construct relative file paths to read in data</li>
+<li>Review data wrangling from COMP/STAT 112</li>
+<li>Use the <code>git</code> verbs — <code>clone</code>, <code>add</code>, <code>commit</code>, <code>push</code>, <code>pull</code> — via GitHub.com and GitHub Desktop</li>
+<li>Practice keyboard shortcuts</li>
+</ul>
+<hr></section><section id="absolute-vs.-relative-paths-one-sentence-of-theory" class="level2"><h2 class="anchored" data-anchor-id="absolute-vs.-relative-paths-one-sentence-of-theory">Absolute vs.&nbsp;Relative Paths — One Sentence of Theory</h2>
+<p>An <strong>absolute path</strong> starts at the filesystem root and is specific to one machine: <code>/Users/zhijun/Documents/Macalester/COMP-STAT-212/portfolio/ica/data/raw/weather.csv</code>. A <strong>relative path</strong> starts from wherever the code is currently being executed and is portable: <code>data/raw/weather.csv</code> (from the <code>ica/</code> folder).</p>
+<p>The cost of an absolute path is not that it’s ugly. It’s that <strong>the code stops working the moment anyone else runs it</strong>, including future-me on a different machine, a collaborator, an autograder, or a CI pipeline. Relative paths are not a style preference; they are the minimum condition for reproducible code.</p>
+<p>In a Quarto document, the working directory is the folder containing the <code>.qmd</code> file. So when this file lives in <code>ica/</code> and the data lives in <code>ica/data/raw/</code>, the relative path is <code>data/raw/weather.csv</code> — no leading slash, no <code>..</code>, no <code>~</code>.</p>
+<hr></section><section id="exercise-cleaning-the-weather-data" class="level2"><h2 class="anchored" data-anchor-id="exercise-cleaning-the-weather-data">Exercise — Cleaning the Weather Data</h2>
+<section id="load-packages-and-read-in-data" class="level3"><h3 class="anchored" data-anchor-id="load-packages-and-read-in-data">1. Load packages and read in data</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>weather <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/raw/weather.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The path <code>data/raw/weather.csv</code> is relative to the location of this <code>.qmd</code> file (<code>ica/</code>). It will work on any machine where someone has cloned the portfolio repo and preserved the folder structure — which is exactly the property we want.</p>
+</section><section id="clean-precipyr-replace-99999-with-na" class="level3"><h3 class="anchored" data-anchor-id="clean-precipyr-replace-99999-with-na">2. Clean <code>PrecipYr</code> — replace <code>99999</code> with <code>NA</code>
+</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>weather_clean <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="fu">mutate</span>(<span class="at">PrecipYr =</span> <span class="fu">na_if</span>(PrecipYr, <span class="dv">99999</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><code>99999</code> is a <strong>sentinel value</strong> for missing — a punch-card-era convention where a value impossible for the measured quantity is used to signal absence. The convention is dangerous because a sentinel looks like valid data to every numeric operation downstream: <code>mean(PrecipYr)</code> will silently include the 99999s and return a number that is off by orders of magnitude, with no warning.</p>
+<p><code>na_if(x, y)</code> is the tidyverse idiom for this conversion: it replaces <code>y</code> with <code>NA</code> in <code>x</code>. The naïve alternative <code>ifelse(PrecipYr == 99999, NA, PrecipYr)</code> works but is wordier and has a subtle trap — <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> strips attributes and may coerce types, which matters if <code>PrecipYr</code> is a <code>double</code> you want to keep as a <code>double</code>. <code>na_if()</code> preserves type and is harder to misuse.</p>
+</section><section id="add-a-dateinyear-variable" class="level3"><h3 class="anchored" data-anchor-id="add-a-dateinyear-variable">3. Add a <code>dateInYear</code> variable</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Option 1: sort-and-assign</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>weather_clean_v1 <span class="ot">&lt;-</span> weather_clean <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="fu">arrange</span>(Month, Day) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="fu">mutate</span>(<span class="at">dateInYear =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">365</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Option 2: compute from the date</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>weather_clean <span class="ot">&lt;-</span> weather_clean <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="fu">mutate</span>(<span class="at">dateInYear =</span> <span class="fu">yday</span>(<span class="fu">mdy</span>(date)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><strong>Both run. Only one is safe.</strong></p>
+<p>Option 1 silently assumes the dataset is exactly 365 rows, sorted cleanly, with no leap-year row, no duplicates, and no missing days. If any of those assumptions fail — a leap year adds a 366th row, a missing February day reduces to 364, a duplicate inflates to 366 — <code>1:365</code> recycles or errors depending on which. The bug is silent: the column is still produced, but day 60 is now labeled as day 61, and every downstream analysis is off by a day without warning.</p>
+<p>Option 2 is the robust choice. <code>mdy()</code> parses the date string into a <code>Date</code> object; <code>yday()</code> extracts the day-of-year from that date. The computation uses the <em>content of each row</em>, not its <em>position in a sorted sequence</em>. It handles 365-day years, 366-day leap years, missing rows, duplicates, and out-of-order data identically — because it never depends on row order at all.</p>
+<p>The general principle: prefer computations that derive the target value from row content over computations that derive it from row position. Position-based tricks break silently; content-based computations fail loudly or not at all.</p>
+</section><section id="add-3-letter-month-abbreviations" class="level3"><h3 class="anchored" data-anchor-id="add-3-letter-month-abbreviations">4. Add 3-letter month abbreviations</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Option A: lookup table + join</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>months <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="at">Month      =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="at">month_name =</span> month.abb</span>
+<span id="cb6-5"><a href="#cb6-5"></a>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a>weather_clean <span class="ot">&lt;-</span> weather_clean <span class="sc">|&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="fu">left_join</span>(months, <span class="at">by =</span> <span class="st">"Month"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Option B: direct vector subsetting using the built-in constant</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>weather_clean <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="fu">mutate</span>(<span class="at">month_name =</span> month.abb[Month]) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 20
+  Month   Day   Low  High NormalLow NormalHigh RecordLow LowYr RecordHigh HiYear
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+1    11    20    48    55        48         62        35  1964         69   2005
+2     6    16    52    68        53         70        46  1952         90   1961
+3     5     9    47    63        50         66        41  1950         88   1993
+4    10    26    47    69        52         69        39  1954         89   2003
+5     9    27    55    82        55         73        47  1955         96   2010
+6     7     6    52    70        54         71        47  1953         86   1957
+# ℹ 10 more variables: Precip &lt;dbl&gt;, RecordPrecip &lt;dbl&gt;, PrecipYr &lt;dbl&gt;,
+#   date &lt;chr&gt;, Record &lt;lgl&gt;, RecordText &lt;chr&gt;, RecordP &lt;lgl&gt;, CulmPrec &lt;dbl&gt;,
+#   dateInYear &lt;dbl&gt;, month_name &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Both produce identical results on this dataset. They differ in what they <em>generalize to</em>.</p>
+<p><code>month.abb</code> (and its sibling <code>month.name</code>) are built-in character vectors — the kind of base-R constant that is trivially available but easy to forget. Direct subsetting <code>month.abb[Month]</code> is the tightest expression when (a) the lookup table is a length-12 character vector and (b) the key is the integer 1–12. When both conditions hold, it’s three tokens and zero intermediate objects.</p>
+<p>The join approach is what generalizes. If tomorrow the lookup has to become a full-name-and-short-name-and-fiscal-quarter table, the join pattern is unchanged — only the lookup tibble grows. If the lookup has to come from a CSV, the join absorbs that too. Vector subsetting handles today’s problem more elegantly; joins handle tomorrow’s problem at all.</p>
+<p>The right instinct: <strong>start with the join pattern as the default, and drop down to vector subsetting only when the lookup is both tiny and index-keyed.</strong></p>
+</section><section id="write-out-the-cleaned-data" class="level3"><h3 class="anchored" data-anchor-id="write-out-the-cleaned-data">5. Write out the cleaned data</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Ensure the output directory exists before writing</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">dir.create</span>(<span class="st">"data/processed"</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">write_csv</span>(weather_clean, <span class="at">file =</span> <span class="st">"data/processed/weather_clean.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Three observations worth naming:</p>
+<ul>
+<li>
+<strong><code>data/raw/</code> vs.&nbsp;<code>data/processed/</code>.</strong> The output goes to <code>processed/</code>, not back to <code>raw/</code>. This enforces the principle that raw data is immutable — never overwritten, always the starting point. Processed derivatives live in a separate folder and can be regenerated at any time by re-running the pipeline. The convention is not cosmetic; it’s what makes an analysis reproducible, because it guarantees that <code>raw/</code> is exactly what came in from the source.</li>
+<li>
+<strong>Relative path, same logic as the read.</strong> <code>data/processed/weather_clean.csv</code> works from any machine where the repo is cloned. The symmetry between read and write is intentional — both ends of the pipeline are tied to the repo structure, not to any particular filesystem.</li>
+<li>
+<strong>CSV because it’s durable.</strong> Not <code>.rds</code>, not <code>.parquet</code>. A plain CSV is readable by anything — R, Python, Excel, <code>cat</code> in a terminal in 2050. For a classroom pipeline where the next step might be done in a different language or tool, CSV is the format that doesn’t lock the pipeline into one stack.</li>
+</ul>
+<hr></section></section><section id="git-verbs-a-working-mental-model" class="level2"><h2 class="anchored" data-anchor-id="git-verbs-a-working-mental-model">Git Verbs — A Working Mental Model</h2>
+<p>The five verbs map to three mental locations:</p>
+<ul>
+<li>
+<strong><code>clone</code></strong> — bring a remote repo to my local machine for the first time. Done once per repo.</li>
+<li>
+<strong><code>add</code></strong> + <strong><code>commit</code></strong> — stage and record changes <em>locally</em>. The commit is a snapshot with a message; it lives in my local <code>.git/</code> until pushed.</li>
+<li>
+<strong><code>push</code></strong> — upload my local commits to the remote (GitHub).</li>
+<li>
+<strong><code>pull</code></strong> — download commits from the remote that I don’t yet have locally.</li>
+</ul>
+<p>The shape: <em>remote ⇄ local working copy</em>. <code>clone</code> is the initial download; <code>pull</code> is incremental download; <code>push</code> is upload; <code>add</code> + <code>commit</code> is how I decide what becomes uploadable. The loop for any work session is <code>pull → work → add → commit → push</code>, with the <code>pull</code> at the start catching anything a collaborator (or past-me on another machine) pushed since I last worked.</p>
+<p>Two failure modes to avoid: (1) forgetting to <code>pull</code> before starting work, which produces merge conflicts that are avoidable; (2) committing frequently locally but never pushing, which is equivalent to not backing up the work at all until something breaks.</p>
+<hr></section><section id="keyboard-shortcuts-a-short-list-that-pays-back" class="level2"><h2 class="anchored" data-anchor-id="keyboard-shortcuts-a-short-list-that-pays-back">Keyboard Shortcuts — A Short List That Pays Back</h2>
+<p>The handful that compound over a semester:</p>
+<ul>
+<li>
+<strong><code>Cmd/Ctrl + Enter</code></strong> — run the current line or selection. The most-used shortcut in the editor.</li>
+<li>
+<strong><code>Cmd/Ctrl + Shift + M</code></strong> — insert the pipe <code>|&gt;</code>. Saves three keystrokes every time I chain verbs, which is constantly.</li>
+<li>
+<strong><code>Cmd/Ctrl + Shift + Enter</code></strong> — run the entire chunk.</li>
+<li>
+<strong><code>Cmd/Ctrl + Option/Alt + I</code></strong> — insert a new code chunk in a Quarto/Rmd document.</li>
+<li>
+<strong><code>Cmd/Ctrl + Shift + C</code></strong> — toggle comment on selected lines.</li>
+<li>
+<strong><code>Cmd/Ctrl + S</code></strong> — save. Tied to Quarto render (<code>Cmd/Ctrl + Shift + K</code>).</li>
+<li>
+<strong><code>Tab</code></strong> — autocomplete object and function names. Reading documentation without typing full names is how you learn what’s available in a package.</li>
+</ul>
+<p>Every shortcut replaces a mouse trip. One mouse trip is not worth changing behavior for; a thousand mouse trips over a semester is the difference between the editor feeling like a barrier and feeling like an extension of thought.</p>
+<hr></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p>Three things to carry forward.</p>
+<p><strong>Relative paths are a reproducibility discipline, not an aesthetic preference.</strong> An absolute path is a commitment that the code will only ever run on one machine. Every <code>"/Users/zhijun/..."</code> in a codebase is a future failure, whether it surfaces in a collaborator’s IDE next week or in CI in six months. The discipline is to never let one leak in, because they are invisible in normal operation — the code works until the machine changes, and then it doesn’t.</p>
+<p><strong>Sort-and-assign is a silent failure waiting to happen.</strong> The Option 1 / Option 2 split in the <code>dateInYear</code> question is the template for a whole class of bugs: any transformation that derives a value from <em>row position in a sorted order</em> rather than from <em>row content</em> is fragile to the ordering assumptions holding. When Option 2 exists (compute the target directly from the date), take it — even when Option 1 looks simpler on the happy path. The cost of the bug is not the bug itself; it’s that you’ll never notice it ran.</p>
+<p><strong>Git’s four-verb loop is almost all of day-to-day git.</strong> <code>pull → work → add → commit → push</code>. Conflict resolution, branching, rebasing, and the rest are real but rarely needed for coursework flows. The risk isn’t learning too little git; it’s treating git as too complicated to engage with and therefore not committing frequently. The remedy is to commit often — many small commits are recoverable, one large commit after a week of work is a single point of failure.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../ica/01_introduction.html" class="pagination-link" aria-label="01 — Introduction: Sources, Levels of Understanding, and Wrangling Review">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/03_adv_data_viz_ica.html" class="pagination-link" aria-label="03 — Adv Data Viz">
+        <span class="nav-page-text"><span class="chapter-title">03 — Adv Data Viz</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">---</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="an">title:</span><span class="co"> "02 — Review: File Paths, Git, and Data Wrangling"</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="an">format:</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">  html:</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">    toc: true</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="an">execute:</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="co">  warning: false</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="co">  message: false</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="co">---</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="fu">## Setup</span></span>
+<span id="cb10-20"><a href="#cb10-20"></a></span>
+<span id="cb10-23"><a href="#cb10-23"></a><span class="in">```{r}</span></span>
+<span id="cb10-24"><a href="#cb10-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb10-25"><a href="#cb10-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-26"><a href="#cb10-26"></a></span>
+<span id="cb10-27"><a href="#cb10-27"></a><span class="co"># Gate exercise chunks on whether the data file is present. Lets the</span></span>
+<span id="cb10-28"><a href="#cb10-28"></a><span class="co"># qmd render cleanly on machines without the course data (CI, fresh</span></span>
+<span id="cb10-29"><a href="#cb10-29"></a><span class="co"># clones, a collaborator's machine) while still executing normally</span></span>
+<span id="cb10-30"><a href="#cb10-30"></a><span class="co"># when the data is there.</span></span>
+<span id="cb10-31"><a href="#cb10-31"></a>has_data <span class="ot">&lt;-</span> <span class="fu">file.exists</span>(<span class="st">"data/raw/weather.csv"</span>)</span>
+<span id="cb10-32"><a href="#cb10-32"></a><span class="in">```</span></span>
+<span id="cb10-33"><a href="#cb10-33"></a></span>
+<span id="cb10-34"><a href="#cb10-34"></a>------------------------------------------------------------------------</span>
+<span id="cb10-35"><a href="#cb10-35"></a></span>
+<span id="cb10-36"><a href="#cb10-36"></a><span class="fu">## 🔥 Data Story Critique — *The Rhythm of Food*</span></span>
+<span id="cb10-37"><a href="#cb10-37"></a></span>
+<span id="cb10-38"><a href="#cb10-38"></a>Source: <span class="ot">&lt;https://rhythm-of-food.net/#explore-foods&gt;</span></span>
+<span id="cb10-39"><a href="#cb10-39"></a></span>
+<span id="cb10-40"><a href="#cb10-40"></a>Creators: Moritz Stefaner / Truth &amp; Beauty (creative direction, design, viz); Yuri Vishnevsky (development); Google News Lab (Simon Rogers, Alberto Cairo); Stefanie Weigele (illustration); Destry Sibley (text). 12–15 years of weekly Google Trends data, US-focused, disambiguated through Google Knowledge Graph topics. 195 topics, 129,660 data points.</span>
+<span id="cb10-41"><a href="#cb10-41"></a></span>
+<span id="cb10-42"><a href="#cb10-42"></a><span class="fu">### What is the data story?</span></span>
+<span id="cb10-43"><a href="#cb10-43"></a></span>
+<span id="cb10-44"><a href="#cb10-44"></a>The piece argues that **food has measurable signatures of seasonality visible in how people search for it**. Each food gets a radial "year clock": the 52 angular segments are weeks of the year, distance from center encodes relative search interest, and color encodes which year the reading came from. Stacked over 12+ years, the charts surface two layers of pattern simultaneously — the *shape* of a food's seasonality (does interest peak in November? in July? in no month at all?) and its *trend* (is the year-color drifting outward or inward over time?). The site builds its argument upward: an overview grid of many foods makes the existence of distinct seasonality signatures visible at a glance; the single-food detail views let the reader interrogate a specific rhythm; the annotated stories tie a handful of those rhythms to cultural events (Thanksgiving pumpkin, Easter lamb) or agricultural calendars (asparagus in April, corn in August).</span>
+<span id="cb10-45"><a href="#cb10-45"></a></span>
+<span id="cb10-46"><a href="#cb10-46"></a><span class="fu">### What is effective?</span></span>
+<span id="cb10-47"><a href="#cb10-47"></a></span>
+<span id="cb10-48"><a href="#cb10-48"></a>**The form genuinely matches the data.** Seasonality is cyclical — December rolls into January. A linear line chart of weeks 1–52 forces the reader to mentally wrap the endpoints; a radial plot removes that translation step entirely. Decoding the chart as a clock is pre-cognitive, which is the right property for a chart that asks the reader to compare hundreds of foods.</span>
+<span id="cb10-49"><a href="#cb10-49"></a></span>
+<span id="cb10-50"><a href="#cb10-50"></a>**Two variables in one mark, both used.** Distance encodes interest; color encodes year. Most dual-encodings fail because one variable drowns out the other. Here it works because year is *ordered* and the color ramp is ordered — so a reader can see *trend over years* as a color gradient walking outward or inward, on top of the same radial shape that encodes *within-year seasonality*. Reading both axes at once is what makes "the rise of avocado" or "the collapse of kale" visible; a chart that showed only one axis would lose the argument.</span>
+<span id="cb10-51"><a href="#cb10-51"></a></span>
+<span id="cb10-52"><a href="#cb10-52"></a>**Knowledge Graph disambiguation.** "Apple" search interest is dominated by Apple Inc., not the fruit. The site uses Google Knowledge Graph topics rather than raw keyword strings, which resolves this and a long tail of similar ambiguities (rosemary the plant vs. the name, turkey the bird vs. the country). This is invisible engineering — it doesn't appear in the UI — but it's the difference between a dataset that supports the argument and a dataset that doesn't. Naming it is worth a line because the tutorial-visualization genre often skips this step and then quietly serves the reader contaminated data.</span>
+<span id="cb10-53"><a href="#cb10-53"></a></span>
+<span id="cb10-54"><a href="#cb10-54"></a>**The aggregate view earns the detail view.** The overview grid is where the piece's argument lives: looking at a wall of radial charts at once, you *see* that different foods have fundamentally different seasonality signatures — some spike sharply once, some have twin peaks, some are flat year-round. The detail view for any single food only lands because the aggregate has already established that "signatures exist" is a meaningful category.</span>
+<span id="cb10-55"><a href="#cb10-55"></a></span>
+<span id="cb10-56"><a href="#cb10-56"></a><span class="fu">### What could be improved?</span></span>
+<span id="cb10-57"><a href="#cb10-57"></a></span>
+<span id="cb10-58"><a href="#cb10-58"></a>**Search interest is not consumption.** This is the central methodological issue and the site only glances at it. People search Google for *pumpkin pie* in November because Thanksgiving is coming and they don't make pumpkin pie in the other eleven months — not because pumpkins are biologically in season. The rhythm being visualized is the rhythm of *when people ask about food*, which is correlated with but distinct from the rhythm of *eating food*. For stable-use commodity ingredients (salt, flour, oil), the signal is close to noise; for holiday-tied dishes, the signal is enormously amplified by a single cultural event. The title, *The Rhythm of Food*, collapses these two rhythms — cultural-attention rhythm and eating rhythm — into one word. A more careful framing would have been *The Rhythm of Food Attention*, which is a weaker title and a more honest one.</span>
+<span id="cb10-59"><a href="#cb10-59"></a></span>
+<span id="cb10-60"><a href="#cb10-60"></a>**The radial form makes magnitude comparison harder, not easier.** Polar coordinates turn linear differences in a value into nonlinear differences in visible area — area grows with the square of the radius. A week with search interest of 40 does not look twice as prominent as a week with interest of 20; it looks closer to four times as prominent. This is a well-documented failure mode of radial charts. The form's elegance is not neutral: it visually exaggerates peak weeks and compresses trough weeks, which systematically *inflates* the apparent strength of any seasonality signature. The charts are more rhythmic-looking than the underlying data actually is.</span>
+<span id="cb10-61"><a href="#cb10-61"></a></span>
+<span id="cb10-62"><a href="#cb10-62"></a>**Google Trends' "search interest" is peak-normalized and opaque.** Trends values are rescaled to 0–100 relative to the maximum within the query window, not absolute search counts. This means two foods' radial charts cannot be compared by amplitude — each is normalized to its own peak. A reader who leaves the site thinking "pumpkin pie is more popular than oatmeal" has been misled, because the comparison is formally undefined by the data pipeline. This is disclosed on the methodology page but invisible in the main viewing experience.</span>
+<span id="cb10-63"><a href="#cb10-63"></a></span>
+<span id="cb10-64"><a href="#cb10-64"></a>**"US data" is underdisclosed given the title.** The site restricts to US searches. The rhythm detected is therefore Anglo-American search rhythm — which is not "the rhythm of food" in the universal sense the title implies. The seasonality of Lunar New Year foods, Diwali sweets, Ramadan breakfasts, Midsummer herring in Sweden, Jixi cold noodles in July — none of these appear, because the underlying searches don't appear. A project that names itself after a universal would do well to either include the universal in the data or name its particularity in the title. "The Rhythm of American Food Searches" is the honest title; "The Rhythm of Food" is the marketable one.</span>
+<span id="cb10-65"><a href="#cb10-65"></a></span>
+<span id="cb10-66"><a href="#cb10-66"></a>**The artifact is frozen; food culture is not.** The data cuts off around 2019. It is now 2026. Foods that looked ascendant at launch (kale, turmeric, avocado) have continued their curves in either direction without being shown. A rhythm, by definition, continues. Presenting it as a finished object rather than a live feed converts an argument about ongoing cultural phenomenon into a historical exhibit.</span>
+<span id="cb10-67"><a href="#cb10-67"></a></span>
+<span id="cb10-68"><a href="#cb10-68"></a>**Search-as-culture over-indexes on novelty.** Google Trends captures a very specific slice of food attention — the "I want to know about X right now" kind, triggered by external stimulus (a TV mention, a magazine article, a holiday, a TikTok). It misses food culture that is *so normalized it generates no search* (daily rice, bread, eggs) and over-represents food culture driven by *novelty* (fads, diets, viral recipes). The rhythm you see is therefore the rhythm of food *novelty cycling*, not the rhythm of food as lived practice. This is the same bias that makes Google Trends a better tool for studying marketing than for studying consumption.</span>
+<span id="cb10-69"><a href="#cb10-69"></a></span>
+<span id="cb10-70"><a href="#cb10-70"></a>------------------------------------------------------------------------</span>
+<span id="cb10-71"><a href="#cb10-71"></a></span>
+<span id="cb10-72"><a href="#cb10-72"></a><span class="fu">## 🧩 Learning Goals</span></span>
+<span id="cb10-73"><a href="#cb10-73"></a></span>
+<span id="cb10-74"><a href="#cb10-74"></a>By the end of this lesson I should be able to:</span>
+<span id="cb10-75"><a href="#cb10-75"></a></span>
+<span id="cb10-76"><a href="#cb10-76"></a><span class="ss">- </span>Navigate the file system of my portfolio and homework repositories</span>
+<span id="cb10-77"><a href="#cb10-77"></a><span class="ss">- </span>Explain the difference between absolute and relative file paths, and why relative paths are preferred for referencing files</span>
+<span id="cb10-78"><a href="#cb10-78"></a><span class="ss">- </span>Construct relative file paths to read in data</span>
+<span id="cb10-79"><a href="#cb10-79"></a><span class="ss">- </span>Review data wrangling from COMP/STAT 112</span>
+<span id="cb10-80"><a href="#cb10-80"></a><span class="ss">- </span>Use the <span class="in">`git`</span> verbs — <span class="in">`clone`</span>, <span class="in">`add`</span>, <span class="in">`commit`</span>, <span class="in">`push`</span>, <span class="in">`pull`</span> — via GitHub.com and GitHub Desktop</span>
+<span id="cb10-81"><a href="#cb10-81"></a><span class="ss">- </span>Practice keyboard shortcuts</span>
+<span id="cb10-82"><a href="#cb10-82"></a></span>
+<span id="cb10-83"><a href="#cb10-83"></a>------------------------------------------------------------------------</span>
+<span id="cb10-84"><a href="#cb10-84"></a></span>
+<span id="cb10-85"><a href="#cb10-85"></a><span class="fu">## Absolute vs. Relative Paths — One Sentence of Theory</span></span>
+<span id="cb10-86"><a href="#cb10-86"></a></span>
+<span id="cb10-87"><a href="#cb10-87"></a>An **absolute path** starts at the filesystem root and is specific to one machine: `/Users/zhijun/Documents/Macalester/COMP-STAT-212/portfolio/ica/data/raw/weather.csv`. A **relative path** starts from wherever the code is currently being executed and is portable: <span class="in">`data/raw/weather.csv`</span> (from the <span class="in">`ica/`</span> folder).</span>
+<span id="cb10-88"><a href="#cb10-88"></a></span>
+<span id="cb10-89"><a href="#cb10-89"></a>The cost of an absolute path is not that it's ugly. It's that **the code stops working the moment anyone else runs it**, including future-me on a different machine, a collaborator, an autograder, or a CI pipeline. Relative paths are not a style preference; they are the minimum condition for reproducible code.</span>
+<span id="cb10-90"><a href="#cb10-90"></a></span>
+<span id="cb10-91"><a href="#cb10-91"></a>In a Quarto document, the working directory is the folder containing the <span class="in">`.qmd`</span> file. So when this file lives in <span class="in">`ica/`</span> and the data lives in <span class="in">`ica/data/raw/`</span>, the relative path is <span class="in">`data/raw/weather.csv`</span> — no leading slash, no <span class="in">`..`</span>, no <span class="in">`~`</span>.</span>
+<span id="cb10-92"><a href="#cb10-92"></a></span>
+<span id="cb10-93"><a href="#cb10-93"></a>------------------------------------------------------------------------</span>
+<span id="cb10-94"><a href="#cb10-94"></a></span>
+<span id="cb10-95"><a href="#cb10-95"></a><span class="fu">## Exercise — Cleaning the Weather Data</span></span>
+<span id="cb10-96"><a href="#cb10-96"></a></span>
+<span id="cb10-97"><a href="#cb10-97"></a><span class="fu">### 1. Load packages and read in data</span></span>
+<span id="cb10-98"><a href="#cb10-98"></a></span>
+<span id="cb10-101"><a href="#cb10-101"></a><span class="in">```{r}</span></span>
+<span id="cb10-102"><a href="#cb10-102"></a><span class="co">#| label: read-data</span></span>
+<span id="cb10-103"><a href="#cb10-103"></a><span class="co">#| eval: !expr has_data</span></span>
+<span id="cb10-104"><a href="#cb10-104"></a>weather <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/raw/weather.csv"</span>)</span>
+<span id="cb10-105"><a href="#cb10-105"></a><span class="in">```</span></span>
+<span id="cb10-106"><a href="#cb10-106"></a></span>
+<span id="cb10-107"><a href="#cb10-107"></a>The path <span class="in">`data/raw/weather.csv`</span> is relative to the location of this <span class="in">`.qmd`</span> file (<span class="in">`ica/`</span>). It will work on any machine where someone has cloned the portfolio repo and preserved the folder structure — which is exactly the property we want.</span>
+<span id="cb10-108"><a href="#cb10-108"></a></span>
+<span id="cb10-109"><a href="#cb10-109"></a><span class="fu">### 2. Clean `PrecipYr` — replace `99999` with `NA`</span></span>
+<span id="cb10-110"><a href="#cb10-110"></a></span>
+<span id="cb10-113"><a href="#cb10-113"></a><span class="in">```{r}</span></span>
+<span id="cb10-114"><a href="#cb10-114"></a><span class="co">#| eval: !expr has_data</span></span>
+<span id="cb10-115"><a href="#cb10-115"></a>weather_clean <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb10-116"><a href="#cb10-116"></a>    <span class="fu">mutate</span>(<span class="at">PrecipYr =</span> <span class="fu">na_if</span>(PrecipYr, <span class="dv">99999</span>))</span>
+<span id="cb10-117"><a href="#cb10-117"></a><span class="in">```</span></span>
+<span id="cb10-118"><a href="#cb10-118"></a></span>
+<span id="cb10-119"><a href="#cb10-119"></a><span class="in">`99999`</span> is a **sentinel value** for missing — a punch-card-era convention where a value impossible for the measured quantity is used to signal absence. The convention is dangerous because a sentinel looks like valid data to every numeric operation downstream: <span class="in">`mean(PrecipYr)`</span> will silently include the 99999s and return a number that is off by orders of magnitude, with no warning.</span>
+<span id="cb10-120"><a href="#cb10-120"></a></span>
+<span id="cb10-121"><a href="#cb10-121"></a><span class="in">`na_if(x, y)`</span> is the tidyverse idiom for this conversion: it replaces <span class="in">`y`</span> with <span class="in">`NA`</span> in <span class="in">`x`</span>. The naïve alternative <span class="in">`ifelse(PrecipYr == 99999, NA, PrecipYr)`</span> works but is wordier and has a subtle trap — <span class="in">`ifelse()`</span> strips attributes and may coerce types, which matters if <span class="in">`PrecipYr`</span> is a <span class="in">`double`</span> you want to keep as a <span class="in">`double`</span>. <span class="in">`na_if()`</span> preserves type and is harder to misuse.</span>
+<span id="cb10-122"><a href="#cb10-122"></a></span>
+<span id="cb10-123"><a href="#cb10-123"></a><span class="fu">### 3. Add a `dateInYear` variable</span></span>
+<span id="cb10-124"><a href="#cb10-124"></a></span>
+<span id="cb10-127"><a href="#cb10-127"></a><span class="in">```{r}</span></span>
+<span id="cb10-128"><a href="#cb10-128"></a><span class="co">#| eval: !expr has_data</span></span>
+<span id="cb10-129"><a href="#cb10-129"></a><span class="co"># Option 1: sort-and-assign</span></span>
+<span id="cb10-130"><a href="#cb10-130"></a>weather_clean_v1 <span class="ot">&lt;-</span> weather_clean <span class="sc">|&gt;</span></span>
+<span id="cb10-131"><a href="#cb10-131"></a>    <span class="fu">arrange</span>(Month, Day) <span class="sc">|&gt;</span></span>
+<span id="cb10-132"><a href="#cb10-132"></a>    <span class="fu">mutate</span>(<span class="at">dateInYear =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">365</span>)</span>
+<span id="cb10-133"><a href="#cb10-133"></a><span class="in">```</span></span>
+<span id="cb10-134"><a href="#cb10-134"></a></span>
+<span id="cb10-137"><a href="#cb10-137"></a><span class="in">```{r}</span></span>
+<span id="cb10-138"><a href="#cb10-138"></a><span class="co">#| eval: !expr has_data</span></span>
+<span id="cb10-139"><a href="#cb10-139"></a><span class="co"># Option 2: compute from the date</span></span>
+<span id="cb10-140"><a href="#cb10-140"></a>weather_clean <span class="ot">&lt;-</span> weather_clean <span class="sc">|&gt;</span></span>
+<span id="cb10-141"><a href="#cb10-141"></a>    <span class="fu">mutate</span>(<span class="at">dateInYear =</span> <span class="fu">yday</span>(<span class="fu">mdy</span>(date)))</span>
+<span id="cb10-142"><a href="#cb10-142"></a><span class="in">```</span></span>
+<span id="cb10-143"><a href="#cb10-143"></a></span>
+<span id="cb10-144"><a href="#cb10-144"></a>**Both run. Only one is safe.**</span>
+<span id="cb10-145"><a href="#cb10-145"></a></span>
+<span id="cb10-146"><a href="#cb10-146"></a>Option 1 silently assumes the dataset is exactly 365 rows, sorted cleanly, with no leap-year row, no duplicates, and no missing days. If any of those assumptions fail — a leap year adds a 366th row, a missing February day reduces to 364, a duplicate inflates to 366 — <span class="in">`1:365`</span> recycles or errors depending on which. The bug is silent: the column is still produced, but day 60 is now labeled as day 61, and every downstream analysis is off by a day without warning.</span>
+<span id="cb10-147"><a href="#cb10-147"></a></span>
+<span id="cb10-148"><a href="#cb10-148"></a>Option 2 is the robust choice. <span class="in">`mdy()`</span> parses the date string into a <span class="in">`Date`</span> object; <span class="in">`yday()`</span> extracts the day-of-year from that date. The computation uses the *content of each row*, not its *position in a sorted sequence*. It handles 365-day years, 366-day leap years, missing rows, duplicates, and out-of-order data identically — because it never depends on row order at all.</span>
+<span id="cb10-149"><a href="#cb10-149"></a></span>
+<span id="cb10-150"><a href="#cb10-150"></a>The general principle: prefer computations that derive the target value from row content over computations that derive it from row position. Position-based tricks break silently; content-based computations fail loudly or not at all.</span>
+<span id="cb10-151"><a href="#cb10-151"></a></span>
+<span id="cb10-152"><a href="#cb10-152"></a><span class="fu">### 4. Add 3-letter month abbreviations</span></span>
+<span id="cb10-153"><a href="#cb10-153"></a></span>
+<span id="cb10-156"><a href="#cb10-156"></a><span class="in">```{r}</span></span>
+<span id="cb10-157"><a href="#cb10-157"></a><span class="co">#| eval: !expr has_data</span></span>
+<span id="cb10-158"><a href="#cb10-158"></a><span class="co"># Option A: lookup table + join</span></span>
+<span id="cb10-159"><a href="#cb10-159"></a>months <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-160"><a href="#cb10-160"></a>    <span class="at">Month      =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,</span>
+<span id="cb10-161"><a href="#cb10-161"></a>    <span class="at">month_name =</span> month.abb</span>
+<span id="cb10-162"><a href="#cb10-162"></a>)</span>
+<span id="cb10-163"><a href="#cb10-163"></a></span>
+<span id="cb10-164"><a href="#cb10-164"></a>weather_clean <span class="ot">&lt;-</span> weather_clean <span class="sc">|&gt;</span></span>
+<span id="cb10-165"><a href="#cb10-165"></a>    <span class="fu">left_join</span>(months, <span class="at">by =</span> <span class="st">"Month"</span>)</span>
+<span id="cb10-166"><a href="#cb10-166"></a><span class="in">```</span></span>
+<span id="cb10-167"><a href="#cb10-167"></a></span>
+<span id="cb10-170"><a href="#cb10-170"></a><span class="in">```{r}</span></span>
+<span id="cb10-171"><a href="#cb10-171"></a><span class="co">#| eval: !expr has_data</span></span>
+<span id="cb10-172"><a href="#cb10-172"></a><span class="co"># Option B: direct vector subsetting using the built-in constant</span></span>
+<span id="cb10-173"><a href="#cb10-173"></a>weather_clean <span class="sc">|&gt;</span></span>
+<span id="cb10-174"><a href="#cb10-174"></a>    <span class="fu">mutate</span>(<span class="at">month_name =</span> month.abb[Month]) <span class="sc">|&gt;</span></span>
+<span id="cb10-175"><a href="#cb10-175"></a>    <span class="fu">head</span>()</span>
+<span id="cb10-176"><a href="#cb10-176"></a><span class="in">```</span></span>
+<span id="cb10-177"><a href="#cb10-177"></a></span>
+<span id="cb10-178"><a href="#cb10-178"></a>Both produce identical results on this dataset. They differ in what they *generalize to*.</span>
+<span id="cb10-179"><a href="#cb10-179"></a></span>
+<span id="cb10-180"><a href="#cb10-180"></a><span class="in">`month.abb`</span> (and its sibling <span class="in">`month.name`</span>) are built-in character vectors — the kind of base-R constant that is trivially available but easy to forget. Direct subsetting <span class="in">`month.abb[Month]`</span> is the tightest expression when (a) the lookup table is a length-12 character vector and (b) the key is the integer 1–12. When both conditions hold, it's three tokens and zero intermediate objects.</span>
+<span id="cb10-181"><a href="#cb10-181"></a></span>
+<span id="cb10-182"><a href="#cb10-182"></a>The join approach is what generalizes. If tomorrow the lookup has to become a full-name-and-short-name-and-fiscal-quarter table, the join pattern is unchanged — only the lookup tibble grows. If the lookup has to come from a CSV, the join absorbs that too. Vector subsetting handles today's problem more elegantly; joins handle tomorrow's problem at all.</span>
+<span id="cb10-183"><a href="#cb10-183"></a></span>
+<span id="cb10-184"><a href="#cb10-184"></a>The right instinct: **start with the join pattern as the default, and drop down to vector subsetting only when the lookup is both tiny and index-keyed.**</span>
+<span id="cb10-185"><a href="#cb10-185"></a></span>
+<span id="cb10-186"><a href="#cb10-186"></a><span class="fu">### 5. Write out the cleaned data</span></span>
+<span id="cb10-187"><a href="#cb10-187"></a></span>
+<span id="cb10-190"><a href="#cb10-190"></a><span class="in">```{r}</span></span>
+<span id="cb10-191"><a href="#cb10-191"></a><span class="co">#| label: write-out</span></span>
+<span id="cb10-192"><a href="#cb10-192"></a><span class="co">#| eval: !expr has_data</span></span>
+<span id="cb10-193"><a href="#cb10-193"></a><span class="co"># Ensure the output directory exists before writing</span></span>
+<span id="cb10-194"><a href="#cb10-194"></a><span class="fu">dir.create</span>(<span class="st">"data/processed"</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-195"><a href="#cb10-195"></a><span class="fu">write_csv</span>(weather_clean, <span class="at">file =</span> <span class="st">"data/processed/weather_clean.csv"</span>)</span>
+<span id="cb10-196"><a href="#cb10-196"></a><span class="in">```</span></span>
+<span id="cb10-197"><a href="#cb10-197"></a></span>
+<span id="cb10-198"><a href="#cb10-198"></a>Three observations worth naming:</span>
+<span id="cb10-199"><a href="#cb10-199"></a></span>
+<span id="cb10-200"><a href="#cb10-200"></a><span class="ss">- </span>**`data/raw/` vs. `data/processed/`.** The output goes to <span class="in">`processed/`</span>, not back to <span class="in">`raw/`</span>. This enforces the principle that raw data is immutable — never overwritten, always the starting point. Processed derivatives live in a separate folder and can be regenerated at any time by re-running the pipeline. The convention is not cosmetic; it's what makes an analysis reproducible, because it guarantees that <span class="in">`raw/`</span> is exactly what came in from the source.</span>
+<span id="cb10-201"><a href="#cb10-201"></a><span class="ss">- </span>**Relative path, same logic as the read.** <span class="in">`data/processed/weather_clean.csv`</span> works from any machine where the repo is cloned. The symmetry between read and write is intentional — both ends of the pipeline are tied to the repo structure, not to any particular filesystem.</span>
+<span id="cb10-202"><a href="#cb10-202"></a><span class="ss">- </span>**CSV because it's durable.** Not <span class="in">`.rds`</span>, not <span class="in">`.parquet`</span>. A plain CSV is readable by anything — R, Python, Excel, <span class="in">`cat`</span> in a terminal in 2050. For a classroom pipeline where the next step might be done in a different language or tool, CSV is the format that doesn't lock the pipeline into one stack.</span>
+<span id="cb10-203"><a href="#cb10-203"></a></span>
+<span id="cb10-204"><a href="#cb10-204"></a>------------------------------------------------------------------------</span>
+<span id="cb10-205"><a href="#cb10-205"></a></span>
+<span id="cb10-206"><a href="#cb10-206"></a><span class="fu">## Git Verbs — A Working Mental Model</span></span>
+<span id="cb10-207"><a href="#cb10-207"></a></span>
+<span id="cb10-208"><a href="#cb10-208"></a>The five verbs map to three mental locations:</span>
+<span id="cb10-209"><a href="#cb10-209"></a></span>
+<span id="cb10-210"><a href="#cb10-210"></a><span class="ss">- </span>**`clone`** — bring a remote repo to my local machine for the first time. Done once per repo.</span>
+<span id="cb10-211"><a href="#cb10-211"></a><span class="ss">- </span>**`add`** + **`commit`** — stage and record changes *locally*. The commit is a snapshot with a message; it lives in my local <span class="in">`.git/`</span> until pushed.</span>
+<span id="cb10-212"><a href="#cb10-212"></a><span class="ss">- </span>**`push`** — upload my local commits to the remote (GitHub).</span>
+<span id="cb10-213"><a href="#cb10-213"></a><span class="ss">- </span>**`pull`** — download commits from the remote that I don't yet have locally.</span>
+<span id="cb10-214"><a href="#cb10-214"></a></span>
+<span id="cb10-215"><a href="#cb10-215"></a>The shape: *remote ⇄ local working copy*. <span class="in">`clone`</span> is the initial download; <span class="in">`pull`</span> is incremental download; <span class="in">`push`</span> is upload; <span class="in">`add`</span> + <span class="in">`commit`</span> is how I decide what becomes uploadable. The loop for any work session is <span class="in">`pull → work → add → commit → push`</span>, with the <span class="in">`pull`</span> at the start catching anything a collaborator (or past-me on another machine) pushed since I last worked.</span>
+<span id="cb10-216"><a href="#cb10-216"></a></span>
+<span id="cb10-217"><a href="#cb10-217"></a>Two failure modes to avoid: (1) forgetting to <span class="in">`pull`</span> before starting work, which produces merge conflicts that are avoidable; (2) committing frequently locally but never pushing, which is equivalent to not backing up the work at all until something breaks.</span>
+<span id="cb10-218"><a href="#cb10-218"></a></span>
+<span id="cb10-219"><a href="#cb10-219"></a>------------------------------------------------------------------------</span>
+<span id="cb10-220"><a href="#cb10-220"></a></span>
+<span id="cb10-221"><a href="#cb10-221"></a><span class="fu">## Keyboard Shortcuts — A Short List That Pays Back</span></span>
+<span id="cb10-222"><a href="#cb10-222"></a></span>
+<span id="cb10-223"><a href="#cb10-223"></a>The handful that compound over a semester:</span>
+<span id="cb10-224"><a href="#cb10-224"></a></span>
+<span id="cb10-225"><a href="#cb10-225"></a><span class="ss">- </span>**`Cmd/Ctrl + Enter`** — run the current line or selection. The most-used shortcut in the editor.</span>
+<span id="cb10-226"><a href="#cb10-226"></a><span class="ss">- </span>**`Cmd/Ctrl + Shift + M`** — insert the pipe <span class="in">`|&gt;`</span>. Saves three keystrokes every time I chain verbs, which is constantly.</span>
+<span id="cb10-227"><a href="#cb10-227"></a><span class="ss">- </span>**`Cmd/Ctrl + Shift + Enter`** — run the entire chunk.</span>
+<span id="cb10-228"><a href="#cb10-228"></a><span class="ss">- </span>**`Cmd/Ctrl + Option/Alt + I`** — insert a new code chunk in a Quarto/Rmd document.</span>
+<span id="cb10-229"><a href="#cb10-229"></a><span class="ss">- </span>**`Cmd/Ctrl + Shift + C`** — toggle comment on selected lines.</span>
+<span id="cb10-230"><a href="#cb10-230"></a><span class="ss">- </span>**`Cmd/Ctrl + S`** — save. Tied to Quarto render (<span class="in">`Cmd/Ctrl + Shift + K`</span>).</span>
+<span id="cb10-231"><a href="#cb10-231"></a><span class="ss">- </span>**`Tab`** — autocomplete object and function names. Reading documentation without typing full names is how you learn what's available in a package.</span>
+<span id="cb10-232"><a href="#cb10-232"></a></span>
+<span id="cb10-233"><a href="#cb10-233"></a>Every shortcut replaces a mouse trip. One mouse trip is not worth changing behavior for; a thousand mouse trips over a semester is the difference between the editor feeling like a barrier and feeling like an extension of thought.</span>
+<span id="cb10-234"><a href="#cb10-234"></a></span>
+<span id="cb10-235"><a href="#cb10-235"></a>------------------------------------------------------------------------</span>
+<span id="cb10-236"><a href="#cb10-236"></a></span>
+<span id="cb10-237"><a href="#cb10-237"></a><span class="fu">## Reflection</span></span>
+<span id="cb10-238"><a href="#cb10-238"></a></span>
+<span id="cb10-239"><a href="#cb10-239"></a>Three things to carry forward.</span>
+<span id="cb10-240"><a href="#cb10-240"></a></span>
+<span id="cb10-241"><a href="#cb10-241"></a>**Relative paths are a reproducibility discipline, not an aesthetic preference.** An absolute path is a commitment that the code will only ever run on one machine. Every <span class="in">`"/Users/zhijun/..."`</span> in a codebase is a future failure, whether it surfaces in a collaborator's IDE next week or in CI in six months. The discipline is to never let one leak in, because they are invisible in normal operation — the code works until the machine changes, and then it doesn't.</span>
+<span id="cb10-242"><a href="#cb10-242"></a></span>
+<span id="cb10-243"><a href="#cb10-243"></a>**Sort-and-assign is a silent failure waiting to happen.** The Option 1 / Option 2 split in the <span class="in">`dateInYear`</span> question is the template for a whole class of bugs: any transformation that derives a value from *row position in a sorted order* rather than from *row content* is fragile to the ordering assumptions holding. When Option 2 exists (compute the target directly from the date), take it — even when Option 1 looks simpler on the happy path. The cost of the bug is not the bug itself; it's that you'll never notice it ran.</span>
+<span id="cb10-244"><a href="#cb10-244"></a></span>
+<span id="cb10-245"><a href="#cb10-245"></a>**Git's four-verb loop is almost all of day-to-day git.** <span class="in">`pull → work → add → commit → push`</span>. Conflict resolution, branching, rebasing, and the rest are real but rarely needed for coursework flows. The risk isn't learning too little git; it's treating git as too complicated to engage with and therefore not committing frequently. The remedy is to commit often — many small commits are recoverable, one large commit after a week of work is a single point of failure.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

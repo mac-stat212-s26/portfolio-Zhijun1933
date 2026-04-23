@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Zhijun He">
-<meta name="dcterms.date" content="2026-04-21">
+<meta name="dcterms.date" content="2026-04-22">
 <title>12 — Loops and Iteration II: purrr – COMP/STAT212 Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
@@ -129,7 +129,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12_loops_iter_ii.html"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12_loops_iter_ii.html"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -267,7 +267,17 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  <a href="../pcl/exam1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 3</span></a>
   </div>
 </li>
       </ul>
@@ -283,12 +293,17 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  <a href="../ica/01_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  <a href="../ica/02_review.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/03_adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">03 — Adv Data Viz</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -298,7 +313,7 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6 - Advanced Data Wrangling I</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -379,12 +394,7 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  <a href="../extra/capital_without_category_v3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -439,7 +449,7 @@ cookieconsent.run({
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12_loops_iter_ii.html"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a></li></ol></nav><div class="quarto-title">
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12_loops_iter_ii.html"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
@@ -457,7 +467,7 @@ cookieconsent.run({
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 21, 2026</p>
+      <p class="date">April 22, 2026</p>
     </div>
   </div>
   
@@ -547,10 +557,10 @@ cookieconsent.run({
 <pre><code># A tibble: 4 × 3
   type                    median mem_alloc
   &lt;chr&gt;                 &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 for_loop_no_storage    75.04ms   191.2MB
-2 for_loop_with_storage 844.56µs    48.8KB
-3 purrr_map_int           3.96ms      46KB
-4 vectorized_seq_len    122.94ns        0B</code></pre>
+1 for_loop_no_storage    82.77ms   191.2MB
+2 for_loop_with_storage 861.21µs    48.8KB
+3 purrr_map_int           3.97ms      46KB
+4 vectorized_seq_len     40.98ns        0B</code></pre>
 </div>
 </div>
 <p>Reading across: <code>vectorized_seq_len</code> is the fastest and allocates the least memory; <code>for_loop_with_storage</code> is in the same ballpark as <code>purrr_map_int</code>; <code>for_loop_no_storage</code> is roughly two orders of magnitude slower and allocates dramatically more memory because every <code>c(x, i)</code> copies the entire growing vector. The <code>n_gc</code> (garbage-collection) column tells the same story from the memory-pressure side.</p>

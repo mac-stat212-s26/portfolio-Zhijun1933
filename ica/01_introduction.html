@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Zhijun He">
+<meta name="dcterms.date" content="2026-04-22">
+<title>01 — Introduction: Sources, Levels of Understanding, and Wrangling Review – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/02_review.html" rel="next">
+<link href="../pcl/exam3.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2de5ef8d1a18e10c8fc97ed516e8d40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/01_introduction.html"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 3</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/01_introduction.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/02_review.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/03_adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">03 — Adv Data Viz</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6 - Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/capital_without_category_v3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/pagination-simulation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verifying Pagination Strategies: A Monte Carlo Simulation</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link" data-scroll-target="#learning-goals">🧩 Learning Goals</a></li>
+  <li>
+<a href="#sources-of-information-what-is-a-data-frame-in-r" id="toc-sources-of-information-what-is-a-data-frame-in-r" class="nav-link" data-scroll-target="#sources-of-information-what-is-a-data-frame-in-r">Sources of Information — What is a Data Frame in R?</a>
+  <ul class="collapse">
+<li><a href="#a-what-each-source-says" id="toc-a-what-each-source-says" class="nav-link" data-scroll-target="#a-what-each-source-says">(a) What each source says</a></li>
+  <li><a href="#b-how-the-sources-differ" id="toc-b-how-the-sources-differ" class="nav-link" data-scroll-target="#b-how-the-sources-differ">(b) How the sources differ</a></li>
+  <li><a href="#our-definition-of-a-data-frame-in-r" id="toc-our-definition-of-a-data-frame-in-r" class="nav-link" data-scroll-target="#our-definition-of-a-data-frame-in-r">Our definition of a data frame in R</a></li>
+  </ul>
+</li>
+  <li><a href="#levels-of-understanding" id="toc-levels-of-understanding" class="nav-link" data-scroll-target="#levels-of-understanding">Levels of Understanding</a></li>
+  <li>
+<a href="#data-wrangling-verbs-review-from-compstat-112" id="toc-data-wrangling-verbs-review-from-compstat-112" class="nav-link" data-scroll-target="#data-wrangling-verbs-review-from-compstat-112">Data Wrangling Verbs — Review from COMP/STAT 112</a>
+  <ul class="collapse">
+<li><a href="#column-operations" id="toc-column-operations" class="nav-link" data-scroll-target="#column-operations">Column operations</a></li>
+  <li><a href="#row-operations" id="toc-row-operations" class="nav-link" data-scroll-target="#row-operations">Row operations</a></li>
+  <li><a href="#group-and-collapse" id="toc-group-and-collapse" class="nav-link" data-scroll-target="#group-and-collapse">Group-and-collapse</a></li>
+  <li><a href="#joins-combining-two-tables" id="toc-joins-combining-two-tables" class="nav-link" data-scroll-target="#joins-combining-two-tables">Joins — combining two tables</a></li>
+  <li><a href="#reshape-change-the-rectangle-itself" id="toc-reshape-change-the-rectangle-itself" class="nav-link" data-scroll-target="#reshape-change-the-rectangle-itself">Reshape — change the rectangle itself</a></li>
+  <li><a href="#a-compact-demonstration" id="toc-a-compact-demonstration" class="nav-link" data-scroll-target="#a-compact-demonstration">A compact demonstration</a></li>
+  </ul>
+</li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/01_introduction.html"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 22, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr></section><section id="learning-goals" class="level2"><h2 class="anchored" data-anchor-id="learning-goals">🧩 Learning Goals</h2>
+<p>By the end of this lesson I should be able to:</p>
+<ul>
+<li>Use and evaluate different sources of information to find potential answers</li>
+<li>Distinguish between high- and low-level understanding</li>
+<li>Decide which source of information is suitable for each level of understanding</li>
+<li>Decide which level of understanding is suitable for this class</li>
+<li>Review the data-wrangling verbs from COMP/STAT 112</li>
+</ul>
+<hr></section><section id="sources-of-information-what-is-a-data-frame-in-r" class="level2"><h2 class="anchored" data-anchor-id="sources-of-information-what-is-a-data-frame-in-r">Sources of Information — What is a Data Frame in R?</h2>
+<p>The exercise is to ask the <em>same</em> question of seven different sources and watch how the answers differ. What follows is a compressed synthesis of what each source actually says, not a retyping of its text.</p>
+<section id="a-what-each-source-says" class="level3"><h3 class="anchored" data-anchor-id="a-what-each-source-says">(a) What each source says</h3>
+<p><strong>Search engines (Google).</strong> The top results are tutorial sites (W3Schools, GeeksforGeeks, DataCamp). They converge on the framing <em>“a data frame is a table-like structure with rows and columns, where each column can have a different type.”</em> Optimized for findability; thin on mechanism.</p>
+<p><strong>LLMs (Gemini).</strong> Returns the tutorial-site framing with an extra sentence or two of context — “similar to a spreadsheet or SQL table” — and, if prompted, offers a <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> example. Fluent and fast; confidently silent about what’s underneath the abstraction.</p>
+<p><strong>Intro textbooks (R4DS).</strong> Wickham &amp; Grolemund introduce the <em>tibble</em> first (<code>tbl_df</code>) rather than <code>data.frame</code>, and frame it as “the modern reimagining of the data frame.” The pedagogical move is to let the learner use tidy data without worrying about legacy base-R footguns (<code>stringsAsFactors</code>, partial matching, <code>drop = TRUE</code> in <code>[</code>).</p>
+<p><strong>R Manuals (official).</strong> <em>An Introduction to R</em> is terser and more precise: a data frame is a list of variables of the same number of rows with unique row names, given class <code>"data.frame"</code>. This definition is the one that tells you what the object <em>is</em>, not what it <em>looks like</em>.</p>
+<p><strong>Advanced textbooks (Advanced R).</strong> Wickham is explicit: a data frame is an S3 object built on top of a named list of equal-length vectors, with a <code>row.names</code> attribute and <code>class = "data.frame"</code>. Everything else — the rectangular printout, <code>[</code> behavior, <code>$</code> access — is convention layered on top of the list substrate. This is the view that generalizes.</p>
+<p><strong><code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> documentation.</strong> The function signature tells you what the constructor actually does: recycles shorter columns, mangles or checks names, and (since R 4.0) no longer stringifies-to-factor by default. Read this when something surprising happens at construction time.</p>
+<p><strong><code>tibble</code> class documentation.</strong> Specifies exactly how <code>tbl_df</code> differs from <code>data.frame</code>: <code>[</code> always returns a tibble (never drops to a vector), no partial name matching, no row names by default, lazier coercion, nicer printing. Read this when something surprising happens downstream of a <code>mutate()</code> or a bracket.</p>
+</section><section id="b-how-the-sources-differ" class="level3"><h3 class="anchored" data-anchor-id="b-how-the-sources-differ">(b) How the sources differ</h3>
+<p>Two axes separate them cleanly:</p>
+<ol type="1">
+<li>
+<strong>High-level (what it <em>looks like</em>) vs.&nbsp;low-level (what it <em>is</em>).</strong> Search engines, LLMs, and intro textbooks stay on the first side; manuals, Advanced R, and the class documentation cross to the second.</li>
+<li>
+<strong>Happy-path vs.&nbsp;edge-case.</strong> Tutorials describe the happy path; documentation describes the behavior under unusual inputs — which is where bugs actually live.</li>
+</ol>
+<p>The pattern that matters: a source that <em>looks</em> authoritative (a confident LLM answer, a polished tutorial site) can be shallower than a source that <em>looks</em> dry (the R manual page). Authority of tone is not authority of depth.</p>
+</section><section id="our-definition-of-a-data-frame-in-r" class="level3"><h3 class="anchored" data-anchor-id="our-definition-of-a-data-frame-in-r">Our definition of a data frame in R</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Our definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>A data frame in R is an S3 object built on a named list of equal-length vectors</strong>, with a <code>row.names</code> attribute supplying an implicit row index and <code>class = "data.frame"</code> supplying method dispatch. The rectangular “table with rows and columns” is the user-facing abstraction; the list of vectors is the implementation. A <strong>tibble (<code>tbl_df</code>)</strong> is a refined subclass that changes defaults (no partial name matching, non-dropping <code>[</code>, no row names, no silent string-to-factor coercion) while preserving the list-of-vectors substrate.</p>
+</div>
+</div>
+<p>A small verification pass makes this concrete:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">class</span>(df)          <span class="co"># "data.frame"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">typeof</span>(df)         <span class="co"># "list" — this is the move</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">is.list</span>(df)        <span class="co"># TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">length</span>(df)         <span class="co"># 3 columns — same as length of the underlying list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">attributes</span>(df)     <span class="co"># names, class, row.names</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>$names
+[1] "x" "y"
+
+$class
+[1] "data.frame"
+
+$row.names
+[1] 1 2 3</code></pre>
+</div>
+</div>
+<p><code>typeof(df) == "list"</code> is the sentence that turns “data frame” from a black box into a navigable object. Once you know the substrate is a list, every list operation — <code>[[</code>, <code>$</code>, <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> — is available, and the rectangular shape is just a display convention the class enforces on top.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># A tibble behaves like a data frame but tightens the defaults</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">class</span>(tb)          <span class="co"># "tbl_df" "tbl" "data.frame" — inheritance chain</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">identical</span>(<span class="fu">as.list</span>(tb), <span class="fu">as.list</span>(df))   <span class="co"># same substrate, different defaults</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<hr></section></section><section id="levels-of-understanding" class="level2"><h2 class="anchored" data-anchor-id="levels-of-understanding">Levels of Understanding</h2>
+<p>Two levels:</p>
+<ul>
+<li>
+<strong>High-level (intuitive):</strong> enough to implement common tasks. “A data frame is a table with columns of possibly different types.”</li>
+<li>
+<strong>Low-level (foundational):</strong> enough to tackle new problems and invent new solutions. “A data frame is an S3 object over a named list of equal-length vectors; <code>[</code> dispatches through the <code>data.frame</code> method; tibbles are a subclass with tightened defaults.”</li>
+</ul>
+<p>The class standard is low-level. The practical workflow is to <strong>start</strong> high-level (LLM, tutorial, R4DS) to get oriented, then <strong>dig</strong> into documentation and Advanced R to actually understand why the thing behaves the way it does. The high-level pass tells you which questions to ask; the low-level pass gives answers that generalize.</p>
+<p>A compact test for whether I have reached the low-level understanding: can I predict what an unfamiliar operation will do to the object <em>before</em> I run it, by reasoning about its structure? If yes, low-level. If I have to run it to see, still high-level.</p>
+<hr></section><section id="data-wrangling-verbs-review-from-compstat-112" class="level2"><h2 class="anchored" data-anchor-id="data-wrangling-verbs-review-from-compstat-112">Data Wrangling Verbs — Review from COMP/STAT 112</h2>
+<p>Organized by what they <em>do to the shape of the data</em>, not in alphabetical order — grouping by effect is how I actually recall them under pressure.</p>
+<section id="column-operations" class="level3"><h3 class="anchored" data-anchor-id="column-operations">Column operations</h3>
+<ul>
+<li>
+<code>mutate()</code> — creates or modifies columns.</li>
+<li>
+<code>select()</code> — keeps a subset of columns.</li>
+</ul></section><section id="row-operations" class="level3"><h3 class="anchored" data-anchor-id="row-operations">Row operations</h3>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> — keeps a subset of rows by condition.</li>
+<li>
+<code>arrange()</code> — sorts rows.</li>
+</ul></section><section id="group-and-collapse" class="level3"><h3 class="anchored" data-anchor-id="group-and-collapse">Group-and-collapse</h3>
+<ul>
+<li>
+<code>group_by()</code> — internally groups rows by one or more columns (no visible change until a downstream verb consumes the grouping).</li>
+<li>
+<code>summarize()</code> — collapses each group to a single row using <code>n()</code>, <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>, <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, etc.</li>
+<li>
+<code>count()</code> — shortcut for <code>group_by(...) |&gt; summarize(n = n())</code>.</li>
+</ul></section><section id="joins-combining-two-tables" class="level3"><h3 class="anchored" data-anchor-id="joins-combining-two-tables">Joins — combining two tables</h3>
+<p><em>Mutating joins</em> (can add columns):</p>
+<ul>
+<li>
+<code>left_join()</code> — keep all rows in the left table.</li>
+<li>
+<code>full_join()</code> — keep all rows in both.</li>
+<li>
+<code>inner_join()</code> — keep only rows with matches in both.</li>
+</ul>
+<p><em>Filtering joins</em> (never add columns, only filter the left table):</p>
+<ul>
+<li>
+<code>semi_join()</code> — keep left-table rows that have a match on the right.</li>
+<li>
+<code>anti_join()</code> — keep left-table rows that have <em>no</em> match on the right.</li>
+</ul></section><section id="reshape-change-the-rectangle-itself" class="level3"><h3 class="anchored" data-anchor-id="reshape-change-the-rectangle-itself">Reshape — change the rectangle itself</h3>
+<ul>
+<li>
+<code>pivot_wider()</code> — one column’s values become new column names; another column’s values populate them. Used when the tidy long form needs to be read by a human or by a wide-format model.</li>
+<li>
+<code>pivot_longer()</code> — the inverse: many columns collapse into a name column and a value column. Used to get data into tidy form from spreadsheet-shaped inputs.</li>
+</ul></section><section id="a-compact-demonstration" class="level3"><h3 class="anchored" data-anchor-id="a-compact-demonstration">A compact demonstration</h3>
+<p>One chained pipeline exercising most of the verbs, for muscle memory:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>    <span class="fu">rownames_to_column</span>(<span class="st">"car"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="fu">mutate</span>(<span class="at">power_to_weight =</span> hp <span class="sc">/</span> wt) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>    <span class="fu">filter</span>(cyl <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb16-7"><a href="#cb16-7"></a>        <span class="at">n          =</span> <span class="fu">n</span>(),</span>
+<span id="cb16-8"><a href="#cb16-8"></a>        <span class="at">mean_mpg   =</span> <span class="fu">mean</span>(mpg),</span>
+<span id="cb16-9"><a href="#cb16-9"></a>        <span class="at">mean_ptw   =</span> <span class="fu">mean</span>(power_to_weight),</span>
+<span id="cb16-10"><a href="#cb16-10"></a>        <span class="at">.groups    =</span> <span class="st">"drop"</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_mpg))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+    cyl     n mean_mpg mean_ptw
+  &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1     4    11     26.7     37.9
+2     6     7     19.7     39.9
+3     8    14     15.1     53.9</code></pre>
+</div>
+</div>
+<p>One sentence about each verb in the pipeline: <code>rownames_to_column()</code> moves the implicit row-name index into a real column (because row names are a legacy feature that tibbles drop); <code>mutate()</code> adds a derived column; <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> subsets rows; <code>group_by()</code> sets the grouping for the next verb; <code>summarize()</code> collapses each group to one row; <code>arrange(desc(...))</code> sorts descending. The pipeline is the mental model: <em>shape the columns, shape the rows, group, collapse, sort</em>.</p>
+<hr></section></section><section id="reflection" class="level2"><h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p>Two things I want to carry forward from this first lesson.</p>
+<p><strong>Source selection is a skill, not a preference.</strong> The naïve model is “use the best source.” The real model is <em>which source answers which kind of question</em>. A tutorial site answers <em>how do I do X right now?</em>; an LLM answers <em>give me a fluent overview of X</em>; the R manual answers <em>what does X actually do under unusual inputs?</em>; Advanced R answers <em>why does X behave the way it does structurally?</em>. A workflow that always reaches for the same source is a workflow that will be wrong in predictable ways — too shallow when precision matters, too dense when orientation is what’s needed. The cost of the wrong source is time: shallow sources fail silently on edge cases, dense sources eat hours on questions that had a one-sentence answer.</p>
+<p><strong>Low-level understanding is what lets code generalize.</strong> The <code>typeof(df) == "list"</code> line is the entire game. If I know a data frame is a list of vectors, <code><a href="https://purrr.tidyverse.org/reference/map_dfr.html">purrr::map_dfc()</a></code>, <code>[[</code>, bracket subsetting, and every coercion surprise become one system rather than five disconnected tricks. The high-level “table with columns” mental model is sufficient for <code>mutate()</code> and <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>; it’s insufficient the moment I need to write a function that takes <em>any</em> tabular object and does something sensible with it. This is the same instinct that sits behind the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> pass in later lessons — the object is a list underneath, so open it and look.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="../pcl/exam3.html" class="pagination-link" aria-label="Exam 3">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Exam 3</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/02_review.html" class="pagination-link" aria-label="02 — Review: File Paths, Git, and Data Wrangling">
+        <span class="nav-page-text"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">---</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="an">title:</span><span class="co"> "01 — Introduction: Sources, Levels of Understanding, and Wrangling Review"</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="an">author:</span><span class="co"> "Zhijun He"</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="an">format:</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="co">  html:</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="co">    toc: true</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="co">    toc-location: left</span></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb18-13"><a href="#cb18-13"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a><span class="an">execute:</span></span>
+<span id="cb18-15"><a href="#cb18-15"></a><span class="co">  warning: false</span></span>
+<span id="cb18-16"><a href="#cb18-16"></a><span class="co">  message: false</span></span>
+<span id="cb18-17"><a href="#cb18-17"></a><span class="co">---</span></span>
+<span id="cb18-18"><a href="#cb18-18"></a></span>
+<span id="cb18-19"><a href="#cb18-19"></a><span class="fu">## Setup</span></span>
+<span id="cb18-20"><a href="#cb18-20"></a></span>
+<span id="cb18-23"><a href="#cb18-23"></a><span class="in">```{r}</span></span>
+<span id="cb18-24"><a href="#cb18-24"></a><span class="co">#| label: setup</span></span>
+<span id="cb18-25"><a href="#cb18-25"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb18-26"><a href="#cb18-26"></a><span class="in">```</span></span>
+<span id="cb18-27"><a href="#cb18-27"></a></span>
+<span id="cb18-28"><a href="#cb18-28"></a>------------------------------------------------------------------------</span>
+<span id="cb18-29"><a href="#cb18-29"></a></span>
+<span id="cb18-30"><a href="#cb18-30"></a><span class="fu">## 🧩 Learning Goals</span></span>
+<span id="cb18-31"><a href="#cb18-31"></a></span>
+<span id="cb18-32"><a href="#cb18-32"></a>By the end of this lesson I should be able to:</span>
+<span id="cb18-33"><a href="#cb18-33"></a></span>
+<span id="cb18-34"><a href="#cb18-34"></a><span class="ss">- </span>Use and evaluate different sources of information to find potential answers</span>
+<span id="cb18-35"><a href="#cb18-35"></a><span class="ss">- </span>Distinguish between high- and low-level understanding</span>
+<span id="cb18-36"><a href="#cb18-36"></a><span class="ss">- </span>Decide which source of information is suitable for each level of understanding</span>
+<span id="cb18-37"><a href="#cb18-37"></a><span class="ss">- </span>Decide which level of understanding is suitable for this class</span>
+<span id="cb18-38"><a href="#cb18-38"></a><span class="ss">- </span>Review the data-wrangling verbs from COMP/STAT 112</span>
+<span id="cb18-39"><a href="#cb18-39"></a></span>
+<span id="cb18-40"><a href="#cb18-40"></a>------------------------------------------------------------------------</span>
+<span id="cb18-41"><a href="#cb18-41"></a></span>
+<span id="cb18-42"><a href="#cb18-42"></a><span class="fu">## Sources of Information — What is a Data Frame in R?</span></span>
+<span id="cb18-43"><a href="#cb18-43"></a></span>
+<span id="cb18-44"><a href="#cb18-44"></a>The exercise is to ask the *same* question of seven different sources and watch how the answers differ. What follows is a compressed synthesis of what each source actually says, not a retyping of its text.</span>
+<span id="cb18-45"><a href="#cb18-45"></a></span>
+<span id="cb18-46"><a href="#cb18-46"></a><span class="fu">### (a) What each source says</span></span>
+<span id="cb18-47"><a href="#cb18-47"></a></span>
+<span id="cb18-48"><a href="#cb18-48"></a>**Search engines (Google).** The top results are tutorial sites (W3Schools, GeeksforGeeks, DataCamp). They converge on the framing *"a data frame is a table-like structure with rows and columns, where each column can have a different type."* Optimized for findability; thin on mechanism.</span>
+<span id="cb18-49"><a href="#cb18-49"></a></span>
+<span id="cb18-50"><a href="#cb18-50"></a>**LLMs (Gemini).** Returns the tutorial-site framing with an extra sentence or two of context — "similar to a spreadsheet or SQL table" — and, if prompted, offers a <span class="in">`data.frame()`</span> example. Fluent and fast; confidently silent about what's underneath the abstraction.</span>
+<span id="cb18-51"><a href="#cb18-51"></a></span>
+<span id="cb18-52"><a href="#cb18-52"></a>**Intro textbooks (R4DS).** Wickham &amp; Grolemund introduce the *tibble* first (<span class="in">`tbl_df`</span>) rather than <span class="in">`data.frame`</span>, and frame it as "the modern reimagining of the data frame." The pedagogical move is to let the learner use tidy data without worrying about legacy base-R footguns (<span class="in">`stringsAsFactors`</span>, partial matching, <span class="in">`drop = TRUE`</span> in <span class="in">`[`</span>).</span>
+<span id="cb18-53"><a href="#cb18-53"></a></span>
+<span id="cb18-54"><a href="#cb18-54"></a>**R Manuals (official).** *An Introduction to R* is terser and more precise: a data frame is a list of variables of the same number of rows with unique row names, given class `"data.frame"`. This definition is the one that tells you what the object *is*, not what it *looks like*.</span>
+<span id="cb18-55"><a href="#cb18-55"></a></span>
+<span id="cb18-56"><a href="#cb18-56"></a>**Advanced textbooks (Advanced R).** Wickham is explicit: a data frame is an S3 object built on top of a named list of equal-length vectors, with a <span class="in">`row.names`</span> attribute and <span class="in">`class = "data.frame"`</span>. Everything else — the rectangular printout, <span class="in">`[`</span> behavior, <span class="in">`$`</span> access — is convention layered on top of the list substrate. This is the view that generalizes.</span>
+<span id="cb18-57"><a href="#cb18-57"></a></span>
+<span id="cb18-58"><a href="#cb18-58"></a>**`data.frame()` documentation.** The function signature tells you what the constructor actually does: recycles shorter columns, mangles or checks names, and (since R 4.0) no longer stringifies-to-factor by default. Read this when something surprising happens at construction time.</span>
+<span id="cb18-59"><a href="#cb18-59"></a></span>
+<span id="cb18-60"><a href="#cb18-60"></a>**`tibble` class documentation.** Specifies exactly how <span class="in">`tbl_df`</span> differs from <span class="in">`data.frame`</span>: <span class="in">`[`</span> always returns a tibble (never drops to a vector), no partial name matching, no row names by default, lazier coercion, nicer printing. Read this when something surprising happens downstream of a <span class="in">`mutate()`</span> or a bracket.</span>
+<span id="cb18-61"><a href="#cb18-61"></a></span>
+<span id="cb18-62"><a href="#cb18-62"></a><span class="fu">### (b) How the sources differ</span></span>
+<span id="cb18-63"><a href="#cb18-63"></a></span>
+<span id="cb18-64"><a href="#cb18-64"></a>Two axes separate them cleanly:</span>
+<span id="cb18-65"><a href="#cb18-65"></a></span>
+<span id="cb18-66"><a href="#cb18-66"></a><span class="ss">1. </span>**High-level (what it *looks like*) vs. low-level (what it *is*).** Search engines, LLMs, and intro textbooks stay on the first side; manuals, Advanced R, and the class documentation cross to the second.</span>
+<span id="cb18-67"><a href="#cb18-67"></a><span class="ss">2. </span>**Happy-path vs. edge-case.** Tutorials describe the happy path; documentation describes the behavior under unusual inputs — which is where bugs actually live.</span>
+<span id="cb18-68"><a href="#cb18-68"></a></span>
+<span id="cb18-69"><a href="#cb18-69"></a>The pattern that matters: a source that *looks* authoritative (a confident LLM answer, a polished tutorial site) can be shallower than a source that *looks* dry (the R manual page). Authority of tone is not authority of depth.</span>
+<span id="cb18-70"><a href="#cb18-70"></a></span>
+<span id="cb18-71"><a href="#cb18-71"></a><span class="fu">### Our definition of a data frame in R</span></span>
+<span id="cb18-72"><a href="#cb18-72"></a></span>
+<span id="cb18-73"><a href="#cb18-73"></a>::: {.callout-note}</span>
+<span id="cb18-74"><a href="#cb18-74"></a><span class="fu">## Our definition</span></span>
+<span id="cb18-75"><a href="#cb18-75"></a></span>
+<span id="cb18-76"><a href="#cb18-76"></a>**A data frame in R is an S3 object built on a named list of equal-length vectors**, with a `row.names` attribute supplying an implicit row index and `class = "data.frame"` supplying method dispatch. The rectangular "table with rows and columns" is the user-facing abstraction; the list of vectors is the implementation. A **tibble (`tbl_df`)** is a refined subclass that changes defaults (no partial name matching, non-dropping <span class="in">`[`</span>, no row names, no silent string-to-factor coercion) while preserving the list-of-vectors substrate.</span>
+<span id="cb18-77"><a href="#cb18-77"></a>:::</span>
+<span id="cb18-78"><a href="#cb18-78"></a></span>
+<span id="cb18-79"><a href="#cb18-79"></a>A small verification pass makes this concrete:</span>
+<span id="cb18-80"><a href="#cb18-80"></a></span>
+<span id="cb18-83"><a href="#cb18-83"></a><span class="in">```{r}</span></span>
+<span id="cb18-84"><a href="#cb18-84"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span>
+<span id="cb18-85"><a href="#cb18-85"></a></span>
+<span id="cb18-86"><a href="#cb18-86"></a><span class="fu">class</span>(df)          <span class="co"># "data.frame"</span></span>
+<span id="cb18-87"><a href="#cb18-87"></a><span class="fu">typeof</span>(df)         <span class="co"># "list" — this is the move</span></span>
+<span id="cb18-88"><a href="#cb18-88"></a><span class="fu">is.list</span>(df)        <span class="co"># TRUE</span></span>
+<span id="cb18-89"><a href="#cb18-89"></a><span class="fu">length</span>(df)         <span class="co"># 3 columns — same as length of the underlying list</span></span>
+<span id="cb18-90"><a href="#cb18-90"></a><span class="fu">attributes</span>(df)     <span class="co"># names, class, row.names</span></span>
+<span id="cb18-91"><a href="#cb18-91"></a><span class="in">```</span></span>
+<span id="cb18-92"><a href="#cb18-92"></a></span>
+<span id="cb18-93"><a href="#cb18-93"></a><span class="in">`typeof(df) == "list"`</span> is the sentence that turns "data frame" from a black box into a navigable object. Once you know the substrate is a list, every list operation — <span class="in">`[[`</span>, <span class="in">`$`</span>, <span class="in">`lapply()`</span>, <span class="in">`purrr::map()`</span> — is available, and the rectangular shape is just a display convention the class enforces on top.</span>
+<span id="cb18-94"><a href="#cb18-94"></a></span>
+<span id="cb18-97"><a href="#cb18-97"></a><span class="in">```{r}</span></span>
+<span id="cb18-98"><a href="#cb18-98"></a><span class="co"># A tibble behaves like a data frame but tightens the defaults</span></span>
+<span id="cb18-99"><a href="#cb18-99"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span>
+<span id="cb18-100"><a href="#cb18-100"></a></span>
+<span id="cb18-101"><a href="#cb18-101"></a><span class="fu">class</span>(tb)          <span class="co"># "tbl_df" "tbl" "data.frame" — inheritance chain</span></span>
+<span id="cb18-102"><a href="#cb18-102"></a><span class="fu">identical</span>(<span class="fu">as.list</span>(tb), <span class="fu">as.list</span>(df))   <span class="co"># same substrate, different defaults</span></span>
+<span id="cb18-103"><a href="#cb18-103"></a><span class="in">```</span></span>
+<span id="cb18-104"><a href="#cb18-104"></a></span>
+<span id="cb18-105"><a href="#cb18-105"></a>------------------------------------------------------------------------</span>
+<span id="cb18-106"><a href="#cb18-106"></a></span>
+<span id="cb18-107"><a href="#cb18-107"></a><span class="fu">## Levels of Understanding</span></span>
+<span id="cb18-108"><a href="#cb18-108"></a></span>
+<span id="cb18-109"><a href="#cb18-109"></a>Two levels:</span>
+<span id="cb18-110"><a href="#cb18-110"></a></span>
+<span id="cb18-111"><a href="#cb18-111"></a><span class="ss">- </span>**High-level (intuitive):** enough to implement common tasks. "A data frame is a table with columns of possibly different types."</span>
+<span id="cb18-112"><a href="#cb18-112"></a><span class="ss">- </span>**Low-level (foundational):** enough to tackle new problems and invent new solutions. "A data frame is an S3 object over a named list of equal-length vectors; <span class="in">`[`</span> dispatches through the <span class="in">`data.frame`</span> method; tibbles are a subclass with tightened defaults."</span>
+<span id="cb18-113"><a href="#cb18-113"></a></span>
+<span id="cb18-114"><a href="#cb18-114"></a>The class standard is low-level. The practical workflow is to **start** high-level (LLM, tutorial, R4DS) to get oriented, then **dig** into documentation and Advanced R to actually understand why the thing behaves the way it does. The high-level pass tells you which questions to ask; the low-level pass gives answers that generalize.</span>
+<span id="cb18-115"><a href="#cb18-115"></a></span>
+<span id="cb18-116"><a href="#cb18-116"></a>A compact test for whether I have reached the low-level understanding: can I predict what an unfamiliar operation will do to the object *before* I run it, by reasoning about its structure? If yes, low-level. If I have to run it to see, still high-level.</span>
+<span id="cb18-117"><a href="#cb18-117"></a></span>
+<span id="cb18-118"><a href="#cb18-118"></a>------------------------------------------------------------------------</span>
+<span id="cb18-119"><a href="#cb18-119"></a></span>
+<span id="cb18-120"><a href="#cb18-120"></a><span class="fu">## Data Wrangling Verbs — Review from COMP/STAT 112</span></span>
+<span id="cb18-121"><a href="#cb18-121"></a></span>
+<span id="cb18-122"><a href="#cb18-122"></a>Organized by what they *do to the shape of the data*, not in alphabetical order — grouping by effect is how I actually recall them under pressure.</span>
+<span id="cb18-123"><a href="#cb18-123"></a></span>
+<span id="cb18-124"><a href="#cb18-124"></a><span class="fu">### Column operations</span></span>
+<span id="cb18-125"><a href="#cb18-125"></a></span>
+<span id="cb18-126"><a href="#cb18-126"></a><span class="ss">- </span><span class="in">`mutate()`</span> — creates or modifies columns.</span>
+<span id="cb18-127"><a href="#cb18-127"></a><span class="ss">- </span><span class="in">`select()`</span> — keeps a subset of columns.</span>
+<span id="cb18-128"><a href="#cb18-128"></a></span>
+<span id="cb18-129"><a href="#cb18-129"></a><span class="fu">### Row operations</span></span>
+<span id="cb18-130"><a href="#cb18-130"></a></span>
+<span id="cb18-131"><a href="#cb18-131"></a><span class="ss">- </span><span class="in">`filter()`</span> — keeps a subset of rows by condition.</span>
+<span id="cb18-132"><a href="#cb18-132"></a><span class="ss">- </span><span class="in">`arrange()`</span> — sorts rows.</span>
+<span id="cb18-133"><a href="#cb18-133"></a></span>
+<span id="cb18-134"><a href="#cb18-134"></a><span class="fu">### Group-and-collapse</span></span>
+<span id="cb18-135"><a href="#cb18-135"></a></span>
+<span id="cb18-136"><a href="#cb18-136"></a><span class="ss">- </span><span class="in">`group_by()`</span> — internally groups rows by one or more columns (no visible change until a downstream verb consumes the grouping).</span>
+<span id="cb18-137"><a href="#cb18-137"></a><span class="ss">- </span><span class="in">`summarize()`</span> — collapses each group to a single row using <span class="in">`n()`</span>, <span class="in">`sum()`</span>, <span class="in">`mean()`</span>, <span class="in">`min()`</span>, <span class="in">`max()`</span>, <span class="in">`median()`</span>, <span class="in">`sd()`</span>, etc.</span>
+<span id="cb18-138"><a href="#cb18-138"></a><span class="ss">- </span><span class="in">`count()`</span> — shortcut for <span class="in">`group_by(...) |&gt; summarize(n = n())`</span>.</span>
+<span id="cb18-139"><a href="#cb18-139"></a></span>
+<span id="cb18-140"><a href="#cb18-140"></a><span class="fu">### Joins — combining two tables</span></span>
+<span id="cb18-141"><a href="#cb18-141"></a></span>
+<span id="cb18-142"><a href="#cb18-142"></a>*Mutating joins* (can add columns):</span>
+<span id="cb18-143"><a href="#cb18-143"></a></span>
+<span id="cb18-144"><a href="#cb18-144"></a><span class="ss">- </span><span class="in">`left_join()`</span> — keep all rows in the left table.</span>
+<span id="cb18-145"><a href="#cb18-145"></a><span class="ss">- </span><span class="in">`full_join()`</span> — keep all rows in both.</span>
+<span id="cb18-146"><a href="#cb18-146"></a><span class="ss">- </span><span class="in">`inner_join()`</span> — keep only rows with matches in both.</span>
+<span id="cb18-147"><a href="#cb18-147"></a></span>
+<span id="cb18-148"><a href="#cb18-148"></a>*Filtering joins* (never add columns, only filter the left table):</span>
+<span id="cb18-149"><a href="#cb18-149"></a></span>
+<span id="cb18-150"><a href="#cb18-150"></a><span class="ss">- </span><span class="in">`semi_join()`</span> — keep left-table rows that have a match on the right.</span>
+<span id="cb18-151"><a href="#cb18-151"></a><span class="ss">- </span><span class="in">`anti_join()`</span> — keep left-table rows that have *no* match on the right.</span>
+<span id="cb18-152"><a href="#cb18-152"></a></span>
+<span id="cb18-153"><a href="#cb18-153"></a><span class="fu">### Reshape — change the rectangle itself</span></span>
+<span id="cb18-154"><a href="#cb18-154"></a></span>
+<span id="cb18-155"><a href="#cb18-155"></a><span class="ss">- </span><span class="in">`pivot_wider()`</span> — one column's values become new column names; another column's values populate them. Used when the tidy long form needs to be read by a human or by a wide-format model.</span>
+<span id="cb18-156"><a href="#cb18-156"></a><span class="ss">- </span><span class="in">`pivot_longer()`</span> — the inverse: many columns collapse into a name column and a value column. Used to get data into tidy form from spreadsheet-shaped inputs.</span>
+<span id="cb18-157"><a href="#cb18-157"></a></span>
+<span id="cb18-158"><a href="#cb18-158"></a><span class="fu">### A compact demonstration</span></span>
+<span id="cb18-159"><a href="#cb18-159"></a></span>
+<span id="cb18-160"><a href="#cb18-160"></a>One chained pipeline exercising most of the verbs, for muscle memory:</span>
+<span id="cb18-161"><a href="#cb18-161"></a></span>
+<span id="cb18-164"><a href="#cb18-164"></a><span class="in">```{r}</span></span>
+<span id="cb18-165"><a href="#cb18-165"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb18-166"><a href="#cb18-166"></a>    <span class="fu">rownames_to_column</span>(<span class="st">"car"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-167"><a href="#cb18-167"></a>    <span class="fu">mutate</span>(<span class="at">power_to_weight =</span> hp <span class="sc">/</span> wt) <span class="sc">|&gt;</span></span>
+<span id="cb18-168"><a href="#cb18-168"></a>    <span class="fu">filter</span>(cyl <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb18-169"><a href="#cb18-169"></a>    <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb18-170"><a href="#cb18-170"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb18-171"><a href="#cb18-171"></a>        <span class="at">n          =</span> <span class="fu">n</span>(),</span>
+<span id="cb18-172"><a href="#cb18-172"></a>        <span class="at">mean_mpg   =</span> <span class="fu">mean</span>(mpg),</span>
+<span id="cb18-173"><a href="#cb18-173"></a>        <span class="at">mean_ptw   =</span> <span class="fu">mean</span>(power_to_weight),</span>
+<span id="cb18-174"><a href="#cb18-174"></a>        <span class="at">.groups    =</span> <span class="st">"drop"</span></span>
+<span id="cb18-175"><a href="#cb18-175"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb18-176"><a href="#cb18-176"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_mpg))</span>
+<span id="cb18-177"><a href="#cb18-177"></a><span class="in">```</span></span>
+<span id="cb18-178"><a href="#cb18-178"></a></span>
+<span id="cb18-179"><a href="#cb18-179"></a>One sentence about each verb in the pipeline: <span class="in">`rownames_to_column()`</span> moves the implicit row-name index into a real column (because row names are a legacy feature that tibbles drop); <span class="in">`mutate()`</span> adds a derived column; <span class="in">`filter()`</span> subsets rows; <span class="in">`group_by()`</span> sets the grouping for the next verb; <span class="in">`summarize()`</span> collapses each group to one row; <span class="in">`arrange(desc(...))`</span> sorts descending. The pipeline is the mental model: *shape the columns, shape the rows, group, collapse, sort*.</span>
+<span id="cb18-180"><a href="#cb18-180"></a></span>
+<span id="cb18-181"><a href="#cb18-181"></a>------------------------------------------------------------------------</span>
+<span id="cb18-182"><a href="#cb18-182"></a></span>
+<span id="cb18-183"><a href="#cb18-183"></a><span class="fu">## Reflection</span></span>
+<span id="cb18-184"><a href="#cb18-184"></a></span>
+<span id="cb18-185"><a href="#cb18-185"></a>Two things I want to carry forward from this first lesson.</span>
+<span id="cb18-186"><a href="#cb18-186"></a></span>
+<span id="cb18-187"><a href="#cb18-187"></a>**Source selection is a skill, not a preference.** The naïve model is "use the best source." The real model is *which source answers which kind of question*. A tutorial site answers *how do I do X right now?*; an LLM answers *give me a fluent overview of X*; the R manual answers *what does X actually do under unusual inputs?*; Advanced R answers *why does X behave the way it does structurally?*. A workflow that always reaches for the same source is a workflow that will be wrong in predictable ways — too shallow when precision matters, too dense when orientation is what's needed. The cost of the wrong source is time: shallow sources fail silently on edge cases, dense sources eat hours on questions that had a one-sentence answer.</span>
+<span id="cb18-188"><a href="#cb18-188"></a></span>
+<span id="cb18-189"><a href="#cb18-189"></a>**Low-level understanding is what lets code generalize.** The <span class="in">`typeof(df) == "list"`</span> line is the entire game. If I know a data frame is a list of vectors, <span class="in">`purrr::map_dfc()`</span>, <span class="in">`[[`</span>, bracket subsetting, and every coercion surprise become one system rather than five disconnected tricks. The high-level "table with columns" mental model is sufficient for <span class="in">`mutate()`</span> and <span class="in">`filter()`</span>; it's insufficient the moment I need to write a function that takes *any* tabular object and does something sensible with it. This is the same instinct that sits behind the <span class="in">`str()`</span> pass in later lessons — the object is a list underneath, so open it and look.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

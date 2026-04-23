@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Zhijun He">
-<meta name="dcterms.date" content="2026-04-21">
+<meta name="dcterms.date" content="2026-04-22">
 <title>15 — Web Scraping with rvest – COMP/STAT212 Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
@@ -129,7 +129,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/15_web_scraping.html"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/15_web_scraping.html"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -267,7 +267,17 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pcl/pcl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Pre-Class Learning Summaries</span></a>
+  <a href="../pcl/exam1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 3</span></a>
   </div>
 </li>
       </ul>
@@ -283,12 +293,17 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ica/adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Data Visualization: Recreating the NYTimes Temperature Plot</span></a>
+  <a href="../ica/01_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA 6: Advanced Data Wrangling I</span></a>
+  <a href="../ica/02_review.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/03_adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">03 — Adv Data Viz</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -298,7 +313,7 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ica/ica-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ICA Sample 2</span></a>
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6 - Advanced Data Wrangling I</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -379,12 +394,7 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
+  <a href="../extra/capital_without_category_v3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -438,7 +448,7 @@ cookieconsent.run({
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/adv_data_viz_ica.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/15_web_scraping.html"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a></li></ol></nav><div class="quarto-title">
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/01_introduction.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/15_web_scraping.html"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
@@ -456,7 +466,7 @@ cookieconsent.run({
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 21, 2026</p>
+      <p class="date">April 22, 2026</p>
     </div>
   </div>
   
@@ -533,12 +543,12 @@ cookieconsent.run({
 <span id="cb2-28"><a href="#cb2-28"></a></span>
 <span id="cb2-29"><a href="#cb2-29"></a><span class="fu">head</span>(article_titles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>[1] "NIH-funded breakthrough shrinks CRISPR for precision delivery in the body"                               
-[2] "Low-cost care model reduces blood pressure in high-risk populations"                                     
-[3] "NIH researchers discover pain-relieving drug with minimal addictive properties"                          
-[4] "NIH awards top scientific teams for innovations linking nutrition and autoimmune disease"                
-[5] "Dr. Elisabeth Armstrong named NIH Chief of Staff"                                                        
-[6] "Chronic inflammation leaves long-lasting impression on gut stem cells, increasing colorectal cancer risk"</code></pre>
+<pre><code>[1] "NIH-funded AI model predicts cancer survival from single-cell tumor data"                
+[2] "Dr. Jonathan M. Green selected as CEO of the NIH Clinical Center"                        
+[3] "NIH-funded breakthrough shrinks CRISPR for precision delivery in the body"               
+[4] "Low-cost care model reduces blood pressure in high-risk populations"                     
+[5] "NIH researchers discover pain-relieving drug with minimal addictive properties"          
+[6] "NIH awards top scientific teams for innovations linking nutrition and autoimmune disease"</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -551,9 +561,9 @@ cookieconsent.run({
 <span id="cb4-7"><a href="#cb4-7"></a></span>
 <span id="cb4-8"><a href="#cb4-8"></a><span class="fu">head</span>(article_descriptions, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>[1] "April 13, 2026 — Smaller gene-editing system could expand treatment options for cancer, ALS and other diseases."             
-[2] "April 8, 2026 — NIH-supported clinical trial shows coordinated care strategy more effective than standard care"              
-[3] "April 1, 2026 — Positive safety profile of novel drug compound is surprise for class of synthetic opioids shelved years ago."</code></pre>
+<pre><code>[1] "April 21, 2026 — Study links specific cell populations to patient risk in melanoma and liver cancer."           
+[2] "April 21, 2026 — The NIH Clinical Center is the largest research hospital in the world."                        
+[3] "April 13, 2026 — Smaller gene-editing system could expand treatment options for cancer, ALS and other diseases."</code></pre>
 </div>
 </div>
 <section id="splitting-date-from-abstract" class="level3"><h3 class="anchored" data-anchor-id="splitting-date-from-abstract">Splitting date from abstract</h3>
@@ -578,9 +588,9 @@ cookieconsent.run({
 <pre><code># A tibble: 3 × 2
   pub_date       abstract                                                       
   &lt;chr&gt;          &lt;chr&gt;                                                          
-1 April 13, 2026 Smaller gene-editing system could expand treatment options for…
-2 April 8, 2026  NIH-supported clinical trial shows coordinated care strategy m…
-3 April 1, 2026  Positive safety profile of novel drug compound is surprise for…</code></pre>
+1 April 21, 2026 Study links specific cell populations to patient risk in melan…
+2 April 21, 2026 The NIH Clinical Center is the largest research hospital in th…
+3 April 13, 2026 Smaller gene-editing system could expand treatment options for…</code></pre>
 </div>
 </div>
 <p>Using <code>separate_wider_regex()</code> rather than <code>separate_wider_delim(delim = " — ")</code> is the safer choice: the regex matches multiple dash types, and <code>too_few = "align_start"</code> prevents a single malformed row from crashing the whole pipeline.</p>
@@ -692,11 +702,11 @@ cookieconsent.run({
 <pre><code># A tibble: 5 × 4
   title                                                pub_date abstract src_url
   &lt;chr&gt;                                                &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  
-1 NIH-funded breakthrough shrinks CRISPR for precisio… April 1… Smaller… https:…
-2 Low-cost care model reduces blood pressure in high-… April 8… NIH-sup… https:…
-3 NIH researchers discover pain-relieving drug with m… April 1… Positiv… https:…
-4 NIH awards top scientific teams for innovations lin… March 3… Competi… https:…
-5 Dr. Elisabeth Armstrong named NIH Chief of Staff     March 3… She wil… https:…</code></pre>
+1 NIH-funded AI model predicts cancer survival from s… April 2… Study l… https:…
+2 Dr. Jonathan M. Green selected as CEO of the NIH Cl… April 2… The NIH… https:…
+3 NIH-funded breakthrough shrinks CRISPR for precisio… April 1… Smaller… https:…
+4 Low-cost care model reduces blood pressure in high-… April 8… NIH-sup… https:…
+5 NIH researchers discover pain-relieving drug with m… April 1… Positiv… https:…</code></pre>
 </div>
 </div>
 </section><section id="with-a-for-loop" class="level3"><h3 class="anchored" data-anchor-id="with-a-for-loop">With a <code>for</code> loop</h3>
@@ -736,16 +746,16 @@ cookieconsent.run({
 <pre><code># A tibble: 10 × 3
    pub_date       pub_date_parsed title                                         
    &lt;chr&gt;          &lt;date&gt;          &lt;chr&gt;                                         
- 1 April 13, 2026 2026-04-13      NIH-funded breakthrough shrinks CRISPR for pr…
- 2 April 8, 2026  2026-04-08      Low-cost care model reduces blood pressure in…
- 3 April 1, 2026  2026-04-01      NIH researchers discover pain-relieving drug …
- 4 March 30, 2026 2026-03-30      NIH awards top scientific teams for innovatio…
- 5 March 30, 2026 2026-03-30      Dr. Elisabeth Armstrong named NIH Chief of St…
- 6 March 25, 2026 2026-03-25      Chronic inflammation leaves long-lasting impr…
- 7 March 18, 2026 2026-03-18      NIH invests $150 million in human-based resea…
- 8 March 16, 2026 2026-03-16      Clinical trial results support use of weekly …
- 9 March 13, 2026 2026-03-13      Researchers develop AI tool to predict patien…
-10 March 4, 2026  2026-03-04      Automated CT scan analysis could fast-track c…</code></pre>
+ 1 April 21, 2026 2026-04-21      NIH-funded AI model predicts cancer survival …
+ 2 April 21, 2026 2026-04-21      Dr. Jonathan M. Green selected as CEO of the …
+ 3 April 13, 2026 2026-04-13      NIH-funded breakthrough shrinks CRISPR for pr…
+ 4 April 8, 2026  2026-04-08      Low-cost care model reduces blood pressure in…
+ 5 April 1, 2026  2026-04-01      NIH researchers discover pain-relieving drug …
+ 6 March 30, 2026 2026-03-30      NIH awards top scientific teams for innovatio…
+ 7 March 30, 2026 2026-03-30      Dr. Elisabeth Armstrong named NIH Chief of St…
+ 8 March 25, 2026 2026-03-25      Chronic inflammation leaves long-lasting impr…
+ 9 March 18, 2026 2026-03-18      NIH invests $150 million in human-based resea…
+10 March 16, 2026 2026-03-16      Clinical trial results support use of weekly …</code></pre>
 </div>
 </div>
 <p>Fifty news releases across five pages. The parsed publication dates let us see the temporal range the NIH News page is currently surfacing, which is useful context for any downstream analysis of news-release volume, topic cadence, etc.</p>
