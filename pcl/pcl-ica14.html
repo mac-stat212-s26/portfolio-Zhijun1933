@@ -755,7 +755,7 @@ cookieconsent.run({
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 14&lt;br/&gt;APIs II))</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 14 APIs II))</span>
 <span id="cb1-3"><a href="#cb1-3"></a>    The jsonlite round trip</span>
 <span id="cb1-4"><a href="#cb1-4"></a>      fromJSON</span>
 <span id="cb1-5"><a href="#cb1-5"></a>        URL · file · string</span>
@@ -765,21 +765,21 @@ cookieconsent.run({
 <span id="cb1-9"><a href="#cb1-9"></a>        R object → JSON string</span>
 <span id="cb1-10"><a href="#cb1-10"></a>        for sending or storing</span>
 <span id="cb1-11"><a href="#cb1-11"></a>      Round-trip identity</span>
-<span id="cb1-12"><a href="#cb1-12"></a>        all.equal(mtcars, fromJSON(toJSON(mtcars)))</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        "all.equal(mtcars, fromJSON(toJSON(mtcars)))"</span>
 <span id="cb1-13"><a href="#cb1-13"></a>        TRUE</span>
 <span id="cb1-14"><a href="#cb1-14"></a>        proves bidirectional mapping</span>
 <span id="cb1-15"><a href="#cb1-15"></a>    Simplification · the type machinery</span>
 <span id="cb1-16"><a href="#cb1-16"></a>      Three JSON structures</span>
 <span id="cb1-17"><a href="#cb1-17"></a>        Array of primitives</span>
-<span id="cb1-18"><a href="#cb1-18"></a>          ["a", "b", "c"]</span>
+<span id="cb1-18"><a href="#cb1-18"></a>          "[\"a\", \"b\", \"c\"]"</span>
 <span id="cb1-19"><a href="#cb1-19"></a>          → atomic vector</span>
 <span id="cb1-20"><a href="#cb1-20"></a>          arg · simplifyVector</span>
 <span id="cb1-21"><a href="#cb1-21"></a>        Array of objects</span>
-<span id="cb1-22"><a href="#cb1-22"></a>          [{"x": 1}, {"x": 2}]</span>
+<span id="cb1-22"><a href="#cb1-22"></a>          "[{\"x\": 1}, {\"x\": 2}]"</span>
 <span id="cb1-23"><a href="#cb1-23"></a>          → data frame</span>
 <span id="cb1-24"><a href="#cb1-24"></a>          arg · simplifyDataFrame</span>
 <span id="cb1-25"><a href="#cb1-25"></a>        Array of arrays</span>
-<span id="cb1-26"><a href="#cb1-26"></a>          [[1, 2], [3, 4]]</span>
+<span id="cb1-26"><a href="#cb1-26"></a>          "[[1, 2], [3, 4]]"</span>
 <span id="cb1-27"><a href="#cb1-27"></a>          → matrix</span>
 <span id="cb1-28"><a href="#cb1-28"></a>          arg · simplifyMatrix</span>
 <span id="cb1-29"><a href="#cb1-29"></a>      All defaults TRUE</span>
@@ -809,7 +809,7 @@ cookieconsent.run({
 <span id="cb1-53"><a href="#cb1-53"></a>          query param · &amp;api-key=...</span>
 <span id="cb1-54"><a href="#cb1-54"></a>          register at developer portal</span>
 <span id="cb1-55"><a href="#cb1-55"></a>        general · keep key in env var</span>
-<span id="cb1-56"><a href="#cb1-56"></a>          Sys.getenv("API_KEY")</span>
+<span id="cb1-56"><a href="#cb1-56"></a>          "Sys.getenv(\"API_KEY\")"</span>
 <span id="cb1-57"><a href="#cb1-57"></a>          never commit to git</span>
 <span id="cb1-58"><a href="#cb1-58"></a>      OAuth · token-based</span>
 <span id="cb1-59"><a href="#cb1-59"></a>        Twitter</span>
@@ -852,10 +852,10 @@ cookieconsent.run({
 <span id="cb1-96"><a href="#cb1-96"></a>          flatten=TRUE in fromJSON</span>
 <span id="cb1-97"><a href="#cb1-97"></a>          deeply nested → wide</span>
 <span id="cb1-98"><a href="#cb1-98"></a>      Inspect first</span>
-<span id="cb1-99"><a href="#cb1-99"></a>        str() · or names() of result</span>
+<span id="cb1-99"><a href="#cb1-99"></a>        "str() · or names() of result"</span>
 <span id="cb1-100"><a href="#cb1-100"></a>        figure out shape before flattening</span>
 <span id="cb1-101"><a href="#cb1-101"></a>      Pluck deeper</span>
-<span id="cb1-102"><a href="#cb1-102"></a>        result %&gt;% pluck("data", "items")</span>
+<span id="cb1-102"><a href="#cb1-102"></a>        "result %&gt;% pluck(\"data\", \"items\")"</span>
 <span id="cb1-103"><a href="#cb1-103"></a>        navigate hierarchy</span>
 <span id="cb1-104"><a href="#cb1-104"></a>    Auth hygiene</span>
 <span id="cb1-105"><a href="#cb1-105"></a>      What never to do</span>
@@ -878,10 +878,10 @@ cookieconsent.run({
 <span id="cb1-122"><a href="#cb1-122"></a>      2 · authenticate if needed</span>
 <span id="cb1-123"><a href="#cb1-123"></a>        Sys.getenv key</span>
 <span id="cb1-124"><a href="#cb1-124"></a>      3 · GET the response</span>
-<span id="cb1-125"><a href="#cb1-125"></a>        fromJSON(url) for simple cases</span>
+<span id="cb1-125"><a href="#cb1-125"></a>        "fromJSON(url) for simple cases"</span>
 <span id="cb1-126"><a href="#cb1-126"></a>        httr2::request for complex</span>
 <span id="cb1-127"><a href="#cb1-127"></a>      4 · inspect shape</span>
-<span id="cb1-128"><a href="#cb1-128"></a>        str() · names() · class()</span>
+<span id="cb1-128"><a href="#cb1-128"></a>        "str() · names() · class()"</span>
 <span id="cb1-129"><a href="#cb1-129"></a>      5 · flatten if nested</span>
 <span id="cb1-130"><a href="#cb1-130"></a>        unnest_wider · unnest_longer</span>
 <span id="cb1-131"><a href="#cb1-131"></a>      6 · paginate if needed</span>
@@ -894,7 +894,7 @@ cookieconsent.run({
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">mindmap
-  root((ICA 14&lt;br/&gt;APIs II))
+  root((ICA 14 APIs II))
     The jsonlite round trip
       fromJSON
         URL · file · string
@@ -904,21 +904,21 @@ cookieconsent.run({
         R object → JSON string
         for sending or storing
       Round-trip identity
-        all.equal(mtcars, fromJSON(toJSON(mtcars)))
+        "all.equal(mtcars, fromJSON(toJSON(mtcars)))"
         TRUE
         proves bidirectional mapping
     Simplification · the type machinery
       Three JSON structures
         Array of primitives
-          ["a", "b", "c"]
+          "[\"a\", \"b\", \"c\"]"
           → atomic vector
           arg · simplifyVector
         Array of objects
-          [{"x": 1}, {"x": 2}]
+          "[{\"x\": 1}, {\"x\": 2}]"
           → data frame
           arg · simplifyDataFrame
         Array of arrays
-          [[1, 2], [3, 4]]
+          "[[1, 2], [3, 4]]"
           → matrix
           arg · simplifyMatrix
       All defaults TRUE
@@ -948,7 +948,7 @@ cookieconsent.run({
           query param · &amp;api-key=...
           register at developer portal
         general · keep key in env var
-          Sys.getenv("API_KEY")
+          "Sys.getenv(\"API_KEY\")"
           never commit to git
       OAuth · token-based
         Twitter
@@ -991,10 +991,10 @@ cookieconsent.run({
           flatten=TRUE in fromJSON
           deeply nested → wide
       Inspect first
-        str() · or names() of result
+        "str() · or names() of result"
         figure out shape before flattening
       Pluck deeper
-        result %&gt;% pluck("data", "items")
+        "result %&gt;% pluck(\"data\", \"items\")"
         navigate hierarchy
     Auth hygiene
       What never to do
@@ -1017,10 +1017,10 @@ cookieconsent.run({
       2 · authenticate if needed
         Sys.getenv key
       3 · GET the response
-        fromJSON(url) for simple cases
+        "fromJSON(url) for simple cases"
         httr2::request for complex
       4 · inspect shape
-        str() · names() · class()
+        "str() · names() · class()"
       5 · flatten if nested
         unnest_wider · unnest_longer
       6 · paginate if needed
@@ -1625,7 +1625,7 @@ NYT_API_KEY=xyz789</code></pre>
 <span id="cb6-12"><a href="#cb6-12"></a></span>
 <span id="cb6-15"><a href="#cb6-15"></a><span class="in">```{mermaid}</span></span>
 <span id="cb6-16"><a href="#cb6-16"></a>mindmap</span>
-<span id="cb6-17"><a href="#cb6-17"></a>  root((ICA <span class="dv">14</span>&lt;br/&gt;APIs II))</span>
+<span id="cb6-17"><a href="#cb6-17"></a>  root((ICA <span class="dv">14</span> APIs II))</span>
 <span id="cb6-18"><a href="#cb6-18"></a>    The jsonlite round trip</span>
 <span id="cb6-19"><a href="#cb6-19"></a>      fromJSON</span>
 <span id="cb6-20"><a href="#cb6-20"></a>        URL · file · string</span>
@@ -1635,21 +1635,21 @@ NYT_API_KEY=xyz789</code></pre>
 <span id="cb6-24"><a href="#cb6-24"></a>        R object → JSON string</span>
 <span id="cb6-25"><a href="#cb6-25"></a>        <span class="cf">for</span> sending <span class="ot">or</span> storing</span>
 <span id="cb6-26"><a href="#cb6-26"></a>      Round-trip identity</span>
-<span id="cb6-27"><a href="#cb6-27"></a>        all.equal(mtcars, fromJSON(toJSON(mtcars)))</span>
+<span id="cb6-27"><a href="#cb6-27"></a>        <span class="ot">"</span><span class="st">all.equal(mtcars, fromJSON(toJSON(mtcars)))</span><span class="ot">"</span></span>
 <span id="cb6-28"><a href="#cb6-28"></a>        TRUE</span>
 <span id="cb6-29"><a href="#cb6-29"></a>        proves bidirectional mapping</span>
 <span id="cb6-30"><a href="#cb6-30"></a>    Simplification · the type machinery</span>
 <span id="cb6-31"><a href="#cb6-31"></a>      Three JSON structures</span>
 <span id="cb6-32"><a href="#cb6-32"></a>        Array of primitives</span>
-<span id="cb6-33"><a href="#cb6-33"></a>          [<span class="ot">"</span><span class="st">a</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">b</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">c</span><span class="ot">"</span>]</span>
+<span id="cb6-33"><a href="#cb6-33"></a>          <span class="ot">"</span><span class="st">[\"a\", \"b\", \"c\"]</span><span class="ot">"</span></span>
 <span id="cb6-34"><a href="#cb6-34"></a>          → atomic vector</span>
 <span id="cb6-35"><a href="#cb6-35"></a>          arg · simplifyVector</span>
 <span id="cb6-36"><a href="#cb6-36"></a>        Array of objects</span>
-<span id="cb6-37"><a href="#cb6-37"></a>          [{<span class="ot">"</span><span class="st">x</span><span class="ot">"</span>: <span class="dv">1</span>}, {<span class="ot">"</span><span class="st">x</span><span class="ot">"</span>: <span class="dv">2</span>}]</span>
+<span id="cb6-37"><a href="#cb6-37"></a>          <span class="ot">"</span><span class="st">[{\"x\": 1}, {\"x\": 2}]</span><span class="ot">"</span></span>
 <span id="cb6-38"><a href="#cb6-38"></a>          → data frame</span>
 <span id="cb6-39"><a href="#cb6-39"></a>          arg · simplifyDataFrame</span>
 <span id="cb6-40"><a href="#cb6-40"></a>        Array of arrays</span>
-<span id="cb6-41"><a href="#cb6-41"></a>          [[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]</span>
+<span id="cb6-41"><a href="#cb6-41"></a>          <span class="ot">"</span><span class="st">[[1, 2], [3, 4]]</span><span class="ot">"</span></span>
 <span id="cb6-42"><a href="#cb6-42"></a>          → matrix</span>
 <span id="cb6-43"><a href="#cb6-43"></a>          arg · simplifyMatrix</span>
 <span id="cb6-44"><a href="#cb6-44"></a>      All defaults TRUE</span>
@@ -1679,7 +1679,7 @@ NYT_API_KEY=xyz789</code></pre>
 <span id="cb6-68"><a href="#cb6-68"></a>          query param · &amp;api-key=...</span>
 <span id="cb6-69"><a href="#cb6-69"></a>          register at developer portal</span>
 <span id="cb6-70"><a href="#cb6-70"></a>        general · keep key in env var</span>
-<span id="cb6-71"><a href="#cb6-71"></a>          Sys.getenv(<span class="ot">"</span><span class="st">API_KEY</span><span class="ot">"</span>)</span>
+<span id="cb6-71"><a href="#cb6-71"></a>          <span class="ot">"</span><span class="st">Sys.getenv(\"API_KEY\")</span><span class="ot">"</span></span>
 <span id="cb6-72"><a href="#cb6-72"></a>          never commit to git</span>
 <span id="cb6-73"><a href="#cb6-73"></a>      OAuth · token-based</span>
 <span id="cb6-74"><a href="#cb6-74"></a>        Twitter</span>
@@ -1722,10 +1722,10 @@ NYT_API_KEY=xyz789</code></pre>
 <span id="cb6-111"><a href="#cb6-111"></a><span class="ss">          flatten=TRUE in fromJSON</span></span>
 <span id="cb6-112"><a href="#cb6-112"></a><span class="ss">          deeply nested → wide</span></span>
 <span id="cb6-113"><a href="#cb6-113"></a><span class="ss">      Inspect first</span></span>
-<span id="cb6-114"><a href="#cb6-114"></a><span class="ss">        str() · or names() of result</span></span>
+<span id="cb6-114"><a href="#cb6-114"></a><span class="ss">        "str() · or names() of result"</span></span>
 <span id="cb6-115"><a href="#cb6-115"></a><span class="ss">        figure out shape before flattening</span></span>
 <span id="cb6-116"><a href="#cb6-116"></a><span class="ss">      Pluck deeper</span></span>
-<span id="cb6-117"><a href="#cb6-117"></a><span class="ss">        result %&gt;% pluck("data", "items")</span></span>
+<span id="cb6-117"><a href="#cb6-117"></a><span class="ss">        "result %&gt;% pluck(\"data\", \"items\")"</span></span>
 <span id="cb6-118"><a href="#cb6-118"></a><span class="ss">        navigate hierarchy</span></span>
 <span id="cb6-119"><a href="#cb6-119"></a><span class="ss">    Auth hygiene</span></span>
 <span id="cb6-120"><a href="#cb6-120"></a><span class="ss">      What never to do</span></span>
@@ -1748,10 +1748,10 @@ NYT_API_KEY=xyz789</code></pre>
 <span id="cb6-137"><a href="#cb6-137"></a><span class="ss">      2 · authenticate if needed</span></span>
 <span id="cb6-138"><a href="#cb6-138"></a><span class="ss">        Sys.getenv key</span></span>
 <span id="cb6-139"><a href="#cb6-139"></a><span class="ss">      3 · GET the response</span></span>
-<span id="cb6-140"><a href="#cb6-140"></a><span class="ss">        fromJSON(url) for simple cases</span></span>
+<span id="cb6-140"><a href="#cb6-140"></a><span class="ss">        "fromJSON(url) for simple cases"</span></span>
 <span id="cb6-141"><a href="#cb6-141"></a><span class="ss">        httr2::request for complex</span></span>
 <span id="cb6-142"><a href="#cb6-142"></a><span class="ss">      4 · inspect shape</span></span>
-<span id="cb6-143"><a href="#cb6-143"></a><span class="ss">        str() · names() · class()</span></span>
+<span id="cb6-143"><a href="#cb6-143"></a><span class="ss">        "str() · names() · class()"</span></span>
 <span id="cb6-144"><a href="#cb6-144"></a><span class="ss">      5 · flatten if nested</span></span>
 <span id="cb6-145"><a href="#cb6-145"></a><span class="ss">        unnest_wider · unnest_longer</span></span>
 <span id="cb6-146"><a href="#cb6-146"></a><span class="ss">      6 · paginate if needed</span></span>

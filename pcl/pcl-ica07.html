@@ -753,7 +753,7 @@ cookieconsent.run({
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 07&lt;br/&gt;Wrangling II))</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 07 Wrangling II))</span>
 <span id="cb1-3"><a href="#cb1-3"></a>    Strings · Ch 14</span>
 <span id="cb1-4"><a href="#cb1-4"></a>      Creating strings</span>
 <span id="cb1-5"><a href="#cb1-5"></a>        single vs double quotes</span>
@@ -761,7 +761,7 @@ cookieconsent.run({
 <span id="cb1-7"><a href="#cb1-7"></a>          \\n newline</span>
 <span id="cb1-8"><a href="#cb1-8"></a>          \\t tab</span>
 <span id="cb1-9"><a href="#cb1-9"></a>          \\\\ literal backslash</span>
-<span id="cb1-10"><a href="#cb1-10"></a>        raw strings · r"(text)"</span>
+<span id="cb1-10"><a href="#cb1-10"></a>        "raw strings · r\"(text)\""</span>
 <span id="cb1-11"><a href="#cb1-11"></a>      stringr family · str_*</span>
 <span id="cb1-12"><a href="#cb1-12"></a>        str_length</span>
 <span id="cb1-13"><a href="#cb1-13"></a>        str_c · concatenate</span>
@@ -771,7 +771,7 @@ cookieconsent.run({
 <span id="cb1-17"><a href="#cb1-17"></a>        str_to_title · str_to_sentence</span>
 <span id="cb1-18"><a href="#cb1-18"></a>      Detection</span>
 <span id="cb1-19"><a href="#cb1-19"></a>        str_detect · returns logical</span>
-<span id="cb1-20"><a href="#cb1-20"></a>          inside filter()</span>
+<span id="cb1-20"><a href="#cb1-20"></a>          "inside filter()"</span>
 <span id="cb1-21"><a href="#cb1-21"></a>        str_count · how many matches</span>
 <span id="cb1-22"><a href="#cb1-22"></a>        str_which · which positions match</span>
 <span id="cb1-23"><a href="#cb1-23"></a>      Extraction &amp; replacement</span>
@@ -784,7 +784,7 @@ cookieconsent.run({
 <span id="cb1-30"><a href="#cb1-30"></a>        str_split · break by separator</span>
 <span id="cb1-31"><a href="#cb1-31"></a>        str_split_i · keep one piece</span>
 <span id="cb1-32"><a href="#cb1-32"></a>        str_glue · template interpolation</span>
-<span id="cb1-33"><a href="#cb1-33"></a>          {variable} inside string</span>
+<span id="cb1-33"><a href="#cb1-33"></a>          "{variable} inside string"</span>
 <span id="cb1-34"><a href="#cb1-34"></a>    Regex · Ch 15</span>
 <span id="cb1-35"><a href="#cb1-35"></a>      Why regex</span>
 <span id="cb1-36"><a href="#cb1-36"></a>        flexible string patterns</span>
@@ -803,15 +803,15 @@ cookieconsent.run({
 <span id="cb1-49"><a href="#cb1-49"></a>        ? zero or one</span>
 <span id="cb1-50"><a href="#cb1-50"></a>        + one or more</span>
 <span id="cb1-51"><a href="#cb1-51"></a>        * zero or more</span>
-<span id="cb1-52"><a href="#cb1-52"></a>        {n} exactly n</span>
-<span id="cb1-53"><a href="#cb1-53"></a>        {n,m} n to m</span>
+<span id="cb1-52"><a href="#cb1-52"></a>        "{n} exactly n"</span>
+<span id="cb1-53"><a href="#cb1-53"></a>        "{n,m} n to m"</span>
 <span id="cb1-54"><a href="#cb1-54"></a>        greedy vs lazy · ?</span>
 <span id="cb1-55"><a href="#cb1-55"></a>      Character classes</span>
-<span id="cb1-56"><a href="#cb1-56"></a>        [abc] any of these</span>
-<span id="cb1-57"><a href="#cb1-57"></a>        [^abc] none of these</span>
-<span id="cb1-58"><a href="#cb1-58"></a>        [a-z] range</span>
+<span id="cb1-56"><a href="#cb1-56"></a>        "[abc] any of these"</span>
+<span id="cb1-57"><a href="#cb1-57"></a>        "[^abc] none of these"</span>
+<span id="cb1-58"><a href="#cb1-58"></a>        "[a-z] range"</span>
 <span id="cb1-59"><a href="#cb1-59"></a>      Groups &amp; alternation</span>
-<span id="cb1-60"><a href="#cb1-60"></a>        ( ) capturing group</span>
+<span id="cb1-60"><a href="#cb1-60"></a>        "( ) capturing group"</span>
 <span id="cb1-61"><a href="#cb1-61"></a>        "|" alternation · or</span>
 <span id="cb1-62"><a href="#cb1-62"></a>        backreference · \\1</span>
 <span id="cb1-63"><a href="#cb1-63"></a>      Practical patterns</span>
@@ -840,7 +840,7 @@ cookieconsent.run({
 <span id="cb1-86"><a href="#cb1-86"></a>          finding orphans</span>
 <span id="cb1-87"><a href="#cb1-87"></a>      Specifying keys</span>
 <span id="cb1-88"><a href="#cb1-88"></a>        by = "id" · single col same name</span>
-<span id="cb1-89"><a href="#cb1-89"></a>        by = c("a" = "b") · diff names</span>
+<span id="cb1-89"><a href="#cb1-89"></a>        "by = c(\"a\" = \"b\") · diff names"</span>
 <span id="cb1-90"><a href="#cb1-90"></a>        natural join · all common cols</span>
 <span id="cb1-91"><a href="#cb1-91"></a>      Many-to-many</span>
 <span id="cb1-92"><a href="#cb1-92"></a>        warning by default in dplyr</span>
@@ -859,7 +859,7 @@ cookieconsent.run({
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">mindmap
-  root((ICA 07&lt;br/&gt;Wrangling II))
+  root((ICA 07 Wrangling II))
     Strings · Ch 14
       Creating strings
         single vs double quotes
@@ -867,7 +867,7 @@ cookieconsent.run({
           \\n newline
           \\t tab
           \\\\ literal backslash
-        raw strings · r"(text)"
+        "raw strings · r\"(text)\""
       stringr family · str_*
         str_length
         str_c · concatenate
@@ -877,7 +877,7 @@ cookieconsent.run({
         str_to_title · str_to_sentence
       Detection
         str_detect · returns logical
-          inside filter()
+          "inside filter()"
         str_count · how many matches
         str_which · which positions match
       Extraction &amp; replacement
@@ -890,7 +890,7 @@ cookieconsent.run({
         str_split · break by separator
         str_split_i · keep one piece
         str_glue · template interpolation
-          {variable} inside string
+          "{variable} inside string"
     Regex · Ch 15
       Why regex
         flexible string patterns
@@ -909,15 +909,15 @@ cookieconsent.run({
         ? zero or one
         + one or more
         * zero or more
-        {n} exactly n
-        {n,m} n to m
+        "{n} exactly n"
+        "{n,m} n to m"
         greedy vs lazy · ?
       Character classes
-        [abc] any of these
-        [^abc] none of these
-        [a-z] range
+        "[abc] any of these"
+        "[^abc] none of these"
+        "[a-z] range"
       Groups &amp; alternation
-        ( ) capturing group
+        "( ) capturing group"
         "|" alternation · or
         backreference · \\1
       Practical patterns
@@ -946,7 +946,7 @@ cookieconsent.run({
           finding orphans
       Specifying keys
         by = "id" · single col same name
-        by = c("a" = "b") · diff names
+        "by = c(\"a\" = \"b\") · diff names"
         natural join · all common cols
       Many-to-many
         warning by default in dplyr
@@ -1528,7 +1528,7 @@ cookieconsent.run({
 <span id="cb2-12"><a href="#cb2-12"></a></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="in">```{mermaid}</span></span>
 <span id="cb2-16"><a href="#cb2-16"></a>mindmap</span>
-<span id="cb2-17"><a href="#cb2-17"></a>  root((ICA <span class="bn">07</span>&lt;br/&gt;Wrangling II))</span>
+<span id="cb2-17"><a href="#cb2-17"></a>  root((ICA <span class="bn">07</span> Wrangling II))</span>
 <span id="cb2-18"><a href="#cb2-18"></a>    Strings · Ch <span class="dv">14</span></span>
 <span id="cb2-19"><a href="#cb2-19"></a>      Creating strings</span>
 <span id="cb2-20"><a href="#cb2-20"></a>        single vs double quotes</span>
@@ -1536,7 +1536,7 @@ cookieconsent.run({
 <span id="cb2-22"><a href="#cb2-22"></a>          \\n newline</span>
 <span id="cb2-23"><a href="#cb2-23"></a>          \\t tab</span>
 <span id="cb2-24"><a href="#cb2-24"></a>          \\\\ literal backslash</span>
-<span id="cb2-25"><a href="#cb2-25"></a>        raw strings · r<span class="ot">"</span><span class="st">(text)</span><span class="ot">"</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>        <span class="ot">"</span><span class="st">raw strings · r\"(text)\"</span><span class="ot">"</span></span>
 <span id="cb2-26"><a href="#cb2-26"></a>      stringr family · str_*</span>
 <span id="cb2-27"><a href="#cb2-27"></a>        str_length</span>
 <span id="cb2-28"><a href="#cb2-28"></a>        str_c · concatenate</span>
@@ -1546,7 +1546,7 @@ cookieconsent.run({
 <span id="cb2-32"><a href="#cb2-32"></a>        str_to_title · str_to_sentence</span>
 <span id="cb2-33"><a href="#cb2-33"></a>      Detection</span>
 <span id="cb2-34"><a href="#cb2-34"></a>        str_detect · returns logical</span>
-<span id="cb2-35"><a href="#cb2-35"></a>          inside filter()</span>
+<span id="cb2-35"><a href="#cb2-35"></a>          <span class="ot">"</span><span class="st">inside filter()</span><span class="ot">"</span></span>
 <span id="cb2-36"><a href="#cb2-36"></a>        str_count · how many matches</span>
 <span id="cb2-37"><a href="#cb2-37"></a>        str_which · which positions match</span>
 <span id="cb2-38"><a href="#cb2-38"></a>      Extraction &amp; replacement</span>
@@ -1559,7 +1559,7 @@ cookieconsent.run({
 <span id="cb2-45"><a href="#cb2-45"></a>        str_split · <span class="cf">break</span> by separator</span>
 <span id="cb2-46"><a href="#cb2-46"></a>        str_split_i · keep one piece</span>
 <span id="cb2-47"><a href="#cb2-47"></a>        str_glue · template interpolation</span>
-<span id="cb2-48"><a href="#cb2-48"></a>          {variable} inside string</span>
+<span id="cb2-48"><a href="#cb2-48"></a>          <span class="ot">"</span><span class="st">{variable} inside string</span><span class="ot">"</span></span>
 <span id="cb2-49"><a href="#cb2-49"></a>    Regex · Ch <span class="dv">15</span></span>
 <span id="cb2-50"><a href="#cb2-50"></a>      Why regex</span>
 <span id="cb2-51"><a href="#cb2-51"></a>        flexible string patterns</span>
@@ -1578,15 +1578,15 @@ cookieconsent.run({
 <span id="cb2-64"><a href="#cb2-64"></a>        ? zero <span class="ot">or</span> one</span>
 <span id="cb2-65"><a href="#cb2-65"></a>        + one <span class="ot">or</span> more</span>
 <span id="cb2-66"><a href="#cb2-66"></a>        <span class="ot">*</span> zero <span class="ot">or</span> more</span>
-<span id="cb2-67"><a href="#cb2-67"></a>        {n} exactly n</span>
-<span id="cb2-68"><a href="#cb2-68"></a>        {n,m} n to m</span>
+<span id="cb2-67"><a href="#cb2-67"></a>        <span class="ot">"</span><span class="st">{n} exactly n</span><span class="ot">"</span></span>
+<span id="cb2-68"><a href="#cb2-68"></a>        <span class="ot">"</span><span class="st">{n,m} n to m</span><span class="ot">"</span></span>
 <span id="cb2-69"><a href="#cb2-69"></a>        greedy vs lazy · ?</span>
 <span id="cb2-70"><a href="#cb2-70"></a>      Character classes</span>
-<span id="cb2-71"><a href="#cb2-71"></a>        [abc] any of these</span>
-<span id="cb2-72"><a href="#cb2-72"></a>        [^abc] none of these</span>
-<span id="cb2-73"><a href="#cb2-73"></a>        [a<span class="ot">-z</span>] range</span>
+<span id="cb2-71"><a href="#cb2-71"></a>        <span class="ot">"</span><span class="st">[abc] any of these</span><span class="ot">"</span></span>
+<span id="cb2-72"><a href="#cb2-72"></a>        <span class="ot">"</span><span class="st">[^abc] none of these</span><span class="ot">"</span></span>
+<span id="cb2-73"><a href="#cb2-73"></a>        <span class="ot">"</span><span class="st">[a-z] range</span><span class="ot">"</span></span>
 <span id="cb2-74"><a href="#cb2-74"></a>      Groups &amp; alternation</span>
-<span id="cb2-75"><a href="#cb2-75"></a>        ( ) capturing group</span>
+<span id="cb2-75"><a href="#cb2-75"></a>        <span class="ot">"</span><span class="st">( ) capturing group</span><span class="ot">"</span></span>
 <span id="cb2-76"><a href="#cb2-76"></a>        <span class="ot">"</span><span class="st">|</span><span class="ot">"</span> alternation · <span class="ot">or</span></span>
 <span id="cb2-77"><a href="#cb2-77"></a>        backreference · \\<span class="dv">1</span></span>
 <span id="cb2-78"><a href="#cb2-78"></a>      Practical patterns</span>
@@ -1615,7 +1615,7 @@ cookieconsent.run({
 <span id="cb2-101"><a href="#cb2-101"></a>          finding orphans</span>
 <span id="cb2-102"><a href="#cb2-102"></a>      Specifying <span class="fu">keys</span></span>
 <span id="cb2-103"><a href="#cb2-103"></a>        by = <span class="ot">"</span><span class="st">id</span><span class="ot">"</span> · single col same name</span>
-<span id="cb2-104"><a href="#cb2-104"></a>        by = c(<span class="ot">"</span><span class="st">a</span><span class="ot">"</span> = <span class="ot">"</span><span class="st">b</span><span class="ot">"</span>) · diff names</span>
+<span id="cb2-104"><a href="#cb2-104"></a>        <span class="ot">"</span><span class="st">by = c(\"a\" = \"b\") · diff names</span><span class="ot">"</span></span>
 <span id="cb2-105"><a href="#cb2-105"></a>        natural <span class="fu">join</span> · all common cols</span>
 <span id="cb2-106"><a href="#cb2-106"></a>      Many-to-many</span>
 <span id="cb2-107"><a href="#cb2-107"></a>        warning by <span class="cf">default</span> in dplyr</span>

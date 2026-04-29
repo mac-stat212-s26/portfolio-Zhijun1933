@@ -756,7 +756,7 @@ cookieconsent.run({
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 16&lt;br/&gt;Databases &amp; SQL))</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 16 Databases &amp; SQL))</span>
 <span id="cb1-3"><a href="#cb1-3"></a>    Why databases</span>
 <span id="cb1-4"><a href="#cb1-4"></a>      Stored on disk · arbitrarily large</span>
 <span id="cb1-5"><a href="#cb1-5"></a>      Indexed for fast lookup</span>
@@ -768,12 +768,12 @@ cookieconsent.run({
 <span id="cb1-11"><a href="#cb1-11"></a>        In-process · SQLite · duckdb</span>
 <span id="cb1-12"><a href="#cb1-12"></a>    The two-package architecture</span>
 <span id="cb1-13"><a href="#cb1-13"></a>      DBI · low-level interface</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        dbConnect() · open connection</span>
-<span id="cb1-15"><a href="#cb1-15"></a>        dbListTables() · enumerate</span>
-<span id="cb1-16"><a href="#cb1-16"></a>        dbReadTable() · read whole table</span>
-<span id="cb1-17"><a href="#cb1-17"></a>        dbGetQuery() · run raw SQL</span>
-<span id="cb1-18"><a href="#cb1-18"></a>        dbWriteTable() · upload data</span>
-<span id="cb1-19"><a href="#cb1-19"></a>        dbDisconnect() · close</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        "dbConnect() · open connection"</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        "dbListTables() · enumerate"</span>
+<span id="cb1-16"><a href="#cb1-16"></a>        "dbReadTable() · read whole table"</span>
+<span id="cb1-17"><a href="#cb1-17"></a>        "dbGetQuery() · run raw SQL"</span>
+<span id="cb1-18"><a href="#cb1-18"></a>        "dbWriteTable() · upload data"</span>
+<span id="cb1-19"><a href="#cb1-19"></a>        "dbDisconnect() · close"</span>
 <span id="cb1-20"><a href="#cb1-20"></a>      Driver package · DBMS-specific</span>
 <span id="cb1-21"><a href="#cb1-21"></a>        RPostgres · for Postgres</span>
 <span id="cb1-22"><a href="#cb1-22"></a>        RMariaDB · for MySQL</span>
@@ -781,24 +781,24 @@ cookieconsent.run({
 <span id="cb1-24"><a href="#cb1-24"></a>        duckdb · for duckdb</span>
 <span id="cb1-25"><a href="#cb1-25"></a>        odbc · generic fallback</span>
 <span id="cb1-26"><a href="#cb1-26"></a>      dbplyr · high-level translation</span>
-<span id="cb1-27"><a href="#cb1-27"></a>        tbl() · table reference</span>
+<span id="cb1-27"><a href="#cb1-27"></a>        "tbl() · table reference"</span>
 <span id="cb1-28"><a href="#cb1-28"></a>        dplyr verbs work normally</span>
-<span id="cb1-29"><a href="#cb1-29"></a>        show_query() · see SQL</span>
-<span id="cb1-30"><a href="#cb1-30"></a>        collect() · pull into R</span>
+<span id="cb1-29"><a href="#cb1-29"></a>        "show_query() · see SQL"</span>
+<span id="cb1-30"><a href="#cb1-30"></a>        "collect() · pull into R"</span>
 <span id="cb1-31"><a href="#cb1-31"></a>    Lazy evaluation</span>
-<span id="cb1-32"><a href="#cb1-32"></a>      tbl(con, "name") · creates reference</span>
+<span id="cb1-32"><a href="#cb1-32"></a>      "tbl(con, \"name\") · creates reference"</span>
 <span id="cb1-33"><a href="#cb1-33"></a>      dplyr ops · build query · don't execute</span>
 <span id="cb1-34"><a href="#cb1-34"></a>      Query runs only at</span>
 <span id="cb1-35"><a href="#cb1-35"></a>        print to console · LIMIT</span>
-<span id="cb1-36"><a href="#cb1-36"></a>        collect() · pull all rows</span>
-<span id="cb1-37"><a href="#cb1-37"></a>        compute() · materialize on server</span>
+<span id="cb1-36"><a href="#cb1-36"></a>        "collect() · pull all rows"</span>
+<span id="cb1-37"><a href="#cb1-37"></a>        "compute() · materialize on server"</span>
 <span id="cb1-38"><a href="#cb1-38"></a>      Why it matters</span>
 <span id="cb1-39"><a href="#cb1-39"></a>        operate on huge tables without loading</span>
 <span id="cb1-40"><a href="#cb1-40"></a>        row count often unknown</span>
 <span id="cb1-41"><a href="#cb1-41"></a>        push computation to server</span>
 <span id="cb1-42"><a href="#cb1-42"></a>    The five SQL clauses</span>
 <span id="cb1-43"><a href="#cb1-43"></a>      SELECT · which columns</span>
-<span id="cb1-44"><a href="#cb1-44"></a>        select() · rename() · relocate() · mutate()</span>
+<span id="cb1-44"><a href="#cb1-44"></a>        "select() · rename() · relocate() · mutate()"</span>
 <span id="cb1-45"><a href="#cb1-45"></a>        AS for renaming · aliasing</span>
 <span id="cb1-46"><a href="#cb1-46"></a>        column expressions</span>
 <span id="cb1-47"><a href="#cb1-47"></a>          arithmetic</span>
@@ -807,19 +807,19 @@ cookieconsent.run({
 <span id="cb1-50"><a href="#cb1-50"></a>      FROM · which table</span>
 <span id="cb1-51"><a href="#cb1-51"></a>        single table · or join · or subquery</span>
 <span id="cb1-52"><a href="#cb1-52"></a>      WHERE · which rows</span>
-<span id="cb1-53"><a href="#cb1-53"></a>        filter() before grouping</span>
+<span id="cb1-53"><a href="#cb1-53"></a>        "filter() before grouping"</span>
 <span id="cb1-54"><a href="#cb1-54"></a>        comparison · = not ==</span>
 <span id="cb1-55"><a href="#cb1-55"></a>        boolean · AND · OR · NOT</span>
-<span id="cb1-56"><a href="#cb1-56"></a>        IN · ('a', 'b', 'c') for %in%</span>
+<span id="cb1-56"><a href="#cb1-56"></a>        "IN · ('a', 'b', 'c') for %in%"</span>
 <span id="cb1-57"><a href="#cb1-57"></a>        IS NULL · IS NOT NULL</span>
 <span id="cb1-58"><a href="#cb1-58"></a>      GROUP BY · how to aggregate</span>
-<span id="cb1-59"><a href="#cb1-59"></a>        group_by() · summarize()</span>
+<span id="cb1-59"><a href="#cb1-59"></a>        "group_by() · summarize()"</span>
 <span id="cb1-60"><a href="#cb1-60"></a>        aggregate fns · COUNT · SUM · AVG · MAX · MIN</span>
 <span id="cb1-61"><a href="#cb1-61"></a>      ORDER BY · how to sort</span>
-<span id="cb1-62"><a href="#cb1-62"></a>        arrange() · always at end</span>
+<span id="cb1-62"><a href="#cb1-62"></a>        "arrange() · always at end"</span>
 <span id="cb1-63"><a href="#cb1-63"></a>        DESC for descending</span>
 <span id="cb1-64"><a href="#cb1-64"></a>      Plus HAVING · for post-aggregation filter</span>
-<span id="cb1-65"><a href="#cb1-65"></a>        filter() after summarize() in dplyr</span>
+<span id="cb1-65"><a href="#cb1-65"></a>        "filter() after summarize() in dplyr"</span>
 <span id="cb1-66"><a href="#cb1-66"></a>    SQL idiosyncrasies</span>
 <span id="cb1-67"><a href="#cb1-67"></a>      Order of writing</span>
 <span id="cb1-68"><a href="#cb1-68"></a>        SELECT · FROM · WHERE · GROUP BY · ORDER BY</span>
@@ -858,7 +858,7 @@ cookieconsent.run({
 <span id="cb1-101"><a href="#cb1-101"></a>        can't filter on a column you just made</span>
 <span id="cb1-102"><a href="#cb1-102"></a>      Pattern</span>
 <span id="cb1-103"><a href="#cb1-103"></a>        outer query · uses inner query as FROM</span>
-<span id="cb1-104"><a href="#cb1-104"></a>        SELECT * FROM (inner_query) AS q1</span>
+<span id="cb1-104"><a href="#cb1-104"></a>        "SELECT * FROM (inner_query) AS q1"</span>
 <span id="cb1-105"><a href="#cb1-105"></a>      dbplyr generates them automatically</span>
 <span id="cb1-106"><a href="#cb1-106"></a>        when needed</span>
 <span id="cb1-107"><a href="#cb1-107"></a>    Window functions</span>
@@ -866,32 +866,32 @@ cookieconsent.run({
 <span id="cb1-109"><a href="#cb1-109"></a>        aggregate INSIDE mutate · not summarize</span>
 <span id="cb1-110"><a href="#cb1-110"></a>        no GROUP BY · use OVER instead</span>
 <span id="cb1-111"><a href="#cb1-111"></a>      Syntax</span>
-<span id="cb1-112"><a href="#cb1-112"></a>        AVG(x) OVER (PARTITION BY group)</span>
-<span id="cb1-113"><a href="#cb1-113"></a>        LEAD(x) OVER (ORDER BY time)</span>
-<span id="cb1-114"><a href="#cb1-114"></a>        LAG(x) OVER (PARTITION BY g ORDER BY t)</span>
+<span id="cb1-112"><a href="#cb1-112"></a>        "AVG(x) OVER (PARTITION BY group)"</span>
+<span id="cb1-113"><a href="#cb1-113"></a>        "LEAD(x) OVER (ORDER BY time)"</span>
+<span id="cb1-114"><a href="#cb1-114"></a>        "LAG(x) OVER (PARTITION BY g ORDER BY t)"</span>
 <span id="cb1-115"><a href="#cb1-115"></a>      Need ORDER BY for windowed</span>
 <span id="cb1-116"><a href="#cb1-116"></a>        SQL tables have no inherent order</span>
 <span id="cb1-117"><a href="#cb1-117"></a>    Function translation</span>
 <span id="cb1-118"><a href="#cb1-118"></a>      Easy</span>
 <span id="cb1-119"><a href="#cb1-119"></a>        mean → AVG</span>
 <span id="cb1-120"><a href="#cb1-120"></a>        sum → SUM</span>
-<span id="cb1-121"><a href="#cb1-121"></a>        n() → COUNT(*)</span>
+<span id="cb1-121"><a href="#cb1-121"></a>        "n() → COUNT(*)"</span>
 <span id="cb1-122"><a href="#cb1-122"></a>        + - * / · same</span>
 <span id="cb1-123"><a href="#cb1-123"></a>      Surgery required</span>
 <span id="cb1-124"><a href="#cb1-124"></a>        median → MEDIAN · syntax varies by DBMS</span>
 <span id="cb1-125"><a href="#cb1-125"></a>        if_else → CASE WHEN</span>
 <span id="cb1-126"><a href="#cb1-126"></a>        case_when → CASE WHEN ... WHEN ... END</span>
-<span id="cb1-127"><a href="#cb1-127"></a>        cut() → CASE WHEN with breakpoints</span>
+<span id="cb1-127"><a href="#cb1-127"></a>        "cut() → CASE WHEN with breakpoints"</span>
 <span id="cb1-128"><a href="#cb1-128"></a>      String / date functions</span>
 <span id="cb1-129"><a href="#cb1-129"></a>        translated per DBMS</span>
-<span id="cb1-130"><a href="#cb1-130"></a>        vignette("translation-function", package = "dbplyr")</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-130"><a href="#cb1-130"></a>        "vignette(\"translation-function\", package = \"dbplyr\")"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">mindmap
-  root((ICA 16&lt;br/&gt;Databases &amp; SQL))
+  root((ICA 16 Databases &amp; SQL))
     Why databases
       Stored on disk · arbitrarily large
       Indexed for fast lookup
@@ -903,12 +903,12 @@ cookieconsent.run({
         In-process · SQLite · duckdb
     The two-package architecture
       DBI · low-level interface
-        dbConnect() · open connection
-        dbListTables() · enumerate
-        dbReadTable() · read whole table
-        dbGetQuery() · run raw SQL
-        dbWriteTable() · upload data
-        dbDisconnect() · close
+        "dbConnect() · open connection"
+        "dbListTables() · enumerate"
+        "dbReadTable() · read whole table"
+        "dbGetQuery() · run raw SQL"
+        "dbWriteTable() · upload data"
+        "dbDisconnect() · close"
       Driver package · DBMS-specific
         RPostgres · for Postgres
         RMariaDB · for MySQL
@@ -916,24 +916,24 @@ cookieconsent.run({
         duckdb · for duckdb
         odbc · generic fallback
       dbplyr · high-level translation
-        tbl() · table reference
+        "tbl() · table reference"
         dplyr verbs work normally
-        show_query() · see SQL
-        collect() · pull into R
+        "show_query() · see SQL"
+        "collect() · pull into R"
     Lazy evaluation
-      tbl(con, "name") · creates reference
+      "tbl(con, \"name\") · creates reference"
       dplyr ops · build query · don't execute
       Query runs only at
         print to console · LIMIT
-        collect() · pull all rows
-        compute() · materialize on server
+        "collect() · pull all rows"
+        "compute() · materialize on server"
       Why it matters
         operate on huge tables without loading
         row count often unknown
         push computation to server
     The five SQL clauses
       SELECT · which columns
-        select() · rename() · relocate() · mutate()
+        "select() · rename() · relocate() · mutate()"
         AS for renaming · aliasing
         column expressions
           arithmetic
@@ -942,19 +942,19 @@ cookieconsent.run({
       FROM · which table
         single table · or join · or subquery
       WHERE · which rows
-        filter() before grouping
+        "filter() before grouping"
         comparison · = not ==
         boolean · AND · OR · NOT
-        IN · ('a', 'b', 'c') for %in%
+        "IN · ('a', 'b', 'c') for %in%"
         IS NULL · IS NOT NULL
       GROUP BY · how to aggregate
-        group_by() · summarize()
+        "group_by() · summarize()"
         aggregate fns · COUNT · SUM · AVG · MAX · MIN
       ORDER BY · how to sort
-        arrange() · always at end
+        "arrange() · always at end"
         DESC for descending
       Plus HAVING · for post-aggregation filter
-        filter() after summarize() in dplyr
+        "filter() after summarize() in dplyr"
     SQL idiosyncrasies
       Order of writing
         SELECT · FROM · WHERE · GROUP BY · ORDER BY
@@ -993,7 +993,7 @@ cookieconsent.run({
         can't filter on a column you just made
       Pattern
         outer query · uses inner query as FROM
-        SELECT * FROM (inner_query) AS q1
+        "SELECT * FROM (inner_query) AS q1"
       dbplyr generates them automatically
         when needed
     Window functions
@@ -1001,25 +1001,25 @@ cookieconsent.run({
         aggregate INSIDE mutate · not summarize
         no GROUP BY · use OVER instead
       Syntax
-        AVG(x) OVER (PARTITION BY group)
-        LEAD(x) OVER (ORDER BY time)
-        LAG(x) OVER (PARTITION BY g ORDER BY t)
+        "AVG(x) OVER (PARTITION BY group)"
+        "LEAD(x) OVER (ORDER BY time)"
+        "LAG(x) OVER (PARTITION BY g ORDER BY t)"
       Need ORDER BY for windowed
         SQL tables have no inherent order
     Function translation
       Easy
         mean → AVG
         sum → SUM
-        n() → COUNT(*)
+        "n() → COUNT(*)"
         + - * / · same
       Surgery required
         median → MEDIAN · syntax varies by DBMS
         if_else → CASE WHEN
         case_when → CASE WHEN ... WHEN ... END
-        cut() → CASE WHEN with breakpoints
+        "cut() → CASE WHEN with breakpoints"
       String / date functions
         translated per DBMS
-        vignette("translation-function", package = "dbplyr")
+        "vignette(\"translation-function\", package = \"dbplyr\")"
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1678,7 +1678,7 @@ cookieconsent.run({
 <span id="cb4-12"><a href="#cb4-12"></a></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="in">```{mermaid}</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a>mindmap</span>
-<span id="cb4-17"><a href="#cb4-17"></a>  root((ICA <span class="dv">16</span>&lt;br/&gt;Databases &amp; SQL))</span>
+<span id="cb4-17"><a href="#cb4-17"></a>  root((ICA <span class="dv">16</span> Databases &amp; SQL))</span>
 <span id="cb4-18"><a href="#cb4-18"></a>    Why databases</span>
 <span id="cb4-19"><a href="#cb4-19"></a>      Stored on disk · arbitrarily large</span>
 <span id="cb4-20"><a href="#cb4-20"></a>      Indexed <span class="cf">for</span> fast lookup</span>
@@ -1690,12 +1690,12 @@ cookieconsent.run({
 <span id="cb4-26"><a href="#cb4-26"></a>        In-process · SQLite · duckdb</span>
 <span id="cb4-27"><a href="#cb4-27"></a>    The two-<span class="kw">package</span> architecture</span>
 <span id="cb4-28"><a href="#cb4-28"></a>      DBI · low-level interface</span>
-<span id="cb4-29"><a href="#cb4-29"></a>        dbConnect() · <span class="fu">open</span> connection</span>
-<span id="cb4-30"><a href="#cb4-30"></a>        dbListTables() · enumerate</span>
-<span id="cb4-31"><a href="#cb4-31"></a>        dbReadTable() · <span class="fu">read</span> whole table</span>
-<span id="cb4-32"><a href="#cb4-32"></a>        dbGetQuery() · run raw SQL</span>
-<span id="cb4-33"><a href="#cb4-33"></a>        dbWriteTable() · upload data</span>
-<span id="cb4-34"><a href="#cb4-34"></a>        dbDisconnect() · <span class="fu">close</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a>        <span class="ot">"</span><span class="st">dbConnect() · open connection</span><span class="ot">"</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>        <span class="ot">"</span><span class="st">dbListTables() · enumerate</span><span class="ot">"</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a>        <span class="ot">"</span><span class="st">dbReadTable() · read whole table</span><span class="ot">"</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a>        <span class="ot">"</span><span class="st">dbGetQuery() · run raw SQL</span><span class="ot">"</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a>        <span class="ot">"</span><span class="st">dbWriteTable() · upload data</span><span class="ot">"</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a>        <span class="ot">"</span><span class="st">dbDisconnect() · close</span><span class="ot">"</span></span>
 <span id="cb4-35"><a href="#cb4-35"></a>      Driver <span class="kw">package</span> · DBMS-specific</span>
 <span id="cb4-36"><a href="#cb4-36"></a>        RPostgres · <span class="cf">for</span> Postgres</span>
 <span id="cb4-37"><a href="#cb4-37"></a>        RMariaDB · <span class="cf">for</span> MySQL</span>
@@ -1703,24 +1703,24 @@ cookieconsent.run({
 <span id="cb4-39"><a href="#cb4-39"></a>        duckdb · <span class="cf">for</span> duckdb</span>
 <span id="cb4-40"><a href="#cb4-40"></a>        odbc · generic fallback</span>
 <span id="cb4-41"><a href="#cb4-41"></a>      dbplyr · high-level translation</span>
-<span id="cb4-42"><a href="#cb4-42"></a>        tbl() · table reference</span>
+<span id="cb4-42"><a href="#cb4-42"></a>        <span class="ot">"</span><span class="st">tbl() · table reference</span><span class="ot">"</span></span>
 <span id="cb4-43"><a href="#cb4-43"></a>        dplyr verbs work normally</span>
-<span id="cb4-44"><a href="#cb4-44"></a>        show_query() · see SQL</span>
-<span id="cb4-45"><a href="#cb4-45"></a>        collect() · pull into R</span>
+<span id="cb4-44"><a href="#cb4-44"></a>        <span class="ot">"</span><span class="st">show_query() · see SQL</span><span class="ot">"</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a>        <span class="ot">"</span><span class="st">collect() · pull into R</span><span class="ot">"</span></span>
 <span id="cb4-46"><a href="#cb4-46"></a>    Lazy evaluation</span>
-<span id="cb4-47"><a href="#cb4-47"></a>      tbl(con, <span class="ot">"</span><span class="st">name</span><span class="ot">"</span>) · creates reference</span>
+<span id="cb4-47"><a href="#cb4-47"></a>      <span class="ot">"</span><span class="st">tbl(con, \"name\") · creates reference</span><span class="ot">"</span></span>
 <span id="cb4-48"><a href="#cb4-48"></a>      dplyr ops · build query · don<span class="ot">'</span><span class="ss">t execute</span></span>
 <span id="cb4-49"><a href="#cb4-49"></a><span class="ss">      Query runs only at</span></span>
 <span id="cb4-50"><a href="#cb4-50"></a><span class="ss">        print to console · LIMIT</span></span>
-<span id="cb4-51"><a href="#cb4-51"></a><span class="ss">        collect() · pull all rows</span></span>
-<span id="cb4-52"><a href="#cb4-52"></a><span class="ss">        compute() · materialize on server</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="ss">        "collect() · pull all rows"</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a><span class="ss">        "compute() · materialize on server"</span></span>
 <span id="cb4-53"><a href="#cb4-53"></a><span class="ss">      Why it matters</span></span>
 <span id="cb4-54"><a href="#cb4-54"></a><span class="ss">        operate on huge tables without loading</span></span>
 <span id="cb4-55"><a href="#cb4-55"></a><span class="ss">        row count often unknown</span></span>
 <span id="cb4-56"><a href="#cb4-56"></a><span class="ss">        push computation to server</span></span>
 <span id="cb4-57"><a href="#cb4-57"></a><span class="ss">    The five SQL clauses</span></span>
 <span id="cb4-58"><a href="#cb4-58"></a><span class="ss">      SELECT · which columns</span></span>
-<span id="cb4-59"><a href="#cb4-59"></a><span class="ss">        select() · rename() · relocate() · mutate()</span></span>
+<span id="cb4-59"><a href="#cb4-59"></a><span class="ss">        "select() · rename() · relocate() · mutate()"</span></span>
 <span id="cb4-60"><a href="#cb4-60"></a><span class="ss">        AS for renaming · aliasing</span></span>
 <span id="cb4-61"><a href="#cb4-61"></a><span class="ss">        column expressions</span></span>
 <span id="cb4-62"><a href="#cb4-62"></a><span class="ss">          arithmetic</span></span>
@@ -1729,19 +1729,19 @@ cookieconsent.run({
 <span id="cb4-65"><a href="#cb4-65"></a><span class="ss">      FROM · which table</span></span>
 <span id="cb4-66"><a href="#cb4-66"></a><span class="ss">        single table · or join · or subquery</span></span>
 <span id="cb4-67"><a href="#cb4-67"></a><span class="ss">      WHERE · which rows</span></span>
-<span id="cb4-68"><a href="#cb4-68"></a><span class="ss">        filter() before grouping</span></span>
+<span id="cb4-68"><a href="#cb4-68"></a><span class="ss">        "filter() before grouping"</span></span>
 <span id="cb4-69"><a href="#cb4-69"></a><span class="ss">        comparison · = not ==</span></span>
 <span id="cb4-70"><a href="#cb4-70"></a><span class="ss">        boolean · AND · OR · NOT</span></span>
-<span id="cb4-71"><a href="#cb4-71"></a><span class="ss">        IN · (</span><span class="ot">'</span>a<span class="ot">'</span><span class="ss">, </span><span class="ot">'</span>b<span class="ot">'</span><span class="ss">, </span><span class="ot">'</span>c<span class="ot">'</span><span class="ss">) for %in%</span></span>
+<span id="cb4-71"><a href="#cb4-71"></a><span class="ss">        "IN · (</span><span class="ot">'</span>a<span class="ot">'</span><span class="ss">, </span><span class="ot">'</span>b<span class="ot">'</span><span class="ss">, </span><span class="ot">'</span>c<span class="ot">'</span><span class="ss">) for %in%"</span></span>
 <span id="cb4-72"><a href="#cb4-72"></a><span class="ss">        IS NULL · IS NOT NULL</span></span>
 <span id="cb4-73"><a href="#cb4-73"></a><span class="ss">      GROUP BY · how to aggregate</span></span>
-<span id="cb4-74"><a href="#cb4-74"></a><span class="ss">        group_by() · summarize()</span></span>
+<span id="cb4-74"><a href="#cb4-74"></a><span class="ss">        "group_by() · summarize()"</span></span>
 <span id="cb4-75"><a href="#cb4-75"></a><span class="ss">        aggregate fns · COUNT · SUM · AVG · MAX · MIN</span></span>
 <span id="cb4-76"><a href="#cb4-76"></a><span class="ss">      ORDER BY · how to sort</span></span>
-<span id="cb4-77"><a href="#cb4-77"></a><span class="ss">        arrange() · always at end</span></span>
+<span id="cb4-77"><a href="#cb4-77"></a><span class="ss">        "arrange() · always at end"</span></span>
 <span id="cb4-78"><a href="#cb4-78"></a><span class="ss">        DESC for descending</span></span>
 <span id="cb4-79"><a href="#cb4-79"></a><span class="ss">      Plus HAVING · for post-aggregation filter</span></span>
-<span id="cb4-80"><a href="#cb4-80"></a><span class="ss">        filter() after summarize() in dplyr</span></span>
+<span id="cb4-80"><a href="#cb4-80"></a><span class="ss">        "filter() after summarize() in dplyr"</span></span>
 <span id="cb4-81"><a href="#cb4-81"></a><span class="ss">    SQL idiosyncrasies</span></span>
 <span id="cb4-82"><a href="#cb4-82"></a><span class="ss">      Order of writing</span></span>
 <span id="cb4-83"><a href="#cb4-83"></a><span class="ss">        SELECT · FROM · WHERE · GROUP BY · ORDER BY</span></span>
@@ -1780,7 +1780,7 @@ cookieconsent.run({
 <span id="cb4-116"><a href="#cb4-116"></a><span class="ss">        can</span><span class="ot">'</span>t filter on a column you just made</span>
 <span id="cb4-117"><a href="#cb4-117"></a>      Pattern</span>
 <span id="cb4-118"><a href="#cb4-118"></a>        outer query · uses inner query as FROM</span>
-<span id="cb4-119"><a href="#cb4-119"></a>        SELECT <span class="ot">*</span> FROM (inner_query) AS q1</span>
+<span id="cb4-119"><a href="#cb4-119"></a>        <span class="ot">"</span><span class="st">SELECT * FROM (inner_query) AS q1</span><span class="ot">"</span></span>
 <span id="cb4-120"><a href="#cb4-120"></a>      dbplyr generates them automatically</span>
 <span id="cb4-121"><a href="#cb4-121"></a>        <span class="cf">when</span> needed</span>
 <span id="cb4-122"><a href="#cb4-122"></a>    Window functions</span>
@@ -1788,25 +1788,25 @@ cookieconsent.run({
 <span id="cb4-124"><a href="#cb4-124"></a>        aggregate INSIDE mutate · <span class="ot">not</span> summarize</span>
 <span id="cb4-125"><a href="#cb4-125"></a>        <span class="fu">no</span> GROUP BY · <span class="fu">use</span> OVER instead</span>
 <span id="cb4-126"><a href="#cb4-126"></a>      Syntax</span>
-<span id="cb4-127"><a href="#cb4-127"></a>        AVG(x) OVER (PARTITION BY group)</span>
-<span id="cb4-128"><a href="#cb4-128"></a>        LEAD(x) OVER (ORDER BY <span class="fu">time</span>)</span>
-<span id="cb4-129"><a href="#cb4-129"></a>        LAG(x) OVER (PARTITION BY g ORDER BY t)</span>
+<span id="cb4-127"><a href="#cb4-127"></a>        <span class="ot">"</span><span class="st">AVG(x) OVER (PARTITION BY group)</span><span class="ot">"</span></span>
+<span id="cb4-128"><a href="#cb4-128"></a>        <span class="ot">"</span><span class="st">LEAD(x) OVER (ORDER BY time)</span><span class="ot">"</span></span>
+<span id="cb4-129"><a href="#cb4-129"></a>        <span class="ot">"</span><span class="st">LAG(x) OVER (PARTITION BY g ORDER BY t)</span><span class="ot">"</span></span>
 <span id="cb4-130"><a href="#cb4-130"></a>      Need ORDER BY <span class="cf">for</span> windowed</span>
 <span id="cb4-131"><a href="#cb4-131"></a>        SQL tables have <span class="fu">no</span> inherent order</span>
 <span id="cb4-132"><a href="#cb4-132"></a>    Function translation</span>
 <span id="cb4-133"><a href="#cb4-133"></a>      Easy</span>
 <span id="cb4-134"><a href="#cb4-134"></a>        mean → AVG</span>
 <span id="cb4-135"><a href="#cb4-135"></a>        sum → SUM</span>
-<span id="cb4-136"><a href="#cb4-136"></a>        n() → COUNT(<span class="ot">*</span>)</span>
+<span id="cb4-136"><a href="#cb4-136"></a>        <span class="ot">"</span><span class="st">n() → COUNT(*)</span><span class="ot">"</span></span>
 <span id="cb4-137"><a href="#cb4-137"></a>        + - <span class="ot">*</span> <span class="ot">/ · same</span></span>
 <span id="cb4-138"><a href="#cb4-138"></a><span class="ot">      Surgery required</span></span>
 <span id="cb4-139"><a href="#cb4-139"></a><span class="ot">        median → MEDIAN · syntax varies by DBMS</span></span>
 <span id="cb4-140"><a href="#cb4-140"></a><span class="ot">        if_else → CASE WHEN</span></span>
 <span id="cb4-141"><a href="#cb4-141"></a><span class="ot">        case_when → CASE WHEN ... WHEN ... END</span></span>
-<span id="cb4-142"><a href="#cb4-142"></a><span class="ot">        cut</span><span class="ch">()</span><span class="ot"> → CASE WHEN with breakpoints</span></span>
+<span id="cb4-142"><a href="#cb4-142"></a><span class="ot">        "cut</span><span class="ch">()</span><span class="ot"> → CASE WHEN with breakpoints"</span></span>
 <span id="cb4-143"><a href="#cb4-143"></a><span class="ot">      String /</span> date functions</span>
 <span id="cb4-144"><a href="#cb4-144"></a>        translated per DBMS</span>
-<span id="cb4-145"><a href="#cb4-145"></a>        vignette(<span class="ot">"</span><span class="st">translation-function</span><span class="ot">"</span>, <span class="kw">package</span> = <span class="ot">"</span><span class="st">dbplyr</span><span class="ot">"</span>)</span>
+<span id="cb4-145"><a href="#cb4-145"></a>        <span class="ot">"</span><span class="st">vignette(\"translation-function\", package = \"dbplyr\")</span><span class="ot">"</span></span>
 <span id="cb4-146"><a href="#cb4-146"></a><span class="in">```</span></span>
 <span id="cb4-147"><a href="#cb4-147"></a></span>
 <span id="cb4-148"><a href="#cb4-148"></a><span class="fu">## Three concepts the chapter quietly hinges on</span></span>
