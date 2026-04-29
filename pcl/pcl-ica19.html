@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zhijun He (何智骏)">
+
+<title>PCL · ICA 19 — Quality Control: Critiquing ‘Counting Happiness’ – COMP/STAT212 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ica/01_introduction.html" rel="next">
+<link href="../pcl/pcl-ica18.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ce494e159dae1eb1aeb2beb157b73888.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<style>html{ scroll-behavior: smooth; }</style>
+<meta name="mermaid-theme" content="dark">
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../style/custom.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pcl/pcl-ica01.html">ICA Pre-Class Mindmaps</a></li><li class="breadcrumb-item"><a href="../pcl/pcl-ica19.html"><span class="chapter-title">PCL · ICA 19 — Quality Control: Critiquing ‘Counting Happiness’</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/sidebar-logo.png" alt="Random negative space illustration" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Zhijun He</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prof Viz</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pv/pv-01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Professional Viz</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">TidyTuesday</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Paradox of Brazil’s Micro-Enterprises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Resource Appetite of Edible Plants</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week6.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Rhythm of the Rings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Pastoral Pivot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week8.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Few and the Funded</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week9.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Sex-Specific Penalty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Words That Mean Nothing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Below the Waterline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Million Dice Rolls</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A Column of Water</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Some Things Still Get Fixed</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Who Follows the Ship</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tt/zhijun-tidytuesday_week16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Transition That Stalled</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pre-Class Learnings</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/exam3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exam 3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">ICA Pre-Class Mindmaps</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 01 — Introduction &amp; Onboarding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica02.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 02 — Review: File Organization, Git, Keyboard</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica03.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 03 — Advanced Data Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica04.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 04 — Advanced Spatial Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica06.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 06 — Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica07.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 07 — Advanced Data Wrangling II</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica08.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 08 — Missing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica09.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 09 — Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 10 — A Field Guide to Base R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 11 — Loops &amp; Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 12 — Loops &amp; Iteration II</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica13.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 13 — APIs I: JSON, URLs, urltools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica14.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 14 — APIs II: jsonlite &amp; Real-World Endpoints</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica15.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 15 — Web Scraping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica16.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 16 — Databases &amp; SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica17.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica18.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PCL · ICA 18 — Interactive Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pcl/pcl-ica19.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">PCL · ICA 19 — Quality Control: Critiquing ‘Counting Happiness’</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-Class Activities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/01_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/02_review.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">02 — Review: File Paths, Git, and Data Wrangling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/03_adv_data_viz_ica.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">03 — Adv Data Viz</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/04-adv-maps-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Advanced Spatial Visualization: Minnesota Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica06-adv-data-wrangling-I_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6 - Advanced Data Wrangling I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07_adv_data_wrangling_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 — Advanced Data Wrangling II: Strings and Regular Expressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08_missing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 — Missing Data: Mechanisms, Exploration, and Imputation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 — Functions and Control Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10_base_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 — Base R: Structures, Subsetting, and Debugging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11_loops_iter_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 — Loops and Iteration I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12_loops_iter_ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 — Loops and Iteration II: <code>purrr</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/13_apis_i.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">13 — APIs I: JSON and <code>jsonlite</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/icaa-14-apis-ii.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">14 — APIs II: Web Requests, XML, and Nested JSON</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/15_web_scraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">15 — Web Scraping with <code>rvest</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16_databases_sql.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">16 — Databases and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/17_effective_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">17 — Effective Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18_interactive_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">18 — Interactive Visualization: Shiny and plotly</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/ica-19-quality-control.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">19 — Quality Control: Code and Data Hygiene</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extras</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/capital_without_category_v3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Capital Without Category: Governance, Inequality, and the Micro-Enterprise Paradox in Brazil</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/mice_demo_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why replace_na(mean(…)) Lies, and MICE Fixes It</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/pagination-simulation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verifying Pagination Strategies: A Monte Carlo Simulation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pre-class-learning-task" id="toc-pre-class-learning-task" class="nav-link active" data-scroll-target="#pre-class-learning-task">Pre-class learning task</a></li>
+  <li><a href="#what-is-the-data-story" id="toc-what-is-the-data-story" class="nav-link" data-scroll-target="#what-is-the-data-story">What is the data story</a></li>
+  <li><a href="#what-is-effective" id="toc-what-is-effective" class="nav-link" data-scroll-target="#what-is-effective">What is effective</a></li>
+  <li><a href="#what-could-be-improved" id="toc-what-could-be-improved" class="nav-link" data-scroll-target="#what-could-be-improved">What could be improved</a></li>
+  <li><a href="#three-takeaways-for-my-own-work" id="toc-three-takeaways-for-my-own-work" class="nav-link" data-scroll-target="#three-takeaways-for-my-own-work">Three takeaways for my own work</a></li>
+  <li><a href="#why-quality-control-is-the-closing-skill" id="toc-why-quality-control-is-the-closing-skill" class="nav-link" data-scroll-target="#why-quality-control-is-the-closing-skill">Why quality control is the closing skill</a></li>
+  <li><a href="#closing-thought" id="toc-closing-thought" class="nav-link" data-scroll-target="#closing-thought">Closing thought</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pcl/pcl-ica01.html">ICA Pre-Class Mindmaps</a></li><li class="breadcrumb-item"><a href="../pcl/pcl-ica19.html"><span class="chapter-title">PCL · ICA 19 — Quality Control: Critiquing ‘Counting Happiness’</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">PCL · ICA 19 — Quality Control: Critiquing ‘Counting Happiness’</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhijun He (何智骏) </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="pre-class-learning-task" class="level2">
+<h2 class="anchored" data-anchor-id="pre-class-learning-task">Pre-class learning task</h2>
+<p>ICA 19’s prep is structurally different from every prior PCL: instead of readings to synthesize, it’s a <strong>critique task</strong>. Nathan Yau’s <em>Counting Happiness and Where It Comes From</em> (FlowingData, July 2021) is a published data story analyzing the HappyDB corpus — 100,000 happy moments from 10,000 Mechanical Turk participants, parsed into subject-verb-object triples. The job is to read it as a designer, not as a consumer: identify the story, identify what works, identify what could be stronger. The mindmap below organizes the piece itself plus the three critique axes the assignment asks for, ending with what this exercise teaches about quality control as the closing skill of STAT 212.</p>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 19&lt;br/&gt;Critique))</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    The piece itself</span>
+<span id="cb1-4"><a href="#cb1-4"></a>      Source · HappyDB</span>
+<span id="cb1-5"><a href="#cb1-5"></a>        100k happy moments</span>
+<span id="cb1-6"><a href="#cb1-6"></a>        10k participants · MTurk</span>
+<span id="cb1-7"><a href="#cb1-7"></a>        researchers asked for ten each</span>
+<span id="cb1-8"><a href="#cb1-8"></a>      Method · NLP parsing</span>
+<span id="cb1-9"><a href="#cb1-9"></a>        each moment split to S-V-O</span>
+<span id="cb1-10"><a href="#cb1-10"></a>        e.g. "I watched a movie"</span>
+<span id="cb1-11"><a href="#cb1-11"></a>          S · I</span>
+<span id="cb1-12"><a href="#cb1-12"></a>          V · watched</span>
+<span id="cb1-13"><a href="#cb1-13"></a>          O · movie</span>
+<span id="cb1-14"><a href="#cb1-14"></a>      Two-way split</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        moments with subject "I"</span>
+<span id="cb1-16"><a href="#cb1-16"></a>          self-directed happiness</span>
+<span id="cb1-17"><a href="#cb1-17"></a>        moments with other subjects</span>
+<span id="cb1-18"><a href="#cb1-18"></a>          relational happiness</span>
+<span id="cb1-19"><a href="#cb1-19"></a>      Visual form</span>
+<span id="cb1-20"><a href="#cb1-20"></a>        flowing Sankey-like diagrams</span>
+<span id="cb1-21"><a href="#cb1-21"></a>        verbs flowing into objects</span>
+<span id="cb1-22"><a href="#cb1-22"></a>        weighted by frequency</span>
+<span id="cb1-23"><a href="#cb1-23"></a>      Three sub-views</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        I-centered top 5</span>
+<span id="cb1-25"><a href="#cb1-25"></a>        Others-centered top 5</span>
+<span id="cb1-26"><a href="#cb1-26"></a>        Pets-centered breakdown</span>
+<span id="cb1-27"><a href="#cb1-27"></a>    What is the data story</span>
+<span id="cb1-28"><a href="#cb1-28"></a>      Headline</span>
+<span id="cb1-29"><a href="#cb1-29"></a>        happiness comes in many forms · many places</span>
+<span id="cb1-30"><a href="#cb1-30"></a>        but with structure visible in language</span>
+<span id="cb1-31"><a href="#cb1-31"></a>      Two-channel claim</span>
+<span id="cb1-32"><a href="#cb1-32"></a>        self-driven · daily mundane joys</span>
+<span id="cb1-33"><a href="#cb1-33"></a>          dinner · movie · time</span>
+<span id="cb1-34"><a href="#cb1-34"></a>        other-driven · relational moments</span>
+<span id="cb1-35"><a href="#cb1-35"></a>          team won · husband surprised</span>
+<span id="cb1-36"><a href="#cb1-36"></a>      Implied insight</span>
+<span id="cb1-37"><a href="#cb1-37"></a>        most relational happiness</span>
+<span id="cb1-38"><a href="#cb1-38"></a>          is small acts of attention</span>
+<span id="cb1-39"><a href="#cb1-39"></a>          meal · gift · hug</span>
+<span id="cb1-40"><a href="#cb1-40"></a>        not grand gestures</span>
+<span id="cb1-41"><a href="#cb1-41"></a>      Pets as third channel</span>
+<span id="cb1-42"><a href="#cb1-42"></a>        snuggled · jumped · curled</span>
+<span id="cb1-43"><a href="#cb1-43"></a>        action verbs more vivid</span>
+<span id="cb1-44"><a href="#cb1-44"></a>        domain has its own grammar</span>
+<span id="cb1-45"><a href="#cb1-45"></a>      Closing arc</span>
+<span id="cb1-46"><a href="#cb1-46"></a>        "refocus attention to see moments"</span>
+<span id="cb1-47"><a href="#cb1-47"></a>        story has narrative shape · not just stats</span>
+<span id="cb1-48"><a href="#cb1-48"></a>    What is effective</span>
+<span id="cb1-49"><a href="#cb1-49"></a>      Method transparency</span>
+<span id="cb1-50"><a href="#cb1-50"></a>        S-V-O parsing explained simply</span>
+<span id="cb1-51"><a href="#cb1-51"></a>        single example before the analysis</span>
+<span id="cb1-52"><a href="#cb1-52"></a>        reader can replicate the mental move</span>
+<span id="cb1-53"><a href="#cb1-53"></a>      Honest sample disclosure</span>
+<span id="cb1-54"><a href="#cb1-54"></a>        notes MTurk skew · 20-40 yr olds</span>
+<span id="cb1-55"><a href="#cb1-55"></a>        names what would change · younger sample</span>
+<span id="cb1-56"><a href="#cb1-56"></a>        names what would change · workers vs students</span>
+<span id="cb1-57"><a href="#cb1-57"></a>        quietly raises generalizability</span>
+<span id="cb1-58"><a href="#cb1-58"></a>      Strong sub-divisions</span>
+<span id="cb1-59"><a href="#cb1-59"></a>        self vs other vs pets</span>
+<span id="cb1-60"><a href="#cb1-60"></a>        each could have been the whole post</span>
+<span id="cb1-61"><a href="#cb1-61"></a>        but ordering builds toward insight</span>
+<span id="cb1-62"><a href="#cb1-62"></a>      Restraint in interpretation</span>
+<span id="cb1-63"><a href="#cb1-63"></a>        doesn't overclaim from observational data</span>
+<span id="cb1-64"><a href="#cb1-64"></a>        narrates patterns</span>
+<span id="cb1-65"><a href="#cb1-65"></a>          doesn't force causation</span>
+<span id="cb1-66"><a href="#cb1-66"></a>      Form fits content</span>
+<span id="cb1-67"><a href="#cb1-67"></a>        SVO triples render naturally as flow</span>
+<span id="cb1-68"><a href="#cb1-68"></a>        Sankey-like layout is appropriate</span>
+<span id="cb1-69"><a href="#cb1-69"></a>        gray + accent color · attention managed</span>
+<span id="cb1-70"><a href="#cb1-70"></a>      Top-5 lists</span>
+<span id="cb1-71"><a href="#cb1-71"></a>        accessible scaffolding</span>
+<span id="cb1-72"><a href="#cb1-72"></a>        readers anchor before main viz</span>
+<span id="cb1-73"><a href="#cb1-73"></a>    What could be improved</span>
+<span id="cb1-74"><a href="#cb1-74"></a>      Data table dominates visual</span>
+<span id="cb1-75"><a href="#cb1-75"></a>        top 5 lists are mainly text</span>
+<span id="cb1-76"><a href="#cb1-76"></a>        could be small bar chart</span>
+<span id="cb1-77"><a href="#cb1-77"></a>        ranks are ordinal · invite ordering</span>
+<span id="cb1-78"><a href="#cb1-78"></a>      No magnitudes shown</span>
+<span id="cb1-79"><a href="#cb1-79"></a>        rank 1 vs 5 in "I" list could be huge gap</span>
+<span id="cb1-80"><a href="#cb1-80"></a>        or barely different</span>
+<span id="cb1-81"><a href="#cb1-81"></a>        without count or proportion · reader cannot tell</span>
+<span id="cb1-82"><a href="#cb1-82"></a>      Sankey readability</span>
+<span id="cb1-83"><a href="#cb1-83"></a>        long-tail of verbs/objects compresses</span>
+<span id="cb1-84"><a href="#cb1-84"></a>        smaller flows hard to trace</span>
+<span id="cb1-85"><a href="#cb1-85"></a>        would benefit from threshold or cutoff</span>
+<span id="cb1-86"><a href="#cb1-86"></a>      Sample bias note placed after</span>
+<span id="cb1-87"><a href="#cb1-87"></a>        appears after main argument</span>
+<span id="cb1-88"><a href="#cb1-88"></a>        could come earlier · frame interpretation</span>
+<span id="cb1-89"><a href="#cb1-89"></a>        even one sentence in opening</span>
+<span id="cb1-90"><a href="#cb1-90"></a>      Static format · loses the long tail</span>
+<span id="cb1-91"><a href="#cb1-91"></a>        only top 5 surfaced</span>
+<span id="cb1-92"><a href="#cb1-92"></a>        100k moments · most moments invisible</span>
+<span id="cb1-93"><a href="#cb1-93"></a>        a filter or search would expose more</span>
+<span id="cb1-94"><a href="#cb1-94"></a>        but costs attention · per ICA 18</span>
+<span id="cb1-95"><a href="#cb1-95"></a>      Time dimension absent</span>
+<span id="cb1-96"><a href="#cb1-96"></a>        when were moments recorded</span>
+<span id="cb1-97"><a href="#cb1-97"></a>        any seasonality · pandemic effect</span>
+<span id="cb1-98"><a href="#cb1-98"></a>        any drift across collection waves</span>
+<span id="cb1-99"><a href="#cb1-99"></a>        could enrich or complicate</span>
+<span id="cb1-100"><a href="#cb1-100"></a>      Comparative null missing</span>
+<span id="cb1-101"><a href="#cb1-101"></a>        what if reasons people are sad</span>
+<span id="cb1-102"><a href="#cb1-102"></a>        same parsing on a sadness corpus</span>
+<span id="cb1-103"><a href="#cb1-103"></a>        would clarify what's happiness-specific</span>
+<span id="cb1-104"><a href="#cb1-104"></a>        vs general human attention</span>
+<span id="cb1-105"><a href="#cb1-105"></a>    Three takeaways for my own work</span>
+<span id="cb1-106"><a href="#cb1-106"></a>      Method transparency builds trust</span>
+<span id="cb1-107"><a href="#cb1-107"></a>        say what you did · briefly · once</span>
+<span id="cb1-108"><a href="#cb1-108"></a>        before showing results</span>
+<span id="cb1-109"><a href="#cb1-109"></a>      Sample bias goes early</span>
+<span id="cb1-110"><a href="#cb1-110"></a>        not in the notes section</span>
+<span id="cb1-111"><a href="#cb1-111"></a>        opens the lens · doesn't undercut conclusion</span>
+<span id="cb1-112"><a href="#cb1-112"></a>      Magnitude beats rank</span>
+<span id="cb1-113"><a href="#cb1-113"></a>        ordinal lists hide structure</span>
+<span id="cb1-114"><a href="#cb1-114"></a>        give readers the count or proportion</span>
+<span id="cb1-115"><a href="#cb1-115"></a>        let them see the gradient</span>
+<span id="cb1-116"><a href="#cb1-116"></a>    Quality control as a skill</span>
+<span id="cb1-117"><a href="#cb1-117"></a>      What it actually requires</span>
+<span id="cb1-118"><a href="#cb1-118"></a>        slow reading</span>
+<span id="cb1-119"><a href="#cb1-119"></a>        ask "what would falsify this"</span>
+<span id="cb1-120"><a href="#cb1-120"></a>        ask "who is the audience"</span>
+<span id="cb1-121"><a href="#cb1-121"></a>        ask "what's missing"</span>
+<span id="cb1-122"><a href="#cb1-122"></a>      Compared to making</span>
+<span id="cb1-123"><a href="#cb1-123"></a>        making · what should be there</span>
+<span id="cb1-124"><a href="#cb1-124"></a>        critiquing · what shouldn't · or could be better</span>
+<span id="cb1-125"><a href="#cb1-125"></a>      Roles in a workflow</span>
+<span id="cb1-126"><a href="#cb1-126"></a>        peer review of plots</span>
+<span id="cb1-127"><a href="#cb1-127"></a>        before sharing externally</span>
+<span id="cb1-128"><a href="#cb1-128"></a>        before final report</span>
+<span id="cb1-129"><a href="#cb1-129"></a>      ICA 19 trains the muscle</span>
+<span id="cb1-130"><a href="#cb1-130"></a>        you only build it by doing it</span>
+<span id="cb1-131"><a href="#cb1-131"></a>        on real published work</span>
+<span id="cb1-132"><a href="#cb1-132"></a>        not toy examples</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">mindmap
+  root((ICA 19&lt;br/&gt;Critique))
+    The piece itself
+      Source · HappyDB
+        100k happy moments
+        10k participants · MTurk
+        researchers asked for ten each
+      Method · NLP parsing
+        each moment split to S-V-O
+        e.g. "I watched a movie"
+          S · I
+          V · watched
+          O · movie
+      Two-way split
+        moments with subject "I"
+          self-directed happiness
+        moments with other subjects
+          relational happiness
+      Visual form
+        flowing Sankey-like diagrams
+        verbs flowing into objects
+        weighted by frequency
+      Three sub-views
+        I-centered top 5
+        Others-centered top 5
+        Pets-centered breakdown
+    What is the data story
+      Headline
+        happiness comes in many forms · many places
+        but with structure visible in language
+      Two-channel claim
+        self-driven · daily mundane joys
+          dinner · movie · time
+        other-driven · relational moments
+          team won · husband surprised
+      Implied insight
+        most relational happiness
+          is small acts of attention
+          meal · gift · hug
+        not grand gestures
+      Pets as third channel
+        snuggled · jumped · curled
+        action verbs more vivid
+        domain has its own grammar
+      Closing arc
+        "refocus attention to see moments"
+        story has narrative shape · not just stats
+    What is effective
+      Method transparency
+        S-V-O parsing explained simply
+        single example before the analysis
+        reader can replicate the mental move
+      Honest sample disclosure
+        notes MTurk skew · 20-40 yr olds
+        names what would change · younger sample
+        names what would change · workers vs students
+        quietly raises generalizability
+      Strong sub-divisions
+        self vs other vs pets
+        each could have been the whole post
+        but ordering builds toward insight
+      Restraint in interpretation
+        doesn't overclaim from observational data
+        narrates patterns
+          doesn't force causation
+      Form fits content
+        SVO triples render naturally as flow
+        Sankey-like layout is appropriate
+        gray + accent color · attention managed
+      Top-5 lists
+        accessible scaffolding
+        readers anchor before main viz
+    What could be improved
+      Data table dominates visual
+        top 5 lists are mainly text
+        could be small bar chart
+        ranks are ordinal · invite ordering
+      No magnitudes shown
+        rank 1 vs 5 in "I" list could be huge gap
+        or barely different
+        without count or proportion · reader cannot tell
+      Sankey readability
+        long-tail of verbs/objects compresses
+        smaller flows hard to trace
+        would benefit from threshold or cutoff
+      Sample bias note placed after
+        appears after main argument
+        could come earlier · frame interpretation
+        even one sentence in opening
+      Static format · loses the long tail
+        only top 5 surfaced
+        100k moments · most moments invisible
+        a filter or search would expose more
+        but costs attention · per ICA 18
+      Time dimension absent
+        when were moments recorded
+        any seasonality · pandemic effect
+        any drift across collection waves
+        could enrich or complicate
+      Comparative null missing
+        what if reasons people are sad
+        same parsing on a sadness corpus
+        would clarify what's happiness-specific
+        vs general human attention
+    Three takeaways for my own work
+      Method transparency builds trust
+        say what you did · briefly · once
+        before showing results
+      Sample bias goes early
+        not in the notes section
+        opens the lens · doesn't undercut conclusion
+      Magnitude beats rank
+        ordinal lists hide structure
+        give readers the count or proportion
+        let them see the gradient
+    Quality control as a skill
+      What it actually requires
+        slow reading
+        ask "what would falsify this"
+        ask "who is the audience"
+        ask "what's missing"
+      Compared to making
+        making · what should be there
+        critiquing · what shouldn't · or could be better
+      Roles in a workflow
+        peer review of plots
+        before sharing externally
+        before final report
+      ICA 19 trains the muscle
+        you only build it by doing it
+        on real published work
+        not toy examples
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-the-data-story" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-data-story">What is the data story</h2>
+<p>The piece argues — with structure rather than overt claim — that <strong>happiness in daily life splits into two grammatical channels</strong>: things people do for themselves (<code>I watched a movie</code>, <code>I had dinner</code>) and things others do that arrive as relational gifts (<code>husband surprised me</code>, <code>son gave hug</code>). The Sankey-style flow diagrams are not the argument; they’re the <em>evidence display</em>. The argument is that when you parse 100,000 self-reports of happy moments by subject-verb-object, the verbs and objects in the relational column trend small and ordinary — meals, gifts, hugs — rather than grand gestures. The closing line — <em>“sometimes you have to refocus your attention to see the moments more clearly”</em> — is the persuasive payload: happiness is structurally available, you just need to see it.</p>
+<p>The pets sub-view operates as a third channel that confirms the same logic at finer resolution — when the relational counterpart is a pet, the verbs become specific and physical (<code>snuggled</code>, <code>jumped</code>, <code>curled</code>). Same story, sharper instance.</p>
+</section>
+<section id="what-is-effective" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-effective">What is effective</h2>
+<p><strong>Method transparency at the right granularity.</strong> Yau explains the SVO parsing in two sentences with one concrete example before showing any results. The reader can immediately replicate the mental move — <em>“I watched a movie” → S=I, V=watched, O=movie</em> — and trust what follows. Many published data stories skip this; the absence shows up later as confusion about <em>what the chart is actually counting</em>.</p>
+<p><strong>Honest sample disclosure.</strong> The Mechanical Turk caveat — that participants skew 20–40 years old, which inflates spouse and child mentions and depresses workplace mentions — is not buried in a footnote. It explicitly tells the reader <em>what would change with a different sample</em>. This converts a methodological weakness into a strength: the reader leaves trusting the analyst, not the dataset.</p>
+<p><strong>Form fits content.</strong> SVO triples have a natural left-to-right flow, and the Sankey-like rendering makes that flow legible. The gray-and-accent palette directs attention without overpowering. The top-5 lists in plain text <em>before</em> the diagrams give readers an anchor — they know what they’re about to see in graphical form.</p>
+<p><strong>Restraint in interpretation.</strong> Yau narrates the patterns (“Generally speaking, it’s about someone making time for another”) without claiming causal mechanisms. Given that this is observational self-report data, this restraint is appropriate; many less careful data stories would have over-claimed.</p>
+</section>
+<section id="what-could-be-improved" class="level2">
+<h2 class="anchored" data-anchor-id="what-could-be-improved">What could be improved</h2>
+<p><strong>Magnitude information is missing from the rankings.</strong> The top-5 lists give ordinal information (rank 1, rank 2, …) but no counts or proportions. Without that, the reader can’t tell whether <code>dinner</code> (rank 1) is 5× or 1.05× more frequent than <code>lunch</code> (rank 5). For a story about <em>what makes people happy</em>, the size of the gap between #1 and #5 is itself part of the answer. A small inline bar with each rank — even just visual length — would carry magnitude without disrupting the layout.</p>
+<p><strong>The bias caveat appears after the main argument.</strong> The note that the MTurk sample skews 20–40 years old, increasing spouse/child mentions and depressing workplace ones, is a real interpretive constraint — but it’s placed below the analysis, after the reader has already formed conclusions. One sentence at the top — “the sample skews 20–40, which shapes what relational categories appear” — would frame the reading without undercutting it. Knaflic’s storytelling principle would put the constraint in the setup, not the resolution.</p>
+<p><strong>Long-tail data is invisible.</strong> Top-5 lists by definition show 5 of however-many distinct triples exist. With 100k moments and SVO parsing, the long tail almost certainly contains interesting structure — rare but coherent clusters of moments that the top-5 framing erases. A static piece is constrained here; ICA 18’s lessons about <em>when interactivity earns its keep</em> apply: this is exactly the case where a search/filter affordance would add real value, because the reader’s question (“does my kind of happiness appear?”) isn’t answered by aggregate ranks.</p>
+<p><strong>No comparative null.</strong> What does the same SVO parsing look like on a <em>sadness</em> corpus, or a <em>frustration</em> corpus? Without that comparison, it’s hard to tell what’s specifically about happiness versus what’s about how humans attribute attention to events generally. The piece is strong on its own terms; a comparative lens would have made it stronger.</p>
+<p><strong>Time is absent.</strong> When were these moments collected? Was it pre- or post-pandemic? Any seasonality? Aggregate-over-time analysis can hide drift, and for an emotion corpus that’s a substantive concern.</p>
+</section>
+<section id="three-takeaways-for-my-own-work" class="level2">
+<h2 class="anchored" data-anchor-id="three-takeaways-for-my-own-work">Three takeaways for my own work</h2>
+<p><strong>Put method transparency before findings, not after.</strong> Yau does this and it’s the cleanest move in the piece. One paragraph naming what was done and how — concretely, with an example — earns the rest of the reader’s attention.</p>
+<p><strong>Frame sample bias in the opening, not the notes.</strong> Bias caveats placed after the analysis read as defensive footnotes; placed before, they read as honest framing. The same sentence does very different work depending on where it lives.</p>
+<p><strong>Show magnitude, not just rank.</strong> Ordinal lists are easy and accessible, but they hide gradient. Even a minimal visual encoding of count or proportion — a tiny inline bar — converts a list into a chart that respects the reader’s intelligence.</p>
+</section>
+<section id="why-quality-control-is-the-closing-skill" class="level2">
+<h2 class="anchored" data-anchor-id="why-quality-control-is-the-closing-skill">Why quality control is the closing skill</h2>
+<p>ICA 19 is the last ICA of STAT 212 deliberately. By this point you can wrangle, iterate, acquire, visualize statically, and add interaction. The remaining skill — the one that’s hardest to teach because it requires <em>slow reading</em> of finished work — is critique. The course’s earlier ICAs taught what <em>should</em> be in a chart; ICA 19 trains the muscle of asking what <em>shouldn’t</em> be there, what’s <em>missing</em>, what could be <em>clearer</em>. This is the skill that distinguishes a data scientist who produces work from one whose work others trust.</p>
+<p>Critique is also reciprocal: every good chart you’ll ever make benefits from someone else applying this same lens before it goes public. ICA 19 is rehearsal for that role. The Yau piece was chosen well — it’s published, it’s by a respected practitioner, and it’s <em>good enough that the criticisms have to be substantive rather than corrective</em>. Critiquing weak work teaches little; critiquing strong work teaches what the next level of strength looks like.</p>
+</section>
+<section id="closing-thought" class="level2">
+<h2 class="anchored" data-anchor-id="closing-thought">Closing thought</h2>
+<p>The piece’s own closing line — <em>“sometimes you have to refocus your attention to see the moments more clearly”</em> — applies recursively to data design. The chart that looks finished often has structural choices the maker has stopped seeing. Quality control is the practice of refocusing — looking at the chart as if you’d never seen it, asking whether the magnitudes are visible, whether the framing is honest, whether the reader can answer their own questions from what’s there. STAT 212 has spent a semester teaching how to make charts; ICA 19 closes by teaching how to <em>read</em> them. The two are the same skill seen from opposite sides.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../pcl/pcl-ica18.html" class="pagination-link" aria-label="PCL · ICA 18 — Interactive Visualization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">PCL · ICA 18 — Interactive Visualization</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ica/01_introduction.html" class="pagination-link" aria-label="01 — Introduction: Sources, Levels of Understanding, and Wrangling Review">
+        <span class="nav-page-text"><span class="chapter-title">01 — Introduction: Sources, Levels of Understanding, and Wrangling Review</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="an">title:</span><span class="co"> "PCL · ICA 19 — Quality Control: Critiquing 'Counting Happiness'"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="an">author:</span><span class="co"> "Zhijun He (何智骏)"</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="an">format:</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">  html:</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">    toc: true</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">---</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">## Pre-class learning task</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a>ICA 19's prep is structurally different from every prior PCL: instead of readings to synthesize, it's a **critique task**. Nathan Yau's *Counting Happiness and Where It Comes From* (FlowingData, July 2021) is a published data story analyzing the HappyDB corpus — 100,000 happy moments from 10,000 Mechanical Turk participants, parsed into subject-verb-object triples. The job is to read it as a designer, not as a consumer: identify the story, identify what works, identify what could be stronger. The mindmap below organizes the piece itself plus the three critique axes the assignment asks for, ending with what this exercise teaches about quality control as the closing skill of STAT 212.</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="in">```{mermaid}</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>mindmap</span>
+<span id="cb2-17"><a href="#cb2-17"></a>  root((ICA <span class="dv">19</span>&lt;br/&gt;Critique))</span>
+<span id="cb2-18"><a href="#cb2-18"></a>    The piece itself</span>
+<span id="cb2-19"><a href="#cb2-19"></a>      Source · HappyDB</span>
+<span id="cb2-20"><a href="#cb2-20"></a>        <span class="dv">100</span>k happy moments</span>
+<span id="cb2-21"><a href="#cb2-21"></a>        <span class="dv">10</span>k participants · MTurk</span>
+<span id="cb2-22"><a href="#cb2-22"></a>        researchers asked <span class="cf">for</span> ten <span class="cf">each</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>      Method · NLP parsing</span>
+<span id="cb2-24"><a href="#cb2-24"></a>        <span class="cf">each</span> moment <span class="fu">split</span> to S-V<span class="ot">-O</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>        e.g. <span class="ot">"</span><span class="st">I watched a movie</span><span class="ot">"</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a>          S · I</span>
+<span id="cb2-27"><a href="#cb2-27"></a>          V · watched</span>
+<span id="cb2-28"><a href="#cb2-28"></a>          O · movie</span>
+<span id="cb2-29"><a href="#cb2-29"></a>      Two-way <span class="fu">split</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a>        moments with subject <span class="ot">"</span><span class="st">I</span><span class="ot">"</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a>          self-directed happiness</span>
+<span id="cb2-32"><a href="#cb2-32"></a>        moments with other subjects</span>
+<span id="cb2-33"><a href="#cb2-33"></a>          relational happiness</span>
+<span id="cb2-34"><a href="#cb2-34"></a>      Visual form</span>
+<span id="cb2-35"><a href="#cb2-35"></a>        flowing Sankey-like diagrams</span>
+<span id="cb2-36"><a href="#cb2-36"></a>        verbs flowing into objects</span>
+<span id="cb2-37"><a href="#cb2-37"></a>        weighted by frequency</span>
+<span id="cb2-38"><a href="#cb2-38"></a>      Three <span class="kw">sub</span>-views</span>
+<span id="cb2-39"><a href="#cb2-39"></a>        I-centered top <span class="dv">5</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a>        Others-centered top <span class="dv">5</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>        Pets-centered breakdown</span>
+<span id="cb2-42"><a href="#cb2-42"></a>    What is the data story</span>
+<span id="cb2-43"><a href="#cb2-43"></a>      Headline</span>
+<span id="cb2-44"><a href="#cb2-44"></a>        happiness comes in many forms · many places</span>
+<span id="cb2-45"><a href="#cb2-45"></a>        but with structure visible in language</span>
+<span id="cb2-46"><a href="#cb2-46"></a>      Two-channel claim</span>
+<span id="cb2-47"><a href="#cb2-47"></a>        self-driven · daily mundane joys</span>
+<span id="cb2-48"><a href="#cb2-48"></a>          dinner · movie · <span class="fu">time</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a>        other-driven · relational moments</span>
+<span id="cb2-50"><a href="#cb2-50"></a>          team won · husband surprised</span>
+<span id="cb2-51"><a href="#cb2-51"></a>      Implied insight</span>
+<span id="cb2-52"><a href="#cb2-52"></a>        most relational happiness</span>
+<span id="cb2-53"><a href="#cb2-53"></a>          is small acts of attention</span>
+<span id="cb2-54"><a href="#cb2-54"></a>          meal · gift · hug</span>
+<span id="cb2-55"><a href="#cb2-55"></a>        <span class="ot">not</span> grand gestures</span>
+<span id="cb2-56"><a href="#cb2-56"></a>      Pets as third channel</span>
+<span id="cb2-57"><a href="#cb2-57"></a>        snuggled · jumped · curled</span>
+<span id="cb2-58"><a href="#cb2-58"></a>        action verbs more vivid</span>
+<span id="cb2-59"><a href="#cb2-59"></a>        domain has its own grammar</span>
+<span id="cb2-60"><a href="#cb2-60"></a>      Closing arc</span>
+<span id="cb2-61"><a href="#cb2-61"></a>        <span class="ot">"</span><span class="st">refocus attention to see moments</span><span class="ot">"</span></span>
+<span id="cb2-62"><a href="#cb2-62"></a>        story has narrative shape · <span class="ot">not</span> just stats</span>
+<span id="cb2-63"><a href="#cb2-63"></a>    What is effective</span>
+<span id="cb2-64"><a href="#cb2-64"></a>      Method transparency</span>
+<span id="cb2-65"><a href="#cb2-65"></a>        S-V<span class="ot">-O</span> parsing explained simply</span>
+<span id="cb2-66"><a href="#cb2-66"></a>        single example before the analysis</span>
+<span id="cb2-67"><a href="#cb2-67"></a>        reader can replicate the mental move</span>
+<span id="cb2-68"><a href="#cb2-68"></a>      Honest sample disclosure</span>
+<span id="cb2-69"><a href="#cb2-69"></a>        notes MTurk skew · <span class="dv">20-40</span> yr olds</span>
+<span id="cb2-70"><a href="#cb2-70"></a>        names what would change · younger sample</span>
+<span id="cb2-71"><a href="#cb2-71"></a>        names what would change · workers vs students</span>
+<span id="cb2-72"><a href="#cb2-72"></a>        quietly raises generalizability</span>
+<span id="cb2-73"><a href="#cb2-73"></a>      Strong <span class="kw">sub</span>-divisions</span>
+<span id="cb2-74"><a href="#cb2-74"></a>        self vs other vs pets</span>
+<span id="cb2-75"><a href="#cb2-75"></a>        <span class="cf">each</span> could have been the whole post</span>
+<span id="cb2-76"><a href="#cb2-76"></a>        but ordering builds toward insight</span>
+<span id="cb2-77"><a href="#cb2-77"></a>      Restraint in interpretation</span>
+<span id="cb2-78"><a href="#cb2-78"></a>        doesn<span class="ot">'</span><span class="ss">t overclaim from observational data</span></span>
+<span id="cb2-79"><a href="#cb2-79"></a><span class="ss">        narrates patterns</span></span>
+<span id="cb2-80"><a href="#cb2-80"></a><span class="ss">          doesn</span><span class="ot">'</span>t force causation</span>
+<span id="cb2-81"><a href="#cb2-81"></a>      Form fits content</span>
+<span id="cb2-82"><a href="#cb2-82"></a>        SVO triples render naturally as flow</span>
+<span id="cb2-83"><a href="#cb2-83"></a>        Sankey-like layout is appropriate</span>
+<span id="cb2-84"><a href="#cb2-84"></a>        gray + accent color · attention managed</span>
+<span id="cb2-85"><a href="#cb2-85"></a>      Top<span class="dv">-5</span> lists</span>
+<span id="cb2-86"><a href="#cb2-86"></a>        accessible scaffolding</span>
+<span id="cb2-87"><a href="#cb2-87"></a>        readers anchor before main viz</span>
+<span id="cb2-88"><a href="#cb2-88"></a>    What could be improved</span>
+<span id="cb2-89"><a href="#cb2-89"></a>      Data table dominates visual</span>
+<span id="cb2-90"><a href="#cb2-90"></a>        top <span class="dv">5</span> lists are mainly text</span>
+<span id="cb2-91"><a href="#cb2-91"></a>        could be small bar chart</span>
+<span id="cb2-92"><a href="#cb2-92"></a>        ranks are ordinal · invite ordering</span>
+<span id="cb2-93"><a href="#cb2-93"></a>      No magnitudes shown</span>
+<span id="cb2-94"><a href="#cb2-94"></a>        rank <span class="dv">1</span> vs <span class="dv">5</span> in <span class="ot">"</span><span class="st">I</span><span class="ot">"</span> list could be huge gap</span>
+<span id="cb2-95"><a href="#cb2-95"></a>        <span class="ot">or</span> barely different</span>
+<span id="cb2-96"><a href="#cb2-96"></a>        without count <span class="ot">or</span> proportion · reader cannot <span class="fu">tell</span></span>
+<span id="cb2-97"><a href="#cb2-97"></a>      Sankey readability</span>
+<span id="cb2-98"><a href="#cb2-98"></a>        long-tail of verbs/objects compresses</span>
+<span id="cb2-99"><a href="#cb2-99"></a>        smaller flows hard to trace</span>
+<span id="cb2-100"><a href="#cb2-100"></a>        would benefit from threshold <span class="ot">or</span> cutoff</span>
+<span id="cb2-101"><a href="#cb2-101"></a>      Sample bias note placed after</span>
+<span id="cb2-102"><a href="#cb2-102"></a>        appears after main argument</span>
+<span id="cb2-103"><a href="#cb2-103"></a>        could come earlier · frame interpretation</span>
+<span id="cb2-104"><a href="#cb2-104"></a>        even one sentence in opening</span>
+<span id="cb2-105"><a href="#cb2-105"></a>      Static <span class="fu">format</span> · loses the long tail</span>
+<span id="cb2-106"><a href="#cb2-106"></a>        only top <span class="dv">5</span> surfaced</span>
+<span id="cb2-107"><a href="#cb2-107"></a>        <span class="dv">100</span>k moments · most moments invisible</span>
+<span id="cb2-108"><a href="#cb2-108"></a>        a filter <span class="ot">or</span> search would expose more</span>
+<span id="cb2-109"><a href="#cb2-109"></a>        but costs attention · per ICA <span class="dv">18</span></span>
+<span id="cb2-110"><a href="#cb2-110"></a>      Time dimension absent</span>
+<span id="cb2-111"><a href="#cb2-111"></a>        <span class="cf">when</span> were moments recorded</span>
+<span id="cb2-112"><a href="#cb2-112"></a>        any seasonality · pandemic effect</span>
+<span id="cb2-113"><a href="#cb2-113"></a>        any drift across collection waves</span>
+<span id="cb2-114"><a href="#cb2-114"></a>        could enrich <span class="ot">or</span> complicate</span>
+<span id="cb2-115"><a href="#cb2-115"></a>      Comparative null missing</span>
+<span id="cb2-116"><a href="#cb2-116"></a>        what <span class="cf">if</span> reasons people are sad</span>
+<span id="cb2-117"><a href="#cb2-117"></a>        same parsing on a sadness corpus</span>
+<span id="cb2-118"><a href="#cb2-118"></a>        would clarify what<span class="ot">'</span><span class="ss">s happiness-specific</span></span>
+<span id="cb2-119"><a href="#cb2-119"></a><span class="ss">        vs general human attention</span></span>
+<span id="cb2-120"><a href="#cb2-120"></a><span class="ss">    Three takeaways for my own work</span></span>
+<span id="cb2-121"><a href="#cb2-121"></a><span class="ss">      Method transparency builds trust</span></span>
+<span id="cb2-122"><a href="#cb2-122"></a><span class="ss">        say what you did · briefly · once</span></span>
+<span id="cb2-123"><a href="#cb2-123"></a><span class="ss">        before showing results</span></span>
+<span id="cb2-124"><a href="#cb2-124"></a><span class="ss">      Sample bias goes early</span></span>
+<span id="cb2-125"><a href="#cb2-125"></a><span class="ss">        not in the notes section</span></span>
+<span id="cb2-126"><a href="#cb2-126"></a><span class="ss">        opens the lens · doesn</span><span class="ot">'</span>t undercut conclusion</span>
+<span id="cb2-127"><a href="#cb2-127"></a>      Magnitude beats rank</span>
+<span id="cb2-128"><a href="#cb2-128"></a>        ordinal lists hide structure</span>
+<span id="cb2-129"><a href="#cb2-129"></a>        give readers the count <span class="ot">or</span> proportion</span>
+<span id="cb2-130"><a href="#cb2-130"></a>        let them see the gradient</span>
+<span id="cb2-131"><a href="#cb2-131"></a>    Quality control as a skill</span>
+<span id="cb2-132"><a href="#cb2-132"></a>      What it actually requires</span>
+<span id="cb2-133"><a href="#cb2-133"></a>        slow reading</span>
+<span id="cb2-134"><a href="#cb2-134"></a>        ask <span class="ot">"</span><span class="st">what would falsify this</span><span class="ot">"</span></span>
+<span id="cb2-135"><a href="#cb2-135"></a>        ask <span class="ot">"</span><span class="st">who is the audience</span><span class="ot">"</span></span>
+<span id="cb2-136"><a href="#cb2-136"></a>        ask <span class="ot">"</span><span class="st">what's missing</span><span class="ot">"</span></span>
+<span id="cb2-137"><a href="#cb2-137"></a>      Compared to making</span>
+<span id="cb2-138"><a href="#cb2-138"></a>        making · what should be there</span>
+<span id="cb2-139"><a href="#cb2-139"></a>        critiquing · what shouldn<span class="ot">'</span><span class="ss">t · or could be better</span></span>
+<span id="cb2-140"><a href="#cb2-140"></a><span class="ss">      Roles in a workflow</span></span>
+<span id="cb2-141"><a href="#cb2-141"></a><span class="ss">        peer review of plots</span></span>
+<span id="cb2-142"><a href="#cb2-142"></a><span class="ss">        before sharing externally</span></span>
+<span id="cb2-143"><a href="#cb2-143"></a><span class="ss">        before final report</span></span>
+<span id="cb2-144"><a href="#cb2-144"></a><span class="ss">      ICA 19 trains the muscle</span></span>
+<span id="cb2-145"><a href="#cb2-145"></a><span class="ss">        you only build it by doing it</span></span>
+<span id="cb2-146"><a href="#cb2-146"></a><span class="ss">        on real published work</span></span>
+<span id="cb2-147"><a href="#cb2-147"></a><span class="ss">        not toy examples</span></span>
+<span id="cb2-148"><a href="#cb2-148"></a><span class="ss">```</span></span>
+<span id="cb2-149"><a href="#cb2-149"></a></span>
+<span id="cb2-150"><a href="#cb2-150"></a><span class="ss">## What is the data story</span></span>
+<span id="cb2-151"><a href="#cb2-151"></a></span>
+<span id="cb2-152"><a href="#cb2-152"></a><span class="ss">The piece argues — with structure rather than overt claim — that **happiness in daily life splits into two grammatical channels**: things people do for themselves (`I watched a movie`, `I had dinner`) and things others do that arrive as relational gifts (`husband surprised me`, `son gave hug`). The Sankey-style flow diagrams are not the argument; they</span><span class="ot">'</span>re the <span class="dt">*evidence</span> display<span class="wa">*.</span> The argument is that <span class="cf">when</span> you parse <span class="dv">100</span>,<span class="dv">000</span> self-reports of happy moments by subject-verb-object, the verbs <span class="ot">and</span> objects in the relational column trend small <span class="ot">and</span> ordinary — meals, gifts, hugs — rather than grand gestures. The closing line — <span class="wa">*"</span>sometimes you have to refocus your attention to see the moments more clearly<span class="ot">"</span><span class="st">* — is the persuasive payload: happiness is structurally available, you just need to see it.</span></span>
+<span id="cb2-153"><a href="#cb2-153"></a></span>
+<span id="cb2-154"><a href="#cb2-154"></a><span class="st">The pets sub-view operates as a third channel that confirms the same logic at finer resolution — when the relational counterpart is a pet, the verbs become specific and physical (`snuggled`, `jumped`, `curled`). Same story, sharper instance.</span></span>
+<span id="cb2-155"><a href="#cb2-155"></a></span>
+<span id="cb2-156"><a href="#cb2-156"></a><span class="st">## What is effective</span></span>
+<span id="cb2-157"><a href="#cb2-157"></a></span>
+<span id="cb2-158"><a href="#cb2-158"></a><span class="st">**Method transparency at the right granularity.** Yau explains the SVO parsing in two sentences with one concrete example before showing any results. The reader can immediately replicate the mental move — *</span><span class="ot">"</span>I watched a movie<span class="ot">"</span><span class="st"> → S=I, V=watched, O=movie* — and trust what follows. Many published data stories skip this; the absence shows up later as confusion about *what the chart is actually counting*.</span></span>
+<span id="cb2-159"><a href="#cb2-159"></a></span>
+<span id="cb2-160"><a href="#cb2-160"></a><span class="st">**Honest sample disclosure.** The Mechanical Turk caveat — that participants skew 20–40 years old, which inflates spouse and child mentions and depresses workplace mentions — is not buried in a footnote. It explicitly tells the reader *what would change with a different sample*. This converts a methodological weakness into a strength: the reader leaves trusting the analyst, not the dataset.</span></span>
+<span id="cb2-161"><a href="#cb2-161"></a></span>
+<span id="cb2-162"><a href="#cb2-162"></a><span class="st">**Form fits content.** SVO triples have a natural left-to-right flow, and the Sankey-like rendering makes that flow legible. The gray-and-accent palette directs attention without overpowering. The top-5 lists in plain text *before* the diagrams give readers an anchor — they know what they're about to see in graphical form.</span></span>
+<span id="cb2-163"><a href="#cb2-163"></a></span>
+<span id="cb2-164"><a href="#cb2-164"></a><span class="st">**Restraint in interpretation.** Yau narrates the patterns (</span><span class="ot">"</span>Generally speaking, it<span class="ot">'</span><span class="ss">s about someone making time for another") without claiming causal mechanisms. Given that this is observational self-report data, this restraint is appropriate; many less careful data stories would have over-claimed.</span></span>
+<span id="cb2-165"><a href="#cb2-165"></a></span>
+<span id="cb2-166"><a href="#cb2-166"></a><span class="ss">## What could be improved</span></span>
+<span id="cb2-167"><a href="#cb2-167"></a></span>
+<span id="cb2-168"><a href="#cb2-168"></a><span class="ss">**Magnitude information is missing from the rankings.** The top-5 lists give ordinal information (rank 1, rank 2, ...) but no counts or proportions. Without that, the reader can</span><span class="ot">'</span>t <span class="fu">tell</span> whether <span class="ot">`</span><span class="st">dinner</span><span class="ot">`</span> (rank <span class="dv">1</span>) is <span class="dv">5</span>× <span class="ot">or</span> <span class="fl">1.05</span>× more frequent than <span class="ot">`</span><span class="st">lunch</span><span class="ot">`</span> (rank <span class="dv">5</span>). For a story about <span class="dt">*what</span> makes people happy<span class="wa">*,</span> the size of the gap between <span class="co">#1 and #5 is itself part of the answer. A small inline bar with each rank — even just visual length — would carry magnitude without disrupting the layout.</span></span>
+<span id="cb2-169"><a href="#cb2-169"></a></span>
+<span id="cb2-170"><a href="#cb2-170"></a>*<span class="dt">*The</span> bias caveat appears after the main argument.*<span class="ot">*</span> The note that the MTurk sample skews <span class="dv">20</span>–<span class="dv">40</span> years old, increasing spouse/child mentions <span class="ot">and</span> depressing workplace ones, is a real interpretive constraint — but it<span class="ot">'</span><span class="ss">s placed below the analysis, after the reader has already formed conclusions. One sentence at the top — "the sample skews 20–40, which shapes what relational categories appear" — would frame the reading without undercutting it. Knaflic</span><span class="ot">'</span>s storytelling principle would put the constraint in the setup, <span class="ot">not</span> the resolution.</span>
+<span id="cb2-171"><a href="#cb2-171"></a></span>
+<span id="cb2-172"><a href="#cb2-172"></a>*<span class="dt">*Long</span>-tail data is invisible.*<span class="ot">*</span> Top<span class="dv">-5</span> lists by definition show <span class="dv">5</span> of however-many distinct triples exist. With <span class="dv">100</span>k moments <span class="ot">and</span> SVO parsing, the long tail almost certainly contains interesting structure — rare but coherent clusters of moments that the top<span class="dv">-5</span> framing erases. A static piece is constrained here; ICA <span class="dv">18</span><span class="ot">'</span><span class="ss">s lessons about *when interactivity earns its keep* apply: this is exactly the case where a search/filter affordance would add real value, because the reader</span><span class="ot">'</span>s question (<span class="ot">"</span><span class="st">does my kind of happiness appear?</span><span class="ot">"</span>) isn<span class="ot">'</span><span class="ss">t answered by aggregate ranks.</span></span>
+<span id="cb2-173"><a href="#cb2-173"></a></span>
+<span id="cb2-174"><a href="#cb2-174"></a><span class="ss">**No comparative null.** What does the same SVO parsing look like on a *sadness* corpus, or a *frustration* corpus? Without that comparison, it</span><span class="ot">'</span>s hard to <span class="fu">tell</span> what<span class="ot">'</span><span class="ss">s specifically about happiness versus what</span><span class="ot">'</span>s about how humans attribute attention to events generally. The piece is strong on its own terms; a comparative lens would have made it stronger.</span>
+<span id="cb2-175"><a href="#cb2-175"></a></span>
+<span id="cb2-176"><a href="#cb2-176"></a>*<span class="dt">*Time</span> is absent.*<span class="ot">*</span> When were these moments collected? Was it pre- <span class="ot">or</span> post-pandemic? Any seasonality? Aggregate-over-<span class="fu">time</span> analysis can hide drift, <span class="ot">and</span> <span class="cf">for</span> an emotion corpus that<span class="ot">'</span><span class="ss">s a substantive concern.</span></span>
+<span id="cb2-177"><a href="#cb2-177"></a></span>
+<span id="cb2-178"><a href="#cb2-178"></a><span class="ss">## Three takeaways for my own work</span></span>
+<span id="cb2-179"><a href="#cb2-179"></a></span>
+<span id="cb2-180"><a href="#cb2-180"></a><span class="ss">**Put method transparency before findings, not after.** Yau does this and it</span><span class="ot">'</span>s the cleanest move in the piece. One paragraph naming what was done <span class="ot">and</span> how — concretely, with an example — earns the rest of the reader<span class="ot">'</span><span class="ss">s attention.</span></span>
+<span id="cb2-181"><a href="#cb2-181"></a></span>
+<span id="cb2-182"><a href="#cb2-182"></a><span class="ss">**Frame sample bias in the opening, not the notes.** Bias caveats placed after the analysis read as defensive footnotes; placed before, they read as honest framing. The same sentence does very different work depending on where it lives.</span></span>
+<span id="cb2-183"><a href="#cb2-183"></a></span>
+<span id="cb2-184"><a href="#cb2-184"></a><span class="ss">**Show magnitude, not just rank.** Ordinal lists are easy and accessible, but they hide gradient. Even a minimal visual encoding of count or proportion — a tiny inline bar — converts a list into a chart that respects the reader</span><span class="ot">'</span>s intelligence.</span>
+<span id="cb2-185"><a href="#cb2-185"></a></span>
+<span id="cb2-186"><a href="#cb2-186"></a><span class="co">## Why quality control is the closing skill</span></span>
+<span id="cb2-187"><a href="#cb2-187"></a></span>
+<span id="cb2-188"><a href="#cb2-188"></a>ICA <span class="dv">19</span> is the <span class="cf">last</span> ICA of STAT <span class="dv">212</span> deliberately. By this point you can wrangle, iterate, acquire, visualize statically, <span class="ot">and</span> add interaction. The remaining skill — the one that<span class="ot">'</span><span class="ss">s hardest to teach because it requires *slow reading* of finished work — is critique. The course</span><span class="ot">'</span>s earlier ICAs taught what <span class="dt">*should</span><span class="ot">*</span> be in a chart; ICA <span class="dv">19</span> trains the muscle of asking what <span class="dt">*shouldn</span><span class="ot">'</span><span class="dt">t</span><span class="ot">*</span> be there, what<span class="ot">'</span><span class="ss">s *missing*, what could be *clearer*. This is the skill that distinguishes a data scientist who produces work from one whose work others trust.</span></span>
+<span id="cb2-189"><a href="#cb2-189"></a></span>
+<span id="cb2-190"><a href="#cb2-190"></a><span class="ss">Critique is also reciprocal: every good chart you</span><span class="ot">'</span>ll ever make benefits from someone <span class="cf">else</span> applying this same lens before it goes public. ICA <span class="dv">19</span> is rehearsal <span class="cf">for</span> that role. The Yau piece was chosen well — it<span class="ot">'</span><span class="ss">s published, it</span><span class="ot">'</span>s by a respected practitioner, <span class="ot">and</span> it<span class="ot">'</span><span class="ss">s *good enough that the criticisms have to be substantive rather than corrective*. Critiquing weak work teaches little; critiquing strong work teaches what the next level of strength looks like.</span></span>
+<span id="cb2-191"><a href="#cb2-191"></a></span>
+<span id="cb2-192"><a href="#cb2-192"></a><span class="ss">## Closing thought</span></span>
+<span id="cb2-193"><a href="#cb2-193"></a></span>
+<span id="cb2-194"><a href="#cb2-194"></a><span class="ss">The piece</span><span class="ot">'</span>s own closing line — <span class="wa">*"</span>sometimes you have to refocus your attention to see the moments more clearly<span class="ot">"</span><span class="st">* — applies recursively to data design. The chart that looks finished often has structural choices the maker has stopped seeing. Quality control is the practice of refocusing — looking at the chart as if you'd never seen it, asking whether the magnitudes are visible, whether the framing is honest, whether the reader can answer their own questions from what's there. STAT 212 has spent a semester teaching how to make charts; ICA 19 closes by teaching how to *read* them. The two are the same skill seen from opposite sides.</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
