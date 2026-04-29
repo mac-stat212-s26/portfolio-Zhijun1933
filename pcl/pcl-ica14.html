@@ -83,9 +83,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ce494e159dae1eb1aeb2beb157b73888.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ff22c52a3001d3523b51d50934c70255.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -758,77 +758,77 @@ cookieconsent.run({
 <span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 14 APIs II))</span>
 <span id="cb1-3"><a href="#cb1-3"></a>    The jsonlite round trip</span>
 <span id="cb1-4"><a href="#cb1-4"></a>      fromJSON</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        URL · file · string</span>
+<span id="cb1-5"><a href="#cb1-5"></a>        "URL · file · string"</span>
 <span id="cb1-6"><a href="#cb1-6"></a>        returns R object</span>
 <span id="cb1-7"><a href="#cb1-7"></a>        type depends on input</span>
 <span id="cb1-8"><a href="#cb1-8"></a>      toJSON</span>
-<span id="cb1-9"><a href="#cb1-9"></a>        R object → JSON string</span>
+<span id="cb1-9"><a href="#cb1-9"></a>        "R object → JSON string"</span>
 <span id="cb1-10"><a href="#cb1-10"></a>        for sending or storing</span>
 <span id="cb1-11"><a href="#cb1-11"></a>      Round-trip identity</span>
 <span id="cb1-12"><a href="#cb1-12"></a>        "all.equal(mtcars, fromJSON(toJSON(mtcars)))"</span>
 <span id="cb1-13"><a href="#cb1-13"></a>        TRUE</span>
 <span id="cb1-14"><a href="#cb1-14"></a>        proves bidirectional mapping</span>
-<span id="cb1-15"><a href="#cb1-15"></a>    Simplification · the type machinery</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    "Simplification · the type machinery"</span>
 <span id="cb1-16"><a href="#cb1-16"></a>      Three JSON structures</span>
 <span id="cb1-17"><a href="#cb1-17"></a>        Array of primitives</span>
 <span id="cb1-18"><a href="#cb1-18"></a>          "[\"a\", \"b\", \"c\"]"</span>
-<span id="cb1-19"><a href="#cb1-19"></a>          → atomic vector</span>
-<span id="cb1-20"><a href="#cb1-20"></a>          arg · simplifyVector</span>
+<span id="cb1-19"><a href="#cb1-19"></a>          "→ atomic vector"</span>
+<span id="cb1-20"><a href="#cb1-20"></a>          "arg · simplifyVector"</span>
 <span id="cb1-21"><a href="#cb1-21"></a>        Array of objects</span>
 <span id="cb1-22"><a href="#cb1-22"></a>          "[{\"x\": 1}, {\"x\": 2}]"</span>
-<span id="cb1-23"><a href="#cb1-23"></a>          → data frame</span>
-<span id="cb1-24"><a href="#cb1-24"></a>          arg · simplifyDataFrame</span>
+<span id="cb1-23"><a href="#cb1-23"></a>          "→ data frame"</span>
+<span id="cb1-24"><a href="#cb1-24"></a>          "arg · simplifyDataFrame"</span>
 <span id="cb1-25"><a href="#cb1-25"></a>        Array of arrays</span>
 <span id="cb1-26"><a href="#cb1-26"></a>          "[[1, 2], [3, 4]]"</span>
-<span id="cb1-27"><a href="#cb1-27"></a>          → matrix</span>
-<span id="cb1-28"><a href="#cb1-28"></a>          arg · simplifyMatrix</span>
+<span id="cb1-27"><a href="#cb1-27"></a>          "→ matrix"</span>
+<span id="cb1-28"><a href="#cb1-28"></a>          "arg · simplifyMatrix"</span>
 <span id="cb1-29"><a href="#cb1-29"></a>      All defaults TRUE</span>
 <span id="cb1-30"><a href="#cb1-30"></a>        most APIs work zero-config</span>
 <span id="cb1-31"><a href="#cb1-31"></a>      Disable for raw structure</span>
-<span id="cb1-32"><a href="#cb1-32"></a>        simplifyVector = FALSE</span>
+<span id="cb1-32"><a href="#cb1-32"></a>        "simplifyVector = FALSE"</span>
 <span id="cb1-33"><a href="#cb1-33"></a>        returns nested list</span>
 <span id="cb1-34"><a href="#cb1-34"></a>        useful for irregular data</span>
 <span id="cb1-35"><a href="#cb1-35"></a>      NULL handling</span>
-<span id="cb1-36"><a href="#cb1-36"></a>        missing keys → NA</span>
-<span id="cb1-37"><a href="#cb1-37"></a>        empty objects → row of NAs</span>
+<span id="cb1-36"><a href="#cb1-36"></a>        "missing keys → NA"</span>
+<span id="cb1-37"><a href="#cb1-37"></a>        "empty objects → row of NAs"</span>
 <span id="cb1-38"><a href="#cb1-38"></a>    Real-world API patterns</span>
-<span id="cb1-39"><a href="#cb1-39"></a>      Public · no auth</span>
+<span id="cb1-39"><a href="#cb1-39"></a>      "Public · no auth"</span>
 <span id="cb1-40"><a href="#cb1-40"></a>        GitHub</span>
-<span id="cb1-41"><a href="#cb1-41"></a>          /users/USERNAME/repos</span>
-<span id="cb1-42"><a href="#cb1-42"></a>          /repos/OWNER/REPO/issues</span>
+<span id="cb1-41"><a href="#cb1-41"></a>          "/users/USERNAME/repos"</span>
+<span id="cb1-42"><a href="#cb1-42"></a>          "/repos/OWNER/REPO/issues"</span>
 <span id="cb1-43"><a href="#cb1-43"></a>        CitiBike NYC</span>
 <span id="cb1-44"><a href="#cb1-44"></a>          single endpoint</span>
 <span id="cb1-45"><a href="#cb1-45"></a>          all stations as array</span>
 <span id="cb1-46"><a href="#cb1-46"></a>        Ergast Formula 1</span>
 <span id="cb1-47"><a href="#cb1-47"></a>          path encodes year and race</span>
-<span id="cb1-48"><a href="#cb1-48"></a>          /api/f1/2004/1/results.json</span>
+<span id="cb1-48"><a href="#cb1-48"></a>          "/api/f1/2004/1/results.json"</span>
 <span id="cb1-49"><a href="#cb1-49"></a>      Key-required</span>
 <span id="cb1-50"><a href="#cb1-50"></a>        ProPublica nonprofits</span>
-<span id="cb1-51"><a href="#cb1-51"></a>          query param · &amp;order=...</span>
+<span id="cb1-51"><a href="#cb1-51"></a>          "query param · &amp;order=..."</span>
 <span id="cb1-52"><a href="#cb1-52"></a>        NYT</span>
-<span id="cb1-53"><a href="#cb1-53"></a>          query param · &amp;api-key=...</span>
+<span id="cb1-53"><a href="#cb1-53"></a>          "query param · &amp;api-key=..."</span>
 <span id="cb1-54"><a href="#cb1-54"></a>          register at developer portal</span>
-<span id="cb1-55"><a href="#cb1-55"></a>        general · keep key in env var</span>
+<span id="cb1-55"><a href="#cb1-55"></a>        "general · keep key in env var"</span>
 <span id="cb1-56"><a href="#cb1-56"></a>          "Sys.getenv(\"API_KEY\")"</span>
 <span id="cb1-57"><a href="#cb1-57"></a>          never commit to git</span>
-<span id="cb1-58"><a href="#cb1-58"></a>      OAuth · token-based</span>
+<span id="cb1-58"><a href="#cb1-58"></a>      "OAuth · token-based"</span>
 <span id="cb1-59"><a href="#cb1-59"></a>        Twitter</span>
 <span id="cb1-60"><a href="#cb1-60"></a>          consumer key + secret</span>
-<span id="cb1-61"><a href="#cb1-61"></a>          POST to oauth2/token</span>
+<span id="cb1-61"><a href="#cb1-61"></a>          "POST to oauth2/token"</span>
 <span id="cb1-62"><a href="#cb1-62"></a>          receive bearer token</span>
 <span id="cb1-63"><a href="#cb1-63"></a>          add as header in subsequent calls</span>
-<span id="cb1-64"><a href="#cb1-64"></a>        more complex · ICA 14 won't dwell here</span>
-<span id="cb1-65"><a href="#cb1-65"></a>    Pagination · the iteration shape</span>
+<span id="cb1-64"><a href="#cb1-64"></a>        "more complex · ICA 14 won't dwell here"</span>
+<span id="cb1-65"><a href="#cb1-65"></a>    "Pagination · the iteration shape"</span>
 <span id="cb1-66"><a href="#cb1-66"></a>      Why</span>
 <span id="cb1-67"><a href="#cb1-67"></a>        APIs cap rows per response</span>
-<span id="cb1-68"><a href="#cb1-68"></a>          common · 100 · 500 · 1000</span>
-<span id="cb1-69"><a href="#cb1-69"></a>        more rows · multiple requests</span>
+<span id="cb1-68"><a href="#cb1-68"></a>          "common · 100 · 500 · 1000"</span>
+<span id="cb1-69"><a href="#cb1-69"></a>        "more rows · multiple requests"</span>
 <span id="cb1-70"><a href="#cb1-70"></a>      Common pagination styles</span>
 <span id="cb1-71"><a href="#cb1-71"></a>        page number</span>
-<span id="cb1-72"><a href="#cb1-72"></a>          ?page=1 · ?page=2 · ...</span>
+<span id="cb1-72"><a href="#cb1-72"></a>          "?page=1 · ?page=2 · ..."</span>
 <span id="cb1-73"><a href="#cb1-73"></a>        offset</span>
-<span id="cb1-74"><a href="#cb1-74"></a>          ?offset=0&amp;limit=100</span>
-<span id="cb1-75"><a href="#cb1-75"></a>        cursor / token</span>
+<span id="cb1-74"><a href="#cb1-74"></a>          "?offset=0&amp;limit=100"</span>
+<span id="cb1-75"><a href="#cb1-75"></a>        "cursor / token"</span>
 <span id="cb1-76"><a href="#cb1-76"></a>          response includes next-token</span>
 <span id="cb1-77"><a href="#cb1-77"></a>          next call passes it</span>
 <span id="cb1-78"><a href="#cb1-78"></a>      The pattern</span>
@@ -837,20 +837,20 @@ cookieconsent.run({
 <span id="cb1-81"><a href="#cb1-81"></a>        bind at end with rbind_pages</span>
 <span id="cb1-82"><a href="#cb1-82"></a>        or list_rbind from purrr</span>
 <span id="cb1-83"><a href="#cb1-83"></a>      Stopping condition</span>
-<span id="cb1-84"><a href="#cb1-84"></a>        empty page · break</span>
+<span id="cb1-84"><a href="#cb1-84"></a>        "empty page · break"</span>
 <span id="cb1-85"><a href="#cb1-85"></a>        result_count vs received</span>
 <span id="cb1-86"><a href="#cb1-86"></a>        max page known in advance</span>
-<span id="cb1-87"><a href="#cb1-87"></a>    Nested responses · taming the structure</span>
+<span id="cb1-87"><a href="#cb1-87"></a>    "Nested responses · taming the structure"</span>
 <span id="cb1-88"><a href="#cb1-88"></a>      Why nested</span>
 <span id="cb1-89"><a href="#cb1-89"></a>        objects within objects</span>
 <span id="cb1-90"><a href="#cb1-90"></a>        arrays of objects</span>
 <span id="cb1-91"><a href="#cb1-91"></a>        objects with array values</span>
 <span id="cb1-92"><a href="#cb1-92"></a>      Tools</span>
-<span id="cb1-93"><a href="#cb1-93"></a>        unnest_wider · object → cols</span>
-<span id="cb1-94"><a href="#cb1-94"></a>        unnest_longer · array → rows</span>
-<span id="cb1-95"><a href="#cb1-95"></a>        flatten · jsonlite arg</span>
-<span id="cb1-96"><a href="#cb1-96"></a>          flatten=TRUE in fromJSON</span>
-<span id="cb1-97"><a href="#cb1-97"></a>          deeply nested → wide</span>
+<span id="cb1-93"><a href="#cb1-93"></a>        "unnest_wider · object → cols"</span>
+<span id="cb1-94"><a href="#cb1-94"></a>        "unnest_longer · array → rows"</span>
+<span id="cb1-95"><a href="#cb1-95"></a>        "flatten · jsonlite arg"</span>
+<span id="cb1-96"><a href="#cb1-96"></a>          "flatten=TRUE in fromJSON"</span>
+<span id="cb1-97"><a href="#cb1-97"></a>          "deeply nested → wide"</span>
 <span id="cb1-98"><a href="#cb1-98"></a>      Inspect first</span>
 <span id="cb1-99"><a href="#cb1-99"></a>        "str() · or names() of result"</span>
 <span id="cb1-100"><a href="#cb1-100"></a>        figure out shape before flattening</span>
@@ -864,30 +864,30 @@ cookieconsent.run({
 <span id="cb1-108"><a href="#cb1-108"></a>        share repo with key inside</span>
 <span id="cb1-109"><a href="#cb1-109"></a>      What to do</span>
 <span id="cb1-110"><a href="#cb1-110"></a>        store in .Renviron</span>
-<span id="cb1-111"><a href="#cb1-111"></a>          API_KEY=xxx</span>
+<span id="cb1-111"><a href="#cb1-111"></a>          "API_KEY=xxx"</span>
 <span id="cb1-112"><a href="#cb1-112"></a>        access via Sys.getenv</span>
 <span id="cb1-113"><a href="#cb1-113"></a>        gitignore .Renviron</span>
 <span id="cb1-114"><a href="#cb1-114"></a>        rotate if exposed</span>
 <span id="cb1-115"><a href="#cb1-115"></a>      Header vs query param</span>
-<span id="cb1-116"><a href="#cb1-116"></a>        some APIs · ?key=xxx in URL</span>
-<span id="cb1-117"><a href="#cb1-117"></a>        some APIs · Authorization: Bearer xxx header</span>
+<span id="cb1-116"><a href="#cb1-116"></a>        "some APIs · ?key=xxx in URL"</span>
+<span id="cb1-117"><a href="#cb1-117"></a>        "some APIs · Authorization: Bearer xxx header"</span>
 <span id="cb1-118"><a href="#cb1-118"></a>        check API docs</span>
-<span id="cb1-119"><a href="#cb1-119"></a>    A complete API call · seven steps</span>
-<span id="cb1-120"><a href="#cb1-120"></a>      1 · build URL</span>
+<span id="cb1-119"><a href="#cb1-119"></a>    "A complete API call · seven steps"</span>
+<span id="cb1-120"><a href="#cb1-120"></a>      "1 · build URL"</span>
 <span id="cb1-121"><a href="#cb1-121"></a>        urltools::param_set</span>
-<span id="cb1-122"><a href="#cb1-122"></a>      2 · authenticate if needed</span>
+<span id="cb1-122"><a href="#cb1-122"></a>      "2 · authenticate if needed"</span>
 <span id="cb1-123"><a href="#cb1-123"></a>        Sys.getenv key</span>
-<span id="cb1-124"><a href="#cb1-124"></a>      3 · GET the response</span>
+<span id="cb1-124"><a href="#cb1-124"></a>      "3 · GET the response"</span>
 <span id="cb1-125"><a href="#cb1-125"></a>        "fromJSON(url) for simple cases"</span>
 <span id="cb1-126"><a href="#cb1-126"></a>        httr2::request for complex</span>
-<span id="cb1-127"><a href="#cb1-127"></a>      4 · inspect shape</span>
+<span id="cb1-127"><a href="#cb1-127"></a>      "4 · inspect shape"</span>
 <span id="cb1-128"><a href="#cb1-128"></a>        "str() · names() · class()"</span>
-<span id="cb1-129"><a href="#cb1-129"></a>      5 · flatten if nested</span>
-<span id="cb1-130"><a href="#cb1-130"></a>        unnest_wider · unnest_longer</span>
-<span id="cb1-131"><a href="#cb1-131"></a>      6 · paginate if needed</span>
-<span id="cb1-132"><a href="#cb1-132"></a>        loop · accumulate</span>
-<span id="cb1-133"><a href="#cb1-133"></a>      7 · bind into one tibble</span>
-<span id="cb1-134"><a href="#cb1-134"></a>        list_rbind · rbind_pages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-129"><a href="#cb1-129"></a>      "5 · flatten if nested"</span>
+<span id="cb1-130"><a href="#cb1-130"></a>        "unnest_wider · unnest_longer"</span>
+<span id="cb1-131"><a href="#cb1-131"></a>      "6 · paginate if needed"</span>
+<span id="cb1-132"><a href="#cb1-132"></a>        "loop · accumulate"</span>
+<span id="cb1-133"><a href="#cb1-133"></a>      "7 · bind into one tibble"</span>
+<span id="cb1-134"><a href="#cb1-134"></a>        "list_rbind · rbind_pages"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -897,77 +897,77 @@ cookieconsent.run({
   root((ICA 14 APIs II))
     The jsonlite round trip
       fromJSON
-        URL · file · string
+        "URL · file · string"
         returns R object
         type depends on input
       toJSON
-        R object → JSON string
+        "R object → JSON string"
         for sending or storing
       Round-trip identity
         "all.equal(mtcars, fromJSON(toJSON(mtcars)))"
         TRUE
         proves bidirectional mapping
-    Simplification · the type machinery
+    "Simplification · the type machinery"
       Three JSON structures
         Array of primitives
           "[\"a\", \"b\", \"c\"]"
-          → atomic vector
-          arg · simplifyVector
+          "→ atomic vector"
+          "arg · simplifyVector"
         Array of objects
           "[{\"x\": 1}, {\"x\": 2}]"
-          → data frame
-          arg · simplifyDataFrame
+          "→ data frame"
+          "arg · simplifyDataFrame"
         Array of arrays
           "[[1, 2], [3, 4]]"
-          → matrix
-          arg · simplifyMatrix
+          "→ matrix"
+          "arg · simplifyMatrix"
       All defaults TRUE
         most APIs work zero-config
       Disable for raw structure
-        simplifyVector = FALSE
+        "simplifyVector = FALSE"
         returns nested list
         useful for irregular data
       NULL handling
-        missing keys → NA
-        empty objects → row of NAs
+        "missing keys → NA"
+        "empty objects → row of NAs"
     Real-world API patterns
-      Public · no auth
+      "Public · no auth"
         GitHub
-          /users/USERNAME/repos
-          /repos/OWNER/REPO/issues
+          "/users/USERNAME/repos"
+          "/repos/OWNER/REPO/issues"
         CitiBike NYC
           single endpoint
           all stations as array
         Ergast Formula 1
           path encodes year and race
-          /api/f1/2004/1/results.json
+          "/api/f1/2004/1/results.json"
       Key-required
         ProPublica nonprofits
-          query param · &amp;order=...
+          "query param · &amp;order=..."
         NYT
-          query param · &amp;api-key=...
+          "query param · &amp;api-key=..."
           register at developer portal
-        general · keep key in env var
+        "general · keep key in env var"
           "Sys.getenv(\"API_KEY\")"
           never commit to git
-      OAuth · token-based
+      "OAuth · token-based"
         Twitter
           consumer key + secret
-          POST to oauth2/token
+          "POST to oauth2/token"
           receive bearer token
           add as header in subsequent calls
-        more complex · ICA 14 won't dwell here
-    Pagination · the iteration shape
+        "more complex · ICA 14 won't dwell here"
+    "Pagination · the iteration shape"
       Why
         APIs cap rows per response
-          common · 100 · 500 · 1000
-        more rows · multiple requests
+          "common · 100 · 500 · 1000"
+        "more rows · multiple requests"
       Common pagination styles
         page number
-          ?page=1 · ?page=2 · ...
+          "?page=1 · ?page=2 · ..."
         offset
-          ?offset=0&amp;limit=100
-        cursor / token
+          "?offset=0&amp;limit=100"
+        "cursor / token"
           response includes next-token
           next call passes it
       The pattern
@@ -976,20 +976,20 @@ cookieconsent.run({
         bind at end with rbind_pages
         or list_rbind from purrr
       Stopping condition
-        empty page · break
+        "empty page · break"
         result_count vs received
         max page known in advance
-    Nested responses · taming the structure
+    "Nested responses · taming the structure"
       Why nested
         objects within objects
         arrays of objects
         objects with array values
       Tools
-        unnest_wider · object → cols
-        unnest_longer · array → rows
-        flatten · jsonlite arg
-          flatten=TRUE in fromJSON
-          deeply nested → wide
+        "unnest_wider · object → cols"
+        "unnest_longer · array → rows"
+        "flatten · jsonlite arg"
+          "flatten=TRUE in fromJSON"
+          "deeply nested → wide"
       Inspect first
         "str() · or names() of result"
         figure out shape before flattening
@@ -1003,30 +1003,30 @@ cookieconsent.run({
         share repo with key inside
       What to do
         store in .Renviron
-          API_KEY=xxx
+          "API_KEY=xxx"
         access via Sys.getenv
         gitignore .Renviron
         rotate if exposed
       Header vs query param
-        some APIs · ?key=xxx in URL
-        some APIs · Authorization: Bearer xxx header
+        "some APIs · ?key=xxx in URL"
+        "some APIs · Authorization: Bearer xxx header"
         check API docs
-    A complete API call · seven steps
-      1 · build URL
+    "A complete API call · seven steps"
+      "1 · build URL"
         urltools::param_set
-      2 · authenticate if needed
+      "2 · authenticate if needed"
         Sys.getenv key
-      3 · GET the response
+      "3 · GET the response"
         "fromJSON(url) for simple cases"
         httr2::request for complex
-      4 · inspect shape
+      "4 · inspect shape"
         "str() · names() · class()"
-      5 · flatten if nested
-        unnest_wider · unnest_longer
-      6 · paginate if needed
-        loop · accumulate
-      7 · bind into one tibble
-        list_rbind · rbind_pages
+      "5 · flatten if nested"
+        "unnest_wider · unnest_longer"
+      "6 · paginate if needed"
+        "loop · accumulate"
+      "7 · bind into one tibble"
+        "list_rbind · rbind_pages"
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1628,201 +1628,201 @@ NYT_API_KEY=xyz789</code></pre>
 <span id="cb6-17"><a href="#cb6-17"></a>  root((ICA <span class="dv">14</span> APIs II))</span>
 <span id="cb6-18"><a href="#cb6-18"></a>    The jsonlite round trip</span>
 <span id="cb6-19"><a href="#cb6-19"></a>      fromJSON</span>
-<span id="cb6-20"><a href="#cb6-20"></a>        URL · file · string</span>
+<span id="cb6-20"><a href="#cb6-20"></a>        <span class="ot">"</span><span class="st">URL · file · string</span><span class="ot">"</span></span>
 <span id="cb6-21"><a href="#cb6-21"></a>        returns R object</span>
 <span id="cb6-22"><a href="#cb6-22"></a>        type depends on input</span>
 <span id="cb6-23"><a href="#cb6-23"></a>      toJSON</span>
-<span id="cb6-24"><a href="#cb6-24"></a>        R object → JSON string</span>
+<span id="cb6-24"><a href="#cb6-24"></a>        <span class="ot">"</span><span class="st">R object → JSON string</span><span class="ot">"</span></span>
 <span id="cb6-25"><a href="#cb6-25"></a>        <span class="cf">for</span> sending <span class="ot">or</span> storing</span>
 <span id="cb6-26"><a href="#cb6-26"></a>      Round-trip identity</span>
 <span id="cb6-27"><a href="#cb6-27"></a>        <span class="ot">"</span><span class="st">all.equal(mtcars, fromJSON(toJSON(mtcars)))</span><span class="ot">"</span></span>
 <span id="cb6-28"><a href="#cb6-28"></a>        TRUE</span>
 <span id="cb6-29"><a href="#cb6-29"></a>        proves bidirectional mapping</span>
-<span id="cb6-30"><a href="#cb6-30"></a>    Simplification · the type machinery</span>
+<span id="cb6-30"><a href="#cb6-30"></a>    <span class="ot">"</span><span class="st">Simplification · the type machinery</span><span class="ot">"</span></span>
 <span id="cb6-31"><a href="#cb6-31"></a>      Three JSON structures</span>
 <span id="cb6-32"><a href="#cb6-32"></a>        Array of primitives</span>
 <span id="cb6-33"><a href="#cb6-33"></a>          <span class="ot">"</span><span class="st">[\"a\", \"b\", \"c\"]</span><span class="ot">"</span></span>
-<span id="cb6-34"><a href="#cb6-34"></a>          → atomic vector</span>
-<span id="cb6-35"><a href="#cb6-35"></a>          arg · simplifyVector</span>
+<span id="cb6-34"><a href="#cb6-34"></a>          <span class="ot">"</span><span class="st">→ atomic vector</span><span class="ot">"</span></span>
+<span id="cb6-35"><a href="#cb6-35"></a>          <span class="ot">"</span><span class="st">arg · simplifyVector</span><span class="ot">"</span></span>
 <span id="cb6-36"><a href="#cb6-36"></a>        Array of objects</span>
 <span id="cb6-37"><a href="#cb6-37"></a>          <span class="ot">"</span><span class="st">[{\"x\": 1}, {\"x\": 2}]</span><span class="ot">"</span></span>
-<span id="cb6-38"><a href="#cb6-38"></a>          → data frame</span>
-<span id="cb6-39"><a href="#cb6-39"></a>          arg · simplifyDataFrame</span>
+<span id="cb6-38"><a href="#cb6-38"></a>          <span class="ot">"</span><span class="st">→ data frame</span><span class="ot">"</span></span>
+<span id="cb6-39"><a href="#cb6-39"></a>          <span class="ot">"</span><span class="st">arg · simplifyDataFrame</span><span class="ot">"</span></span>
 <span id="cb6-40"><a href="#cb6-40"></a>        Array of arrays</span>
 <span id="cb6-41"><a href="#cb6-41"></a>          <span class="ot">"</span><span class="st">[[1, 2], [3, 4]]</span><span class="ot">"</span></span>
-<span id="cb6-42"><a href="#cb6-42"></a>          → matrix</span>
-<span id="cb6-43"><a href="#cb6-43"></a>          arg · simplifyMatrix</span>
+<span id="cb6-42"><a href="#cb6-42"></a>          <span class="ot">"</span><span class="st">→ matrix</span><span class="ot">"</span></span>
+<span id="cb6-43"><a href="#cb6-43"></a>          <span class="ot">"</span><span class="st">arg · simplifyMatrix</span><span class="ot">"</span></span>
 <span id="cb6-44"><a href="#cb6-44"></a>      All defaults TRUE</span>
 <span id="cb6-45"><a href="#cb6-45"></a>        most APIs work zero-config</span>
 <span id="cb6-46"><a href="#cb6-46"></a>      Disable <span class="cf">for</span> raw structure</span>
-<span id="cb6-47"><a href="#cb6-47"></a>        simplifyVector = FALSE</span>
+<span id="cb6-47"><a href="#cb6-47"></a>        <span class="ot">"</span><span class="st">simplifyVector = FALSE</span><span class="ot">"</span></span>
 <span id="cb6-48"><a href="#cb6-48"></a>        returns nested list</span>
 <span id="cb6-49"><a href="#cb6-49"></a>        useful <span class="cf">for</span> irregular data</span>
 <span id="cb6-50"><a href="#cb6-50"></a>      NULL handling</span>
-<span id="cb6-51"><a href="#cb6-51"></a>        missing <span class="fu">keys</span> → NA</span>
-<span id="cb6-52"><a href="#cb6-52"></a>        empty objects → row of NAs</span>
+<span id="cb6-51"><a href="#cb6-51"></a>        <span class="ot">"</span><span class="st">missing keys → NA</span><span class="ot">"</span></span>
+<span id="cb6-52"><a href="#cb6-52"></a>        <span class="ot">"</span><span class="st">empty objects → row of NAs</span><span class="ot">"</span></span>
 <span id="cb6-53"><a href="#cb6-53"></a>    Real-world API patterns</span>
-<span id="cb6-54"><a href="#cb6-54"></a>      Public · <span class="fu">no</span> auth</span>
+<span id="cb6-54"><a href="#cb6-54"></a>      <span class="ot">"</span><span class="st">Public · no auth</span><span class="ot">"</span></span>
 <span id="cb6-55"><a href="#cb6-55"></a>        GitHub</span>
-<span id="cb6-56"><a href="#cb6-56"></a>          <span class="ot">/users/</span>USERNAME/repos</span>
-<span id="cb6-57"><a href="#cb6-57"></a>          <span class="ot">/repos/</span>OWNER/REPO/issues</span>
+<span id="cb6-56"><a href="#cb6-56"></a>          <span class="ot">"</span><span class="st">/users/USERNAME/repos</span><span class="ot">"</span></span>
+<span id="cb6-57"><a href="#cb6-57"></a>          <span class="ot">"</span><span class="st">/repos/OWNER/REPO/issues</span><span class="ot">"</span></span>
 <span id="cb6-58"><a href="#cb6-58"></a>        CitiBike NYC</span>
 <span id="cb6-59"><a href="#cb6-59"></a>          single endpoint</span>
 <span id="cb6-60"><a href="#cb6-60"></a>          all stations as array</span>
 <span id="cb6-61"><a href="#cb6-61"></a>        Ergast Formula <span class="dv">1</span></span>
 <span id="cb6-62"><a href="#cb6-62"></a>          path encodes year <span class="ot">and</span> race</span>
-<span id="cb6-63"><a href="#cb6-63"></a>          <span class="ot">/api/</span>f1/<span class="dv">2004</span>/<span class="dv">1</span>/results.json</span>
+<span id="cb6-63"><a href="#cb6-63"></a>          <span class="ot">"</span><span class="st">/api/f1/2004/1/results.json</span><span class="ot">"</span></span>
 <span id="cb6-64"><a href="#cb6-64"></a>      Key-required</span>
 <span id="cb6-65"><a href="#cb6-65"></a>        ProPublica nonprofits</span>
-<span id="cb6-66"><a href="#cb6-66"></a>          query param · &amp;order=...</span>
+<span id="cb6-66"><a href="#cb6-66"></a>          <span class="ot">"</span><span class="st">query param · &amp;order=...</span><span class="ot">"</span></span>
 <span id="cb6-67"><a href="#cb6-67"></a>        NYT</span>
-<span id="cb6-68"><a href="#cb6-68"></a>          query param · &amp;api-key=...</span>
+<span id="cb6-68"><a href="#cb6-68"></a>          <span class="ot">"</span><span class="st">query param · &amp;api-key=...</span><span class="ot">"</span></span>
 <span id="cb6-69"><a href="#cb6-69"></a>          register at developer portal</span>
-<span id="cb6-70"><a href="#cb6-70"></a>        general · keep key in env var</span>
+<span id="cb6-70"><a href="#cb6-70"></a>        <span class="ot">"</span><span class="st">general · keep key in env var</span><span class="ot">"</span></span>
 <span id="cb6-71"><a href="#cb6-71"></a>          <span class="ot">"</span><span class="st">Sys.getenv(\"API_KEY\")</span><span class="ot">"</span></span>
 <span id="cb6-72"><a href="#cb6-72"></a>          never commit to git</span>
-<span id="cb6-73"><a href="#cb6-73"></a>      OAuth · token-based</span>
+<span id="cb6-73"><a href="#cb6-73"></a>      <span class="ot">"</span><span class="st">OAuth · token-based</span><span class="ot">"</span></span>
 <span id="cb6-74"><a href="#cb6-74"></a>        Twitter</span>
 <span id="cb6-75"><a href="#cb6-75"></a>          consumer key + secret</span>
-<span id="cb6-76"><a href="#cb6-76"></a>          POST to oauth2/token</span>
+<span id="cb6-76"><a href="#cb6-76"></a>          <span class="ot">"</span><span class="st">POST to oauth2/token</span><span class="ot">"</span></span>
 <span id="cb6-77"><a href="#cb6-77"></a>          receive bearer token</span>
 <span id="cb6-78"><a href="#cb6-78"></a>          add as header in subsequent calls</span>
-<span id="cb6-79"><a href="#cb6-79"></a>        more complex · ICA <span class="dv">14</span> won<span class="ot">'</span><span class="ss">t dwell here</span></span>
-<span id="cb6-80"><a href="#cb6-80"></a><span class="ss">    Pagination · the iteration shape</span></span>
-<span id="cb6-81"><a href="#cb6-81"></a><span class="ss">      Why</span></span>
-<span id="cb6-82"><a href="#cb6-82"></a><span class="ss">        APIs cap rows per response</span></span>
-<span id="cb6-83"><a href="#cb6-83"></a><span class="ss">          common · 100 · 500 · 1000</span></span>
-<span id="cb6-84"><a href="#cb6-84"></a><span class="ss">        more rows · multiple requests</span></span>
-<span id="cb6-85"><a href="#cb6-85"></a><span class="ss">      Common pagination styles</span></span>
-<span id="cb6-86"><a href="#cb6-86"></a><span class="ss">        page number</span></span>
-<span id="cb6-87"><a href="#cb6-87"></a><span class="ss">          ?page=1 · ?page=2 · ...</span></span>
-<span id="cb6-88"><a href="#cb6-88"></a><span class="ss">        offset</span></span>
-<span id="cb6-89"><a href="#cb6-89"></a><span class="ss">          ?offset=0&amp;limit=100</span></span>
-<span id="cb6-90"><a href="#cb6-90"></a><span class="ss">        cursor / token</span></span>
-<span id="cb6-91"><a href="#cb6-91"></a><span class="ss">          response includes next-token</span></span>
-<span id="cb6-92"><a href="#cb6-92"></a><span class="ss">          next call passes it</span></span>
-<span id="cb6-93"><a href="#cb6-93"></a><span class="ss">      The pattern</span></span>
-<span id="cb6-94"><a href="#cb6-94"></a><span class="ss">        for loop or map</span></span>
-<span id="cb6-95"><a href="#cb6-95"></a><span class="ss">        store each page as list element</span></span>
-<span id="cb6-96"><a href="#cb6-96"></a><span class="ss">        bind at end with rbind_pages</span></span>
-<span id="cb6-97"><a href="#cb6-97"></a><span class="ss">        or list_rbind from purrr</span></span>
-<span id="cb6-98"><a href="#cb6-98"></a><span class="ss">      Stopping condition</span></span>
-<span id="cb6-99"><a href="#cb6-99"></a><span class="ss">        empty page · break</span></span>
-<span id="cb6-100"><a href="#cb6-100"></a><span class="ss">        result_count vs received</span></span>
-<span id="cb6-101"><a href="#cb6-101"></a><span class="ss">        max page known in advance</span></span>
-<span id="cb6-102"><a href="#cb6-102"></a><span class="ss">    Nested responses · taming the structure</span></span>
-<span id="cb6-103"><a href="#cb6-103"></a><span class="ss">      Why nested</span></span>
-<span id="cb6-104"><a href="#cb6-104"></a><span class="ss">        objects within objects</span></span>
-<span id="cb6-105"><a href="#cb6-105"></a><span class="ss">        arrays of objects</span></span>
-<span id="cb6-106"><a href="#cb6-106"></a><span class="ss">        objects with array values</span></span>
-<span id="cb6-107"><a href="#cb6-107"></a><span class="ss">      Tools</span></span>
-<span id="cb6-108"><a href="#cb6-108"></a><span class="ss">        unnest_wider · object → cols</span></span>
-<span id="cb6-109"><a href="#cb6-109"></a><span class="ss">        unnest_longer · array → rows</span></span>
-<span id="cb6-110"><a href="#cb6-110"></a><span class="ss">        flatten · jsonlite arg</span></span>
-<span id="cb6-111"><a href="#cb6-111"></a><span class="ss">          flatten=TRUE in fromJSON</span></span>
-<span id="cb6-112"><a href="#cb6-112"></a><span class="ss">          deeply nested → wide</span></span>
-<span id="cb6-113"><a href="#cb6-113"></a><span class="ss">      Inspect first</span></span>
-<span id="cb6-114"><a href="#cb6-114"></a><span class="ss">        "str() · or names() of result"</span></span>
-<span id="cb6-115"><a href="#cb6-115"></a><span class="ss">        figure out shape before flattening</span></span>
-<span id="cb6-116"><a href="#cb6-116"></a><span class="ss">      Pluck deeper</span></span>
-<span id="cb6-117"><a href="#cb6-117"></a><span class="ss">        "result %&gt;% pluck(\"data\", \"items\")"</span></span>
-<span id="cb6-118"><a href="#cb6-118"></a><span class="ss">        navigate hierarchy</span></span>
-<span id="cb6-119"><a href="#cb6-119"></a><span class="ss">    Auth hygiene</span></span>
-<span id="cb6-120"><a href="#cb6-120"></a><span class="ss">      What never to do</span></span>
-<span id="cb6-121"><a href="#cb6-121"></a><span class="ss">        paste API key in qmd</span></span>
-<span id="cb6-122"><a href="#cb6-122"></a><span class="ss">        commit key to git</span></span>
-<span id="cb6-123"><a href="#cb6-123"></a><span class="ss">        share repo with key inside</span></span>
-<span id="cb6-124"><a href="#cb6-124"></a><span class="ss">      What to do</span></span>
-<span id="cb6-125"><a href="#cb6-125"></a><span class="ss">        store in .Renviron</span></span>
-<span id="cb6-126"><a href="#cb6-126"></a><span class="ss">          API_KEY=xxx</span></span>
-<span id="cb6-127"><a href="#cb6-127"></a><span class="ss">        access via Sys.getenv</span></span>
-<span id="cb6-128"><a href="#cb6-128"></a><span class="ss">        gitignore .Renviron</span></span>
-<span id="cb6-129"><a href="#cb6-129"></a><span class="ss">        rotate if exposed</span></span>
-<span id="cb6-130"><a href="#cb6-130"></a><span class="ss">      Header vs query param</span></span>
-<span id="cb6-131"><a href="#cb6-131"></a><span class="ss">        some APIs · ?key=xxx in URL</span></span>
-<span id="cb6-132"><a href="#cb6-132"></a><span class="ss">        some APIs · Authorization: Bearer xxx header</span></span>
-<span id="cb6-133"><a href="#cb6-133"></a><span class="ss">        check API docs</span></span>
-<span id="cb6-134"><a href="#cb6-134"></a><span class="ss">    A complete API call · seven steps</span></span>
-<span id="cb6-135"><a href="#cb6-135"></a><span class="ss">      1 · build URL</span></span>
-<span id="cb6-136"><a href="#cb6-136"></a><span class="ss">        urltools::param_set</span></span>
-<span id="cb6-137"><a href="#cb6-137"></a><span class="ss">      2 · authenticate if needed</span></span>
-<span id="cb6-138"><a href="#cb6-138"></a><span class="ss">        Sys.getenv key</span></span>
-<span id="cb6-139"><a href="#cb6-139"></a><span class="ss">      3 · GET the response</span></span>
-<span id="cb6-140"><a href="#cb6-140"></a><span class="ss">        "fromJSON(url) for simple cases"</span></span>
-<span id="cb6-141"><a href="#cb6-141"></a><span class="ss">        httr2::request for complex</span></span>
-<span id="cb6-142"><a href="#cb6-142"></a><span class="ss">      4 · inspect shape</span></span>
-<span id="cb6-143"><a href="#cb6-143"></a><span class="ss">        "str() · names() · class()"</span></span>
-<span id="cb6-144"><a href="#cb6-144"></a><span class="ss">      5 · flatten if nested</span></span>
-<span id="cb6-145"><a href="#cb6-145"></a><span class="ss">        unnest_wider · unnest_longer</span></span>
-<span id="cb6-146"><a href="#cb6-146"></a><span class="ss">      6 · paginate if needed</span></span>
-<span id="cb6-147"><a href="#cb6-147"></a><span class="ss">        loop · accumulate</span></span>
-<span id="cb6-148"><a href="#cb6-148"></a><span class="ss">      7 · bind into one tibble</span></span>
-<span id="cb6-149"><a href="#cb6-149"></a><span class="ss">        list_rbind · rbind_pages</span></span>
-<span id="cb6-150"><a href="#cb6-150"></a><span class="ss">```</span></span>
+<span id="cb6-79"><a href="#cb6-79"></a>        <span class="ot">"</span><span class="st">more complex · ICA 14 won't dwell here</span><span class="ot">"</span></span>
+<span id="cb6-80"><a href="#cb6-80"></a>    <span class="ot">"</span><span class="st">Pagination · the iteration shape</span><span class="ot">"</span></span>
+<span id="cb6-81"><a href="#cb6-81"></a>      Why</span>
+<span id="cb6-82"><a href="#cb6-82"></a>        APIs cap rows per response</span>
+<span id="cb6-83"><a href="#cb6-83"></a>          <span class="ot">"</span><span class="st">common · 100 · 500 · 1000</span><span class="ot">"</span></span>
+<span id="cb6-84"><a href="#cb6-84"></a>        <span class="ot">"</span><span class="st">more rows · multiple requests</span><span class="ot">"</span></span>
+<span id="cb6-85"><a href="#cb6-85"></a>      Common pagination styles</span>
+<span id="cb6-86"><a href="#cb6-86"></a>        page number</span>
+<span id="cb6-87"><a href="#cb6-87"></a>          <span class="ot">"</span><span class="st">?page=1 · ?page=2 · ...</span><span class="ot">"</span></span>
+<span id="cb6-88"><a href="#cb6-88"></a>        offset</span>
+<span id="cb6-89"><a href="#cb6-89"></a>          <span class="ot">"</span><span class="st">?offset=0&amp;limit=100</span><span class="ot">"</span></span>
+<span id="cb6-90"><a href="#cb6-90"></a>        <span class="ot">"</span><span class="st">cursor / token</span><span class="ot">"</span></span>
+<span id="cb6-91"><a href="#cb6-91"></a>          response includes <span class="cf">next</span>-token</span>
+<span id="cb6-92"><a href="#cb6-92"></a>          <span class="cf">next</span> call passes it</span>
+<span id="cb6-93"><a href="#cb6-93"></a>      The pattern</span>
+<span id="cb6-94"><a href="#cb6-94"></a>        <span class="cf">for</span> loop <span class="ot">or</span> <span class="fu">map</span></span>
+<span id="cb6-95"><a href="#cb6-95"></a>        store <span class="cf">each</span> page as list element</span>
+<span id="cb6-96"><a href="#cb6-96"></a>        <span class="fu">bind</span> at end with rbind_pages</span>
+<span id="cb6-97"><a href="#cb6-97"></a>        <span class="ot">or</span> list_rbind from purrr</span>
+<span id="cb6-98"><a href="#cb6-98"></a>      Stopping condition</span>
+<span id="cb6-99"><a href="#cb6-99"></a>        <span class="ot">"</span><span class="st">empty page · break</span><span class="ot">"</span></span>
+<span id="cb6-100"><a href="#cb6-100"></a>        result_count vs received</span>
+<span id="cb6-101"><a href="#cb6-101"></a>        max page known in advance</span>
+<span id="cb6-102"><a href="#cb6-102"></a>    <span class="ot">"</span><span class="st">Nested responses · taming the structure</span><span class="ot">"</span></span>
+<span id="cb6-103"><a href="#cb6-103"></a>      Why nested</span>
+<span id="cb6-104"><a href="#cb6-104"></a>        objects within objects</span>
+<span id="cb6-105"><a href="#cb6-105"></a>        arrays of objects</span>
+<span id="cb6-106"><a href="#cb6-106"></a>        objects with array <span class="fu">values</span></span>
+<span id="cb6-107"><a href="#cb6-107"></a>      Tools</span>
+<span id="cb6-108"><a href="#cb6-108"></a>        <span class="ot">"</span><span class="st">unnest_wider · object → cols</span><span class="ot">"</span></span>
+<span id="cb6-109"><a href="#cb6-109"></a>        <span class="ot">"</span><span class="st">unnest_longer · array → rows</span><span class="ot">"</span></span>
+<span id="cb6-110"><a href="#cb6-110"></a>        <span class="ot">"</span><span class="st">flatten · jsonlite arg</span><span class="ot">"</span></span>
+<span id="cb6-111"><a href="#cb6-111"></a>          <span class="ot">"</span><span class="st">flatten=TRUE in fromJSON</span><span class="ot">"</span></span>
+<span id="cb6-112"><a href="#cb6-112"></a>          <span class="ot">"</span><span class="st">deeply nested → wide</span><span class="ot">"</span></span>
+<span id="cb6-113"><a href="#cb6-113"></a>      Inspect first</span>
+<span id="cb6-114"><a href="#cb6-114"></a>        <span class="ot">"</span><span class="st">str() · or names() of result</span><span class="ot">"</span></span>
+<span id="cb6-115"><a href="#cb6-115"></a>        figure out shape before flattening</span>
+<span id="cb6-116"><a href="#cb6-116"></a>      Pluck deeper</span>
+<span id="cb6-117"><a href="#cb6-117"></a>        <span class="ot">"</span><span class="st">result %&gt;% pluck(\"data\", \"items\")</span><span class="ot">"</span></span>
+<span id="cb6-118"><a href="#cb6-118"></a>        navigate hierarchy</span>
+<span id="cb6-119"><a href="#cb6-119"></a>    Auth hygiene</span>
+<span id="cb6-120"><a href="#cb6-120"></a>      What never to <span class="kw">do</span></span>
+<span id="cb6-121"><a href="#cb6-121"></a>        paste API key in qmd</span>
+<span id="cb6-122"><a href="#cb6-122"></a>        commit key to git</span>
+<span id="cb6-123"><a href="#cb6-123"></a>        share repo with key inside</span>
+<span id="cb6-124"><a href="#cb6-124"></a>      What to <span class="kw">do</span></span>
+<span id="cb6-125"><a href="#cb6-125"></a>        store in .Renviron</span>
+<span id="cb6-126"><a href="#cb6-126"></a>          <span class="ot">"</span><span class="st">API_KEY=xxx</span><span class="ot">"</span></span>
+<span id="cb6-127"><a href="#cb6-127"></a>        access via Sys.getenv</span>
+<span id="cb6-128"><a href="#cb6-128"></a>        gitignore .Renviron</span>
+<span id="cb6-129"><a href="#cb6-129"></a>        rotate <span class="cf">if</span> exposed</span>
+<span id="cb6-130"><a href="#cb6-130"></a>      Header vs query param</span>
+<span id="cb6-131"><a href="#cb6-131"></a>        <span class="ot">"</span><span class="st">some APIs · ?key=xxx in URL</span><span class="ot">"</span></span>
+<span id="cb6-132"><a href="#cb6-132"></a>        <span class="ot">"</span><span class="st">some APIs · Authorization: Bearer xxx header</span><span class="ot">"</span></span>
+<span id="cb6-133"><a href="#cb6-133"></a>        check API docs</span>
+<span id="cb6-134"><a href="#cb6-134"></a>    <span class="ot">"</span><span class="st">A complete API call · seven steps</span><span class="ot">"</span></span>
+<span id="cb6-135"><a href="#cb6-135"></a>      <span class="ot">"</span><span class="st">1 · build URL</span><span class="ot">"</span></span>
+<span id="cb6-136"><a href="#cb6-136"></a>        <span class="fu">urltools::param_set</span></span>
+<span id="cb6-137"><a href="#cb6-137"></a>      <span class="ot">"</span><span class="st">2 · authenticate if needed</span><span class="ot">"</span></span>
+<span id="cb6-138"><a href="#cb6-138"></a>        Sys.getenv key</span>
+<span id="cb6-139"><a href="#cb6-139"></a>      <span class="ot">"</span><span class="st">3 · GET the response</span><span class="ot">"</span></span>
+<span id="cb6-140"><a href="#cb6-140"></a>        <span class="ot">"</span><span class="st">fromJSON(url) for simple cases</span><span class="ot">"</span></span>
+<span id="cb6-141"><a href="#cb6-141"></a>        <span class="fu">httr2::request</span> <span class="fu">for</span> <span class="fu">complex</span></span>
+<span id="cb6-142"><a href="#cb6-142"></a>      <span class="ot">"</span><span class="st">4 · inspect shape</span><span class="ot">"</span></span>
+<span id="cb6-143"><a href="#cb6-143"></a>        <span class="ot">"</span><span class="st">str() · names() · class()</span><span class="ot">"</span></span>
+<span id="cb6-144"><a href="#cb6-144"></a>      <span class="ot">"</span><span class="st">5 · flatten if nested</span><span class="ot">"</span></span>
+<span id="cb6-145"><a href="#cb6-145"></a>        <span class="ot">"</span><span class="st">unnest_wider · unnest_longer</span><span class="ot">"</span></span>
+<span id="cb6-146"><a href="#cb6-146"></a>      <span class="ot">"</span><span class="st">6 · paginate if needed</span><span class="ot">"</span></span>
+<span id="cb6-147"><a href="#cb6-147"></a>        <span class="ot">"</span><span class="st">loop · accumulate</span><span class="ot">"</span></span>
+<span id="cb6-148"><a href="#cb6-148"></a>      <span class="ot">"</span><span class="st">7 · bind into one tibble</span><span class="ot">"</span></span>
+<span id="cb6-149"><a href="#cb6-149"></a>        <span class="ot">"</span><span class="st">list_rbind · rbind_pages</span><span class="ot">"</span></span>
+<span id="cb6-150"><a href="#cb6-150"></a><span class="in">```</span></span>
 <span id="cb6-151"><a href="#cb6-151"></a></span>
-<span id="cb6-152"><a href="#cb6-152"></a><span class="ss">## Three concepts these vignettes quietly hinge on</span></span>
+<span id="cb6-152"><a href="#cb6-152"></a><span class="fu">## Three concepts these vignettes quietly hinge on</span></span>
 <span id="cb6-153"><a href="#cb6-153"></a></span>
-<span id="cb6-154"><a href="#cb6-154"></a><span class="ss">**Simplification is what makes `fromJSON()` ergonomic — and it</span><span class="ot">'</span>s what occasionally bites.*<span class="ot">*</span> When you call <span class="ot">`</span><span class="st">fromJSON(url)</span><span class="ot">`</span>, it tries to coerce the response into the most R-friendly type: a JSON array of primitives becomes an atomic vector; an array of objects becomes a data frame; an array of arrays becomes a matrix. This works beautifully <span class="cf">for</span> the <span class="dv">80</span>% of APIs that <span class="cf">return</span> regular structures, but it can surprise you <span class="cf">when</span> the response is <span class="dt">*almost</span><span class="ot">*</span> regular — <span class="fu">say</span>, an array of objects where one record is missing a field, <span class="ot">or</span> a <span class="ot">"</span><span class="st">string or array</span><span class="ot">"</span> union type that varies per element. The escape hatch is <span class="ot">`</span><span class="st">fromJSON(url, simplifyVector = FALSE)</span><span class="ot">`</span>, which returns a raw nested list, letting you handle the shape yourself with purrr/tidyr. Worth knowing that the <span class="cf">default</span> <span class="fu">exists</span> <span class="ot">and</span> that turning it off is the move <span class="cf">when</span> you hit weird structure.</span>
+<span id="cb6-154"><a href="#cb6-154"></a>**Simplification is what makes `fromJSON()` ergonomic — and it's what occasionally bites.** When you call <span class="in">`fromJSON(url)`</span>, it tries to coerce the response into the most R-friendly type: a JSON array of primitives becomes an atomic vector; an array of objects becomes a data frame; an array of arrays becomes a matrix. This works beautifully for the 80% of APIs that return regular structures, but it can surprise you when the response is *almost* regular — say, an array of objects where one record is missing a field, or a "string or array" union type that varies per element. The escape hatch is <span class="in">`fromJSON(url, simplifyVector = FALSE)`</span>, which returns a raw nested list, letting you handle the shape yourself with purrr/tidyr. Worth knowing that the default exists and that turning it off is the move when you hit weird structure.</span>
 <span id="cb6-155"><a href="#cb6-155"></a></span>
-<span id="cb6-156"><a href="#cb6-156"></a>*<span class="dt">*Most</span> APIs paginate, <span class="ot">and</span> paginating well is half the work.*<span class="ot">*</span> A single API call returning <span class="dv">1100</span> records (like the ProPublica example) is already <span class="fu">split</span> across <span class="dv">11</span> pages of <span class="dv">100</span> <span class="cf">each</span> — <span class="ot">and</span> most APIs are similar. The ProPublica vignette shows the canonical pattern: a <span class="ot">`</span><span class="st">for</span><span class="ot">`</span> loop over page numbers, accumulating into a list, then <span class="ot">`</span><span class="st">rbind_pages</span><span class="ot">`</span> (<span class="ot">or</span> <span class="ot">`</span><span class="st">list_rbind</span><span class="ot">`</span> from purrr) at the end. The choice points: how does the API page (page number / offset / cursor)? How <span class="kw">do</span> you know <span class="cf">when</span> to stop (response count / empty page / explicit <span class="ot">"</span><span class="st">has_more</span><span class="ot">"</span> flag)? Get those two right <span class="ot">and</span> the iteration becomes mechanical. Get them wrong <span class="ot">and</span> you either miss data <span class="ot">or</span> loop forever.</span>
+<span id="cb6-156"><a href="#cb6-156"></a>**Most APIs paginate, and paginating well is half the work.** A single API call returning 1100 records (like the ProPublica example) is already split across 11 pages of 100 each — and most APIs are similar. The ProPublica vignette shows the canonical pattern: a <span class="in">`for`</span> loop over page numbers, accumulating into a list, then <span class="in">`rbind_pages`</span> (or <span class="in">`list_rbind`</span> from purrr) at the end. The choice points: how does the API page (page number / offset / cursor)? How do you know when to stop (response count / empty page / explicit "has_more" flag)? Get those two right and the iteration becomes mechanical. Get them wrong and you either miss data or loop forever.</span>
 <span id="cb6-157"><a href="#cb6-157"></a></span>
-<span id="cb6-158"><a href="#cb6-158"></a>*<span class="dt">*Auth</span> credentials never live in your code, <span class="ot">and</span> <span class="ot">`</span><span class="st">.Renviron</span><span class="ot">`</span> is the right place.*<span class="ot">*</span> Every example in the <span class="ot">"</span><span class="st">Fetching JSON</span><span class="ot">"</span> vignette that requires a key shows it inline — that<span class="ot">'</span><span class="ss">s pedagogical, not safe. In real work, the API key goes in `~/.Renviron` as `NYT_API_KEY=abc123`, accessed via `Sys.getenv("NYT_API_KEY")`, with `.Renviron` itself listed in `.gitignore`. The reason is asymmetric: writing `api-key=hard_coded_string` once costs nothing, but if you push that to GitHub, your key is now public and you have hours of revocation/rotation work ahead. Worth treating as a habit even when prototyping — the cost of doing it right is one extra line, the cost of doing it wrong is real.</span></span>
+<span id="cb6-158"><a href="#cb6-158"></a>**Auth credentials never live in your code, and `.Renviron` is the right place.** Every example in the "Fetching JSON" vignette that requires a key shows it inline — that's pedagogical, not safe. In real work, the API key goes in <span class="in">`~/.Renviron`</span> as <span class="in">`NYT_API_KEY=abc123`</span>, accessed via <span class="in">`Sys.getenv("NYT_API_KEY")`</span>, with <span class="in">`.Renviron`</span> itself listed in <span class="in">`.gitignore`</span>. The reason is asymmetric: writing <span class="in">`api-key=hard_coded_string`</span> once costs nothing, but if you push that to GitHub, your key is now public and you have hours of revocation/rotation work ahead. Worth treating as a habit even when prototyping — the cost of doing it right is one extra line, the cost of doing it wrong is real.</span>
 <span id="cb6-159"><a href="#cb6-159"></a></span>
-<span id="cb6-160"><a href="#cb6-160"></a><span class="ss">## A small reference for jsonlite</span><span class="ot">'</span>s type mapping</span>
+<span id="cb6-160"><a href="#cb6-160"></a><span class="fu">## A small reference for jsonlite's type mapping</span></span>
 <span id="cb6-161"><a href="#cb6-161"></a></span>
 <span id="cb6-162"><a href="#cb6-162"></a>The four-cell table that the Getting Started vignette is essentially organized around:</span>
 <span id="cb6-163"><a href="#cb6-163"></a></span>
-<span id="cb6-164"><a href="#cb6-164"></a>| JSON structure | Example | Simplifies to | Argument |</span>
-<span id="cb6-165"><a href="#cb6-165"></a>|----------------|---------|---------------|----------|</span>
-<span id="cb6-166"><a href="#cb6-166"></a>| Array of primitives | <span class="ot">`</span><span class="st">["a", "b", "c"]</span><span class="ot">`</span> | atomic vector | <span class="ot">`</span><span class="st">simplifyVector = TRUE</span><span class="ot">`</span> |</span>
-<span id="cb6-167"><a href="#cb6-167"></a>| Array of objects | <span class="ot">`</span><span class="st">[{"x": 1}, {"x": 2}]</span><span class="ot">`</span> | data frame | <span class="ot">`</span><span class="st">simplifyDataFrame = TRUE</span><span class="ot">`</span> |</span>
-<span id="cb6-168"><a href="#cb6-168"></a>| Array of arrays (same <span class="fu">length</span>) | <span class="ot">`</span><span class="st">[[1, 2], [3, 4]]</span><span class="ot">`</span> | matrix | <span class="ot">`</span><span class="st">simplifyMatrix = TRUE</span><span class="ot">`</span> |</span>
-<span id="cb6-169"><a href="#cb6-169"></a>| Anything irregular | <span class="ot">`</span><span class="st">[{"x": 1}, {"y": 2}]</span><span class="ot">`</span> <span class="ot">or</span> mixed | nested list | <span class="fu">use</span> <span class="ot">`</span><span class="st">simplifyVector = FALSE</span><span class="ot">`</span> |</span>
+<span id="cb6-164"><a href="#cb6-164"></a><span class="pp">|</span> JSON structure <span class="pp">|</span> Example <span class="pp">|</span> Simplifies to <span class="pp">|</span> Argument <span class="pp">|</span></span>
+<span id="cb6-165"><a href="#cb6-165"></a><span class="pp">|----------------|---------|---------------|----------|</span></span>
+<span id="cb6-166"><a href="#cb6-166"></a><span class="pp">|</span> Array of primitives <span class="pp">|</span> <span class="in">`["a", "b", "c"]`</span> <span class="pp">|</span> atomic vector <span class="pp">|</span> <span class="in">`simplifyVector = TRUE`</span> <span class="pp">|</span></span>
+<span id="cb6-167"><a href="#cb6-167"></a><span class="pp">|</span> Array of objects <span class="pp">|</span> <span class="in">`[{"x": 1}, {"x": 2}]`</span> <span class="pp">|</span> data frame <span class="pp">|</span> <span class="in">`simplifyDataFrame = TRUE`</span> <span class="pp">|</span></span>
+<span id="cb6-168"><a href="#cb6-168"></a><span class="pp">|</span> Array of arrays (same length) <span class="pp">|</span> <span class="in">`[[1, 2], [3, 4]]`</span> <span class="pp">|</span> matrix <span class="pp">|</span> <span class="in">`simplifyMatrix = TRUE`</span> <span class="pp">|</span></span>
+<span id="cb6-169"><a href="#cb6-169"></a><span class="pp">|</span> Anything irregular <span class="pp">|</span> <span class="in">`[{"x": 1}, {"y": 2}]`</span> or mixed <span class="pp">|</span> nested list <span class="pp">|</span> use <span class="in">`simplifyVector = FALSE`</span> <span class="pp">|</span></span>
 <span id="cb6-170"><a href="#cb6-170"></a></span>
-<span id="cb6-171"><a href="#cb6-171"></a>All three simplification arguments <span class="cf">default</span> to <span class="ot">`</span><span class="st">TRUE</span><span class="ot">`</span>. Disabling them gives you raw structure to work with manually.</span>
+<span id="cb6-171"><a href="#cb6-171"></a>All three simplification arguments default to <span class="in">`TRUE`</span>. Disabling them gives you raw structure to work with manually.</span>
 <span id="cb6-172"><a href="#cb6-172"></a></span>
-<span id="cb6-173"><a href="#cb6-173"></a><span class="co">## Two patterns worth memorizing</span></span>
+<span id="cb6-173"><a href="#cb6-173"></a><span class="fu">## Two patterns worth memorizing</span></span>
 <span id="cb6-174"><a href="#cb6-174"></a></span>
-<span id="cb6-175"><a href="#cb6-175"></a>*<span class="dt">*The</span> paginated-list pattern.*<span class="ot">*</span> Generalized from the ProPublica example:</span>
+<span id="cb6-175"><a href="#cb6-175"></a>**The paginated-list pattern.** Generalized from the ProPublica example:</span>
 <span id="cb6-176"><a href="#cb6-176"></a></span>
-<span id="cb6-177"><a href="#cb6-177"></a><span class="ot">```</span><span class="st">r</span></span>
-<span id="cb6-178"><a href="#cb6-178"></a><span class="st">base &lt;- "https://api.example.com/v1/items"</span></span>
+<span id="cb6-177"><a href="#cb6-177"></a><span class="in">```r</span></span>
+<span id="cb6-178"><a href="#cb6-178"></a>base <span class="ot">&lt;-</span> <span class="st">"https://api.example.com/v1/items"</span></span>
 <span id="cb6-179"><a href="#cb6-179"></a></span>
-<span id="cb6-180"><a href="#cb6-180"></a><span class="st">pages &lt;- list()</span></span>
-<span id="cb6-181"><a href="#cb6-181"></a><span class="st">for (i in 0:max_page) {</span></span>
-<span id="cb6-182"><a href="#cb6-182"></a><span class="st">  url &lt;- paste0(base, "?page=", i, "&amp;", auth)</span></span>
-<span id="cb6-183"><a href="#cb6-183"></a><span class="st">  resp &lt;- fromJSON(url, flatten = TRUE)</span></span>
-<span id="cb6-184"><a href="#cb6-184"></a><span class="st">  pages[[i + 1]] &lt;- resp</span><span class="dt">$items</span></span>
-<span id="cb6-185"><a href="#cb6-185"></a><span class="st">  message("Retrieved page ", i)</span></span>
-<span id="cb6-186"><a href="#cb6-186"></a><span class="st">  if (length(resp</span><span class="dt">$items</span><span class="st">) == 0) break    # stop on empty</span></span>
-<span id="cb6-187"><a href="#cb6-187"></a><span class="st">}</span></span>
+<span id="cb6-180"><a href="#cb6-180"></a>pages <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb6-181"><a href="#cb6-181"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>max_page) {</span>
+<span id="cb6-182"><a href="#cb6-182"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(base, <span class="st">"?page="</span>, i, <span class="st">"&amp;"</span>, auth)</span>
+<span id="cb6-183"><a href="#cb6-183"></a>  resp <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url, <span class="at">flatten =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-184"><a href="#cb6-184"></a>  pages[[i <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> resp<span class="sc">$</span>items</span>
+<span id="cb6-185"><a href="#cb6-185"></a>  <span class="fu">message</span>(<span class="st">"Retrieved page "</span>, i)</span>
+<span id="cb6-186"><a href="#cb6-186"></a>  <span class="cf">if</span> (<span class="fu">length</span>(resp<span class="sc">$</span>items) <span class="sc">==</span> <span class="dv">0</span>) <span class="cf">break</span>    <span class="co"># stop on empty</span></span>
+<span id="cb6-187"><a href="#cb6-187"></a>}</span>
 <span id="cb6-188"><a href="#cb6-188"></a></span>
-<span id="cb6-189"><a href="#cb6-189"></a><span class="st">all_items &lt;- jsonlite::rbind_pages(pages)</span></span>
-<span id="cb6-190"><a href="#cb6-190"></a><span class="ot">```</span></span>
+<span id="cb6-189"><a href="#cb6-189"></a>all_items <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">rbind_pages</span>(pages)</span>
+<span id="cb6-190"><a href="#cb6-190"></a><span class="in">```</span></span>
 <span id="cb6-191"><a href="#cb6-191"></a></span>
-<span id="cb6-192"><a href="#cb6-192"></a>The <span class="ot">`</span><span class="st">purrr</span><span class="ot">`</span> version is shorter <span class="ot">and</span> composable but functionally equivalent:</span>
+<span id="cb6-192"><a href="#cb6-192"></a>The <span class="in">`purrr`</span> version is shorter and composable but functionally equivalent:</span>
 <span id="cb6-193"><a href="#cb6-193"></a></span>
-<span id="cb6-194"><a href="#cb6-194"></a><span class="ot">```</span><span class="st">r</span></span>
-<span id="cb6-195"><a href="#cb6-195"></a><span class="st">0:max_page |&gt;</span></span>
-<span id="cb6-196"><a href="#cb6-196"></a><span class="st">  map(\(i) fromJSON(paste0(base, "?page=", i, "&amp;", auth), flatten = TRUE)</span><span class="dt">$items</span><span class="st">) |&gt;</span></span>
-<span id="cb6-197"><a href="#cb6-197"></a><span class="st">  list_rbind()</span></span>
-<span id="cb6-198"><a href="#cb6-198"></a><span class="ot">```</span></span>
+<span id="cb6-194"><a href="#cb6-194"></a><span class="in">```r</span></span>
+<span id="cb6-195"><a href="#cb6-195"></a><span class="dv">0</span><span class="sc">:</span>max_page <span class="sc">|&gt;</span></span>
+<span id="cb6-196"><a href="#cb6-196"></a>  <span class="fu">map</span>(\(i) <span class="fu">fromJSON</span>(<span class="fu">paste0</span>(base, <span class="st">"?page="</span>, i, <span class="st">"&amp;"</span>, auth), <span class="at">flatten =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>items) <span class="sc">|&gt;</span></span>
+<span id="cb6-197"><a href="#cb6-197"></a>  <span class="fu">list_rbind</span>()</span>
+<span id="cb6-198"><a href="#cb6-198"></a><span class="in">```</span></span>
 <span id="cb6-199"><a href="#cb6-199"></a></span>
-<span id="cb6-200"><a href="#cb6-200"></a>For unknown total page count, replace <span class="ot">`</span><span class="st">0:max_page</span><span class="ot">`</span> with a <span class="ot">`</span><span class="st">while</span><span class="ot">`</span> loop that breaks <span class="cf">when</span> <span class="ot">`</span><span class="st">length(items) == 0</span><span class="ot">`</span>.</span>
+<span id="cb6-200"><a href="#cb6-200"></a>For unknown total page count, replace <span class="in">`0:max_page`</span> with a <span class="in">`while`</span> loop that breaks when <span class="in">`length(items) == 0`</span>.</span>
 <span id="cb6-201"><a href="#cb6-201"></a></span>
-<span id="cb6-202"><a href="#cb6-202"></a>*<span class="dt">*The</span> store-the-key-safely pattern.*<span class="ot">*</span> Once per machine, in <span class="ot">`</span><span class="st">~/.Renviron</span><span class="ot">`</span>:</span>
+<span id="cb6-202"><a href="#cb6-202"></a>**The store-the-key-safely pattern.** Once per machine, in <span class="in">`~/.Renviron`</span>:</span>
 <span id="cb6-203"><a href="#cb6-203"></a></span>
 <span id="cb6-204"><a href="#cb6-204"></a><span class="in">```</span></span>
-<span id="cb6-205"><a href="#cb6-205"></a>CENSUS_API_KEY=abc123def456</span>
-<span id="cb6-206"><a href="#cb6-206"></a>NYT_API_KEY=xyz789</span>
+<span id="cb6-205"><a href="#cb6-205"></a><span class="in">CENSUS_API_KEY=abc123def456</span></span>
+<span id="cb6-206"><a href="#cb6-206"></a><span class="in">NYT_API_KEY=xyz789</span></span>
 <span id="cb6-207"><a href="#cb6-207"></a><span class="in">```</span></span>
 <span id="cb6-208"><a href="#cb6-208"></a></span>
-<span id="cb6-209"><a href="#cb6-209"></a><span class="in">Restart R (so the file is re-read on session start), then in any analysis:</span></span>
+<span id="cb6-209"><a href="#cb6-209"></a>Restart R (so the file is re-read on session start), then in any analysis:</span>
 <span id="cb6-210"><a href="#cb6-210"></a></span>
 <span id="cb6-211"><a href="#cb6-211"></a><span class="in">```r</span></span>
-<span id="cb6-212"><a href="#cb6-212"></a><span class="in">key &lt;- Sys.getenv("CENSUS_API_KEY")</span></span>
-<span id="cb6-213"><a href="#cb6-213"></a><span class="in">url &lt;- urltools::param_set(base_url, "key", key)</span></span>
-<span id="cb6-214"><a href="#cb6-214"></a><span class="in">data &lt;- fromJSON(url)</span></span>
+<span id="cb6-212"><a href="#cb6-212"></a>key <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"CENSUS_API_KEY"</span>)</span>
+<span id="cb6-213"><a href="#cb6-213"></a>url <span class="ot">&lt;-</span> urltools<span class="sc">::</span><span class="fu">param_set</span>(base_url, <span class="st">"key"</span>, key)</span>
+<span id="cb6-214"><a href="#cb6-214"></a>data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url)</span>
 <span id="cb6-215"><a href="#cb6-215"></a><span class="in">```</span></span>
 <span id="cb6-216"><a href="#cb6-216"></a></span>
 <span id="cb6-217"><a href="#cb6-217"></a>The <span class="in">`.Renviron`</span> file is per-user; on a Mac it lives in <span class="in">`~/.Renviron`</span> and isn't tracked by any project's <span class="in">`.git`</span>. If you accidentally commit a key, *rotate it immediately* — assume it's compromised the moment it hits a public repo.</span>

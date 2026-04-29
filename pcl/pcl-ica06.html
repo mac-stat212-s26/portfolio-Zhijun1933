@@ -83,9 +83,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ce494e159dae1eb1aeb2beb157b73888.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ff22c52a3001d3523b51d50934c70255.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -754,19 +754,19 @@ cookieconsent.run({
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
 <span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 06 Wrangling I))</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    Logical vectors · Ch 12</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    "Logical vectors · Ch 12"</span>
 <span id="cb1-4"><a href="#cb1-4"></a>      Comparisons</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        == · != · &lt; · &gt; · &lt;= · &gt;=</span>
-<span id="cb1-6"><a href="#cb1-6"></a>        beware == on floats</span>
+<span id="cb1-5"><a href="#cb1-5"></a>        "== · != · &lt; · &gt; · &lt;= · &gt;="</span>
+<span id="cb1-6"><a href="#cb1-6"></a>        "beware == on floats"</span>
 <span id="cb1-7"><a href="#cb1-7"></a>          "near() for tolerance"</span>
 <span id="cb1-8"><a href="#cb1-8"></a>      Boolean ops</span>
-<span id="cb1-9"><a href="#cb1-9"></a>        &amp; · and</span>
-<span id="cb1-10"><a href="#cb1-10"></a>        "|" · or</span>
-<span id="cb1-11"><a href="#cb1-11"></a>        "!" · not</span>
-<span id="cb1-12"><a href="#cb1-12"></a>        xor · exclusive or</span>
-<span id="cb1-13"><a href="#cb1-13"></a>      Missing &amp; logic</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        NA &amp; FALSE = FALSE</span>
-<span id="cb1-15"><a href="#cb1-15"></a>        NA "|" TRUE = TRUE</span>
+<span id="cb1-9"><a href="#cb1-9"></a>        "&amp; · and"</span>
+<span id="cb1-10"><a href="#cb1-10"></a>        "\"|\" · or"</span>
+<span id="cb1-11"><a href="#cb1-11"></a>        "\"!\" · not"</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        "xor · exclusive or"</span>
+<span id="cb1-13"><a href="#cb1-13"></a>      "Missing &amp; logic"</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        "NA &amp; FALSE = FALSE"</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        "NA \"|\" TRUE = TRUE"</span>
 <span id="cb1-16"><a href="#cb1-16"></a>        "is.na() · explicit check"</span>
 <span id="cb1-17"><a href="#cb1-17"></a>      Summaries</span>
 <span id="cb1-18"><a href="#cb1-18"></a>        "any() · sum &gt; 0"</span>
@@ -775,35 +775,35 @@ cookieconsent.run({
 <span id="cb1-21"><a href="#cb1-21"></a>        "mean(x) · proportion TRUE"</span>
 <span id="cb1-22"><a href="#cb1-22"></a>      Conditionals</span>
 <span id="cb1-23"><a href="#cb1-23"></a>        "if_else()"</span>
-<span id="cb1-24"><a href="#cb1-24"></a>          two outcomes · type stable</span>
+<span id="cb1-24"><a href="#cb1-24"></a>          "two outcomes · type stable"</span>
 <span id="cb1-25"><a href="#cb1-25"></a>        "case_when()"</span>
 <span id="cb1-26"><a href="#cb1-26"></a>          multiple outcomes</span>
 <span id="cb1-27"><a href="#cb1-27"></a>          first match wins</span>
 <span id="cb1-28"><a href="#cb1-28"></a>          .default for fallthrough</span>
-<span id="cb1-29"><a href="#cb1-29"></a>    Numbers · Ch 13</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    "Numbers · Ch 13"</span>
 <span id="cb1-30"><a href="#cb1-30"></a>      Making numbers</span>
-<span id="cb1-31"><a href="#cb1-31"></a>        readr parse · parse_double · parse_number</span>
-<span id="cb1-32"><a href="#cb1-32"></a>        as.numeric · base R coerce</span>
+<span id="cb1-31"><a href="#cb1-31"></a>        "readr parse · parse_double · parse_number"</span>
+<span id="cb1-32"><a href="#cb1-32"></a>        "as.numeric · base R coerce"</span>
 <span id="cb1-33"><a href="#cb1-33"></a>      Counts</span>
 <span id="cb1-34"><a href="#cb1-34"></a>        "count(x) · single column"</span>
 <span id="cb1-35"><a href="#cb1-35"></a>        "n() · inside summarize"</span>
 <span id="cb1-36"><a href="#cb1-36"></a>        "n_distinct() · unique count"</span>
 <span id="cb1-37"><a href="#cb1-37"></a>      Transformations</span>
-<span id="cb1-38"><a href="#cb1-38"></a>        log · log2 · log10</span>
-<span id="cb1-39"><a href="#cb1-39"></a>        round · floor · ceiling</span>
-<span id="cb1-40"><a href="#cb1-40"></a>        cumulative · cumsum · cummax</span>
-<span id="cb1-41"><a href="#cb1-41"></a>        ranks · min_rank · dense_rank</span>
-<span id="cb1-42"><a href="#cb1-42"></a>        offset · lag · lead</span>
+<span id="cb1-38"><a href="#cb1-38"></a>        "log · log2 · log10"</span>
+<span id="cb1-39"><a href="#cb1-39"></a>        "round · floor · ceiling"</span>
+<span id="cb1-40"><a href="#cb1-40"></a>        "cumulative · cumsum · cummax"</span>
+<span id="cb1-41"><a href="#cb1-41"></a>        "ranks · min_rank · dense_rank"</span>
+<span id="cb1-42"><a href="#cb1-42"></a>        "offset · lag · lead"</span>
 <span id="cb1-43"><a href="#cb1-43"></a>      Summaries</span>
-<span id="cb1-44"><a href="#cb1-44"></a>        center · mean · median</span>
-<span id="cb1-45"><a href="#cb1-45"></a>        spread · sd · IQR · var</span>
-<span id="cb1-46"><a href="#cb1-46"></a>        quantile · min · max</span>
+<span id="cb1-44"><a href="#cb1-44"></a>        "center · mean · median"</span>
+<span id="cb1-45"><a href="#cb1-45"></a>        "spread · sd · IQR · var"</span>
+<span id="cb1-46"><a href="#cb1-46"></a>        "quantile · min · max"</span>
 <span id="cb1-47"><a href="#cb1-47"></a>      Numeric pitfalls</span>
 <span id="cb1-48"><a href="#cb1-48"></a>        floating point</span>
 <span id="cb1-49"><a href="#cb1-49"></a>        integer overflow</span>
 <span id="cb1-50"><a href="#cb1-50"></a>        NA propagation</span>
 <span id="cb1-51"><a href="#cb1-51"></a>          "mean(x, na.rm = TRUE)"</span>
-<span id="cb1-52"><a href="#cb1-52"></a>    Factors · Ch 16</span>
+<span id="cb1-52"><a href="#cb1-52"></a>    "Factors · Ch 16"</span>
 <span id="cb1-53"><a href="#cb1-53"></a>      Why factors not strings</span>
 <span id="cb1-54"><a href="#cb1-54"></a>        explicit level set</span>
 <span id="cb1-55"><a href="#cb1-55"></a>        non-alphabetic ordering</span>
@@ -812,41 +812,41 @@ cookieconsent.run({
 <span id="cb1-58"><a href="#cb1-58"></a>        "factor(x, levels = ...)"</span>
 <span id="cb1-59"><a href="#cb1-59"></a>        forcats family</span>
 <span id="cb1-60"><a href="#cb1-60"></a>      Reordering</span>
-<span id="cb1-61"><a href="#cb1-61"></a>        fct_reorder · by another var</span>
-<span id="cb1-62"><a href="#cb1-62"></a>        fct_infreq · by frequency</span>
-<span id="cb1-63"><a href="#cb1-63"></a>        fct_relevel · manual</span>
-<span id="cb1-64"><a href="#cb1-64"></a>        fct_rev · reverse</span>
+<span id="cb1-61"><a href="#cb1-61"></a>        "fct_reorder · by another var"</span>
+<span id="cb1-62"><a href="#cb1-62"></a>        "fct_infreq · by frequency"</span>
+<span id="cb1-63"><a href="#cb1-63"></a>        "fct_relevel · manual"</span>
+<span id="cb1-64"><a href="#cb1-64"></a>        "fct_rev · reverse"</span>
 <span id="cb1-65"><a href="#cb1-65"></a>      Renaming</span>
-<span id="cb1-66"><a href="#cb1-66"></a>        fct_recode · rename levels</span>
-<span id="cb1-67"><a href="#cb1-67"></a>        fct_collapse · merge groups</span>
-<span id="cb1-68"><a href="#cb1-68"></a>        fct_lump · top-n + Other</span>
+<span id="cb1-66"><a href="#cb1-66"></a>        "fct_recode · rename levels"</span>
+<span id="cb1-67"><a href="#cb1-67"></a>        "fct_collapse · merge groups"</span>
+<span id="cb1-68"><a href="#cb1-68"></a>        "fct_lump · top-n + Other"</span>
 <span id="cb1-69"><a href="#cb1-69"></a>      Ordered factors</span>
 <span id="cb1-70"><a href="#cb1-70"></a>        ordinal data</span>
-<span id="cb1-71"><a href="#cb1-71"></a>          low &lt; med &lt; high</span>
+<span id="cb1-71"><a href="#cb1-71"></a>          "low &lt; med &lt; high"</span>
 <span id="cb1-72"><a href="#cb1-72"></a>        "factor(..., ordered = TRUE)"</span>
-<span id="cb1-73"><a href="#cb1-73"></a>    Dates &amp; times · Ch 17</span>
+<span id="cb1-73"><a href="#cb1-73"></a>    "Dates &amp; times · Ch 17"</span>
 <span id="cb1-74"><a href="#cb1-74"></a>      Three types</span>
 <span id="cb1-75"><a href="#cb1-75"></a>        Date</span>
 <span id="cb1-76"><a href="#cb1-76"></a>          calendar day</span>
-<span id="cb1-77"><a href="#cb1-77"></a>        date-time · POSIXct</span>
+<span id="cb1-77"><a href="#cb1-77"></a>        "date-time · POSIXct"</span>
 <span id="cb1-78"><a href="#cb1-78"></a>          instant in time</span>
-<span id="cb1-79"><a href="#cb1-79"></a>        time · hms</span>
+<span id="cb1-79"><a href="#cb1-79"></a>        "time · hms"</span>
 <span id="cb1-80"><a href="#cb1-80"></a>      Creating</span>
 <span id="cb1-81"><a href="#cb1-81"></a>        from strings</span>
-<span id="cb1-82"><a href="#cb1-82"></a>          ymd · mdy · dmy</span>
+<span id="cb1-82"><a href="#cb1-82"></a>          "ymd · mdy · dmy"</span>
 <span id="cb1-83"><a href="#cb1-83"></a>          ymd_hms</span>
 <span id="cb1-84"><a href="#cb1-84"></a>        from components</span>
-<span id="cb1-85"><a href="#cb1-85"></a>          make_date · make_datetime</span>
+<span id="cb1-85"><a href="#cb1-85"></a>          "make_date · make_datetime"</span>
 <span id="cb1-86"><a href="#cb1-86"></a>        from existing</span>
-<span id="cb1-87"><a href="#cb1-87"></a>          as_date · as_datetime</span>
+<span id="cb1-87"><a href="#cb1-87"></a>          "as_date · as_datetime"</span>
 <span id="cb1-88"><a href="#cb1-88"></a>      Extracting components</span>
-<span id="cb1-89"><a href="#cb1-89"></a>        year · month · day</span>
-<span id="cb1-90"><a href="#cb1-90"></a>        wday · weekday</span>
-<span id="cb1-91"><a href="#cb1-91"></a>        hour · minute · second</span>
+<span id="cb1-89"><a href="#cb1-89"></a>        "year · month · day"</span>
+<span id="cb1-90"><a href="#cb1-90"></a>        "wday · weekday"</span>
+<span id="cb1-91"><a href="#cb1-91"></a>        "hour · minute · second"</span>
 <span id="cb1-92"><a href="#cb1-92"></a>      Time spans</span>
-<span id="cb1-93"><a href="#cb1-93"></a>        durations · exact seconds</span>
-<span id="cb1-94"><a href="#cb1-94"></a>        periods · human-aware months · years</span>
-<span id="cb1-95"><a href="#cb1-95"></a>        intervals · explicit start + end</span>
+<span id="cb1-93"><a href="#cb1-93"></a>        "durations · exact seconds"</span>
+<span id="cb1-94"><a href="#cb1-94"></a>        "periods · human-aware months · years"</span>
+<span id="cb1-95"><a href="#cb1-95"></a>        "intervals · explicit start + end"</span>
 <span id="cb1-96"><a href="#cb1-96"></a>      Time zones</span>
 <span id="cb1-97"><a href="#cb1-97"></a>        UTC default</span>
 <span id="cb1-98"><a href="#cb1-98"></a>        force_tz vs with_tz</span>
@@ -859,19 +859,19 @@ cookieconsent.run({
 <div>
 <pre class="mermaid mermaid-js">mindmap
   root((ICA 06 Wrangling I))
-    Logical vectors · Ch 12
+    "Logical vectors · Ch 12"
       Comparisons
-        == · != · &lt; · &gt; · &lt;= · &gt;=
-        beware == on floats
+        "== · != · &lt; · &gt; · &lt;= · &gt;="
+        "beware == on floats"
           "near() for tolerance"
       Boolean ops
-        &amp; · and
-        "|" · or
-        "!" · not
-        xor · exclusive or
-      Missing &amp; logic
-        NA &amp; FALSE = FALSE
-        NA "|" TRUE = TRUE
+        "&amp; · and"
+        "\"|\" · or"
+        "\"!\" · not"
+        "xor · exclusive or"
+      "Missing &amp; logic"
+        "NA &amp; FALSE = FALSE"
+        "NA \"|\" TRUE = TRUE"
         "is.na() · explicit check"
       Summaries
         "any() · sum &gt; 0"
@@ -880,35 +880,35 @@ cookieconsent.run({
         "mean(x) · proportion TRUE"
       Conditionals
         "if_else()"
-          two outcomes · type stable
+          "two outcomes · type stable"
         "case_when()"
           multiple outcomes
           first match wins
           .default for fallthrough
-    Numbers · Ch 13
+    "Numbers · Ch 13"
       Making numbers
-        readr parse · parse_double · parse_number
-        as.numeric · base R coerce
+        "readr parse · parse_double · parse_number"
+        "as.numeric · base R coerce"
       Counts
         "count(x) · single column"
         "n() · inside summarize"
         "n_distinct() · unique count"
       Transformations
-        log · log2 · log10
-        round · floor · ceiling
-        cumulative · cumsum · cummax
-        ranks · min_rank · dense_rank
-        offset · lag · lead
+        "log · log2 · log10"
+        "round · floor · ceiling"
+        "cumulative · cumsum · cummax"
+        "ranks · min_rank · dense_rank"
+        "offset · lag · lead"
       Summaries
-        center · mean · median
-        spread · sd · IQR · var
-        quantile · min · max
+        "center · mean · median"
+        "spread · sd · IQR · var"
+        "quantile · min · max"
       Numeric pitfalls
         floating point
         integer overflow
         NA propagation
           "mean(x, na.rm = TRUE)"
-    Factors · Ch 16
+    "Factors · Ch 16"
       Why factors not strings
         explicit level set
         non-alphabetic ordering
@@ -917,41 +917,41 @@ cookieconsent.run({
         "factor(x, levels = ...)"
         forcats family
       Reordering
-        fct_reorder · by another var
-        fct_infreq · by frequency
-        fct_relevel · manual
-        fct_rev · reverse
+        "fct_reorder · by another var"
+        "fct_infreq · by frequency"
+        "fct_relevel · manual"
+        "fct_rev · reverse"
       Renaming
-        fct_recode · rename levels
-        fct_collapse · merge groups
-        fct_lump · top-n + Other
+        "fct_recode · rename levels"
+        "fct_collapse · merge groups"
+        "fct_lump · top-n + Other"
       Ordered factors
         ordinal data
-          low &lt; med &lt; high
+          "low &lt; med &lt; high"
         "factor(..., ordered = TRUE)"
-    Dates &amp; times · Ch 17
+    "Dates &amp; times · Ch 17"
       Three types
         Date
           calendar day
-        date-time · POSIXct
+        "date-time · POSIXct"
           instant in time
-        time · hms
+        "time · hms"
       Creating
         from strings
-          ymd · mdy · dmy
+          "ymd · mdy · dmy"
           ymd_hms
         from components
-          make_date · make_datetime
+          "make_date · make_datetime"
         from existing
-          as_date · as_datetime
+          "as_date · as_datetime"
       Extracting components
-        year · month · day
-        wday · weekday
-        hour · minute · second
+        "year · month · day"
+        "wday · weekday"
+        "hour · minute · second"
       Time spans
-        durations · exact seconds
-        periods · human-aware months · years
-        intervals · explicit start + end
+        "durations · exact seconds"
+        "periods · human-aware months · years"
+        "intervals · explicit start + end"
       Time zones
         UTC default
         force_tz vs with_tz
@@ -1512,19 +1512,19 @@ cookieconsent.run({
 <span id="cb3-15"><a href="#cb3-15"></a><span class="in">```{mermaid}</span></span>
 <span id="cb3-16"><a href="#cb3-16"></a>mindmap</span>
 <span id="cb3-17"><a href="#cb3-17"></a>  root((ICA <span class="bn">06</span> Wrangling I))</span>
-<span id="cb3-18"><a href="#cb3-18"></a>    Logical vectors · Ch <span class="dv">12</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>    <span class="ot">"</span><span class="st">Logical vectors · Ch 12</span><span class="ot">"</span></span>
 <span id="cb3-19"><a href="#cb3-19"></a>      Comparisons</span>
-<span id="cb3-20"><a href="#cb3-20"></a>        == · != · &lt; · &gt; · &lt;= · &gt;=</span>
-<span id="cb3-21"><a href="#cb3-21"></a>        beware == on floats</span>
+<span id="cb3-20"><a href="#cb3-20"></a>        <span class="ot">"</span><span class="st">== · != · &lt; · &gt; · &lt;= · &gt;=</span><span class="ot">"</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>        <span class="ot">"</span><span class="st">beware == on floats</span><span class="ot">"</span></span>
 <span id="cb3-22"><a href="#cb3-22"></a>          <span class="ot">"</span><span class="st">near() for tolerance</span><span class="ot">"</span></span>
 <span id="cb3-23"><a href="#cb3-23"></a>      Boolean ops</span>
-<span id="cb3-24"><a href="#cb3-24"></a>        &amp; · <span class="ot">and</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a>        <span class="ot">"</span><span class="st">|</span><span class="ot">"</span> · <span class="ot">or</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a>        <span class="ot">"</span><span class="st">!</span><span class="ot">"</span> · <span class="ot">not</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a>        xor · exclusive <span class="ot">or</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a>      Missing &amp; logic</span>
-<span id="cb3-29"><a href="#cb3-29"></a>        NA &amp; FALSE = FALSE</span>
-<span id="cb3-30"><a href="#cb3-30"></a>        NA <span class="ot">"</span><span class="st">|</span><span class="ot">"</span> TRUE = TRUE</span>
+<span id="cb3-24"><a href="#cb3-24"></a>        <span class="ot">"</span><span class="st">&amp; · and</span><span class="ot">"</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a>        <span class="ot">"</span><span class="st">\"|\" · or</span><span class="ot">"</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a>        <span class="ot">"</span><span class="st">\"!\" · not</span><span class="ot">"</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>        <span class="ot">"</span><span class="st">xor · exclusive or</span><span class="ot">"</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>      <span class="ot">"</span><span class="st">Missing &amp; logic</span><span class="ot">"</span></span>
+<span id="cb3-29"><a href="#cb3-29"></a>        <span class="ot">"</span><span class="st">NA &amp; FALSE = FALSE</span><span class="ot">"</span></span>
+<span id="cb3-30"><a href="#cb3-30"></a>        <span class="ot">"</span><span class="st">NA \"|\" TRUE = TRUE</span><span class="ot">"</span></span>
 <span id="cb3-31"><a href="#cb3-31"></a>        <span class="ot">"</span><span class="st">is.na() · explicit check</span><span class="ot">"</span></span>
 <span id="cb3-32"><a href="#cb3-32"></a>      Summaries</span>
 <span id="cb3-33"><a href="#cb3-33"></a>        <span class="ot">"</span><span class="st">any() · sum &gt; 0</span><span class="ot">"</span></span>
@@ -1533,35 +1533,35 @@ cookieconsent.run({
 <span id="cb3-36"><a href="#cb3-36"></a>        <span class="ot">"</span><span class="st">mean(x) · proportion TRUE</span><span class="ot">"</span></span>
 <span id="cb3-37"><a href="#cb3-37"></a>      Conditionals</span>
 <span id="cb3-38"><a href="#cb3-38"></a>        <span class="ot">"</span><span class="st">if_else()</span><span class="ot">"</span></span>
-<span id="cb3-39"><a href="#cb3-39"></a>          two outcomes · type stable</span>
+<span id="cb3-39"><a href="#cb3-39"></a>          <span class="ot">"</span><span class="st">two outcomes · type stable</span><span class="ot">"</span></span>
 <span id="cb3-40"><a href="#cb3-40"></a>        <span class="ot">"</span><span class="st">case_when()</span><span class="ot">"</span></span>
 <span id="cb3-41"><a href="#cb3-41"></a>          multiple outcomes</span>
 <span id="cb3-42"><a href="#cb3-42"></a>          first match wins</span>
 <span id="cb3-43"><a href="#cb3-43"></a>          .<span class="cf">default</span> <span class="cf">for</span> fallthrough</span>
-<span id="cb3-44"><a href="#cb3-44"></a>    Numbers · Ch <span class="dv">13</span></span>
+<span id="cb3-44"><a href="#cb3-44"></a>    <span class="ot">"</span><span class="st">Numbers · Ch 13</span><span class="ot">"</span></span>
 <span id="cb3-45"><a href="#cb3-45"></a>      Making numbers</span>
-<span id="cb3-46"><a href="#cb3-46"></a>        readr parse · parse_double · parse_number</span>
-<span id="cb3-47"><a href="#cb3-47"></a>        as.numeric · base R coerce</span>
+<span id="cb3-46"><a href="#cb3-46"></a>        <span class="ot">"</span><span class="st">readr parse · parse_double · parse_number</span><span class="ot">"</span></span>
+<span id="cb3-47"><a href="#cb3-47"></a>        <span class="ot">"</span><span class="st">as.numeric · base R coerce</span><span class="ot">"</span></span>
 <span id="cb3-48"><a href="#cb3-48"></a>      Counts</span>
 <span id="cb3-49"><a href="#cb3-49"></a>        <span class="ot">"</span><span class="st">count(x) · single column</span><span class="ot">"</span></span>
 <span id="cb3-50"><a href="#cb3-50"></a>        <span class="ot">"</span><span class="st">n() · inside summarize</span><span class="ot">"</span></span>
 <span id="cb3-51"><a href="#cb3-51"></a>        <span class="ot">"</span><span class="st">n_distinct() · unique count</span><span class="ot">"</span></span>
 <span id="cb3-52"><a href="#cb3-52"></a>      Transformations</span>
-<span id="cb3-53"><a href="#cb3-53"></a>        <span class="fu">log</span> · log2 · log10</span>
-<span id="cb3-54"><a href="#cb3-54"></a>        round · floor · ceiling</span>
-<span id="cb3-55"><a href="#cb3-55"></a>        cumulative · cumsum · cummax</span>
-<span id="cb3-56"><a href="#cb3-56"></a>        ranks · min_rank · dense_rank</span>
-<span id="cb3-57"><a href="#cb3-57"></a>        offset · lag · lead</span>
+<span id="cb3-53"><a href="#cb3-53"></a>        <span class="ot">"</span><span class="st">log · log2 · log10</span><span class="ot">"</span></span>
+<span id="cb3-54"><a href="#cb3-54"></a>        <span class="ot">"</span><span class="st">round · floor · ceiling</span><span class="ot">"</span></span>
+<span id="cb3-55"><a href="#cb3-55"></a>        <span class="ot">"</span><span class="st">cumulative · cumsum · cummax</span><span class="ot">"</span></span>
+<span id="cb3-56"><a href="#cb3-56"></a>        <span class="ot">"</span><span class="st">ranks · min_rank · dense_rank</span><span class="ot">"</span></span>
+<span id="cb3-57"><a href="#cb3-57"></a>        <span class="ot">"</span><span class="st">offset · lag · lead</span><span class="ot">"</span></span>
 <span id="cb3-58"><a href="#cb3-58"></a>      Summaries</span>
-<span id="cb3-59"><a href="#cb3-59"></a>        center · mean · median</span>
-<span id="cb3-60"><a href="#cb3-60"></a>        spread · sd · IQR · var</span>
-<span id="cb3-61"><a href="#cb3-61"></a>        quantile · min · max</span>
+<span id="cb3-59"><a href="#cb3-59"></a>        <span class="ot">"</span><span class="st">center · mean · median</span><span class="ot">"</span></span>
+<span id="cb3-60"><a href="#cb3-60"></a>        <span class="ot">"</span><span class="st">spread · sd · IQR · var</span><span class="ot">"</span></span>
+<span id="cb3-61"><a href="#cb3-61"></a>        <span class="ot">"</span><span class="st">quantile · min · max</span><span class="ot">"</span></span>
 <span id="cb3-62"><a href="#cb3-62"></a>      Numeric pitfalls</span>
 <span id="cb3-63"><a href="#cb3-63"></a>        floating point</span>
 <span id="cb3-64"><a href="#cb3-64"></a>        <span class="kw">integer</span> overflow</span>
 <span id="cb3-65"><a href="#cb3-65"></a>        NA propagation</span>
 <span id="cb3-66"><a href="#cb3-66"></a>          <span class="ot">"</span><span class="st">mean(x, na.rm = TRUE)</span><span class="ot">"</span></span>
-<span id="cb3-67"><a href="#cb3-67"></a>    Factors · Ch <span class="dv">16</span></span>
+<span id="cb3-67"><a href="#cb3-67"></a>    <span class="ot">"</span><span class="st">Factors · Ch 16</span><span class="ot">"</span></span>
 <span id="cb3-68"><a href="#cb3-68"></a>      Why factors <span class="ot">not</span> strings</span>
 <span id="cb3-69"><a href="#cb3-69"></a>        explicit level set</span>
 <span id="cb3-70"><a href="#cb3-70"></a>        non-alphabetic ordering</span>
@@ -1570,41 +1570,41 @@ cookieconsent.run({
 <span id="cb3-73"><a href="#cb3-73"></a>        <span class="ot">"</span><span class="st">factor(x, levels = ...)</span><span class="ot">"</span></span>
 <span id="cb3-74"><a href="#cb3-74"></a>        forcats family</span>
 <span id="cb3-75"><a href="#cb3-75"></a>      Reordering</span>
-<span id="cb3-76"><a href="#cb3-76"></a>        fct_reorder · by another var</span>
-<span id="cb3-77"><a href="#cb3-77"></a>        fct_infreq · by frequency</span>
-<span id="cb3-78"><a href="#cb3-78"></a>        fct_relevel · manual</span>
-<span id="cb3-79"><a href="#cb3-79"></a>        fct_rev · <span class="fu">reverse</span></span>
+<span id="cb3-76"><a href="#cb3-76"></a>        <span class="ot">"</span><span class="st">fct_reorder · by another var</span><span class="ot">"</span></span>
+<span id="cb3-77"><a href="#cb3-77"></a>        <span class="ot">"</span><span class="st">fct_infreq · by frequency</span><span class="ot">"</span></span>
+<span id="cb3-78"><a href="#cb3-78"></a>        <span class="ot">"</span><span class="st">fct_relevel · manual</span><span class="ot">"</span></span>
+<span id="cb3-79"><a href="#cb3-79"></a>        <span class="ot">"</span><span class="st">fct_rev · reverse</span><span class="ot">"</span></span>
 <span id="cb3-80"><a href="#cb3-80"></a>      Renaming</span>
-<span id="cb3-81"><a href="#cb3-81"></a>        fct_recode · <span class="fu">rename</span> levels</span>
-<span id="cb3-82"><a href="#cb3-82"></a>        fct_collapse · merge groups</span>
-<span id="cb3-83"><a href="#cb3-83"></a>        fct_lump · top-n + Other</span>
+<span id="cb3-81"><a href="#cb3-81"></a>        <span class="ot">"</span><span class="st">fct_recode · rename levels</span><span class="ot">"</span></span>
+<span id="cb3-82"><a href="#cb3-82"></a>        <span class="ot">"</span><span class="st">fct_collapse · merge groups</span><span class="ot">"</span></span>
+<span id="cb3-83"><a href="#cb3-83"></a>        <span class="ot">"</span><span class="st">fct_lump · top-n + Other</span><span class="ot">"</span></span>
 <span id="cb3-84"><a href="#cb3-84"></a>      Ordered factors</span>
 <span id="cb3-85"><a href="#cb3-85"></a>        ordinal data</span>
-<span id="cb3-86"><a href="#cb3-86"></a>          low &lt; med &lt; high</span>
+<span id="cb3-86"><a href="#cb3-86"></a>          <span class="ot">"</span><span class="st">low &lt; med &lt; high</span><span class="ot">"</span></span>
 <span id="cb3-87"><a href="#cb3-87"></a>        <span class="ot">"</span><span class="st">factor(..., ordered = TRUE)</span><span class="ot">"</span></span>
-<span id="cb3-88"><a href="#cb3-88"></a>    Dates &amp; <span class="fu">times</span> · Ch <span class="dv">17</span></span>
+<span id="cb3-88"><a href="#cb3-88"></a>    <span class="ot">"</span><span class="st">Dates &amp; times · Ch 17</span><span class="ot">"</span></span>
 <span id="cb3-89"><a href="#cb3-89"></a>      Three types</span>
 <span id="cb3-90"><a href="#cb3-90"></a>        Date</span>
 <span id="cb3-91"><a href="#cb3-91"></a>          calendar day</span>
-<span id="cb3-92"><a href="#cb3-92"></a>        date-<span class="fu">time</span> · POSIXct</span>
+<span id="cb3-92"><a href="#cb3-92"></a>        <span class="ot">"</span><span class="st">date-time · POSIXct</span><span class="ot">"</span></span>
 <span id="cb3-93"><a href="#cb3-93"></a>          instant in <span class="fu">time</span></span>
-<span id="cb3-94"><a href="#cb3-94"></a>        <span class="fu">time</span> · hms</span>
+<span id="cb3-94"><a href="#cb3-94"></a>        <span class="ot">"</span><span class="st">time · hms</span><span class="ot">"</span></span>
 <span id="cb3-95"><a href="#cb3-95"></a>      Creating</span>
 <span id="cb3-96"><a href="#cb3-96"></a>        from strings</span>
-<span id="cb3-97"><a href="#cb3-97"></a>          ymd · mdy · dmy</span>
+<span id="cb3-97"><a href="#cb3-97"></a>          <span class="ot">"</span><span class="st">ymd · mdy · dmy</span><span class="ot">"</span></span>
 <span id="cb3-98"><a href="#cb3-98"></a>          ymd_hms</span>
 <span id="cb3-99"><a href="#cb3-99"></a>        from components</span>
-<span id="cb3-100"><a href="#cb3-100"></a>          make_date · make_datetime</span>
+<span id="cb3-100"><a href="#cb3-100"></a>          <span class="ot">"</span><span class="st">make_date · make_datetime</span><span class="ot">"</span></span>
 <span id="cb3-101"><a href="#cb3-101"></a>        from existing</span>
-<span id="cb3-102"><a href="#cb3-102"></a>          as_date · as_datetime</span>
+<span id="cb3-102"><a href="#cb3-102"></a>          <span class="ot">"</span><span class="st">as_date · as_datetime</span><span class="ot">"</span></span>
 <span id="cb3-103"><a href="#cb3-103"></a>      Extracting components</span>
-<span id="cb3-104"><a href="#cb3-104"></a>        year · month · day</span>
-<span id="cb3-105"><a href="#cb3-105"></a>        wday · weekday</span>
-<span id="cb3-106"><a href="#cb3-106"></a>        hour · minute · second</span>
+<span id="cb3-104"><a href="#cb3-104"></a>        <span class="ot">"</span><span class="st">year · month · day</span><span class="ot">"</span></span>
+<span id="cb3-105"><a href="#cb3-105"></a>        <span class="ot">"</span><span class="st">wday · weekday</span><span class="ot">"</span></span>
+<span id="cb3-106"><a href="#cb3-106"></a>        <span class="ot">"</span><span class="st">hour · minute · second</span><span class="ot">"</span></span>
 <span id="cb3-107"><a href="#cb3-107"></a>      Time spans</span>
-<span id="cb3-108"><a href="#cb3-108"></a>        durations · exact seconds</span>
-<span id="cb3-109"><a href="#cb3-109"></a>        periods · human-aware months · years</span>
-<span id="cb3-110"><a href="#cb3-110"></a>        intervals · explicit start + end</span>
+<span id="cb3-108"><a href="#cb3-108"></a>        <span class="ot">"</span><span class="st">durations · exact seconds</span><span class="ot">"</span></span>
+<span id="cb3-109"><a href="#cb3-109"></a>        <span class="ot">"</span><span class="st">periods · human-aware months · years</span><span class="ot">"</span></span>
+<span id="cb3-110"><a href="#cb3-110"></a>        <span class="ot">"</span><span class="st">intervals · explicit start + end</span><span class="ot">"</span></span>
 <span id="cb3-111"><a href="#cb3-111"></a>      Time zones</span>
 <span id="cb3-112"><a href="#cb3-112"></a>        UTC <span class="cf">default</span></span>
 <span id="cb3-113"><a href="#cb3-113"></a>        force_tz vs with_tz</span>

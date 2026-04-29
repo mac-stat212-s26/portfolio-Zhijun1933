@@ -83,9 +83,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ce494e159dae1eb1aeb2beb157b73888.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ff22c52a3001d3523b51d50934c70255.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -756,23 +756,23 @@ cookieconsent.run({
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
 <span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 08 Missing Data))</span>
 <span id="cb1-3"><a href="#cb1-3"></a>    Two flavors of missing</span>
-<span id="cb1-4"><a href="#cb1-4"></a>      Explicit · NA in cell</span>
+<span id="cb1-4"><a href="#cb1-4"></a>      "Explicit · NA in cell"</span>
 <span id="cb1-5"><a href="#cb1-5"></a>        you can see it</span>
 <span id="cb1-6"><a href="#cb1-6"></a>        "is.na(x) returns TRUE"</span>
-<span id="cb1-7"><a href="#cb1-7"></a>        is.na · always · use this</span>
-<span id="cb1-8"><a href="#cb1-8"></a>        x == NA · never works</span>
-<span id="cb1-9"><a href="#cb1-9"></a>      Implicit · row absent</span>
+<span id="cb1-7"><a href="#cb1-7"></a>        "is.na · always · use this"</span>
+<span id="cb1-8"><a href="#cb1-8"></a>        "x == NA · never works"</span>
+<span id="cb1-9"><a href="#cb1-9"></a>      "Implicit · row absent"</span>
 <span id="cb1-10"><a href="#cb1-10"></a>        invisible by default</span>
 <span id="cb1-11"><a href="#cb1-11"></a>        only catchable by</span>
 <span id="cb1-12"><a href="#cb1-12"></a>          comparing to expected universe</span>
 <span id="cb1-13"><a href="#cb1-13"></a>          "using complete()"</span>
 <span id="cb1-14"><a href="#cb1-14"></a>          "using anti_join() against template"</span>
 <span id="cb1-15"><a href="#cb1-15"></a>    Why missing happens</span>
-<span id="cb1-16"><a href="#cb1-16"></a>      Not measured · sensor failed</span>
-<span id="cb1-17"><a href="#cb1-17"></a>      Not asked · survey skipped</span>
-<span id="cb1-18"><a href="#cb1-18"></a>      Not recorded · keystroke missed</span>
-<span id="cb1-19"><a href="#cb1-19"></a>      Not applicable · question doesn't apply</span>
-<span id="cb1-20"><a href="#cb1-20"></a>      Sentinel values · -99 · 9999</span>
+<span id="cb1-16"><a href="#cb1-16"></a>      "Not measured · sensor failed"</span>
+<span id="cb1-17"><a href="#cb1-17"></a>      "Not asked · survey skipped"</span>
+<span id="cb1-18"><a href="#cb1-18"></a>      "Not recorded · keystroke missed"</span>
+<span id="cb1-19"><a href="#cb1-19"></a>      "Not applicable · question doesn't apply"</span>
+<span id="cb1-20"><a href="#cb1-20"></a>      "Sentinel values · -99 · 9999"</span>
 <span id="cb1-21"><a href="#cb1-21"></a>        treated as numbers</span>
 <span id="cb1-22"><a href="#cb1-22"></a>        until you fix them</span>
 <span id="cb1-23"><a href="#cb1-23"></a>        "na = c(\"\", \"-99\") in readers"</span>
@@ -787,7 +787,7 @@ cookieconsent.run({
 <span id="cb1-32"><a href="#cb1-32"></a>          all NA cols by default</span>
 <span id="cb1-33"><a href="#cb1-33"></a>          "drop_na(col1, col2)"</span>
 <span id="cb1-34"><a href="#cb1-34"></a>        "filter(!is.na(col))"</span>
-<span id="cb1-35"><a href="#cb1-35"></a>      Replace · impute</span>
+<span id="cb1-35"><a href="#cb1-35"></a>      "Replace · impute"</span>
 <span id="cb1-36"><a href="#cb1-36"></a>        "replace_na(list(col = 0))"</span>
 <span id="cb1-37"><a href="#cb1-37"></a>          inside mutate</span>
 <span id="cb1-38"><a href="#cb1-38"></a>        "coalesce(x, y)"</span>
@@ -796,7 +796,7 @@ cookieconsent.run({
 <span id="cb1-41"><a href="#cb1-41"></a>          carry last value forward</span>
 <span id="cb1-42"><a href="#cb1-42"></a>          "fill(col, .direction = \"down\")"</span>
 <span id="cb1-43"><a href="#cb1-43"></a>            common with grouped data</span>
-<span id="cb1-44"><a href="#cb1-44"></a>            time series · gaps</span>
+<span id="cb1-44"><a href="#cb1-44"></a>            "time series · gaps"</span>
 <span id="cb1-45"><a href="#cb1-45"></a>      Test for NA</span>
 <span id="cb1-46"><a href="#cb1-46"></a>        "if_else(is.na(x), val, x)"</span>
 <span id="cb1-47"><a href="#cb1-47"></a>        case_when can branch on is.na</span>
@@ -805,11 +805,11 @@ cookieconsent.run({
 <span id="cb1-50"><a href="#cb1-50"></a>        "sum(x, na.rm = TRUE)"</span>
 <span id="cb1-51"><a href="#cb1-51"></a>        "mean(x, na.rm = TRUE)"</span>
 <span id="cb1-52"><a href="#cb1-52"></a>      comparisons</span>
-<span id="cb1-53"><a href="#cb1-53"></a>        NA == NA returns NA</span>
+<span id="cb1-53"><a href="#cb1-53"></a>        "NA == NA returns NA"</span>
 <span id="cb1-54"><a href="#cb1-54"></a>        not TRUE</span>
 <span id="cb1-55"><a href="#cb1-55"></a>      logical</span>
-<span id="cb1-56"><a href="#cb1-56"></a>        NA &amp; FALSE = FALSE</span>
-<span id="cb1-57"><a href="#cb1-57"></a>        NA "|" TRUE = TRUE</span>
+<span id="cb1-56"><a href="#cb1-56"></a>        "NA &amp; FALSE = FALSE"</span>
+<span id="cb1-57"><a href="#cb1-57"></a>        "NA \"|\" TRUE = TRUE"</span>
 <span id="cb1-58"><a href="#cb1-58"></a>      "filter()"</span>
 <span id="cb1-59"><a href="#cb1-59"></a>        drops NA rows silently</span>
 <span id="cb1-60"><a href="#cb1-60"></a>        "filter(x &gt; 0) excludes NA"</span>
@@ -834,9 +834,9 @@ cookieconsent.run({
 <span id="cb1-79"><a href="#cb1-79"></a>      After surfacing</span>
 <span id="cb1-80"><a href="#cb1-80"></a>        decide why missing</span>
 <span id="cb1-81"><a href="#cb1-81"></a>        decide whether to keep</span>
-<span id="cb1-82"><a href="#cb1-82"></a>          as NA · explicit now</span>
-<span id="cb1-83"><a href="#cb1-83"></a>          drop · not relevant</span>
-<span id="cb1-84"><a href="#cb1-84"></a>          impute · estimate value</span>
+<span id="cb1-82"><a href="#cb1-82"></a>          "as NA · explicit now"</span>
+<span id="cb1-83"><a href="#cb1-83"></a>          "drop · not relevant"</span>
+<span id="cb1-84"><a href="#cb1-84"></a>          "impute · estimate value"</span>
 <span id="cb1-85"><a href="#cb1-85"></a>    Missing in factors</span>
 <span id="cb1-86"><a href="#cb1-86"></a>      NA as a level</span>
 <span id="cb1-87"><a href="#cb1-87"></a>        fct_na_value_to_level</span>
@@ -853,23 +853,23 @@ cookieconsent.run({
 <pre class="mermaid mermaid-js">mindmap
   root((ICA 08 Missing Data))
     Two flavors of missing
-      Explicit · NA in cell
+      "Explicit · NA in cell"
         you can see it
         "is.na(x) returns TRUE"
-        is.na · always · use this
-        x == NA · never works
-      Implicit · row absent
+        "is.na · always · use this"
+        "x == NA · never works"
+      "Implicit · row absent"
         invisible by default
         only catchable by
           comparing to expected universe
           "using complete()"
           "using anti_join() against template"
     Why missing happens
-      Not measured · sensor failed
-      Not asked · survey skipped
-      Not recorded · keystroke missed
-      Not applicable · question doesn't apply
-      Sentinel values · -99 · 9999
+      "Not measured · sensor failed"
+      "Not asked · survey skipped"
+      "Not recorded · keystroke missed"
+      "Not applicable · question doesn't apply"
+      "Sentinel values · -99 · 9999"
         treated as numbers
         until you fix them
         "na = c(\"\", \"-99\") in readers"
@@ -884,7 +884,7 @@ cookieconsent.run({
           all NA cols by default
           "drop_na(col1, col2)"
         "filter(!is.na(col))"
-      Replace · impute
+      "Replace · impute"
         "replace_na(list(col = 0))"
           inside mutate
         "coalesce(x, y)"
@@ -893,7 +893,7 @@ cookieconsent.run({
           carry last value forward
           "fill(col, .direction = \"down\")"
             common with grouped data
-            time series · gaps
+            "time series · gaps"
       Test for NA
         "if_else(is.na(x), val, x)"
         case_when can branch on is.na
@@ -902,11 +902,11 @@ cookieconsent.run({
         "sum(x, na.rm = TRUE)"
         "mean(x, na.rm = TRUE)"
       comparisons
-        NA == NA returns NA
+        "NA == NA returns NA"
         not TRUE
       logical
-        NA &amp; FALSE = FALSE
-        NA "|" TRUE = TRUE
+        "NA &amp; FALSE = FALSE"
+        "NA \"|\" TRUE = TRUE"
       "filter()"
         drops NA rows silently
         "filter(x &gt; 0) excludes NA"
@@ -931,9 +931,9 @@ cookieconsent.run({
       After surfacing
         decide why missing
         decide whether to keep
-          as NA · explicit now
-          drop · not relevant
-          impute · estimate value
+          "as NA · explicit now"
+          "drop · not relevant"
+          "impute · estimate value"
     Missing in factors
       NA as a level
         fct_na_value_to_level
@@ -1516,127 +1516,127 @@ cookieconsent.run({
 <span id="cb2-16"><a href="#cb2-16"></a>mindmap</span>
 <span id="cb2-17"><a href="#cb2-17"></a>  root((ICA <span class="dv">0</span>8 Missing Data))</span>
 <span id="cb2-18"><a href="#cb2-18"></a>    Two flavors of missing</span>
-<span id="cb2-19"><a href="#cb2-19"></a>      Explicit · NA in cell</span>
+<span id="cb2-19"><a href="#cb2-19"></a>      <span class="ot">"</span><span class="st">Explicit · NA in cell</span><span class="ot">"</span></span>
 <span id="cb2-20"><a href="#cb2-20"></a>        you can see it</span>
 <span id="cb2-21"><a href="#cb2-21"></a>        <span class="ot">"</span><span class="st">is.na(x) returns TRUE</span><span class="ot">"</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a>        is.na · always · <span class="fu">use</span> this</span>
-<span id="cb2-23"><a href="#cb2-23"></a>        x == NA · never works</span>
-<span id="cb2-24"><a href="#cb2-24"></a>      Implicit · row absent</span>
+<span id="cb2-22"><a href="#cb2-22"></a>        <span class="ot">"</span><span class="st">is.na · always · use this</span><span class="ot">"</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>        <span class="ot">"</span><span class="st">x == NA · never works</span><span class="ot">"</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>      <span class="ot">"</span><span class="st">Implicit · row absent</span><span class="ot">"</span></span>
 <span id="cb2-25"><a href="#cb2-25"></a>        invisible by <span class="cf">default</span></span>
 <span id="cb2-26"><a href="#cb2-26"></a>        only catchable by</span>
 <span id="cb2-27"><a href="#cb2-27"></a>          comparing to expected universe</span>
 <span id="cb2-28"><a href="#cb2-28"></a>          <span class="ot">"</span><span class="st">using complete()</span><span class="ot">"</span></span>
 <span id="cb2-29"><a href="#cb2-29"></a>          <span class="ot">"</span><span class="st">using anti_join() against template</span><span class="ot">"</span></span>
 <span id="cb2-30"><a href="#cb2-30"></a>    Why missing happens</span>
-<span id="cb2-31"><a href="#cb2-31"></a>      Not measured · sensor failed</span>
-<span id="cb2-32"><a href="#cb2-32"></a>      Not asked · survey skipped</span>
-<span id="cb2-33"><a href="#cb2-33"></a>      Not recorded · keystroke missed</span>
-<span id="cb2-34"><a href="#cb2-34"></a>      Not applicable · question doesn<span class="ot">'</span><span class="ss">t apply</span></span>
-<span id="cb2-35"><a href="#cb2-35"></a><span class="ss">      Sentinel values · -99 · 9999</span></span>
-<span id="cb2-36"><a href="#cb2-36"></a><span class="ss">        treated as numbers</span></span>
-<span id="cb2-37"><a href="#cb2-37"></a><span class="ss">        until you fix them</span></span>
-<span id="cb2-38"><a href="#cb2-38"></a><span class="ss">        "na = c(\"\", \"-99\") in readers"</span></span>
-<span id="cb2-39"><a href="#cb2-39"></a><span class="ss">    Detecting explicit NA</span></span>
-<span id="cb2-40"><a href="#cb2-40"></a><span class="ss">      "sum(is.na(x))"</span></span>
-<span id="cb2-41"><a href="#cb2-41"></a><span class="ss">      "colSums(is.na(df))"</span></span>
-<span id="cb2-42"><a href="#cb2-42"></a><span class="ss">      "filter(df, is.na(col))"</span></span>
-<span id="cb2-43"><a href="#cb2-43"></a><span class="ss">      naniar::miss_var_summary</span></span>
-<span id="cb2-44"><a href="#cb2-44"></a><span class="ss">    Handling explicit NA</span></span>
-<span id="cb2-45"><a href="#cb2-45"></a><span class="ss">      Drop rows</span></span>
-<span id="cb2-46"><a href="#cb2-46"></a><span class="ss">        "drop_na()"</span></span>
-<span id="cb2-47"><a href="#cb2-47"></a><span class="ss">          all NA cols by default</span></span>
-<span id="cb2-48"><a href="#cb2-48"></a><span class="ss">          "drop_na(col1, col2)"</span></span>
-<span id="cb2-49"><a href="#cb2-49"></a><span class="ss">        "filter(!is.na(col))"</span></span>
-<span id="cb2-50"><a href="#cb2-50"></a><span class="ss">      Replace · impute</span></span>
-<span id="cb2-51"><a href="#cb2-51"></a><span class="ss">        "replace_na(list(col = 0))"</span></span>
-<span id="cb2-52"><a href="#cb2-52"></a><span class="ss">          inside mutate</span></span>
-<span id="cb2-53"><a href="#cb2-53"></a><span class="ss">        "coalesce(x, y)"</span></span>
-<span id="cb2-54"><a href="#cb2-54"></a><span class="ss">          first non-NA across cols</span></span>
-<span id="cb2-55"><a href="#cb2-55"></a><span class="ss">        "fill()"</span></span>
-<span id="cb2-56"><a href="#cb2-56"></a><span class="ss">          carry last value forward</span></span>
-<span id="cb2-57"><a href="#cb2-57"></a><span class="ss">          "fill(col, .direction = \"down\")"</span></span>
-<span id="cb2-58"><a href="#cb2-58"></a><span class="ss">            common with grouped data</span></span>
-<span id="cb2-59"><a href="#cb2-59"></a><span class="ss">            time series · gaps</span></span>
-<span id="cb2-60"><a href="#cb2-60"></a><span class="ss">      Test for NA</span></span>
-<span id="cb2-61"><a href="#cb2-61"></a><span class="ss">        "if_else(is.na(x), val, x)"</span></span>
-<span id="cb2-62"><a href="#cb2-62"></a><span class="ss">        case_when can branch on is.na</span></span>
-<span id="cb2-63"><a href="#cb2-63"></a><span class="ss">    NA propagation in operations</span></span>
-<span id="cb2-64"><a href="#cb2-64"></a><span class="ss">      arithmetic</span></span>
-<span id="cb2-65"><a href="#cb2-65"></a><span class="ss">        "sum(x, na.rm = TRUE)"</span></span>
-<span id="cb2-66"><a href="#cb2-66"></a><span class="ss">        "mean(x, na.rm = TRUE)"</span></span>
-<span id="cb2-67"><a href="#cb2-67"></a><span class="ss">      comparisons</span></span>
-<span id="cb2-68"><a href="#cb2-68"></a><span class="ss">        NA == NA returns NA</span></span>
-<span id="cb2-69"><a href="#cb2-69"></a><span class="ss">        not TRUE</span></span>
-<span id="cb2-70"><a href="#cb2-70"></a><span class="ss">      logical</span></span>
-<span id="cb2-71"><a href="#cb2-71"></a><span class="ss">        NA &amp; FALSE = FALSE</span></span>
-<span id="cb2-72"><a href="#cb2-72"></a><span class="ss">        NA "|" TRUE = TRUE</span></span>
-<span id="cb2-73"><a href="#cb2-73"></a><span class="ss">      "filter()"</span></span>
-<span id="cb2-74"><a href="#cb2-74"></a><span class="ss">        drops NA rows silently</span></span>
-<span id="cb2-75"><a href="#cb2-75"></a><span class="ss">        "filter(x &gt; 0) excludes NA"</span></span>
-<span id="cb2-76"><a href="#cb2-76"></a><span class="ss">        "explicit · filter(is.na(x))"</span></span>
-<span id="cb2-77"><a href="#cb2-77"></a><span class="ss">    Implicit missingness</span></span>
-<span id="cb2-78"><a href="#cb2-78"></a><span class="ss">      Definition</span></span>
-<span id="cb2-79"><a href="#cb2-79"></a><span class="ss">        row should exist</span></span>
-<span id="cb2-80"><a href="#cb2-80"></a><span class="ss">        but is absent from data</span></span>
-<span id="cb2-81"><a href="#cb2-81"></a><span class="ss">      Surfacing techniques</span></span>
-<span id="cb2-82"><a href="#cb2-82"></a><span class="ss">        "complete()"</span></span>
-<span id="cb2-83"><a href="#cb2-83"></a><span class="ss">          fills in all combos</span></span>
-<span id="cb2-84"><a href="#cb2-84"></a><span class="ss">          of given cols</span></span>
-<span id="cb2-85"><a href="#cb2-85"></a><span class="ss">          "plus fill = list()"</span></span>
-<span id="cb2-86"><a href="#cb2-86"></a><span class="ss">        "expand()"</span></span>
-<span id="cb2-87"><a href="#cb2-87"></a><span class="ss">          template of all combos</span></span>
-<span id="cb2-88"><a href="#cb2-88"></a><span class="ss">          without joining back</span></span>
-<span id="cb2-89"><a href="#cb2-89"></a><span class="ss">        "full_seq()"</span></span>
-<span id="cb2-90"><a href="#cb2-90"></a><span class="ss">          regular numeric sequence</span></span>
-<span id="cb2-91"><a href="#cb2-91"></a><span class="ss">        "anti_join()"</span></span>
-<span id="cb2-92"><a href="#cb2-92"></a><span class="ss">          against an expected</span></span>
-<span id="cb2-93"><a href="#cb2-93"></a><span class="ss">          template table</span></span>
-<span id="cb2-94"><a href="#cb2-94"></a><span class="ss">      After surfacing</span></span>
-<span id="cb2-95"><a href="#cb2-95"></a><span class="ss">        decide why missing</span></span>
-<span id="cb2-96"><a href="#cb2-96"></a><span class="ss">        decide whether to keep</span></span>
-<span id="cb2-97"><a href="#cb2-97"></a><span class="ss">          as NA · explicit now</span></span>
-<span id="cb2-98"><a href="#cb2-98"></a><span class="ss">          drop · not relevant</span></span>
-<span id="cb2-99"><a href="#cb2-99"></a><span class="ss">          impute · estimate value</span></span>
-<span id="cb2-100"><a href="#cb2-100"></a><span class="ss">    Missing in factors</span></span>
-<span id="cb2-101"><a href="#cb2-101"></a><span class="ss">      NA as a level</span></span>
-<span id="cb2-102"><a href="#cb2-102"></a><span class="ss">        fct_na_value_to_level</span></span>
-<span id="cb2-103"><a href="#cb2-103"></a><span class="ss">        useful for plotting</span></span>
-<span id="cb2-104"><a href="#cb2-104"></a><span class="ss">        keeps NA as visible category</span></span>
-<span id="cb2-105"><a href="#cb2-105"></a><span class="ss">      base R behavior</span></span>
-<span id="cb2-106"><a href="#cb2-106"></a><span class="ss">        NA is its own value</span></span>
-<span id="cb2-107"><a href="#cb2-107"></a><span class="ss">        can survive operations</span></span>
-<span id="cb2-108"><a href="#cb2-108"></a><span class="ss">```</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a>      <span class="ot">"</span><span class="st">Not measured · sensor failed</span><span class="ot">"</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a>      <span class="ot">"</span><span class="st">Not asked · survey skipped</span><span class="ot">"</span></span>
+<span id="cb2-33"><a href="#cb2-33"></a>      <span class="ot">"</span><span class="st">Not recorded · keystroke missed</span><span class="ot">"</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a>      <span class="ot">"</span><span class="st">Not applicable · question doesn't apply</span><span class="ot">"</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a>      <span class="ot">"</span><span class="st">Sentinel values · -99 · 9999</span><span class="ot">"</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a>        treated as numbers</span>
+<span id="cb2-37"><a href="#cb2-37"></a>        <span class="cf">until</span> you fix them</span>
+<span id="cb2-38"><a href="#cb2-38"></a>        <span class="ot">"</span><span class="st">na = c(\"\", \"-99\") in readers</span><span class="ot">"</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>    Detecting explicit NA</span>
+<span id="cb2-40"><a href="#cb2-40"></a>      <span class="ot">"</span><span class="st">sum(is.na(x))</span><span class="ot">"</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>      <span class="ot">"</span><span class="st">colSums(is.na(df))</span><span class="ot">"</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a>      <span class="ot">"</span><span class="st">filter(df, is.na(col))</span><span class="ot">"</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a>      <span class="fu">naniar::miss_var_summary</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a>    Handling explicit NA</span>
+<span id="cb2-45"><a href="#cb2-45"></a>      Drop rows</span>
+<span id="cb2-46"><a href="#cb2-46"></a>        <span class="ot">"</span><span class="st">drop_na()</span><span class="ot">"</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a>          all NA cols by <span class="cf">default</span></span>
+<span id="cb2-48"><a href="#cb2-48"></a>          <span class="ot">"</span><span class="st">drop_na(col1, col2)</span><span class="ot">"</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a>        <span class="ot">"</span><span class="st">filter(!is.na(col))</span><span class="ot">"</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a>      <span class="ot">"</span><span class="st">Replace · impute</span><span class="ot">"</span></span>
+<span id="cb2-51"><a href="#cb2-51"></a>        <span class="ot">"</span><span class="st">replace_na(list(col = 0))</span><span class="ot">"</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a>          inside mutate</span>
+<span id="cb2-53"><a href="#cb2-53"></a>        <span class="ot">"</span><span class="st">coalesce(x, y)</span><span class="ot">"</span></span>
+<span id="cb2-54"><a href="#cb2-54"></a>          first non-NA across cols</span>
+<span id="cb2-55"><a href="#cb2-55"></a>        <span class="ot">"</span><span class="st">fill()</span><span class="ot">"</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a>          carry <span class="cf">last</span> value forward</span>
+<span id="cb2-57"><a href="#cb2-57"></a>          <span class="ot">"</span><span class="st">fill(col, .direction = \"down\")</span><span class="ot">"</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a>            common with grouped data</span>
+<span id="cb2-59"><a href="#cb2-59"></a>            <span class="ot">"</span><span class="st">time series · gaps</span><span class="ot">"</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a>      Test <span class="cf">for</span> NA</span>
+<span id="cb2-61"><a href="#cb2-61"></a>        <span class="ot">"</span><span class="st">if_else(is.na(x), val, x)</span><span class="ot">"</span></span>
+<span id="cb2-62"><a href="#cb2-62"></a>        case_when can branch on is.na</span>
+<span id="cb2-63"><a href="#cb2-63"></a>    NA propagation in operations</span>
+<span id="cb2-64"><a href="#cb2-64"></a>      arithmetic</span>
+<span id="cb2-65"><a href="#cb2-65"></a>        <span class="ot">"</span><span class="st">sum(x, na.rm = TRUE)</span><span class="ot">"</span></span>
+<span id="cb2-66"><a href="#cb2-66"></a>        <span class="ot">"</span><span class="st">mean(x, na.rm = TRUE)</span><span class="ot">"</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a>      comparisons</span>
+<span id="cb2-68"><a href="#cb2-68"></a>        <span class="ot">"</span><span class="st">NA == NA returns NA</span><span class="ot">"</span></span>
+<span id="cb2-69"><a href="#cb2-69"></a>        <span class="ot">not</span> TRUE</span>
+<span id="cb2-70"><a href="#cb2-70"></a>      logical</span>
+<span id="cb2-71"><a href="#cb2-71"></a>        <span class="ot">"</span><span class="st">NA &amp; FALSE = FALSE</span><span class="ot">"</span></span>
+<span id="cb2-72"><a href="#cb2-72"></a>        <span class="ot">"</span><span class="st">NA \"|\" TRUE = TRUE</span><span class="ot">"</span></span>
+<span id="cb2-73"><a href="#cb2-73"></a>      <span class="ot">"</span><span class="st">filter()</span><span class="ot">"</span></span>
+<span id="cb2-74"><a href="#cb2-74"></a>        drops NA rows silently</span>
+<span id="cb2-75"><a href="#cb2-75"></a>        <span class="ot">"</span><span class="st">filter(x &gt; 0) excludes NA</span><span class="ot">"</span></span>
+<span id="cb2-76"><a href="#cb2-76"></a>        <span class="ot">"</span><span class="st">explicit · filter(is.na(x))</span><span class="ot">"</span></span>
+<span id="cb2-77"><a href="#cb2-77"></a>    Implicit missingness</span>
+<span id="cb2-78"><a href="#cb2-78"></a>      Definition</span>
+<span id="cb2-79"><a href="#cb2-79"></a>        row should exist</span>
+<span id="cb2-80"><a href="#cb2-80"></a>        but is absent from data</span>
+<span id="cb2-81"><a href="#cb2-81"></a>      Surfacing techniques</span>
+<span id="cb2-82"><a href="#cb2-82"></a>        <span class="ot">"</span><span class="st">complete()</span><span class="ot">"</span></span>
+<span id="cb2-83"><a href="#cb2-83"></a>          fills in all combos</span>
+<span id="cb2-84"><a href="#cb2-84"></a>          of <span class="cf">given</span> cols</span>
+<span id="cb2-85"><a href="#cb2-85"></a>          <span class="ot">"</span><span class="st">plus fill = list()</span><span class="ot">"</span></span>
+<span id="cb2-86"><a href="#cb2-86"></a>        <span class="ot">"</span><span class="st">expand()</span><span class="ot">"</span></span>
+<span id="cb2-87"><a href="#cb2-87"></a>          template of all combos</span>
+<span id="cb2-88"><a href="#cb2-88"></a>          without joining back</span>
+<span id="cb2-89"><a href="#cb2-89"></a>        <span class="ot">"</span><span class="st">full_seq()</span><span class="ot">"</span></span>
+<span id="cb2-90"><a href="#cb2-90"></a>          regular numeric sequence</span>
+<span id="cb2-91"><a href="#cb2-91"></a>        <span class="ot">"</span><span class="st">anti_join()</span><span class="ot">"</span></span>
+<span id="cb2-92"><a href="#cb2-92"></a>          against an expected</span>
+<span id="cb2-93"><a href="#cb2-93"></a>          template table</span>
+<span id="cb2-94"><a href="#cb2-94"></a>      After surfacing</span>
+<span id="cb2-95"><a href="#cb2-95"></a>        decide why missing</span>
+<span id="cb2-96"><a href="#cb2-96"></a>        decide whether to keep</span>
+<span id="cb2-97"><a href="#cb2-97"></a>          <span class="ot">"</span><span class="st">as NA · explicit now</span><span class="ot">"</span></span>
+<span id="cb2-98"><a href="#cb2-98"></a>          <span class="ot">"</span><span class="st">drop · not relevant</span><span class="ot">"</span></span>
+<span id="cb2-99"><a href="#cb2-99"></a>          <span class="ot">"</span><span class="st">impute · estimate value</span><span class="ot">"</span></span>
+<span id="cb2-100"><a href="#cb2-100"></a>    Missing in factors</span>
+<span id="cb2-101"><a href="#cb2-101"></a>      NA as a level</span>
+<span id="cb2-102"><a href="#cb2-102"></a>        fct_na_value_to_level</span>
+<span id="cb2-103"><a href="#cb2-103"></a>        useful <span class="cf">for</span> plotting</span>
+<span id="cb2-104"><a href="#cb2-104"></a>        keeps NA as visible category</span>
+<span id="cb2-105"><a href="#cb2-105"></a>      base R behavior</span>
+<span id="cb2-106"><a href="#cb2-106"></a>        NA is its own value</span>
+<span id="cb2-107"><a href="#cb2-107"></a>        can survive operations</span>
+<span id="cb2-108"><a href="#cb2-108"></a><span class="in">```</span></span>
 <span id="cb2-109"><a href="#cb2-109"></a></span>
-<span id="cb2-110"><a href="#cb2-110"></a><span class="ss">## Three concepts the chapter quietly hinges on</span></span>
+<span id="cb2-110"><a href="#cb2-110"></a><span class="fu">## Three concepts the chapter quietly hinges on</span></span>
 <span id="cb2-111"><a href="#cb2-111"></a></span>
-<span id="cb2-112"><a href="#cb2-112"></a><span class="ss">**`x == NA` doesn</span><span class="ot">'</span>t work; <span class="ot">`</span><span class="st">is.na(x)</span><span class="ot">`</span> does.*<span class="ot">*</span> This is the most-bitten gotcha in all of R. <span class="ot">`</span><span class="st">NA == NA</span><span class="ot">`</span> evaluates to <span class="ot">`</span><span class="st">NA</span><span class="ot">`</span>, <span class="ot">not</span> <span class="ot">`</span><span class="st">TRUE</span><span class="ot">`</span>, because R<span class="ot">'</span><span class="ss">s logic is "we don</span><span class="ot">'</span>t know what either is, so we don<span class="ot">'</span><span class="ss">t know if they</span><span class="ot">'</span>re equal.<span class="ot">"</span><span class="st"> Same for `x == NA`. The only way to test for missingness is `is.na(x)`, which is a special predicate that returns `TRUE`/`FALSE` (never `NA`). Every wrangling beginner writes `filter(df, x == NA)` once, gets an empty result, and is confused; this is why.</span></span>
+<span id="cb2-112"><a href="#cb2-112"></a>**`x == NA` doesn't work; `is.na(x)` does.** This is the most-bitten gotcha in all of R. <span class="in">`NA == NA`</span> evaluates to <span class="in">`NA`</span>, not <span class="in">`TRUE`</span>, because R's logic is "we don't know what either is, so we don't know if they're equal." Same for <span class="in">`x == NA`</span>. The only way to test for missingness is <span class="in">`is.na(x)`</span>, which is a special predicate that returns <span class="in">`TRUE`</span>/<span class="in">`FALSE`</span> (never <span class="in">`NA`</span>). Every wrangling beginner writes <span class="in">`filter(df, x == NA)`</span> once, gets an empty result, and is confused; this is why.</span>
 <span id="cb2-113"><a href="#cb2-113"></a></span>
-<span id="cb2-114"><a href="#cb2-114"></a><span class="st">**`filter()` silently drops rows where the condition is `NA`.** `filter(df, x &gt; 0)` keeps rows where `x &gt; 0` is `TRUE`, drops rows where it's `FALSE`, and *also drops* rows where it's `NA` (because `NA &gt; 0` is `NA`, which `filter()` treats as </span><span class="ot">"</span>not TRUE<span class="ot">"</span><span class="st">). This means filtering on a column with missing values silently shrinks your dataset in ways you might not notice. The defensive pattern: if you suspect missing values matter, use `filter(df, x &gt; 0 | is.na(x))` to keep `NA` rows explicitly, or check `count(df, is.na(x))` first to see how many would be dropped.</span></span>
+<span id="cb2-114"><a href="#cb2-114"></a>**`filter()` silently drops rows where the condition is `NA`.** <span class="in">`filter(df, x &gt; 0)`</span> keeps rows where <span class="in">`x &gt; 0`</span> is <span class="in">`TRUE`</span>, drops rows where it's <span class="in">`FALSE`</span>, and *also drops* rows where it's <span class="in">`NA`</span> (because <span class="in">`NA &gt; 0`</span> is <span class="in">`NA`</span>, which <span class="in">`filter()`</span> treats as "not TRUE"). This means filtering on a column with missing values silently shrinks your dataset in ways you might not notice. The defensive pattern: if you suspect missing values matter, use <span class="in">`filter(df, x &gt; 0 | is.na(x))`</span> to keep <span class="in">`NA`</span> rows explicitly, or check <span class="in">`count(df, is.na(x))`</span> first to see how many would be dropped.</span>
 <span id="cb2-115"><a href="#cb2-115"></a></span>
-<span id="cb2-116"><a href="#cb2-116"></a><span class="st">**Implicit missingness is the invisible kind that bites the hardest.** If you have monthly sales data and February's row is just missing — not `NA`, but absent — every plot, every summary, every `mean()` will silently treat the dataset as 11-month instead of 12-month, with no warning. The detection move: build an *expected* universe (`expand(df, year, month)` or `full_seq()` for numeric ranges), then `anti_join()` your data against it to find what's absent. Or use `complete(df, year, month)` to fill in the missing rows with `NA` so they become explicit and countable. After surfacing, you have to decide *why* — was Feb skipped? Did the system go down? Was the product not yet launched? — and that decision determines whether to drop, impute, or flag.</span></span>
+<span id="cb2-116"><a href="#cb2-116"></a>**Implicit missingness is the invisible kind that bites the hardest.** If you have monthly sales data and February's row is just missing — not <span class="in">`NA`</span>, but absent — every plot, every summary, every <span class="in">`mean()`</span> will silently treat the dataset as 11-month instead of 12-month, with no warning. The detection move: build an *expected* universe (`expand(df, year, month)` or `full_seq()` for numeric ranges), then `anti_join()` your data against it to find what's absent. Or use `complete(df, year, month)` to fill in the missing rows with `NA` so they become explicit and countable. After surfacing, you have to decide *why* — was Feb skipped? Did the system go down? Was the product not yet launched? — and that decision determines whether to drop, impute, or flag.</span>
 <span id="cb2-117"><a href="#cb2-117"></a></span>
-<span id="cb2-118"><a href="#cb2-118"></a><span class="st">## A small decision tree</span></span>
+<span id="cb2-118"><a href="#cb2-118"></a><span class="fu">## A small decision tree</span></span>
 <span id="cb2-119"><a href="#cb2-119"></a></span>
-<span id="cb2-120"><a href="#cb2-120"></a><span class="st">For most missing-data wrangling, this captures the reasoning:</span></span>
+<span id="cb2-120"><a href="#cb2-120"></a>For most missing-data wrangling, this captures the reasoning:</span>
 <span id="cb2-121"><a href="#cb2-121"></a></span>
-<span id="cb2-122"><a href="#cb2-122"></a><span class="st">| Symptom | Move |</span></span>
-<span id="cb2-123"><a href="#cb2-123"></a><span class="st">|---------|------|</span></span>
-<span id="cb2-124"><a href="#cb2-124"></a><span class="st">| Want to count missingness in each column | `colSums(is.na(df))` or `naniar::miss_var_summary(df)` |</span></span>
-<span id="cb2-125"><a href="#cb2-125"></a><span class="st">| Want to keep only complete rows | `drop_na()` |</span></span>
-<span id="cb2-126"><a href="#cb2-126"></a><span class="st">| Want to keep rows where specific cols are non-NA | `drop_na(col1, col2)` |</span></span>
-<span id="cb2-127"><a href="#cb2-127"></a><span class="st">| Want to replace NA with a constant | `replace_na(list(col = 0))` inside `mutate()` |</span></span>
-<span id="cb2-128"><a href="#cb2-128"></a><span class="st">| Want to carry a value forward (e.g., last observed) | `fill(col, .direction = </span><span class="ot">"</span>down<span class="ot">"</span><span class="st">)` |</span></span>
-<span id="cb2-129"><a href="#cb2-129"></a><span class="st">| Want NA to be a visible category in a plot | `fct_na_value_to_level()` on the factor |</span></span>
-<span id="cb2-130"><a href="#cb2-130"></a><span class="st">| Want to find rows that *should* exist but don't | `complete()` or `anti_join()` against template |</span></span>
-<span id="cb2-131"><a href="#cb2-131"></a><span class="st">| Computing a mean and getting `NA` back | add `na.rm = TRUE` to the summary |</span></span>
+<span id="cb2-122"><a href="#cb2-122"></a><span class="pp">|</span> Symptom <span class="pp">|</span> Move <span class="pp">|</span></span>
+<span id="cb2-123"><a href="#cb2-123"></a><span class="pp">|---------|------|</span></span>
+<span id="cb2-124"><a href="#cb2-124"></a><span class="pp">|</span> Want to count missingness in each column <span class="pp">|</span> <span class="in">`colSums(is.na(df))`</span> or <span class="in">`naniar::miss_var_summary(df)`</span> <span class="pp">|</span></span>
+<span id="cb2-125"><a href="#cb2-125"></a><span class="pp">|</span> Want to keep only complete rows <span class="pp">|</span> <span class="in">`drop_na()`</span> <span class="pp">|</span></span>
+<span id="cb2-126"><a href="#cb2-126"></a><span class="pp">|</span> Want to keep rows where specific cols are non-NA <span class="pp">|</span> <span class="in">`drop_na(col1, col2)`</span> <span class="pp">|</span></span>
+<span id="cb2-127"><a href="#cb2-127"></a><span class="pp">|</span> Want to replace NA with a constant <span class="pp">|</span> <span class="in">`replace_na(list(col = 0))`</span> inside <span class="in">`mutate()`</span> <span class="pp">|</span></span>
+<span id="cb2-128"><a href="#cb2-128"></a><span class="pp">|</span> Want to carry a value forward (e.g., last observed) <span class="pp">|</span> <span class="in">`fill(col, .direction = "down")`</span> <span class="pp">|</span></span>
+<span id="cb2-129"><a href="#cb2-129"></a><span class="pp">|</span> Want NA to be a visible category in a plot <span class="pp">|</span> <span class="in">`fct_na_value_to_level()`</span> on the factor <span class="pp">|</span></span>
+<span id="cb2-130"><a href="#cb2-130"></a><span class="pp">|</span> Want to find rows that *should* exist but don't <span class="pp">|</span> <span class="in">`complete()`</span> or <span class="in">`anti_join()`</span> against template <span class="pp">|</span></span>
+<span id="cb2-131"><a href="#cb2-131"></a><span class="pp">|</span> Computing a mean and getting <span class="in">`NA`</span> back <span class="pp">|</span> add <span class="in">`na.rm = TRUE`</span> to the summary <span class="pp">|</span></span>
 <span id="cb2-132"><a href="#cb2-132"></a></span>
-<span id="cb2-133"><a href="#cb2-133"></a><span class="st">## Why this comes after joins</span></span>
+<span id="cb2-133"><a href="#cb2-133"></a><span class="fu">## Why this comes after joins</span></span>
 <span id="cb2-134"><a href="#cb2-134"></a></span>
-<span id="cb2-135"><a href="#cb2-135"></a><span class="st">ICA 08 follows ICA 07 (joins) for a reason: the moment you start joining tables, missingness becomes structural rather than incidental. A `left_join` produces `NA` in the new columns whenever the lookup fails — and those `NA`s are diagnostic of mismatches between key sets, not just sensor failures. Knowing how to handle missing data is therefore part of knowing how to debug a join. The two skills compose: surface the implicit missingness, decide its meaning, then drop or impute or flag accordingly.</span></span>
+<span id="cb2-135"><a href="#cb2-135"></a>ICA 08 follows ICA 07 (joins) for a reason: the moment you start joining tables, missingness becomes structural rather than incidental. A <span class="in">`left_join`</span> produces <span class="in">`NA`</span> in the new columns whenever the lookup fails — and those <span class="in">`NA`</span>s are diagnostic of mismatches between key sets, not just sensor failures. Knowing how to handle missing data is therefore part of knowing how to debug a join. The two skills compose: surface the implicit missingness, decide its meaning, then drop or impute or flag accordingly.</span>
 <span id="cb2-136"><a href="#cb2-136"></a></span>
-<span id="cb2-137"><a href="#cb2-137"></a><span class="st">## A note on the deeper question</span></span>
+<span id="cb2-137"><a href="#cb2-137"></a><span class="fu">## A note on the deeper question</span></span>
 <span id="cb2-138"><a href="#cb2-138"></a></span>
-<span id="cb2-139"><a href="#cb2-139"></a><span class="st">Ch18 is operational — *how* to detect and handle missingness. It deliberately doesn't get into the statistical question of *why* it's missing (MCAR vs MAR vs MNAR — missing completely at random, missing at random, missing not at random) or what imputation strategy is justified for each. That's downstream territory, picked up in `mice` and other imputation packages. The R4DS chapter is the prerequisite layer: you need to *see* the missingness clearly before you can reason about its mechanism. ICA 08 builds that layer.</span></span>
+<span id="cb2-139"><a href="#cb2-139"></a>Ch18 is operational — *how* to detect and handle missingness. It deliberately doesn't get into the statistical question of *why* it's missing (MCAR vs MAR vs MNAR — missing completely at random, missing at random, missing not at random) or what imputation strategy is justified for each. That's downstream territory, picked up in `mice` and other imputation packages. The R4DS chapter is the prerequisite layer: you need to *see* the missingness clearly before you can reason about its mechanism. ICA 08 builds that layer.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

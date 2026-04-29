@@ -83,9 +83,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ce494e159dae1eb1aeb2beb157b73888.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-aa768d0510026dbab67ce2f8e698749f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ff22c52a3001d3523b51d50934c70255.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-34d3cabf0072c188611468f9a4986e7e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -755,52 +755,52 @@ cookieconsent.run({
 <span id="cb1-2"><a href="#cb1-2"></a>  root((R4DS Ch 1 ggplot grammar))</span>
 <span id="cb1-3"><a href="#cb1-3"></a>    Three irreducible inputs</span>
 <span id="cb1-4"><a href="#cb1-4"></a>      data</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        a data frame · one row per observation</span>
+<span id="cb1-5"><a href="#cb1-5"></a>        "a data frame · one row per observation"</span>
 <span id="cb1-6"><a href="#cb1-6"></a>      aesthetic mapping</span>
 <span id="cb1-7"><a href="#cb1-7"></a>        which variable maps to which channel</span>
-<span id="cb1-8"><a href="#cb1-8"></a>        x · y · color · shape · size · alpha</span>
+<span id="cb1-8"><a href="#cb1-8"></a>        "x · y · color · shape · size · alpha"</span>
 <span id="cb1-9"><a href="#cb1-9"></a>        "aes() lives in ggplot or in geom"</span>
 <span id="cb1-10"><a href="#cb1-10"></a>      geometric object</span>
 <span id="cb1-11"><a href="#cb1-11"></a>        what visual mark is drawn</span>
-<span id="cb1-12"><a href="#cb1-12"></a>        geom_point · geom_line · geom_bar</span>
-<span id="cb1-13"><a href="#cb1-13"></a>        geom_smooth · geom_boxplot</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        "geom_point · geom_line · geom_bar"</span>
+<span id="cb1-13"><a href="#cb1-13"></a>        "geom_smooth · geom_boxplot"</span>
 <span id="cb1-14"><a href="#cb1-14"></a>        layers stack with +</span>
 <span id="cb1-15"><a href="#cb1-15"></a>    Variable types drive choices</span>
 <span id="cb1-16"><a href="#cb1-16"></a>      categorical</span>
-<span id="cb1-17"><a href="#cb1-17"></a>        bar · count · fill</span>
+<span id="cb1-17"><a href="#cb1-17"></a>        "bar · count · fill"</span>
 <span id="cb1-18"><a href="#cb1-18"></a>        boxplot for one cat × one num</span>
 <span id="cb1-19"><a href="#cb1-19"></a>      numerical</span>
-<span id="cb1-20"><a href="#cb1-20"></a>        histogram · for one num</span>
-<span id="cb1-21"><a href="#cb1-21"></a>        scatter · for two num</span>
-<span id="cb1-22"><a href="#cb1-22"></a>        smooth · for trend over scatter</span>
+<span id="cb1-20"><a href="#cb1-20"></a>        "histogram · for one num"</span>
+<span id="cb1-21"><a href="#cb1-21"></a>        "scatter · for two num"</span>
+<span id="cb1-22"><a href="#cb1-22"></a>        "smooth · for trend over scatter"</span>
 <span id="cb1-23"><a href="#cb1-23"></a>      ordering matters</span>
-<span id="cb1-24"><a href="#cb1-24"></a>        fct_reorder · sort bars by value</span>
-<span id="cb1-25"><a href="#cb1-25"></a>        fct_infreq · sort by count</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        "fct_reorder · sort bars by value"</span>
+<span id="cb1-25"><a href="#cb1-25"></a>        "fct_infreq · sort by count"</span>
 <span id="cb1-26"><a href="#cb1-26"></a>    Multi-panel plots</span>
-<span id="cb1-27"><a href="#cb1-27"></a>      facet_wrap · ~var</span>
+<span id="cb1-27"><a href="#cb1-27"></a>      "facet_wrap · ~var"</span>
 <span id="cb1-28"><a href="#cb1-28"></a>        wraps panels in a grid</span>
-<span id="cb1-29"><a href="#cb1-29"></a>      facet_grid · row ~ col</span>
+<span id="cb1-29"><a href="#cb1-29"></a>      "facet_grid · row ~ col"</span>
 <span id="cb1-30"><a href="#cb1-30"></a>        full crossing of two variables</span>
 <span id="cb1-31"><a href="#cb1-31"></a>      shared scales by default</span>
-<span id="cb1-32"><a href="#cb1-32"></a>        scales = free to release</span>
+<span id="cb1-32"><a href="#cb1-32"></a>        "scales = free to release"</span>
 <span id="cb1-33"><a href="#cb1-33"></a>    Labels and styling</span>
 <span id="cb1-34"><a href="#cb1-34"></a>      "labs(title, x, y, color, caption)"</span>
-<span id="cb1-35"><a href="#cb1-35"></a>      theme_minimal · _bw · _classic</span>
+<span id="cb1-35"><a href="#cb1-35"></a>      "theme_minimal · _bw · _classic"</span>
 <span id="cb1-36"><a href="#cb1-36"></a>      "theme() to override specifics"</span>
 <span id="cb1-37"><a href="#cb1-37"></a>    Saving</span>
 <span id="cb1-38"><a href="#cb1-38"></a>      "ggsave()"</span>
 <span id="cb1-39"><a href="#cb1-39"></a>        last printed plot by default</span>
-<span id="cb1-40"><a href="#cb1-40"></a>        path · width · height · dpi</span>
-<span id="cb1-41"><a href="#cb1-41"></a>        pick raster · png · or vector · pdf</span>
+<span id="cb1-40"><a href="#cb1-40"></a>        "path · width · height · dpi"</span>
+<span id="cb1-41"><a href="#cb1-41"></a>        "pick raster · png · or vector · pdf"</span>
 <span id="cb1-42"><a href="#cb1-42"></a>    Common pitfalls</span>
 <span id="cb1-43"><a href="#cb1-43"></a>      "aes() vs setting outside aes()"</span>
-<span id="cb1-44"><a href="#cb1-44"></a>        color = species in aes · maps a variable</span>
-<span id="cb1-45"><a href="#cb1-45"></a>        color = "blue" outside aes · sets a constant</span>
+<span id="cb1-44"><a href="#cb1-44"></a>        "color = species in aes · maps a variable"</span>
+<span id="cb1-45"><a href="#cb1-45"></a>        "color = \"blue\" outside aes · sets a constant"</span>
 <span id="cb1-46"><a href="#cb1-46"></a>      + at end of line not start</span>
 <span id="cb1-47"><a href="#cb1-47"></a>      geom inherits ggplot aesthetics</span>
 <span id="cb1-48"><a href="#cb1-48"></a>        unless overridden in the geom</span>
 <span id="cb1-49"><a href="#cb1-49"></a>      missing values</span>
-<span id="cb1-50"><a href="#cb1-50"></a>        warned, then dropped</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-50"><a href="#cb1-50"></a>        "warned, then dropped"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -810,52 +810,52 @@ cookieconsent.run({
   root((R4DS Ch 1 ggplot grammar))
     Three irreducible inputs
       data
-        a data frame · one row per observation
+        "a data frame · one row per observation"
       aesthetic mapping
         which variable maps to which channel
-        x · y · color · shape · size · alpha
+        "x · y · color · shape · size · alpha"
         "aes() lives in ggplot or in geom"
       geometric object
         what visual mark is drawn
-        geom_point · geom_line · geom_bar
-        geom_smooth · geom_boxplot
+        "geom_point · geom_line · geom_bar"
+        "geom_smooth · geom_boxplot"
         layers stack with +
     Variable types drive choices
       categorical
-        bar · count · fill
+        "bar · count · fill"
         boxplot for one cat × one num
       numerical
-        histogram · for one num
-        scatter · for two num
-        smooth · for trend over scatter
+        "histogram · for one num"
+        "scatter · for two num"
+        "smooth · for trend over scatter"
       ordering matters
-        fct_reorder · sort bars by value
-        fct_infreq · sort by count
+        "fct_reorder · sort bars by value"
+        "fct_infreq · sort by count"
     Multi-panel plots
-      facet_wrap · ~var
+      "facet_wrap · ~var"
         wraps panels in a grid
-      facet_grid · row ~ col
+      "facet_grid · row ~ col"
         full crossing of two variables
       shared scales by default
-        scales = free to release
+        "scales = free to release"
     Labels and styling
       "labs(title, x, y, color, caption)"
-      theme_minimal · _bw · _classic
+      "theme_minimal · _bw · _classic"
       "theme() to override specifics"
     Saving
       "ggsave()"
         last printed plot by default
-        path · width · height · dpi
-        pick raster · png · or vector · pdf
+        "path · width · height · dpi"
+        "pick raster · png · or vector · pdf"
     Common pitfalls
       "aes() vs setting outside aes()"
-        color = species in aes · maps a variable
-        color = "blue" outside aes · sets a constant
+        "color = species in aes · maps a variable"
+        "color = \"blue\" outside aes · sets a constant"
       + at end of line not start
       geom inherits ggplot aesthetics
         unless overridden in the geom
       missing values
-        warned, then dropped
+        "warned, then dropped"
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1377,65 +1377,65 @@ cookieconsent.run({
 <span id="cb2-17"><a href="#cb2-17"></a>  root((R4DS Ch <span class="dv">1</span> ggplot grammar))</span>
 <span id="cb2-18"><a href="#cb2-18"></a>    Three irreducible inputs</span>
 <span id="cb2-19"><a href="#cb2-19"></a>      data</span>
-<span id="cb2-20"><a href="#cb2-20"></a>        a data frame · one row per observation</span>
+<span id="cb2-20"><a href="#cb2-20"></a>        <span class="ot">"</span><span class="st">a data frame · one row per observation</span><span class="ot">"</span></span>
 <span id="cb2-21"><a href="#cb2-21"></a>      aesthetic mapping</span>
 <span id="cb2-22"><a href="#cb2-22"></a>        which variable maps to which channel</span>
-<span id="cb2-23"><a href="#cb2-23"></a>        x · <span class="ot">y · color · shape ·</span> size · alpha</span>
+<span id="cb2-23"><a href="#cb2-23"></a>        <span class="ot">"</span><span class="st">x · y · color · shape · size · alpha</span><span class="ot">"</span></span>
 <span id="cb2-24"><a href="#cb2-24"></a>        <span class="ot">"</span><span class="st">aes() lives in ggplot or in geom</span><span class="ot">"</span></span>
 <span id="cb2-25"><a href="#cb2-25"></a>      geometric object</span>
 <span id="cb2-26"><a href="#cb2-26"></a>        what visual mark is drawn</span>
-<span id="cb2-27"><a href="#cb2-27"></a>        geom_point · geom_line · geom_bar</span>
-<span id="cb2-28"><a href="#cb2-28"></a>        geom_smooth · geom_boxplot</span>
+<span id="cb2-27"><a href="#cb2-27"></a>        <span class="ot">"</span><span class="st">geom_point · geom_line · geom_bar</span><span class="ot">"</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a>        <span class="ot">"</span><span class="st">geom_smooth · geom_boxplot</span><span class="ot">"</span></span>
 <span id="cb2-29"><a href="#cb2-29"></a>        layers stack with +</span>
 <span id="cb2-30"><a href="#cb2-30"></a>    Variable types drive choices</span>
 <span id="cb2-31"><a href="#cb2-31"></a>      categorical</span>
-<span id="cb2-32"><a href="#cb2-32"></a>        bar · count · fill</span>
+<span id="cb2-32"><a href="#cb2-32"></a>        <span class="ot">"</span><span class="st">bar · count · fill</span><span class="ot">"</span></span>
 <span id="cb2-33"><a href="#cb2-33"></a>        boxplot <span class="cf">for</span> one cat × one num</span>
 <span id="cb2-34"><a href="#cb2-34"></a>      numerical</span>
-<span id="cb2-35"><a href="#cb2-35"></a>        histogram · <span class="cf">for</span> one num</span>
-<span id="cb2-36"><a href="#cb2-36"></a>        scatter · <span class="cf">for</span> two num</span>
-<span id="cb2-37"><a href="#cb2-37"></a>        smooth · <span class="cf">for</span> trend over scatter</span>
+<span id="cb2-35"><a href="#cb2-35"></a>        <span class="ot">"</span><span class="st">histogram · for one num</span><span class="ot">"</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a>        <span class="ot">"</span><span class="st">scatter · for two num</span><span class="ot">"</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a>        <span class="ot">"</span><span class="st">smooth · for trend over scatter</span><span class="ot">"</span></span>
 <span id="cb2-38"><a href="#cb2-38"></a>      ordering matters</span>
-<span id="cb2-39"><a href="#cb2-39"></a>        fct_reorder · <span class="fu">sort</span> bars by value</span>
-<span id="cb2-40"><a href="#cb2-40"></a>        fct_infreq · <span class="fu">sort</span> by count</span>
+<span id="cb2-39"><a href="#cb2-39"></a>        <span class="ot">"</span><span class="st">fct_reorder · sort bars by value</span><span class="ot">"</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a>        <span class="ot">"</span><span class="st">fct_infreq · sort by count</span><span class="ot">"</span></span>
 <span id="cb2-41"><a href="#cb2-41"></a>    Multi-panel plots</span>
-<span id="cb2-42"><a href="#cb2-42"></a>      facet_wrap · ~var</span>
+<span id="cb2-42"><a href="#cb2-42"></a>      <span class="ot">"</span><span class="st">facet_wrap · ~var</span><span class="ot">"</span></span>
 <span id="cb2-43"><a href="#cb2-43"></a>        wraps panels in a grid</span>
-<span id="cb2-44"><a href="#cb2-44"></a>      facet_grid · row ~ col</span>
+<span id="cb2-44"><a href="#cb2-44"></a>      <span class="ot">"</span><span class="st">facet_grid · row ~ col</span><span class="ot">"</span></span>
 <span id="cb2-45"><a href="#cb2-45"></a>        full crossing of two variables</span>
 <span id="cb2-46"><a href="#cb2-46"></a>      shared scales by <span class="cf">default</span></span>
-<span id="cb2-47"><a href="#cb2-47"></a>        scales = free to release</span>
+<span id="cb2-47"><a href="#cb2-47"></a>        <span class="ot">"</span><span class="st">scales = free to release</span><span class="ot">"</span></span>
 <span id="cb2-48"><a href="#cb2-48"></a>    Labels <span class="ot">and</span> styling</span>
 <span id="cb2-49"><a href="#cb2-49"></a>      <span class="ot">"</span><span class="st">labs(title, x, y, color, caption)</span><span class="ot">"</span></span>
-<span id="cb2-50"><a href="#cb2-50"></a>      theme_minimal · _bw · _classic</span>
+<span id="cb2-50"><a href="#cb2-50"></a>      <span class="ot">"</span><span class="st">theme_minimal · _bw · _classic</span><span class="ot">"</span></span>
 <span id="cb2-51"><a href="#cb2-51"></a>      <span class="ot">"</span><span class="st">theme() to override specifics</span><span class="ot">"</span></span>
 <span id="cb2-52"><a href="#cb2-52"></a>    Saving</span>
 <span id="cb2-53"><a href="#cb2-53"></a>      <span class="ot">"</span><span class="st">ggsave()</span><span class="ot">"</span></span>
 <span id="cb2-54"><a href="#cb2-54"></a>        <span class="cf">last</span> printed plot by <span class="cf">default</span></span>
-<span id="cb2-55"><a href="#cb2-55"></a>        path · width · height · dpi</span>
-<span id="cb2-56"><a href="#cb2-56"></a>        pick raster · png · <span class="ot">or</span> vector · pdf</span>
+<span id="cb2-55"><a href="#cb2-55"></a>        <span class="ot">"</span><span class="st">path · width · height · dpi</span><span class="ot">"</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a>        <span class="ot">"</span><span class="st">pick raster · png · or vector · pdf</span><span class="ot">"</span></span>
 <span id="cb2-57"><a href="#cb2-57"></a>    Common pitfalls</span>
 <span id="cb2-58"><a href="#cb2-58"></a>      <span class="ot">"</span><span class="st">aes() vs setting outside aes()</span><span class="ot">"</span></span>
-<span id="cb2-59"><a href="#cb2-59"></a>        color = species in aes · maps a variable</span>
-<span id="cb2-60"><a href="#cb2-60"></a>        color = <span class="ot">"</span><span class="st">blue</span><span class="ot">"</span> outside aes · sets a <span class="kw">constant</span></span>
+<span id="cb2-59"><a href="#cb2-59"></a>        <span class="ot">"</span><span class="st">color = species in aes · maps a variable</span><span class="ot">"</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a>        <span class="ot">"</span><span class="st">color = \"blue\" outside aes · sets a constant</span><span class="ot">"</span></span>
 <span id="cb2-61"><a href="#cb2-61"></a>      + at end of line <span class="ot">not</span> start</span>
 <span id="cb2-62"><a href="#cb2-62"></a>      geom inherits ggplot aesthetics</span>
 <span id="cb2-63"><a href="#cb2-63"></a>        <span class="cf">unless</span> overridden in the geom</span>
 <span id="cb2-64"><a href="#cb2-64"></a>      missing <span class="fu">values</span></span>
-<span id="cb2-65"><a href="#cb2-65"></a>        warned, then dropped</span>
-<span id="cb2-66"><a href="#cb2-66"></a><span class="ot">```</span></span>
+<span id="cb2-65"><a href="#cb2-65"></a>        <span class="ot">"</span><span class="st">warned, then dropped</span><span class="ot">"</span></span>
+<span id="cb2-66"><a href="#cb2-66"></a><span class="in">```</span></span>
 <span id="cb2-67"><a href="#cb2-67"></a></span>
-<span id="cb2-68"><a href="#cb2-68"></a><span class="st">## Three things the chapter wants you to internalize</span></span>
+<span id="cb2-68"><a href="#cb2-68"></a><span class="fu">## Three things the chapter wants you to internalize</span></span>
 <span id="cb2-69"><a href="#cb2-69"></a></span>
-<span id="cb2-70"><a href="#cb2-70"></a><span class="st">**The grammar is compositional, not enumerative.** A scatterplot colored by species with a smoothed trend line is </span><span class="ot">`</span>ggplot(data, aes(x, <span class="ot">y, color = species)) + geom_point() + geom_smooth()`. Three independent decisions: (1) what data, (2) what mapping,</span> (<span class="dv">3</span>) what marks. Memorizing <span class="ot">"</span><span class="st">the scatter-with-trend recipe</span><span class="ot">"</span> misses the point — once you see the grammar, you can build any plot by deciding <span class="cf">each</span> piece independently. This is why the chapter spends pages on <span class="ot">`</span><span class="st">aes()</span><span class="ot">`</span> before introducing more than a couple of geoms.</span>
+<span id="cb2-70"><a href="#cb2-70"></a>**The grammar is compositional, not enumerative.** A scatterplot colored by species with a smoothed trend line is <span class="in">`ggplot(data, aes(x, y, color = species)) + geom_point() + geom_smooth()`</span>. Three independent decisions: (1) what data, (2) what mapping, (3) what marks. Memorizing "the scatter-with-trend recipe" misses the point — once you see the grammar, you can build any plot by deciding each piece independently. This is why the chapter spends pages on <span class="in">`aes()`</span> before introducing more than a couple of geoms.</span>
 <span id="cb2-71"><a href="#cb2-71"></a></span>
-<span id="cb2-72"><a href="#cb2-72"></a>*<span class="wa">*`</span>aes()<span class="ot">`</span><span class="st"> vs constants is the single most-confused detail.** </span><span class="ot">`</span>geom_point(aes(color = species))<span class="ot">`</span><span class="st"> says "let species drive the color"; </span><span class="ot">`</span>geom_point(color = <span class="ot">"</span><span class="st">blue</span><span class="ot">"</span>)<span class="ot">`</span><span class="st"> says "make every point blue." Putting </span><span class="ot">`</span>color = <span class="ot">"</span><span class="st">blue</span><span class="ot">"`</span><span class="st"> *inside* </span><span class="ot">`</span>aes()<span class="ot">`</span><span class="st"> gets you a confusing legend with one entry called "blue," because ggplot tries to treat the literal string </span><span class="ot">`"</span><span class="st">blue</span><span class="ot">"`</span><span class="st"> as a variable level. This trips up almost everyone the first time.</span></span>
+<span id="cb2-72"><a href="#cb2-72"></a>**`aes()` vs constants is the single most-confused detail.** <span class="in">`geom_point(aes(color = species))`</span> says "let species drive the color"; <span class="in">`geom_point(color = "blue")`</span> says "make every point blue." Putting <span class="in">`color = "blue"`</span> *inside* <span class="in">`aes()`</span> gets you a confusing legend with one entry called "blue," because ggplot tries to treat the literal string <span class="in">`"blue"`</span> as a variable level. This trips up almost everyone the first time.</span>
 <span id="cb2-73"><a href="#cb2-73"></a></span>
-<span id="cb2-74"><a href="#cb2-74"></a><span class="st">**Inheritance flows from </span><span class="ot">`</span>ggplot()<span class="ot">`</span><span class="st"> down to geoms.** Aesthetics declared in </span><span class="ot">`</span>ggplot(data, aes(x, y))<span class="ot">`</span><span class="st"> are inherited by every geom layered on top, so subsequent geoms don't need to repeat them. Per-geom </span><span class="ot">`</span>aes()<span class="ot">`</span><span class="st"> blocks override or extend the global mapping. This is what makes </span><span class="ot">`</span>ggplot(data, aes(x, y)) + geom_point() + geom_smooth()<span class="ot">`</span><span class="st"> work without reciting </span><span class="ot">`</span>aes(x, y)<span class="ot">`</span><span class="st"> twice.</span></span>
+<span id="cb2-74"><a href="#cb2-74"></a>**Inheritance flows from `ggplot()` down to geoms.** Aesthetics declared in <span class="in">`ggplot(data, aes(x, y))`</span> are inherited by every geom layered on top, so subsequent geoms don't need to repeat them. Per-geom <span class="in">`aes()`</span> blocks override or extend the global mapping. This is what makes <span class="in">`ggplot(data, aes(x, y)) + geom_point() + geom_smooth()`</span> work without reciting <span class="in">`aes(x, y)`</span> twice.</span>
 <span id="cb2-75"><a href="#cb2-75"></a></span>
-<span id="cb2-76"><a href="#cb2-76"></a><span class="st">## Why "advanced" data viz starts here</span></span>
+<span id="cb2-76"><a href="#cb2-76"></a><span class="fu">## Why "advanced" data viz starts here</span></span>
 <span id="cb2-77"><a href="#cb2-77"></a></span>
-<span id="cb2-78"><a href="#cb2-78"></a><span class="st">ICA 03 is labeled *Advanced* Data Viz, but the prep is R4DS Chapter 1 — the introductory chapter. The reason isn't that the course is starting from scratch; it's that *advanced* visualization in this course means **using the grammar deliberately rather than instinctively**. The exercises and TidyTuesdays later in the semester will ask for things like "recreate this NYT chart with a custom theme and an annotation layer that draws attention to a specific subset" — which only works if the grammar's joints are already familiar enough to recombine without thinking. The chapter is review for someone who has used ggplot before, but it's review with the explicit goal of making the joints visible.</span></span>
+<span id="cb2-78"><a href="#cb2-78"></a>ICA 03 is labeled *Advanced* Data Viz, but the prep is R4DS Chapter 1 — the introductory chapter. The reason isn't that the course is starting from scratch; it's that *advanced* visualization in this course means **using the grammar deliberately rather than instinctively**. The exercises and TidyTuesdays later in the semester will ask for things like "recreate this NYT chart with a custom theme and an annotation layer that draws attention to a specific subset" — which only works if the grammar's joints are already familiar enough to recombine without thinking. The chapter is review for someone who has used ggplot before, but it's review with the explicit goal of making the joints visible.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
