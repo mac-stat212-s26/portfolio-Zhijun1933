@@ -132,7 +132,7 @@ cookieconsent.run({
 </script> 
   
 <style>html{ scroll-behavior: smooth; }</style>
-<meta name="mermaid-theme" content="dark">
+<meta name="mermaid-theme" content="default">
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
@@ -753,243 +753,79 @@ cookieconsent.run({
 <div class="cell" data-layout-align="default">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 11 Iteration I))</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    The framing</span>
-<span id="cb1-4"><a href="#cb1-4"></a>      Functional programming</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        functions take functions</span>
-<span id="cb1-6"><a href="#cb1-6"></a>        higher-order operates on collection</span>
-<span id="cb1-7"><a href="#cb1-7"></a>        loop is implicit</span>
-<span id="cb1-8"><a href="#cb1-8"></a>      Why not for</span>
-<span id="cb1-9"><a href="#cb1-9"></a>        for works</span>
-<span id="cb1-10"><a href="#cb1-10"></a>        but verbose</span>
-<span id="cb1-11"><a href="#cb1-11"></a>        functional version</span>
-<span id="cb1-12"><a href="#cb1-12"></a>          shorter</span>
-<span id="cb1-13"><a href="#cb1-13"></a>          composable in pipes</span>
-<span id="cb1-14"><a href="#cb1-14"></a>          consistent return types</span>
-<span id="cb1-15"><a href="#cb1-15"></a>    "Modify multiple columns · across"</span>
-<span id="cb1-16"><a href="#cb1-16"></a>      Three arguments</span>
-<span id="cb1-17"><a href="#cb1-17"></a>        ".cols · which columns"</span>
-<span id="cb1-18"><a href="#cb1-18"></a>        ".fns · what to do"</span>
-<span id="cb1-19"><a href="#cb1-19"></a>        ".names · how to name output"</span>
-<span id="cb1-20"><a href="#cb1-20"></a>      Selecting cols</span>
-<span id="cb1-21"><a href="#cb1-21"></a>        "col_a:col_d · range"</span>
-<span id="cb1-22"><a href="#cb1-22"></a>        "starts_with · ends_with"</span>
-<span id="cb1-23"><a href="#cb1-23"></a>        "everything · all non-grouping"</span>
-<span id="cb1-24"><a href="#cb1-24"></a>        "where(is.numeric)"</span>
-<span id="cb1-25"><a href="#cb1-25"></a>        "where(is.character)"</span>
-<span id="cb1-26"><a href="#cb1-26"></a>        "where(is.Date)"</span>
-<span id="cb1-27"><a href="#cb1-27"></a>      Single function</span>
-<span id="cb1-28"><a href="#cb1-28"></a>        "across(a:d, median)"</span>
-<span id="cb1-29"><a href="#cb1-29"></a>          no parens after fn name</span>
-<span id="cb1-30"><a href="#cb1-30"></a>          "you pass the fn · across calls it"</span>
-<span id="cb1-31"><a href="#cb1-31"></a>      "Anonymous function · (x)"</span>
-<span id="cb1-32"><a href="#cb1-32"></a>        "across(a:d, (x) median(x, na.rm = TRUE))"</span>
-<span id="cb1-33"><a href="#cb1-33"></a>          "shortcut for function(x) ..."</span>
-<span id="cb1-34"><a href="#cb1-34"></a>        "old syntax · ~ .x + 1 · still works"</span>
-<span id="cb1-35"><a href="#cb1-35"></a>      Multiple functions</span>
-<span id="cb1-36"><a href="#cb1-36"></a>        "list(median = m_fn, n_miss = n_fn)"</span>
-<span id="cb1-37"><a href="#cb1-37"></a>        output cols named col_fn</span>
-<span id="cb1-38"><a href="#cb1-38"></a>        "glue spec · {.col}_{.fn}"</span>
-<span id="cb1-39"><a href="#cb1-39"></a>      Filter siblings</span>
-<span id="cb1-40"><a href="#cb1-40"></a>        "if_any · OR across cols"</span>
-<span id="cb1-41"><a href="#cb1-41"></a>        "if_all · AND across cols"</span>
-<span id="cb1-42"><a href="#cb1-42"></a>      In functions</span>
-<span id="cb1-43"><a href="#cb1-43"></a>        "embrace col args · {{ var }}"</span>
-<span id="cb1-44"><a href="#cb1-44"></a>        "default summary_vars · where(is.numeric)"</span>
-<span id="cb1-45"><a href="#cb1-45"></a>    "Read multiple files · map"</span>
-<span id="cb1-46"><a href="#cb1-46"></a>      Pipeline shape</span>
-<span id="cb1-47"><a href="#cb1-47"></a>        list.files</span>
-<span id="cb1-48"><a href="#cb1-48"></a>        "|&gt; map(read_*)"</span>
-<span id="cb1-49"><a href="#cb1-49"></a>        "|&gt; list_rbind"</span>
-<span id="cb1-50"><a href="#cb1-50"></a>      list.files</span>
-<span id="cb1-51"><a href="#cb1-51"></a>        "path · directory to scan"</span>
-<span id="cb1-52"><a href="#cb1-52"></a>        "pattern · regex filter"</span>
-<span id="cb1-53"><a href="#cb1-53"></a>          "[.]xlsx$"</span>
-<span id="cb1-54"><a href="#cb1-54"></a>          "[.]csv$"</span>
-<span id="cb1-55"><a href="#cb1-55"></a>        "full.names = TRUE"</span>
-<span id="cb1-56"><a href="#cb1-56"></a>      "map(x, f)"</span>
-<span id="cb1-57"><a href="#cb1-57"></a>        like lapply</span>
-<span id="cb1-58"><a href="#cb1-58"></a>        always returns list</span>
-<span id="cb1-59"><a href="#cb1-59"></a>        f never has parens</span>
-<span id="cb1-60"><a href="#cb1-60"></a>      list_rbind</span>
-<span id="cb1-61"><a href="#cb1-61"></a>        stacks list of dfs</span>
-<span id="cb1-62"><a href="#cb1-62"></a>        one row per source row</span>
-<span id="cb1-63"><a href="#cb1-63"></a>        "names_to · keep file source col"</span>
-<span id="cb1-64"><a href="#cb1-64"></a>      Capturing path data</span>
-<span id="cb1-65"><a href="#cb1-65"></a>        "set_names(basename)"</span>
-<span id="cb1-66"><a href="#cb1-66"></a>          carry filename through</span>
-<span id="cb1-67"><a href="#cb1-67"></a>        "list_rbind(names_to = \"year\")"</span>
-<span id="cb1-68"><a href="#cb1-68"></a>        parse_number to extract digits</span>
-<span id="cb1-69"><a href="#cb1-69"></a>      Iteration design choice</span>
-<span id="cb1-70"><a href="#cb1-70"></a>        "one complex step · process_file"</span>
-<span id="cb1-71"><a href="#cb1-71"></a>        "many simple steps · map then map then map"</span>
-<span id="cb1-72"><a href="#cb1-72"></a>        "often better · simple steps"</span>
-<span id="cb1-73"><a href="#cb1-73"></a>      Heterogeneous files</span>
-<span id="cb1-74"><a href="#cb1-74"></a>        df_types helper</span>
-<span id="cb1-75"><a href="#cb1-75"></a>          "col name · type · n_miss"</span>
-<span id="cb1-76"><a href="#cb1-76"></a>          one row per column</span>
-<span id="cb1-77"><a href="#cb1-77"></a>        compare structures before binding</span>
-<span id="cb1-78"><a href="#cb1-78"></a>      Failure handling</span>
-<span id="cb1-79"><a href="#cb1-79"></a>        "possibly(fn, otherwise = NULL)"</span>
-<span id="cb1-80"><a href="#cb1-80"></a>          turns errors into NULL</span>
-<span id="cb1-81"><a href="#cb1-81"></a>        list_rbind drops NULLs silently</span>
-<span id="cb1-82"><a href="#cb1-82"></a>        identify failed paths after</span>
-<span id="cb1-83"><a href="#cb1-83"></a>    "Save multiple outputs · walk"</span>
-<span id="cb1-84"><a href="#cb1-84"></a>      walk vs map</span>
-<span id="cb1-85"><a href="#cb1-85"></a>        "same iteration · output discarded"</span>
-<span id="cb1-86"><a href="#cb1-86"></a>        for side effects only</span>
-<span id="cb1-87"><a href="#cb1-87"></a>      walk2</span>
-<span id="cb1-88"><a href="#cb1-88"></a>        two changing args</span>
-<span id="cb1-89"><a href="#cb1-89"></a>        "walk2(paths, plots, ggsave)"</span>
-<span id="cb1-90"><a href="#cb1-90"></a>      Three concrete patterns</span>
-<span id="cb1-91"><a href="#cb1-91"></a>        write to database</span>
-<span id="cb1-92"><a href="#cb1-92"></a>          "dbCreateTable · template"</span>
-<span id="cb1-93"><a href="#cb1-93"></a>          "dbAppendTable · per file"</span>
-<span id="cb1-94"><a href="#cb1-94"></a>          "walk(paths, append_file)"</span>
-<span id="cb1-95"><a href="#cb1-95"></a>        write csv per group</span>
-<span id="cb1-96"><a href="#cb1-96"></a>          group_nest</span>
-<span id="cb1-97"><a href="#cb1-97"></a>          "mutate(path = ...)"</span>
-<span id="cb1-98"><a href="#cb1-98"></a>          "walk2(data, path, write_csv)"</span>
-<span id="cb1-99"><a href="#cb1-99"></a>        save plots per group</span>
-<span id="cb1-100"><a href="#cb1-100"></a>          "map(data, plot_fn)"</span>
-<span id="cb1-101"><a href="#cb1-101"></a>          "walk2(path, plot, ggsave)"</span>
-<span id="cb1-102"><a href="#cb1-102"></a>      group_nest</span>
-<span id="cb1-103"><a href="#cb1-103"></a>        one row per group</span>
-<span id="cb1-104"><a href="#cb1-104"></a>        list-column of sub-tibbles</span>
-<span id="cb1-105"><a href="#cb1-105"></a>        "natural pairing with map / walk"</span>
-<span id="cb1-106"><a href="#cb1-106"></a>    Mental shape</span>
-<span id="cb1-107"><a href="#cb1-107"></a>      Same input</span>
-<span id="cb1-108"><a href="#cb1-108"></a>        "a vector · list · tibble columns"</span>
-<span id="cb1-109"><a href="#cb1-109"></a>      Same per-element function</span>
-<span id="cb1-110"><a href="#cb1-110"></a>      Same output structure</span>
-<span id="cb1-111"><a href="#cb1-111"></a>        "list · tibble · NULL"</span>
-<span id="cb1-112"><a href="#cb1-112"></a>      Different higher-order</span>
-<span id="cb1-113"><a href="#cb1-113"></a>        "map · returns list"</span>
-<span id="cb1-114"><a href="#cb1-114"></a>        "map_dbl · returns dbl vector"</span>
-<span id="cb1-115"><a href="#cb1-115"></a>        "walk · returns nothing"</span>
-<span id="cb1-116"><a href="#cb1-116"></a>        "list_rbind · returns tibble"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>%%{init: {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  "theme": "base",</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  "themeVariables": {</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    "primaryColor": "#2780E3",</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    "primaryTextColor": "#ffffff",</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    "primaryBorderColor": "#1a5cb0",</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    "lineColor": "#6c757d",</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    "secondaryColor": "#e9ecef",</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    "tertiaryColor": "#f8f9fa",</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    "mainBkg": "#2780E3",</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    "secondBkg": "#dee2e6",</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    "tertiaryBkg": "#ffffff",</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    "fontFamily": "Inter, system-ui, sans-serif",</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    "fontSize": "14px",</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    "textColor": "#212529"</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  }</span>
+<span id="cb1-17"><a href="#cb1-17"></a>}}%%</span>
+<span id="cb1-18"><a href="#cb1-18"></a>mindmap</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  root((ICA 11 Iteration I))</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    for loops</span>
+<span id="cb1-21"><a href="#cb1-21"></a>      "for (i in seq_along(x)) { ... }"</span>
+<span id="cb1-22"><a href="#cb1-22"></a>      "pre-allocate · vector('list', n)"</span>
+<span id="cb1-23"><a href="#cb1-23"></a>      "modify by index · result[[i]] &lt;- ..."</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    across()</span>
+<span id="cb1-25"><a href="#cb1-25"></a>      "for column-wise ops in mutate/summarize"</span>
+<span id="cb1-26"><a href="#cb1-26"></a>      "across(where(is.numeric), mean)"</span>
+<span id="cb1-27"><a href="#cb1-27"></a>      "names follow .names = pattern"</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    map() family</span>
+<span id="cb1-29"><a href="#cb1-29"></a>      "map() · returns list"</span>
+<span id="cb1-30"><a href="#cb1-30"></a>      "map_dbl · map_chr · map_lgl · typed"</span>
+<span id="cb1-31"><a href="#cb1-31"></a>      "map_dfr() · row-bind results"</span>
+<span id="cb1-32"><a href="#cb1-32"></a>    walk() for side effects</span>
+<span id="cb1-33"><a href="#cb1-33"></a>      "saves · prints · writes · plot writes"</span>
+<span id="cb1-34"><a href="#cb1-34"></a>      "returns input invisibly"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">mindmap
+<pre class="mermaid mermaid-js">%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#2780E3",
+    "primaryTextColor": "#ffffff",
+    "primaryBorderColor": "#1a5cb0",
+    "lineColor": "#6c757d",
+    "secondaryColor": "#e9ecef",
+    "tertiaryColor": "#f8f9fa",
+    "mainBkg": "#2780E3",
+    "secondBkg": "#dee2e6",
+    "tertiaryBkg": "#ffffff",
+    "fontFamily": "Inter, system-ui, sans-serif",
+    "fontSize": "14px",
+    "textColor": "#212529"
+  }
+}}%%
+mindmap
   root((ICA 11 Iteration I))
-    The framing
-      Functional programming
-        functions take functions
-        higher-order operates on collection
-        loop is implicit
-      Why not for
-        for works
-        but verbose
-        functional version
-          shorter
-          composable in pipes
-          consistent return types
-    "Modify multiple columns · across"
-      Three arguments
-        ".cols · which columns"
-        ".fns · what to do"
-        ".names · how to name output"
-      Selecting cols
-        "col_a:col_d · range"
-        "starts_with · ends_with"
-        "everything · all non-grouping"
-        "where(is.numeric)"
-        "where(is.character)"
-        "where(is.Date)"
-      Single function
-        "across(a:d, median)"
-          no parens after fn name
-          "you pass the fn · across calls it"
-      "Anonymous function · (x)"
-        "across(a:d, (x) median(x, na.rm = TRUE))"
-          "shortcut for function(x) ..."
-        "old syntax · ~ .x + 1 · still works"
-      Multiple functions
-        "list(median = m_fn, n_miss = n_fn)"
-        output cols named col_fn
-        "glue spec · {.col}_{.fn}"
-      Filter siblings
-        "if_any · OR across cols"
-        "if_all · AND across cols"
-      In functions
-        "embrace col args · {{ var }}"
-        "default summary_vars · where(is.numeric)"
-    "Read multiple files · map"
-      Pipeline shape
-        list.files
-        "|&gt; map(read_*)"
-        "|&gt; list_rbind"
-      list.files
-        "path · directory to scan"
-        "pattern · regex filter"
-          "[.]xlsx$"
-          "[.]csv$"
-        "full.names = TRUE"
-      "map(x, f)"
-        like lapply
-        always returns list
-        f never has parens
-      list_rbind
-        stacks list of dfs
-        one row per source row
-        "names_to · keep file source col"
-      Capturing path data
-        "set_names(basename)"
-          carry filename through
-        "list_rbind(names_to = \"year\")"
-        parse_number to extract digits
-      Iteration design choice
-        "one complex step · process_file"
-        "many simple steps · map then map then map"
-        "often better · simple steps"
-      Heterogeneous files
-        df_types helper
-          "col name · type · n_miss"
-          one row per column
-        compare structures before binding
-      Failure handling
-        "possibly(fn, otherwise = NULL)"
-          turns errors into NULL
-        list_rbind drops NULLs silently
-        identify failed paths after
-    "Save multiple outputs · walk"
-      walk vs map
-        "same iteration · output discarded"
-        for side effects only
-      walk2
-        two changing args
-        "walk2(paths, plots, ggsave)"
-      Three concrete patterns
-        write to database
-          "dbCreateTable · template"
-          "dbAppendTable · per file"
-          "walk(paths, append_file)"
-        write csv per group
-          group_nest
-          "mutate(path = ...)"
-          "walk2(data, path, write_csv)"
-        save plots per group
-          "map(data, plot_fn)"
-          "walk2(path, plot, ggsave)"
-      group_nest
-        one row per group
-        list-column of sub-tibbles
-        "natural pairing with map / walk"
-    Mental shape
-      Same input
-        "a vector · list · tibble columns"
-      Same per-element function
-      Same output structure
-        "list · tibble · NULL"
-      Different higher-order
-        "map · returns list"
-        "map_dbl · returns dbl vector"
-        "walk · returns nothing"
-        "list_rbind · returns tibble"
+    for loops
+      "for (i in seq_along(x)) { ... }"
+      "pre-allocate · vector('list', n)"
+      "modify by index · result[[i]] &lt;- ..."
+    across()
+      "for column-wise ops in mutate/summarize"
+      "across(where(is.numeric), mean)"
+      "names follow .names = pattern"
+    map() family
+      "map() · returns list"
+      "map_dbl · map_chr · map_lgl · typed"
+      "map_dfr() · row-bind results"
+    walk() for side effects
+      "saves · prints · writes · plot writes"
+      "returns input invisibly"
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1516,145 +1352,63 @@ cookieconsent.run({
 <span id="cb2-11"><a href="#cb2-11"></a>R4DS Chapter 26 is where ICA 09 (writing functions) and ICA 10 (base R primitives) fuse into a workflow. Once you can write a function, the next question is: *how do I apply it to a hundred things?* The chapter answers this with **three concrete tasks** rather than abstract theory: modifying multiple columns of one data frame (`across`), reading multiple files into one data frame (`map` + `list_rbind`), and writing one R object out to multiple files (`walk` / `walk2`). Each task is a slightly different shape of the same idea — *functional programming means passing functions around so a higher-order function can do the looping for you* — and each unlocks a class of analysis that copy-paste cannot reach. The mindmap below organizes the chapter around those three tasks.</span>
 <span id="cb2-12"><a href="#cb2-12"></a></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="in">```{mermaid}</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a>mindmap</span>
-<span id="cb2-17"><a href="#cb2-17"></a>  root((ICA <span class="dv">11</span> Iteration I))</span>
-<span id="cb2-18"><a href="#cb2-18"></a>    The framing</span>
-<span id="cb2-19"><a href="#cb2-19"></a>      Functional programming</span>
-<span id="cb2-20"><a href="#cb2-20"></a>        functions take functions</span>
-<span id="cb2-21"><a href="#cb2-21"></a>        higher-order operates on collection</span>
-<span id="cb2-22"><a href="#cb2-22"></a>        loop is implicit</span>
-<span id="cb2-23"><a href="#cb2-23"></a>      Why <span class="ot">not</span> <span class="cf">for</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a>        <span class="cf">for</span> works</span>
-<span id="cb2-25"><a href="#cb2-25"></a>        but verbose</span>
-<span id="cb2-26"><a href="#cb2-26"></a>        functional version</span>
-<span id="cb2-27"><a href="#cb2-27"></a>          shorter</span>
-<span id="cb2-28"><a href="#cb2-28"></a>          composable in pipes</span>
-<span id="cb2-29"><a href="#cb2-29"></a>          consistent <span class="cf">return</span> types</span>
-<span id="cb2-30"><a href="#cb2-30"></a>    <span class="ot">"</span><span class="st">Modify multiple columns · across</span><span class="ot">"</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a>      Three arguments</span>
-<span id="cb2-32"><a href="#cb2-32"></a>        <span class="ot">"</span><span class="st">.cols · which columns</span><span class="ot">"</span></span>
-<span id="cb2-33"><a href="#cb2-33"></a>        <span class="ot">"</span><span class="st">.fns · what to do</span><span class="ot">"</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a>        <span class="ot">"</span><span class="st">.names · how to name output</span><span class="ot">"</span></span>
-<span id="cb2-35"><a href="#cb2-35"></a>      Selecting cols</span>
-<span id="cb2-36"><a href="#cb2-36"></a>        <span class="ot">"</span><span class="st">col_a:col_d · range</span><span class="ot">"</span></span>
-<span id="cb2-37"><a href="#cb2-37"></a>        <span class="ot">"</span><span class="st">starts_with · ends_with</span><span class="ot">"</span></span>
-<span id="cb2-38"><a href="#cb2-38"></a>        <span class="ot">"</span><span class="st">everything · all non-grouping</span><span class="ot">"</span></span>
-<span id="cb2-39"><a href="#cb2-39"></a>        <span class="ot">"</span><span class="st">where(is.numeric)</span><span class="ot">"</span></span>
-<span id="cb2-40"><a href="#cb2-40"></a>        <span class="ot">"</span><span class="st">where(is.character)</span><span class="ot">"</span></span>
-<span id="cb2-41"><a href="#cb2-41"></a>        <span class="ot">"</span><span class="st">where(is.Date)</span><span class="ot">"</span></span>
-<span id="cb2-42"><a href="#cb2-42"></a>      Single function</span>
-<span id="cb2-43"><a href="#cb2-43"></a>        <span class="ot">"</span><span class="st">across(a:d, median)</span><span class="ot">"</span></span>
-<span id="cb2-44"><a href="#cb2-44"></a>          <span class="fu">no</span> parens after fn name</span>
-<span id="cb2-45"><a href="#cb2-45"></a>          <span class="ot">"</span><span class="st">you pass the fn · across calls it</span><span class="ot">"</span></span>
-<span id="cb2-46"><a href="#cb2-46"></a>      <span class="ot">"</span><span class="st">Anonymous function · (x)</span><span class="ot">"</span></span>
-<span id="cb2-47"><a href="#cb2-47"></a>        <span class="ot">"</span><span class="st">across(a:d, (x) median(x, na.rm = TRUE))</span><span class="ot">"</span></span>
-<span id="cb2-48"><a href="#cb2-48"></a>          <span class="ot">"</span><span class="st">shortcut for function(x) ...</span><span class="ot">"</span></span>
-<span id="cb2-49"><a href="#cb2-49"></a>        <span class="ot">"</span><span class="st">old syntax · ~ .x + 1 · still works</span><span class="ot">"</span></span>
-<span id="cb2-50"><a href="#cb2-50"></a>      Multiple functions</span>
-<span id="cb2-51"><a href="#cb2-51"></a>        <span class="ot">"</span><span class="st">list(median = m_fn, n_miss = n_fn)</span><span class="ot">"</span></span>
-<span id="cb2-52"><a href="#cb2-52"></a>        output cols named col_fn</span>
-<span id="cb2-53"><a href="#cb2-53"></a>        <span class="ot">"</span><span class="st">glue spec · {.col}_{.fn}</span><span class="ot">"</span></span>
-<span id="cb2-54"><a href="#cb2-54"></a>      Filter siblings</span>
-<span id="cb2-55"><a href="#cb2-55"></a>        <span class="ot">"</span><span class="st">if_any · OR across cols</span><span class="ot">"</span></span>
-<span id="cb2-56"><a href="#cb2-56"></a>        <span class="ot">"</span><span class="st">if_all · AND across cols</span><span class="ot">"</span></span>
-<span id="cb2-57"><a href="#cb2-57"></a>      In functions</span>
-<span id="cb2-58"><a href="#cb2-58"></a>        <span class="ot">"</span><span class="st">embrace col args · {{ var }}</span><span class="ot">"</span></span>
-<span id="cb2-59"><a href="#cb2-59"></a>        <span class="ot">"</span><span class="st">default summary_vars · where(is.numeric)</span><span class="ot">"</span></span>
-<span id="cb2-60"><a href="#cb2-60"></a>    <span class="ot">"</span><span class="st">Read multiple files · map</span><span class="ot">"</span></span>
-<span id="cb2-61"><a href="#cb2-61"></a>      Pipeline shape</span>
-<span id="cb2-62"><a href="#cb2-62"></a>        list.files</span>
-<span id="cb2-63"><a href="#cb2-63"></a>        <span class="ot">"</span><span class="st">|&gt; map(read_*)</span><span class="ot">"</span></span>
-<span id="cb2-64"><a href="#cb2-64"></a>        <span class="ot">"</span><span class="st">|&gt; list_rbind</span><span class="ot">"</span></span>
-<span id="cb2-65"><a href="#cb2-65"></a>      list.files</span>
-<span id="cb2-66"><a href="#cb2-66"></a>        <span class="ot">"</span><span class="st">path · directory to scan</span><span class="ot">"</span></span>
-<span id="cb2-67"><a href="#cb2-67"></a>        <span class="ot">"</span><span class="st">pattern · regex filter</span><span class="ot">"</span></span>
-<span id="cb2-68"><a href="#cb2-68"></a>          <span class="ot">"</span><span class="st">[.]xlsx</span><span class="wa">$"</span></span>
-<span id="cb2-69"><a href="#cb2-69"></a><span class="st">          </span><span class="ot">"</span>[.]csv<span class="wa">$"</span></span>
-<span id="cb2-70"><a href="#cb2-70"></a>        <span class="ot">"</span><span class="st">full.names = TRUE</span><span class="ot">"</span></span>
-<span id="cb2-71"><a href="#cb2-71"></a>      <span class="ot">"</span><span class="st">map(x, f)</span><span class="ot">"</span></span>
-<span id="cb2-72"><a href="#cb2-72"></a>        like lapply</span>
-<span id="cb2-73"><a href="#cb2-73"></a>        always returns list</span>
-<span id="cb2-74"><a href="#cb2-74"></a>        f never has parens</span>
-<span id="cb2-75"><a href="#cb2-75"></a>      list_rbind</span>
-<span id="cb2-76"><a href="#cb2-76"></a>        stacks list of dfs</span>
-<span id="cb2-77"><a href="#cb2-77"></a>        one row per source row</span>
-<span id="cb2-78"><a href="#cb2-78"></a>        <span class="ot">"</span><span class="st">names_to · keep file source col</span><span class="ot">"</span></span>
-<span id="cb2-79"><a href="#cb2-79"></a>      Capturing path data</span>
-<span id="cb2-80"><a href="#cb2-80"></a>        <span class="ot">"</span><span class="st">set_names(basename)</span><span class="ot">"</span></span>
-<span id="cb2-81"><a href="#cb2-81"></a>          carry filename through</span>
-<span id="cb2-82"><a href="#cb2-82"></a>        <span class="ot">"</span><span class="st">list_rbind(names_to = \"year\")</span><span class="ot">"</span></span>
-<span id="cb2-83"><a href="#cb2-83"></a>        parse_number to extract digits</span>
-<span id="cb2-84"><a href="#cb2-84"></a>      Iteration design choice</span>
-<span id="cb2-85"><a href="#cb2-85"></a>        <span class="ot">"</span><span class="st">one complex step · process_file</span><span class="ot">"</span></span>
-<span id="cb2-86"><a href="#cb2-86"></a>        <span class="ot">"</span><span class="st">many simple steps · map then map then map</span><span class="ot">"</span></span>
-<span id="cb2-87"><a href="#cb2-87"></a>        <span class="ot">"</span><span class="st">often better · simple steps</span><span class="ot">"</span></span>
-<span id="cb2-88"><a href="#cb2-88"></a>      Heterogeneous files</span>
-<span id="cb2-89"><a href="#cb2-89"></a>        df_types helper</span>
-<span id="cb2-90"><a href="#cb2-90"></a>          <span class="ot">"</span><span class="st">col name · type · n_miss</span><span class="ot">"</span></span>
-<span id="cb2-91"><a href="#cb2-91"></a>          one row per column</span>
-<span id="cb2-92"><a href="#cb2-92"></a>        compare structures before binding</span>
-<span id="cb2-93"><a href="#cb2-93"></a>      Failure handling</span>
-<span id="cb2-94"><a href="#cb2-94"></a>        <span class="ot">"</span><span class="st">possibly(fn, otherwise = NULL)</span><span class="ot">"</span></span>
-<span id="cb2-95"><a href="#cb2-95"></a>          turns errors into NULL</span>
-<span id="cb2-96"><a href="#cb2-96"></a>        list_rbind drops NULLs silently</span>
-<span id="cb2-97"><a href="#cb2-97"></a>        identify failed paths after</span>
-<span id="cb2-98"><a href="#cb2-98"></a>    <span class="ot">"</span><span class="st">Save multiple outputs · walk</span><span class="ot">"</span></span>
-<span id="cb2-99"><a href="#cb2-99"></a>      walk vs <span class="fu">map</span></span>
-<span id="cb2-100"><a href="#cb2-100"></a>        <span class="ot">"</span><span class="st">same iteration · output discarded</span><span class="ot">"</span></span>
-<span id="cb2-101"><a href="#cb2-101"></a>        <span class="cf">for</span> side effects only</span>
-<span id="cb2-102"><a href="#cb2-102"></a>      walk2</span>
-<span id="cb2-103"><a href="#cb2-103"></a>        two changing args</span>
-<span id="cb2-104"><a href="#cb2-104"></a>        <span class="ot">"</span><span class="st">walk2(paths, plots, ggsave)</span><span class="ot">"</span></span>
-<span id="cb2-105"><a href="#cb2-105"></a>      Three concrete patterns</span>
-<span id="cb2-106"><a href="#cb2-106"></a>        <span class="fu">write</span> to database</span>
-<span id="cb2-107"><a href="#cb2-107"></a>          <span class="ot">"</span><span class="st">dbCreateTable · template</span><span class="ot">"</span></span>
-<span id="cb2-108"><a href="#cb2-108"></a>          <span class="ot">"</span><span class="st">dbAppendTable · per file</span><span class="ot">"</span></span>
-<span id="cb2-109"><a href="#cb2-109"></a>          <span class="ot">"</span><span class="st">walk(paths, append_file)</span><span class="ot">"</span></span>
-<span id="cb2-110"><a href="#cb2-110"></a>        <span class="fu">write</span> csv per group</span>
-<span id="cb2-111"><a href="#cb2-111"></a>          group_nest</span>
-<span id="cb2-112"><a href="#cb2-112"></a>          <span class="ot">"</span><span class="st">mutate(path = ...)</span><span class="ot">"</span></span>
-<span id="cb2-113"><a href="#cb2-113"></a>          <span class="ot">"</span><span class="st">walk2(data, path, write_csv)</span><span class="ot">"</span></span>
-<span id="cb2-114"><a href="#cb2-114"></a>        save plots per group</span>
-<span id="cb2-115"><a href="#cb2-115"></a>          <span class="ot">"</span><span class="st">map(data, plot_fn)</span><span class="ot">"</span></span>
-<span id="cb2-116"><a href="#cb2-116"></a>          <span class="ot">"</span><span class="st">walk2(path, plot, ggsave)</span><span class="ot">"</span></span>
-<span id="cb2-117"><a href="#cb2-117"></a>      group_nest</span>
-<span id="cb2-118"><a href="#cb2-118"></a>        one row per group</span>
-<span id="cb2-119"><a href="#cb2-119"></a>        list-column of <span class="kw">sub</span>-tibbles</span>
-<span id="cb2-120"><a href="#cb2-120"></a>        <span class="ot">"</span><span class="st">natural pairing with map / walk</span><span class="ot">"</span></span>
-<span id="cb2-121"><a href="#cb2-121"></a>    Mental shape</span>
-<span id="cb2-122"><a href="#cb2-122"></a>      Same input</span>
-<span id="cb2-123"><a href="#cb2-123"></a>        <span class="ot">"</span><span class="st">a vector · list · tibble columns</span><span class="ot">"</span></span>
-<span id="cb2-124"><a href="#cb2-124"></a>      Same per-element function</span>
-<span id="cb2-125"><a href="#cb2-125"></a>      Same output structure</span>
-<span id="cb2-126"><a href="#cb2-126"></a>        <span class="ot">"</span><span class="st">list · tibble · NULL</span><span class="ot">"</span></span>
-<span id="cb2-127"><a href="#cb2-127"></a>      Different higher-order</span>
-<span id="cb2-128"><a href="#cb2-128"></a>        <span class="ot">"</span><span class="st">map · returns list</span><span class="ot">"</span></span>
-<span id="cb2-129"><a href="#cb2-129"></a>        <span class="ot">"</span><span class="st">map_dbl · returns dbl vector</span><span class="ot">"</span></span>
-<span id="cb2-130"><a href="#cb2-130"></a>        <span class="ot">"</span><span class="st">walk · returns nothing</span><span class="ot">"</span></span>
-<span id="cb2-131"><a href="#cb2-131"></a>        <span class="ot">"</span><span class="st">list_rbind · returns tibble</span><span class="ot">"</span></span>
-<span id="cb2-132"><a href="#cb2-132"></a><span class="in">```</span></span>
-<span id="cb2-133"><a href="#cb2-133"></a></span>
-<span id="cb2-134"><a href="#cb2-134"></a><span class="fu">## Three concepts the chapter quietly hinges on</span></span>
-<span id="cb2-135"><a href="#cb2-135"></a></span>
-<span id="cb2-136"><a href="#cb2-136"></a>**Pass the function, don't call it.** The single most common error inside <span class="in">`across()`</span> and <span class="in">`map()`</span>: writing <span class="in">`across(a:d, median())`</span> instead of <span class="in">`across(a:d, median)`</span>. The first calls <span class="in">`median()`</span> immediately with no input, which errors. The second passes the function <span class="in">`median`</span> itself to <span class="in">`across`</span>, which then calls it on each column. The mental shift: in functional programming, function names are *values* you can hand around. The parentheses are how you *invoke* a function; without them, you're referring to the function as a thing. This is the same logic as the difference between a recipe and cooking — you give <span class="in">`across`</span> the recipe, it does the cooking.</span>
-<span id="cb2-137"><a href="#cb2-137"></a></span>
-<span id="cb2-138"><a href="#cb2-138"></a>**`map()` returns a list; the typed variants return vectors.** <span class="in">`map(xs, f)`</span> always returns a list, even if every result is a single number. To get a numeric vector, use <span class="in">`map_dbl(xs, f)`</span>. To get a character vector, use <span class="in">`map_chr`</span>. To get logical, <span class="in">`map_lgl`</span>. The choice matters because lists are slow to work with downstream — <span class="in">`purrr::map_dbl(xs, mean)`</span> gives you a vector you can plot and summarize directly, while <span class="in">`map(xs, mean)`</span> gives you a list you'll have to <span class="in">`unlist()`</span> first. The base R analogue is <span class="in">`lapply()`</span> (list) vs <span class="in">`vapply()`</span> (typed); the design intent is the same.</span>
-<span id="cb2-139"><a href="#cb2-139"></a></span>
-<span id="cb2-140"><a href="#cb2-140"></a>**`walk()` is `map()` with the result thrown away — and that's a feature.** When iteration is for *side effects* (writing files, appending to a database, printing progress), the return value is uninteresting noise. <span class="in">`walk(paths, append_file)`</span> does the same thing as <span class="in">`map(paths, append_file)`</span> but returns the input invisibly so you can keep piping. Using <span class="in">`map`</span> for side effects works but produces a list of <span class="in">`NULL`</span>s or whatever the side-effecting function returned, which clutters your workspace and obscures intent. The <span class="in">`walk`</span> family signals: "I'm doing this for the effect, not the value."</span>
-<span id="cb2-141"><a href="#cb2-141"></a></span>
-<span id="cb2-142"><a href="#cb2-142"></a><span class="fu">## Two iteration design choices worth flagging</span></span>
-<span id="cb2-143"><a href="#cb2-143"></a></span>
-<span id="cb2-144"><a href="#cb2-144"></a>**One complex step vs many simple steps.** When you need to read 12 files and clean each one, R4DS recommends the *many simple steps* approach: `map(read_csv) |&gt; map(filter) |&gt; map(mutate) |&gt; list_rbind()` rather than `map(process_file)` where `process_file` does everything. The reasoning: writing one big function tempts you to fixate on getting file 1 right before looking at the others, when in reality you should be looking at all of them holistically. Many simple steps lets you see the full collection at every stage. Even better when possible: bind the data frames *before* cleaning and let regular dplyr handle the rest.</span>
-<span id="cb2-145"><a href="#cb2-145"></a></span>
-<span id="cb2-146"><a href="#cb2-146"></a>**The `set_names()` move for path data.** When the filename itself contains data (year, region, version, ...), <span class="in">`set_names(basename)`</span> carries that filename forward as list-element names, then <span class="in">`list_rbind(names_to = "year")`</span> materializes it into a column. This is the cleanest way to recover information from the directory structure without writing a custom parser. For more complex paths (multiple data fields embedded), <span class="in">`set_names()`</span> with no argument keeps the full path, then <span class="in">`separate_wider_delim()`</span> parses it.</span>
-<span id="cb2-147"><a href="#cb2-147"></a></span>
-<span id="cb2-148"><a href="#cb2-148"></a><span class="fu">## Why this comes after functions and base R</span></span>
-<span id="cb2-149"><a href="#cb2-149"></a></span>
-<span id="cb2-150"><a href="#cb2-150"></a>ICA 11 is the synthesis week. ICA 09 taught how to write a function; ICA 10 taught how <span class="in">`lapply`</span> and <span class="in">`for`</span> iterate in base R; ICA 11 introduces purrr's <span class="in">`map_*`</span> family as the more consistent, more pipe-friendly version of the same idea. The progression is intentional: by the time you meet <span class="in">`map()`</span>, you know that under the hood it's doing what <span class="in">`lapply()`</span> does, that the function you pass is one you might have just written yourself, and that the value of doing this — over a <span class="in">`for`</span> loop — is composability with the rest of your tidyverse pipeline. Functional programming becomes legible because all three pieces (functions, base iteration, tidyverse iteration) sit in one connected mental model.</span>
-<span id="cb2-151"><a href="#cb2-151"></a></span>
-<span id="cb2-152"><a href="#cb2-152"></a><span class="fu">## A note on what this enables</span></span>
-<span id="cb2-153"><a href="#cb2-153"></a></span>
-<span id="cb2-154"><a href="#cb2-154"></a>The skills in this chapter are what make HW07 and HW08 possible. HW07 P1 reads ~196k JSON files and binds them — that's <span class="in">`list.files() |&gt; map(read_json) |&gt; list_rbind()`</span> at scale. HW07 P2 hits the Census API repeatedly across years — that's <span class="in">`map(years, fetch_year) |&gt; list_rbind(names_to = "year")`</span>. HW08 P1 scrapes 21 alphabetical pages from cheese.com — that's <span class="in">`map(1:21, scrape_page) |&gt; list_rbind()`</span>. None of these are realistic without iteration. The pattern, once internalized, is the same shape every time: list the inputs, map the work function over them, bind the results.</span>
+<span id="cb2-16"><a href="#cb2-16"></a>%<span class="dt">%</span>{init: {</span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="ot">"</span><span class="st">theme</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">base</span><span class="ot">"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="ot">"</span><span class="st">themeVariables</span><span class="ot">"</span>: {</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    <span class="ot">"</span><span class="st">primaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    <span class="ot">"</span><span class="st">primaryTextColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="ot">"</span><span class="st">primaryBorderColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#1a5cb0</span><span class="ot">"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="ot">"</span><span class="st">lineColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#6c757d</span><span class="ot">"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="ot">"</span><span class="st">secondaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#e9ecef</span><span class="ot">"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="ot">"</span><span class="st">tertiaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#f8f9fa</span><span class="ot">"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    <span class="ot">"</span><span class="st">mainBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26"></a>    <span class="ot">"</span><span class="st">secondBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#dee2e6</span><span class="ot">"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="ot">"</span><span class="st">tertiaryBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28"></a>    <span class="ot">"</span><span class="st">fontFamily</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">Inter, system-ui, sans-serif</span><span class="ot">"</span>,</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    <span class="ot">"</span><span class="st">fontSize</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">14px</span><span class="ot">"</span>,</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    <span class="ot">"</span><span class="st">textColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#212529</span><span class="ot">"</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a>  }</span>
+<span id="cb2-32"><a href="#cb2-32"></a>}}%%</span>
+<span id="cb2-33"><a href="#cb2-33"></a>mindmap</span>
+<span id="cb2-34"><a href="#cb2-34"></a>  root((ICA <span class="dv">11</span> Iteration I))</span>
+<span id="cb2-35"><a href="#cb2-35"></a>    <span class="cf">for</span> loops</span>
+<span id="cb2-36"><a href="#cb2-36"></a>      <span class="ot">"</span><span class="st">for (i in seq_along(x)) { ... }</span><span class="ot">"</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a>      <span class="ot">"</span><span class="st">pre-allocate · vector('list', n)</span><span class="ot">"</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a>      <span class="ot">"</span><span class="st">modify by index · result[[i]] &lt;- ...</span><span class="ot">"</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>    across()</span>
+<span id="cb2-40"><a href="#cb2-40"></a>      <span class="ot">"</span><span class="st">for column-wise ops in mutate/summarize</span><span class="ot">"</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>      <span class="ot">"</span><span class="st">across(where(is.numeric), mean)</span><span class="ot">"</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a>      <span class="ot">"</span><span class="st">names follow .names = pattern</span><span class="ot">"</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a>    <span class="fu">map</span>() family</span>
+<span id="cb2-44"><a href="#cb2-44"></a>      <span class="ot">"</span><span class="st">map() · returns list</span><span class="ot">"</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a>      <span class="ot">"</span><span class="st">map_dbl · map_chr · map_lgl · typed</span><span class="ot">"</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a>      <span class="ot">"</span><span class="st">map_dfr() · row-bind results</span><span class="ot">"</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a>    walk() <span class="cf">for</span> side effects</span>
+<span id="cb2-48"><a href="#cb2-48"></a>      <span class="ot">"</span><span class="st">saves · prints · writes · plot writes</span><span class="ot">"</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a>      <span class="ot">"</span><span class="st">returns input invisibly</span><span class="ot">"</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="in">```</span></span>
+<span id="cb2-51"><a href="#cb2-51"></a></span>
+<span id="cb2-52"><a href="#cb2-52"></a><span class="fu">## Three concepts the chapter quietly hinges on</span></span>
+<span id="cb2-53"><a href="#cb2-53"></a></span>
+<span id="cb2-54"><a href="#cb2-54"></a>**Pass the function, don't call it.** The single most common error inside <span class="in">`across()`</span> and <span class="in">`map()`</span>: writing <span class="in">`across(a:d, median())`</span> instead of <span class="in">`across(a:d, median)`</span>. The first calls <span class="in">`median()`</span> immediately with no input, which errors. The second passes the function <span class="in">`median`</span> itself to <span class="in">`across`</span>, which then calls it on each column. The mental shift: in functional programming, function names are *values* you can hand around. The parentheses are how you *invoke* a function; without them, you're referring to the function as a thing. This is the same logic as the difference between a recipe and cooking — you give <span class="in">`across`</span> the recipe, it does the cooking.</span>
+<span id="cb2-55"><a href="#cb2-55"></a></span>
+<span id="cb2-56"><a href="#cb2-56"></a>**`map()` returns a list; the typed variants return vectors.** <span class="in">`map(xs, f)`</span> always returns a list, even if every result is a single number. To get a numeric vector, use <span class="in">`map_dbl(xs, f)`</span>. To get a character vector, use <span class="in">`map_chr`</span>. To get logical, <span class="in">`map_lgl`</span>. The choice matters because lists are slow to work with downstream — <span class="in">`purrr::map_dbl(xs, mean)`</span> gives you a vector you can plot and summarize directly, while <span class="in">`map(xs, mean)`</span> gives you a list you'll have to <span class="in">`unlist()`</span> first. The base R analogue is <span class="in">`lapply()`</span> (list) vs <span class="in">`vapply()`</span> (typed); the design intent is the same.</span>
+<span id="cb2-57"><a href="#cb2-57"></a></span>
+<span id="cb2-58"><a href="#cb2-58"></a>**`walk()` is `map()` with the result thrown away — and that's a feature.** When iteration is for *side effects* (writing files, appending to a database, printing progress), the return value is uninteresting noise. <span class="in">`walk(paths, append_file)`</span> does the same thing as <span class="in">`map(paths, append_file)`</span> but returns the input invisibly so you can keep piping. Using <span class="in">`map`</span> for side effects works but produces a list of <span class="in">`NULL`</span>s or whatever the side-effecting function returned, which clutters your workspace and obscures intent. The <span class="in">`walk`</span> family signals: "I'm doing this for the effect, not the value."</span>
+<span id="cb2-59"><a href="#cb2-59"></a></span>
+<span id="cb2-60"><a href="#cb2-60"></a><span class="fu">## Two iteration design choices worth flagging</span></span>
+<span id="cb2-61"><a href="#cb2-61"></a></span>
+<span id="cb2-62"><a href="#cb2-62"></a>**One complex step vs many simple steps.** When you need to read 12 files and clean each one, R4DS recommends the *many simple steps* approach: `map(read_csv) |&gt; map(filter) |&gt; map(mutate) |&gt; list_rbind()` rather than `map(process_file)` where `process_file` does everything. The reasoning: writing one big function tempts you to fixate on getting file 1 right before looking at the others, when in reality you should be looking at all of them holistically. Many simple steps lets you see the full collection at every stage. Even better when possible: bind the data frames *before* cleaning and let regular dplyr handle the rest.</span>
+<span id="cb2-63"><a href="#cb2-63"></a></span>
+<span id="cb2-64"><a href="#cb2-64"></a>**The `set_names()` move for path data.** When the filename itself contains data (year, region, version, ...), <span class="in">`set_names(basename)`</span> carries that filename forward as list-element names, then <span class="in">`list_rbind(names_to = "year")`</span> materializes it into a column. This is the cleanest way to recover information from the directory structure without writing a custom parser. For more complex paths (multiple data fields embedded), <span class="in">`set_names()`</span> with no argument keeps the full path, then <span class="in">`separate_wider_delim()`</span> parses it.</span>
+<span id="cb2-65"><a href="#cb2-65"></a></span>
+<span id="cb2-66"><a href="#cb2-66"></a><span class="fu">## Why this comes after functions and base R</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a></span>
+<span id="cb2-68"><a href="#cb2-68"></a>ICA 11 is the synthesis week. ICA 09 taught how to write a function; ICA 10 taught how <span class="in">`lapply`</span> and <span class="in">`for`</span> iterate in base R; ICA 11 introduces purrr's <span class="in">`map_*`</span> family as the more consistent, more pipe-friendly version of the same idea. The progression is intentional: by the time you meet <span class="in">`map()`</span>, you know that under the hood it's doing what <span class="in">`lapply()`</span> does, that the function you pass is one you might have just written yourself, and that the value of doing this — over a <span class="in">`for`</span> loop — is composability with the rest of your tidyverse pipeline. Functional programming becomes legible because all three pieces (functions, base iteration, tidyverse iteration) sit in one connected mental model.</span>
+<span id="cb2-69"><a href="#cb2-69"></a></span>
+<span id="cb2-70"><a href="#cb2-70"></a><span class="fu">## A note on what this enables</span></span>
+<span id="cb2-71"><a href="#cb2-71"></a></span>
+<span id="cb2-72"><a href="#cb2-72"></a>The skills in this chapter are what make HW07 and HW08 possible. HW07 P1 reads ~196k JSON files and binds them — that's <span class="in">`list.files() |&gt; map(read_json) |&gt; list_rbind()`</span> at scale. HW07 P2 hits the Census API repeatedly across years — that's <span class="in">`map(years, fetch_year) |&gt; list_rbind(names_to = "year")`</span>. HW08 P1 scrapes 21 alphabetical pages from cheese.com — that's <span class="in">`map(1:21, scrape_page) |&gt; list_rbind()`</span>. None of these are realistic without iteration. The pattern, once internalized, is the same shape every time: list the inputs, map the work function over them, bind the results.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

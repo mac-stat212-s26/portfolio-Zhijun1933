@@ -132,7 +132,7 @@ cookieconsent.run({
 </script> 
   
 <style>html{ scroll-behavior: smooth; }</style>
-<meta name="mermaid-theme" content="dark">
+<meta name="mermaid-theme" content="default">
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
@@ -711,12 +711,11 @@ cookieconsent.run({
    
   <ul>
   <li><a href="#pre-class-learning-map" id="toc-pre-class-learning-map" class="nav-link active" data-scroll-target="#pre-class-learning-map">Pre-class learning map</a></li>
-  <li><a href="#three-concepts-the-vignette-quietly-hinges-on" id="toc-three-concepts-the-vignette-quietly-hinges-on" class="nav-link" data-scroll-target="#three-concepts-the-vignette-quietly-hinges-on">Three concepts the vignette quietly hinges on</a></li>
-  <li><a href="#a-small-reference-for-css-selectors" id="toc-a-small-reference-for-css-selectors" class="nav-link" data-scroll-target="#a-small-reference-for-css-selectors">A small reference for CSS selectors</a></li>
-  <li><a href="#two-patterns-worth-memorizing" id="toc-two-patterns-worth-memorizing" class="nav-link" data-scroll-target="#two-patterns-worth-memorizing">Two patterns worth memorizing</a></li>
+  <li><a href="#three-concepts-the-chapter-quietly-hinges-on" id="toc-three-concepts-the-chapter-quietly-hinges-on" class="nav-link" data-scroll-target="#three-concepts-the-chapter-quietly-hinges-on">Three concepts the chapter quietly hinges on</a></li>
+  <li><a href="#a-small-reference-for-rvest-verbs" id="toc-a-small-reference-for-rvest-verbs" class="nav-link" data-scroll-target="#a-small-reference-for-rvest-verbs">A small reference for rvest verbs</a></li>
+  <li><a href="#a-code-pattern-for-scraping-multiple-pages" id="toc-a-code-pattern-for-scraping-multiple-pages" class="nav-link" data-scroll-target="#a-code-pattern-for-scraping-multiple-pages">A code pattern for scraping multiple pages</a></li>
   <li><a href="#why-this-comes-after-apis" id="toc-why-this-comes-after-apis" class="nav-link" data-scroll-target="#why-this-comes-after-apis">Why this comes after APIs</a></li>
   <li><a href="#a-note-on-what-this-enables" id="toc-a-note-on-what-this-enables" class="nav-link" data-scroll-target="#a-note-on-what-this-enables">A note on what this enables</a></li>
-  <li><a href="#a-note-on-legality-and-politeness" id="toc-a-note-on-legality-and-politeness" class="nav-link" data-scroll-target="#a-note-on-legality-and-politeness">A note on legality and politeness</a></li>
   </ul>
 </nav>
     </div>
@@ -751,283 +750,47 @@ cookieconsent.run({
 
 <section id="pre-class-learning-map" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-learning-map">Pre-class learning map</h2>
-<p>ICA 15 is the <em>mirror image</em> of ICAs 13–14. APIs work when the website’s owner has built one and made it accessible; web scraping works when they haven’t, or when the data is only available through the rendered page itself. The mechanics are different — instead of a clean JSON response keyed by parameter, you get a hierarchical HTML document and have to <em>address into it</em> using CSS selectors, the same mini-language CSS uses to apply styles. The <code>rvest</code> vignette teaches three things in sequence: (1) <strong>HTML structure</strong> as a tree of nested tags with attributes; (2) <strong>CSS selectors</strong> as the addressing language for picking nodes out of that tree; (3) <strong>rvest’s extraction functions</strong> for getting text, attributes, or tabular data out of selected nodes. The mindmap below organizes the prep around these three layers plus the practical observation pattern (<code>html_elements()</code> outer / <code>html_element()</code> inner) that keeps your variables aligned.</p>
+<p>ICA 15 introduces web scraping with <strong>rvest</strong> — extracting structured data from HTML pages when no API exists. The mindmap below organizes the prep around the rvest workflow, CSS selector basics, politeness norms, and the decision rule for when scraping is the right tool versus when an API would be better.</p>
 <div class="cell" data-layout-align="default">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 15 Web Scraping))</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    HTML as a tree</span>
-<span id="cb1-4"><a href="#cb1-4"></a>      Document structure</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        html</span>
-<span id="cb1-6"><a href="#cb1-6"></a>          "head · metadata · title"</span>
-<span id="cb1-7"><a href="#cb1-7"></a>          "body · visible content"</span>
-<span id="cb1-8"><a href="#cb1-8"></a>      Element anatomy</span>
-<span id="cb1-9"><a href="#cb1-9"></a>        "start tag · &lt;tag&gt;"</span>
-<span id="cb1-10"><a href="#cb1-10"></a>        "attributes · name=value"</span>
-<span id="cb1-11"><a href="#cb1-11"></a>        "contents · text or more elements"</span>
-<span id="cb1-12"><a href="#cb1-12"></a>        "end tag · &lt;/tag&gt;"</span>
-<span id="cb1-13"><a href="#cb1-13"></a>      Block tags</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        "h1 · h2 · h3 · headings"</span>
-<span id="cb1-15"><a href="#cb1-15"></a>        "p · paragraph"</span>
-<span id="cb1-16"><a href="#cb1-16"></a>        "div · generic block"</span>
-<span id="cb1-17"><a href="#cb1-17"></a>        "ol · ul · li · lists"</span>
-<span id="cb1-18"><a href="#cb1-18"></a>        "table · tr · th · td"</span>
-<span id="cb1-19"><a href="#cb1-19"></a>      Inline tags</span>
-<span id="cb1-20"><a href="#cb1-20"></a>        "a · link"</span>
-<span id="cb1-21"><a href="#cb1-21"></a>          href attribute</span>
-<span id="cb1-22"><a href="#cb1-22"></a>        "b · strong · bold"</span>
-<span id="cb1-23"><a href="#cb1-23"></a>        "i · em · italic"</span>
-<span id="cb1-24"><a href="#cb1-24"></a>        "span · generic inline"</span>
-<span id="cb1-25"><a href="#cb1-25"></a>        "img · self-closing"</span>
-<span id="cb1-26"><a href="#cb1-26"></a>          "src · alt · width · height"</span>
-<span id="cb1-27"><a href="#cb1-27"></a>      Attributes that matter for scraping</span>
-<span id="cb1-28"><a href="#cb1-28"></a>        "id · unique per page"</span>
-<span id="cb1-29"><a href="#cb1-29"></a>        "class · group of elements"</span>
-<span id="cb1-30"><a href="#cb1-30"></a>        "href · link target"</span>
-<span id="cb1-31"><a href="#cb1-31"></a>        "src · image source"</span>
-<span id="cb1-32"><a href="#cb1-32"></a>        "data-* · custom data"</span>
-<span id="cb1-33"><a href="#cb1-33"></a>    "CSS selectors · addressing the tree"</span>
-<span id="cb1-34"><a href="#cb1-34"></a>      Four primary forms</span>
-<span id="cb1-35"><a href="#cb1-35"></a>        "tag · p"</span>
-<span id="cb1-36"><a href="#cb1-36"></a>          all p elements</span>
-<span id="cb1-37"><a href="#cb1-37"></a>        "class · .important"</span>
-<span id="cb1-38"><a href="#cb1-38"></a>          "dot · matches class attribute"</span>
-<span id="cb1-39"><a href="#cb1-39"></a>        "id · #title"</span>
-<span id="cb1-40"><a href="#cb1-40"></a>          "hash · matches id attribute · unique"</span>
-<span id="cb1-41"><a href="#cb1-41"></a>        "tag.class · p.special"</span>
-<span id="cb1-42"><a href="#cb1-42"></a>          tag with that class</span>
-<span id="cb1-43"><a href="#cb1-43"></a>      Combinators</span>
-<span id="cb1-44"><a href="#cb1-44"></a>        "descendant · ul li"</span>
-<span id="cb1-45"><a href="#cb1-45"></a>          li anywhere inside ul</span>
-<span id="cb1-46"><a href="#cb1-46"></a>        "child · ul &gt; li"</span>
-<span id="cb1-47"><a href="#cb1-47"></a>          li direct child of ul</span>
-<span id="cb1-48"><a href="#cb1-48"></a>        "adjacent · h2 + p"</span>
-<span id="cb1-49"><a href="#cb1-49"></a>          first p right after h2</span>
-<span id="cb1-50"><a href="#cb1-50"></a>        "sibling · h2 ~ p"</span>
-<span id="cb1-51"><a href="#cb1-51"></a>          all p following h2</span>
-<span id="cb1-52"><a href="#cb1-52"></a>      Attribute selectors</span>
-<span id="cb1-53"><a href="#cb1-53"></a>        "[data-modal=open]"</span>
-<span id="cb1-54"><a href="#cb1-54"></a>        "[href^=https]"</span>
-<span id="cb1-55"><a href="#cb1-55"></a>        "[class*=card]"</span>
-<span id="cb1-56"><a href="#cb1-56"></a>      Pseudo-classes</span>
-<span id="cb1-57"><a href="#cb1-57"></a>        :first-child</span>
-<span id="cb1-58"><a href="#cb1-58"></a>        ":nth-child(2n+1)"</span>
-<span id="cb1-59"><a href="#cb1-59"></a>        ":not(.hidden)"</span>
-<span id="cb1-60"><a href="#cb1-60"></a>      Discovery tools</span>
-<span id="cb1-61"><a href="#cb1-61"></a>        "SelectorGadget · point and click"</span>
-<span id="cb1-62"><a href="#cb1-62"></a>        "browser DevTools · inspect element"</span>
-<span id="cb1-63"><a href="#cb1-63"></a>        "Right-click · Inspect · copy selector"</span>
-<span id="cb1-64"><a href="#cb1-64"></a>    rvest functions</span>
-<span id="cb1-65"><a href="#cb1-65"></a>      Reading</span>
-<span id="cb1-66"><a href="#cb1-66"></a>        "read_html(url)"</span>
-<span id="cb1-67"><a href="#cb1-67"></a>          fetches and parses</span>
-<span id="cb1-68"><a href="#cb1-68"></a>          returns xml_document</span>
-<span id="cb1-69"><a href="#cb1-69"></a>        "minimal_html(string)"</span>
-<span id="cb1-70"><a href="#cb1-70"></a>          for testing on literal HTML</span>
-<span id="cb1-71"><a href="#cb1-71"></a>      Selecting</span>
-<span id="cb1-72"><a href="#cb1-72"></a>        "html_element(x, css)"</span>
-<span id="cb1-73"><a href="#cb1-73"></a>          "first match · always single"</span>
-<span id="cb1-74"><a href="#cb1-74"></a>          NA if no match</span>
-<span id="cb1-75"><a href="#cb1-75"></a>        "html_elements(x, css)"</span>
-<span id="cb1-76"><a href="#cb1-76"></a>          "all matches · vector of nodes"</span>
-<span id="cb1-77"><a href="#cb1-77"></a>      Extracting</span>
-<span id="cb1-78"><a href="#cb1-78"></a>        "html_text2()"</span>
-<span id="cb1-79"><a href="#cb1-79"></a>          "plain text · respects whitespace"</span>
-<span id="cb1-80"><a href="#cb1-80"></a>          like browser display</span>
-<span id="cb1-81"><a href="#cb1-81"></a>        "html_text()"</span>
-<span id="cb1-82"><a href="#cb1-82"></a>          "raw text · keeps junk whitespace"</span>
-<span id="cb1-83"><a href="#cb1-83"></a>          rarely what you want</span>
-<span id="cb1-84"><a href="#cb1-84"></a>        "html_attr(x, \"name\")"</span>
-<span id="cb1-85"><a href="#cb1-85"></a>          attribute value as string</span>
-<span id="cb1-86"><a href="#cb1-86"></a>          may need parse_number etc.</span>
-<span id="cb1-87"><a href="#cb1-87"></a>        "html_table()"</span>
-<span id="cb1-88"><a href="#cb1-88"></a>          "HTML table → data frame"</span>
-<span id="cb1-89"><a href="#cb1-89"></a>          "one call · done"</span>
-<span id="cb1-90"><a href="#cb1-90"></a>    The observation pattern</span>
-<span id="cb1-91"><a href="#cb1-91"></a>      "Wrong way · directly extract each variable"</span>
-<span id="cb1-92"><a href="#cb1-92"></a>        "names &lt;- html_elements(\"b\") · text2"</span>
-<span id="cb1-93"><a href="#cb1-93"></a>        "species &lt;- html_elements(\"i\") · text2"</span>
-<span id="cb1-94"><a href="#cb1-94"></a>        "weights &lt;- html_elements(\".weight\") · text2"</span>
-<span id="cb1-95"><a href="#cb1-95"></a>        "problem · different lengths · misaligned"</span>
-<span id="cb1-96"><a href="#cb1-96"></a>      "Right way · select rows then variables"</span>
-<span id="cb1-97"><a href="#cb1-97"></a>        "rows &lt;- html_elements(x, \"li\")"</span>
-<span id="cb1-98"><a href="#cb1-98"></a>        "names &lt;- rows %&gt;% html_element(\"b\") %&gt;% text2"</span>
-<span id="cb1-99"><a href="#cb1-99"></a>        "species &lt;- rows %&gt;% html_element(\"i\") %&gt;% text2"</span>
-<span id="cb1-100"><a href="#cb1-100"></a>        "weights &lt;- rows %&gt;% html_element(\".weight\") %&gt;% text2"</span>
-<span id="cb1-101"><a href="#cb1-101"></a>        "property · same length · NA fills missing"</span>
-<span id="cb1-102"><a href="#cb1-102"></a>      Why</span>
-<span id="cb1-103"><a href="#cb1-103"></a>        "html_elements outside · selects observation rows"</span>
-<span id="cb1-104"><a href="#cb1-104"></a>        "html_element inside · returns one or NA per row"</span>
-<span id="cb1-105"><a href="#cb1-105"></a>        guarantees alignment</span>
-<span id="cb1-106"><a href="#cb1-106"></a>    Iteration over pages</span>
-<span id="cb1-107"><a href="#cb1-107"></a>      Pagination patterns</span>
-<span id="cb1-108"><a href="#cb1-108"></a>        "URL with ?page=N · increment"</span>
-<span id="cb1-109"><a href="#cb1-109"></a>        "URL with /page/N/ · path increment"</span>
-<span id="cb1-110"><a href="#cb1-110"></a>        "next link in HTML · follow"</span>
-<span id="cb1-111"><a href="#cb1-111"></a>      Map shape</span>
-<span id="cb1-112"><a href="#cb1-112"></a>        "urls &lt;- str_glue base ?page= 1:N"</span>
-<span id="cb1-113"><a href="#cb1-113"></a>        "urls %&gt;% map(read_html) %&gt;% map(scrape_fn) %&gt;% list_rbind"</span>
-<span id="cb1-114"><a href="#cb1-114"></a>        ICA 11 territory</span>
-<span id="cb1-115"><a href="#cb1-115"></a>      Politeness</span>
-<span id="cb1-116"><a href="#cb1-116"></a>        "rate limiting · Sys.sleep(1)"</span>
-<span id="cb1-117"><a href="#cb1-117"></a>        "identify yourself · User-Agent"</span>
-<span id="cb1-118"><a href="#cb1-118"></a>        respect robots.txt</span>
-<span id="cb1-119"><a href="#cb1-119"></a>        "cache locally · don't re-scrape"</span>
-<span id="cb1-120"><a href="#cb1-120"></a>    Edge cases</span>
-<span id="cb1-121"><a href="#cb1-121"></a>      "Dynamic content · JS rendering"</span>
-<span id="cb1-122"><a href="#cb1-122"></a>        rvest reads server-side HTML only</span>
-<span id="cb1-123"><a href="#cb1-123"></a>        "for JS-rendered pages · use chromote or RSelenium"</span>
-<span id="cb1-124"><a href="#cb1-124"></a>      Login walls</span>
-<span id="cb1-125"><a href="#cb1-125"></a>        "rvest_session · maintain cookies"</span>
-<span id="cb1-126"><a href="#cb1-126"></a>        post form data</span>
-<span id="cb1-127"><a href="#cb1-127"></a>      Inconsistent structure</span>
-<span id="cb1-128"><a href="#cb1-128"></a>        "some pages have field · some don't"</span>
-<span id="cb1-129"><a href="#cb1-129"></a>        "html_element returns NA · keeps alignment"</span>
-<span id="cb1-130"><a href="#cb1-130"></a>        post-process to clean</span>
-<span id="cb1-131"><a href="#cb1-131"></a>      "Encoding · whitespace"</span>
-<span id="cb1-132"><a href="#cb1-132"></a>        html_text2 vs html_text</span>
-<span id="cb1-133"><a href="#cb1-133"></a>        "str_squish · collapse whitespace"</span>
-<span id="cb1-134"><a href="#cb1-134"></a>        "str_trim · drop leading/trailing"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#2780E3", "primaryTextColor": "#fff", "primaryBorderColor": "#1a5cb0", "lineColor": "#6c757d", "secondaryColor": "#e9ecef", "tertiaryColor": "#f8f9fa", "fontFamily": "Inter, sans-serif", "fontSize": "14px"}}}%%</span>
+<span id="cb1-2"><a href="#cb1-2"></a>mindmap</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  root((ICA 15 Web Scraping))</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    rvest workflow</span>
+<span id="cb1-5"><a href="#cb1-5"></a>      "read_html · download"</span>
+<span id="cb1-6"><a href="#cb1-6"></a>      "html_elements · select"</span>
+<span id="cb1-7"><a href="#cb1-7"></a>      "html_text2 · extract"</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    CSS selectors</span>
+<span id="cb1-9"><a href="#cb1-9"></a>      "tag · class · id"</span>
+<span id="cb1-10"><a href="#cb1-10"></a>      "descendant combinators"</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    Politeness</span>
+<span id="cb1-12"><a href="#cb1-12"></a>      "robots.txt · rate limit"</span>
+<span id="cb1-13"><a href="#cb1-13"></a>      "User-Agent header"</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    API vs scrape</span>
+<span id="cb1-15"><a href="#cb1-15"></a>      "API exists → use it"</span>
+<span id="cb1-16"><a href="#cb1-16"></a>      "scraping is fragile"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">mindmap
+<pre class="mermaid mermaid-js">%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#2780E3", "primaryTextColor": "#fff", "primaryBorderColor": "#1a5cb0", "lineColor": "#6c757d", "secondaryColor": "#e9ecef", "tertiaryColor": "#f8f9fa", "fontFamily": "Inter, sans-serif", "fontSize": "14px"}}}%%
+mindmap
   root((ICA 15 Web Scraping))
-    HTML as a tree
-      Document structure
-        html
-          "head · metadata · title"
-          "body · visible content"
-      Element anatomy
-        "start tag · &lt;tag&gt;"
-        "attributes · name=value"
-        "contents · text or more elements"
-        "end tag · &lt;/tag&gt;"
-      Block tags
-        "h1 · h2 · h3 · headings"
-        "p · paragraph"
-        "div · generic block"
-        "ol · ul · li · lists"
-        "table · tr · th · td"
-      Inline tags
-        "a · link"
-          href attribute
-        "b · strong · bold"
-        "i · em · italic"
-        "span · generic inline"
-        "img · self-closing"
-          "src · alt · width · height"
-      Attributes that matter for scraping
-        "id · unique per page"
-        "class · group of elements"
-        "href · link target"
-        "src · image source"
-        "data-* · custom data"
-    "CSS selectors · addressing the tree"
-      Four primary forms
-        "tag · p"
-          all p elements
-        "class · .important"
-          "dot · matches class attribute"
-        "id · #title"
-          "hash · matches id attribute · unique"
-        "tag.class · p.special"
-          tag with that class
-      Combinators
-        "descendant · ul li"
-          li anywhere inside ul
-        "child · ul &gt; li"
-          li direct child of ul
-        "adjacent · h2 + p"
-          first p right after h2
-        "sibling · h2 ~ p"
-          all p following h2
-      Attribute selectors
-        "[data-modal=open]"
-        "[href^=https]"
-        "[class*=card]"
-      Pseudo-classes
-        :first-child
-        ":nth-child(2n+1)"
-        ":not(.hidden)"
-      Discovery tools
-        "SelectorGadget · point and click"
-        "browser DevTools · inspect element"
-        "Right-click · Inspect · copy selector"
-    rvest functions
-      Reading
-        "read_html(url)"
-          fetches and parses
-          returns xml_document
-        "minimal_html(string)"
-          for testing on literal HTML
-      Selecting
-        "html_element(x, css)"
-          "first match · always single"
-          NA if no match
-        "html_elements(x, css)"
-          "all matches · vector of nodes"
-      Extracting
-        "html_text2()"
-          "plain text · respects whitespace"
-          like browser display
-        "html_text()"
-          "raw text · keeps junk whitespace"
-          rarely what you want
-        "html_attr(x, \"name\")"
-          attribute value as string
-          may need parse_number etc.
-        "html_table()"
-          "HTML table → data frame"
-          "one call · done"
-    The observation pattern
-      "Wrong way · directly extract each variable"
-        "names &lt;- html_elements(\"b\") · text2"
-        "species &lt;- html_elements(\"i\") · text2"
-        "weights &lt;- html_elements(\".weight\") · text2"
-        "problem · different lengths · misaligned"
-      "Right way · select rows then variables"
-        "rows &lt;- html_elements(x, \"li\")"
-        "names &lt;- rows %&gt;% html_element(\"b\") %&gt;% text2"
-        "species &lt;- rows %&gt;% html_element(\"i\") %&gt;% text2"
-        "weights &lt;- rows %&gt;% html_element(\".weight\") %&gt;% text2"
-        "property · same length · NA fills missing"
-      Why
-        "html_elements outside · selects observation rows"
-        "html_element inside · returns one or NA per row"
-        guarantees alignment
-    Iteration over pages
-      Pagination patterns
-        "URL with ?page=N · increment"
-        "URL with /page/N/ · path increment"
-        "next link in HTML · follow"
-      Map shape
-        "urls &lt;- str_glue base ?page= 1:N"
-        "urls %&gt;% map(read_html) %&gt;% map(scrape_fn) %&gt;% list_rbind"
-        ICA 11 territory
-      Politeness
-        "rate limiting · Sys.sleep(1)"
-        "identify yourself · User-Agent"
-        respect robots.txt
-        "cache locally · don't re-scrape"
-    Edge cases
-      "Dynamic content · JS rendering"
-        rvest reads server-side HTML only
-        "for JS-rendered pages · use chromote or RSelenium"
-      Login walls
-        "rvest_session · maintain cookies"
-        post form data
-      Inconsistent structure
-        "some pages have field · some don't"
-        "html_element returns NA · keeps alignment"
-        post-process to clean
-      "Encoding · whitespace"
-        html_text2 vs html_text
-        "str_squish · collapse whitespace"
-        "str_trim · drop leading/trailing"
+    rvest workflow
+      "read_html · download"
+      "html_elements · select"
+      "html_text2 · extract"
+    CSS selectors
+      "tag · class · id"
+      "descendant combinators"
+    Politeness
+      "robots.txt · rate limit"
+      "User-Agent header"
+    API vs scrape
+      "API exists → use it"
+      "scraping is fragile"
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1035,117 +798,74 @@ cookieconsent.run({
 </div>
 </div>
 </section>
-<section id="three-concepts-the-vignette-quietly-hinges-on" class="level2">
-<h2 class="anchored" data-anchor-id="three-concepts-the-vignette-quietly-hinges-on">Three concepts the vignette quietly hinges on</h2>
-<p><strong>The observation pattern is what keeps your data frame aligned.</strong> This is the single most important pattern in <code>rvest</code>, and the one new scrapers most commonly miss. If you call <code>html_elements("b")</code>, <code>html_elements("i")</code>, <code>html_elements(".weight")</code> directly on the page, you’ll get vectors of <em>different lengths</em> whenever any observation is missing one of those fields — and there’s no safe way to align them back. The fix: first select the <em>observation rows</em> with <code>html_elements()</code> (e.g., the <code>&lt;li&gt;</code> for each Star Wars character), then extract each <em>variable</em> from each row with <code>html_element()</code> (singular) — which returns <code>NA</code> when no match is found, preserving alignment. The whole <code>rvest</code> API is designed around this two-level pattern. Internalize it and most scraping bugs disappear.</p>
-<p><strong><code>html_text2()</code> mimics what the browser shows; <code>html_text()</code> returns raw character soup.</strong> HTML ignores whitespace in source code and uses element structure to render text. <code>html_text()</code> returns the source with all its newlines, tabs, and indentation preserved — ugly and rarely what you want. <code>html_text2()</code> reconstructs what the rendered page would <em>look</em> like: paragraphs separated by blank lines, no leading whitespace, sentences joined sensibly. The default reach should always be <code>html_text2()</code>. The only time <code>html_text()</code> is correct is when you specifically want to preserve raw whitespace (which is almost never).</p>
-<p><strong>Attributes are how the data not visible on screen gets carried.</strong> When scraping links from a list, the visible text might be the article title — but the URL you actually want is in the <code>href</code> attribute of the <code>&lt;a&gt;</code> tag. <code>html_attr(node, "href")</code> is how you get it. Same with images (<code>src</code>), data attributes (<code>data-id</code>, <code>data-price</code>), and form inputs (<code>value</code>). Always check what’s in the attribute as well as what’s in the text — half of the useful data on a typical page is in attributes, not in visible content.</p>
+<section id="three-concepts-the-chapter-quietly-hinges-on" class="level2">
+<h2 class="anchored" data-anchor-id="three-concepts-the-chapter-quietly-hinges-on">Three concepts the chapter quietly hinges on</h2>
+<p><strong>Scraping is reverse-engineering, not parsing.</strong> When you call <code>read_html("https://example.com")</code>, you get back the HTML the server <em>sent to your browser</em> — which may differ from what the browser <em>actually rendered</em> if the page uses JavaScript to load data after the initial response. For static sites, rvest is straightforward; for JS-heavy sites, the data you want may not be in <code>read_html()</code>’s output at all, and you’d need a tool like RSelenium or chromote that runs a real browser. The clue: if <code>html_elements()</code> returns empty when you can clearly see the data in your browser, the page is JS-rendered.</p>
+<p><strong>CSS selectors are the contract between you and the page’s HTML structure.</strong> A selector like <code>.post-title h2</code> tells rvest: “find every element with class <code>post-title</code>, then find every <code>h2</code> inside those.” This works as long as the page’s HTML structure stays the same — but the moment the site redesigns, your selector breaks. This is the core fragility of scraping: there’s no contract, no API version, no deprecation warning. The page just changes and your code silently returns empty results or wrong data. Defensive scraping checks the result count: if <code>html_elements(".post-title")</code> returned 50 yesterday and 0 today, something changed.</p>
+<p><strong>Politeness is both ethical and practical.</strong> Rate-limiting your scraper (<code>Sys.sleep(1)</code> between requests) protects the site from your traffic and protects you from being IP-banned. Setting a <code>User-Agent</code> header that identifies you (e.g., <code>"Zhijun He's research scraper, contact: zhe@macalester.edu"</code>) lets the site admin reach out instead of blocking. Reading <code>robots.txt</code> (e.g., <code>https://example.com/robots.txt</code>) tells you which paths the site explicitly disallows. Respecting these isn’t optional courtesy — it’s how the open web stays scrapeable for everyone.</p>
 </section>
-<section id="a-small-reference-for-css-selectors" class="level2">
-<h2 class="anchored" data-anchor-id="a-small-reference-for-css-selectors">A small reference for CSS selectors</h2>
-<p>The selector forms ranked by frequency in real scraping work:</p>
+<section id="a-small-reference-for-rvest-verbs" class="level2">
+<h2 class="anchored" data-anchor-id="a-small-reference-for-rvest-verbs">A small reference for rvest verbs</h2>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 31%">
-<col style="width: 28%">
-<col style="width: 40%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Selector</th>
-<th>Matches</th>
-<th>Example use</th>
+<th>Verb</th>
+<th>What it does</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>tag</code></td>
-<td>All elements with that tag</td>
-<td><code>p</code>, <code>a</code>, <code>td</code></td>
+<td><code>read_html(url)</code></td>
+<td>Download and parse the page</td>
 </tr>
 <tr class="even">
-<td><code>.class</code></td>
-<td>Elements with that class</td>
-<td><code>.product-name</code>, <code>.price</code></td>
+<td><code>html_elements(css)</code></td>
+<td>Select all matching elements (vector)</td>
 </tr>
 <tr class="odd">
-<td><code>#id</code></td>
-<td>The unique element with that id</td>
-<td><code>#main-content</code></td>
+<td><code>html_element(css)</code></td>
+<td>Select first match (single element)</td>
 </tr>
 <tr class="even">
-<td><code>tag.class</code></td>
-<td>Tag <em>with</em> that class</td>
-<td><code>a.external</code>, <code>div.card</code></td>
+<td><code>html_text2()</code></td>
+<td>Extract clean text, normalize whitespace</td>
 </tr>
 <tr class="odd">
-<td><code>parent child</code></td>
-<td>Descendant (any depth)</td>
-<td><code>ul li</code>, <code>.card a</code></td>
+<td><code>html_attr("href")</code></td>
+<td>Extract attribute value</td>
 </tr>
 <tr class="even">
-<td><code>parent &gt; child</code></td>
-<td>Direct child only</td>
-<td><code>ul &gt; li</code>, <code>nav &gt; a</code></td>
-</tr>
-<tr class="odd">
-<td><code>[attr]</code> / <code>[attr=value]</code></td>
-<td>Attribute presence / equality</td>
-<td><code>[href]</code>, <code>[data-type=card]</code></td>
-</tr>
-<tr class="even">
-<td><code>[attr^=value]</code></td>
-<td>Attribute starts with</td>
-<td><code>[href^=https]</code></td>
-</tr>
-<tr class="odd">
-<td><code>:first-child</code> / <code>:nth-child(n)</code></td>
-<td>Positional</td>
-<td><code>li:nth-child(odd)</code></td>
-</tr>
-<tr class="even">
-<td><code>selector1, selector2</code></td>
-<td>Either of these (union)</td>
-<td><code>h2, h3</code></td>
+<td><code>html_table()</code></td>
+<td>Parse <code>&lt;table&gt;</code> directly to data frame</td>
 </tr>
 </tbody>
 </table>
-<p>For most scraping tasks, the first four are sufficient. The rest are tools you reach for when the page’s structure is hostile.</p>
 </section>
-<section id="two-patterns-worth-memorizing" class="level2">
-<h2 class="anchored" data-anchor-id="two-patterns-worth-memorizing">Two patterns worth memorizing</h2>
-<p><strong>The complete scrape-one-page function.</strong> Generalized from the <code>rvest</code> Star Wars example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>scrape_page <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>  rows <span class="ot">&lt;-</span> page <span class="sc">|&gt;</span> <span class="fu">html_elements</span>(<span class="st">"li.character"</span>)  <span class="co"># observation selector</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="at">name    =</span> rows <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"b"</span>)        <span class="sc">|&gt;</span> <span class="fu">html_text2</span>(),</span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="at">species =</span> rows <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"i"</span>)        <span class="sc">|&gt;</span> <span class="fu">html_text2</span>(),</span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="at">weight  =</span> rows <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">".weight"</span>)  <span class="sc">|&gt;</span> <span class="fu">html_text2</span>() <span class="sc">|&gt;</span> <span class="fu">parse_number</span>(),</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="at">profile =</span> rows <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"a"</span>)        <span class="sc">|&gt;</span> <span class="fu">html_attr</span>(<span class="st">"href"</span>)</span>
+<section id="a-code-pattern-for-scraping-multiple-pages" class="level2">
+<h2 class="anchored" data-anchor-id="a-code-pattern-for-scraping-multiple-pages">A code pattern for scraping multiple pages</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a>scrape_one <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)  <span class="co"># politeness</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="at">title =</span> page <span class="sc">|&gt;</span> <span class="fu">html_elements</span>(<span class="st">".title"</span>) <span class="sc">|&gt;</span> <span class="fu">html_text2</span>(),</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="at">date  =</span> page <span class="sc">|&gt;</span> <span class="fu">html_elements</span>(<span class="st">".date"</span>)  <span class="sc">|&gt;</span> <span class="fu">html_text2</span>()</span>
 <span id="cb2-10"><a href="#cb2-10"></a>  )</span>
-<span id="cb2-11"><a href="#cb2-11"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The shape: read → select rows → tibble of per-variable extractions. Every variable is one column-line; every line is the same length because <code>html_element</code> (singular) returns NA on miss.</p>
-<p><strong>The paginated scrape.</strong> Same shape as the API pagination from ICA 14, but with <code>read_html</code> instead of <code>fromJSON</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>urls <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(<span class="st">"https://example.com/items?page={1:21}"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>all_items <span class="ot">&lt;-</span> urls <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">map</span>(scrape_page) <span class="sc">|&gt;</span>          <span class="co"># one tibble per page</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">list_rbind</span>()                 <span class="co"># bind into one</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Add <code>Sys.sleep(0.5)</code> inside <code>scrape_page</code> if the site rate-limits or if politeness matters.</p>
+<span id="cb2-11"><a href="#cb2-11"></a>}</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a>urls <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://example.com/page/"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>results <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(urls, scrape_one)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The shape: define a function that scrapes one page, sleep between calls, map over a list of URLs, bind results into a tidy frame. This pattern works for any paginated source.</p>
 </section>
 <section id="why-this-comes-after-apis" class="level2">
 <h2 class="anchored" data-anchor-id="why-this-comes-after-apis">Why this comes after APIs</h2>
-<p>ICAs 13–14 taught the structured case: a documented endpoint, a JSON contract, parameters that the maintainer has agreed to support. ICA 15 teaches the unstructured case: no contract, you read the HTML the page rendered for human eyes and address into it via styling hooks the developers happened to use. The skill ordering matters because once you’ve internalized JSON paths and URL parameters, CSS selectors feel familiar — they’re just a different addressing language for a different data shape. The iteration patterns (<code>map</code> over pages, bind with <code>list_rbind</code>) are identical to the API case; only the per-page extraction logic changes.</p>
+<p>ICAs 13-14 taught APIs — clean, structured, contracted ways to get data. ICA 15 teaches scraping — what you do when no API exists. The order matters: APIs first means scraping is positioned as the <em>fallback</em>, not the default. Always check if an API exists before scraping; the maintenance burden of scraping (selectors break, sites redesign, rate limits change) is high enough that API access is almost always worth using when available.</p>
 </section>
 <section id="a-note-on-what-this-enables" class="level2">
 <h2 class="anchored" data-anchor-id="a-note-on-what-this-enables">A note on what this enables</h2>
-<p>HW08 P1 is exactly this pattern. cheese.com has 21 alphabetical pages, each listing 100 cheeses (the last has 46) — <code>map(1:21, scrape_page) |&gt; list_rbind()</code> produced the 2046-row index. The detail-page version takes each cheese’s URL (extracted from <code>&lt;a href&gt;</code>), follows it, and pulls the milk / country / family / type / flavor fields by <code>.summary-points</code> class — same observation pattern, just one row per page instead of many. The same template will scrape essentially any catalog-style website: paginated index → detail pages → bind. The vocabulary <code>rvest</code> gives you is the toolkit; recognizing the catalog-detail pattern is what makes a scraping task tractable in 30 lines instead of 300.</p>
-</section>
-<section id="a-note-on-legality-and-politeness" class="level2">
-<h2 class="anchored" data-anchor-id="a-note-on-legality-and-politeness">A note on legality and politeness</h2>
-<p>Scraping is legal in the US for publicly accessible pages (Van Buren v. United States, 2021), but ethical scraping is its own discipline. Three rules of thumb: (1) check <code>robots.txt</code> and respect Disallow rules; (2) rate-limit yourself even when not asked — a <code>Sys.sleep(0.5)</code> between requests costs nothing and keeps you off the maintainer’s radar; (3) cache locally and never re-scrape what you already have. Most scraping problems with hosting providers come not from scraping itself but from scraping <em>aggressively</em> — hammering a small site at full speed will get your IP banned and may break their server. The <code>rvest</code> vignette doesn’t dwell on this, but it’s part of the practice.</p>
+<p>HW07’s Mia Museum data was a JSON dump (effectively API output). HW08’s cheese.com data was scraping — no API, just HTML pages. The contrast is the point: same goal (get structured data), different tools, dramatically different maintenance profiles. Scraping is powerful but fragile; treating it as the last resort, not the first instinct, is the rule that keeps your data pipeline maintainable.</p>
 
 
 <!-- -->
@@ -1634,225 +1354,84 @@ cookieconsent.run({
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">---</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="an">title:</span><span class="co"> "PCL · ICA 15 — Web Scraping"</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="an">author:</span><span class="co"> "Zhijun He (何智骏)"</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="an">format:</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">  html:</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">    toc: true</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">---</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">## Pre-class learning map</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a>ICA 15 is the *mirror image* of ICAs 13–14. APIs work when the website's owner has built one and made it accessible; web scraping works when they haven't, or when the data is only available through the rendered page itself. The mechanics are different — instead of a clean JSON response keyed by parameter, you get a hierarchical HTML document and have to *address into it* using CSS selectors, the same mini-language CSS uses to apply styles. The `rvest` vignette teaches three things in sequence: (1) **HTML structure** as a tree of nested tags with attributes; (2) **CSS selectors** as the addressing language for picking nodes out of that tree; (3) **rvest's extraction functions** for getting text, attributes, or tabular data out of selected nodes. The mindmap below organizes the prep around these three layers plus the practical observation pattern (<span class="in">`html_elements()`</span> outer / <span class="in">`html_element()`</span> inner) that keeps your variables aligned.</span>
-<span id="cb4-12"><a href="#cb4-12"></a></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="in">```{mermaid}</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a>mindmap</span>
-<span id="cb4-17"><a href="#cb4-17"></a>  root((ICA <span class="dv">15</span> Web Scraping))</span>
-<span id="cb4-18"><a href="#cb4-18"></a>    HTML as a tree</span>
-<span id="cb4-19"><a href="#cb4-19"></a>      Document structure</span>
-<span id="cb4-20"><a href="#cb4-20"></a>        html</span>
-<span id="cb4-21"><a href="#cb4-21"></a>          <span class="ot">"</span><span class="st">head · metadata · title</span><span class="ot">"</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a>          <span class="ot">"</span><span class="st">body · visible content</span><span class="ot">"</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a>      Element anatomy</span>
-<span id="cb4-24"><a href="#cb4-24"></a>        <span class="ot">"</span><span class="st">start tag · &lt;tag&gt;</span><span class="ot">"</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a>        <span class="ot">"</span><span class="st">attributes · name=value</span><span class="ot">"</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a>        <span class="ot">"</span><span class="st">contents · text or more elements</span><span class="ot">"</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a>        <span class="ot">"</span><span class="st">end tag · &lt;/tag&gt;</span><span class="ot">"</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a>      Block tags</span>
-<span id="cb4-29"><a href="#cb4-29"></a>        <span class="ot">"</span><span class="st">h1 · h2 · h3 · headings</span><span class="ot">"</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a>        <span class="ot">"</span><span class="st">p · paragraph</span><span class="ot">"</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a>        <span class="ot">"</span><span class="st">div · generic block</span><span class="ot">"</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a>        <span class="ot">"</span><span class="st">ol · ul · li · lists</span><span class="ot">"</span></span>
-<span id="cb4-33"><a href="#cb4-33"></a>        <span class="ot">"</span><span class="st">table · tr · th · td</span><span class="ot">"</span></span>
-<span id="cb4-34"><a href="#cb4-34"></a>      Inline tags</span>
-<span id="cb4-35"><a href="#cb4-35"></a>        <span class="ot">"</span><span class="st">a · link</span><span class="ot">"</span></span>
-<span id="cb4-36"><a href="#cb4-36"></a>          href attribute</span>
-<span id="cb4-37"><a href="#cb4-37"></a>        <span class="ot">"</span><span class="st">b · strong · bold</span><span class="ot">"</span></span>
-<span id="cb4-38"><a href="#cb4-38"></a>        <span class="ot">"</span><span class="st">i · em · italic</span><span class="ot">"</span></span>
-<span id="cb4-39"><a href="#cb4-39"></a>        <span class="ot">"</span><span class="st">span · generic inline</span><span class="ot">"</span></span>
-<span id="cb4-40"><a href="#cb4-40"></a>        <span class="ot">"</span><span class="st">img · self-closing</span><span class="ot">"</span></span>
-<span id="cb4-41"><a href="#cb4-41"></a>          <span class="ot">"</span><span class="st">src · alt · width · height</span><span class="ot">"</span></span>
-<span id="cb4-42"><a href="#cb4-42"></a>      Attributes that matter <span class="cf">for</span> scraping</span>
-<span id="cb4-43"><a href="#cb4-43"></a>        <span class="ot">"</span><span class="st">id · unique per page</span><span class="ot">"</span></span>
-<span id="cb4-44"><a href="#cb4-44"></a>        <span class="ot">"</span><span class="st">class · group of elements</span><span class="ot">"</span></span>
-<span id="cb4-45"><a href="#cb4-45"></a>        <span class="ot">"</span><span class="st">href · link target</span><span class="ot">"</span></span>
-<span id="cb4-46"><a href="#cb4-46"></a>        <span class="ot">"</span><span class="st">src · image source</span><span class="ot">"</span></span>
-<span id="cb4-47"><a href="#cb4-47"></a>        <span class="ot">"</span><span class="st">data-* · custom data</span><span class="ot">"</span></span>
-<span id="cb4-48"><a href="#cb4-48"></a>    <span class="ot">"</span><span class="st">CSS selectors · addressing the tree</span><span class="ot">"</span></span>
-<span id="cb4-49"><a href="#cb4-49"></a>      Four primary forms</span>
-<span id="cb4-50"><a href="#cb4-50"></a>        <span class="ot">"</span><span class="st">tag · p</span><span class="ot">"</span></span>
-<span id="cb4-51"><a href="#cb4-51"></a>          all p elements</span>
-<span id="cb4-52"><a href="#cb4-52"></a>        <span class="ot">"</span><span class="st">class · .important</span><span class="ot">"</span></span>
-<span id="cb4-53"><a href="#cb4-53"></a>          <span class="ot">"</span><span class="st">dot · matches class attribute</span><span class="ot">"</span></span>
-<span id="cb4-54"><a href="#cb4-54"></a>        <span class="ot">"</span><span class="st">id · #title</span><span class="ot">"</span></span>
-<span id="cb4-55"><a href="#cb4-55"></a>          <span class="ot">"</span><span class="st">hash · matches id attribute · unique</span><span class="ot">"</span></span>
-<span id="cb4-56"><a href="#cb4-56"></a>        <span class="ot">"</span><span class="st">tag.class · p.special</span><span class="ot">"</span></span>
-<span id="cb4-57"><a href="#cb4-57"></a>          tag with that class</span>
-<span id="cb4-58"><a href="#cb4-58"></a>      Combinators</span>
-<span id="cb4-59"><a href="#cb4-59"></a>        <span class="ot">"</span><span class="st">descendant · ul li</span><span class="ot">"</span></span>
-<span id="cb4-60"><a href="#cb4-60"></a>          li anywhere inside ul</span>
-<span id="cb4-61"><a href="#cb4-61"></a>        <span class="ot">"</span><span class="st">child · ul &gt; li</span><span class="ot">"</span></span>
-<span id="cb4-62"><a href="#cb4-62"></a>          li direct child of ul</span>
-<span id="cb4-63"><a href="#cb4-63"></a>        <span class="ot">"</span><span class="st">adjacent · h2 + p</span><span class="ot">"</span></span>
-<span id="cb4-64"><a href="#cb4-64"></a>          first p right after h2</span>
-<span id="cb4-65"><a href="#cb4-65"></a>        <span class="ot">"</span><span class="st">sibling · h2 ~ p</span><span class="ot">"</span></span>
-<span id="cb4-66"><a href="#cb4-66"></a>          all p following h2</span>
-<span id="cb4-67"><a href="#cb4-67"></a>      Attribute selectors</span>
-<span id="cb4-68"><a href="#cb4-68"></a>        <span class="ot">"</span><span class="st">[data-modal=open]</span><span class="ot">"</span></span>
-<span id="cb4-69"><a href="#cb4-69"></a>        <span class="ot">"</span><span class="st">[href^=https]</span><span class="ot">"</span></span>
-<span id="cb4-70"><a href="#cb4-70"></a>        <span class="ot">"</span><span class="st">[class*=card]</span><span class="ot">"</span></span>
-<span id="cb4-71"><a href="#cb4-71"></a>      Pseudo-classes</span>
-<span id="cb4-72"><a href="#cb4-72"></a>        :first-child</span>
-<span id="cb4-73"><a href="#cb4-73"></a>        <span class="ot">"</span><span class="st">:nth-child(2n+1)</span><span class="ot">"</span></span>
-<span id="cb4-74"><a href="#cb4-74"></a>        <span class="ot">"</span><span class="st">:not(.hidden)</span><span class="ot">"</span></span>
-<span id="cb4-75"><a href="#cb4-75"></a>      Discovery tools</span>
-<span id="cb4-76"><a href="#cb4-76"></a>        <span class="ot">"</span><span class="st">SelectorGadget · point and click</span><span class="ot">"</span></span>
-<span id="cb4-77"><a href="#cb4-77"></a>        <span class="ot">"</span><span class="st">browser DevTools · inspect element</span><span class="ot">"</span></span>
-<span id="cb4-78"><a href="#cb4-78"></a>        <span class="ot">"</span><span class="st">Right-click · Inspect · copy selector</span><span class="ot">"</span></span>
-<span id="cb4-79"><a href="#cb4-79"></a>    rvest functions</span>
-<span id="cb4-80"><a href="#cb4-80"></a>      Reading</span>
-<span id="cb4-81"><a href="#cb4-81"></a>        <span class="ot">"</span><span class="st">read_html(url)</span><span class="ot">"</span></span>
-<span id="cb4-82"><a href="#cb4-82"></a>          fetches <span class="ot">and</span> parses</span>
-<span id="cb4-83"><a href="#cb4-83"></a>          returns xml_document</span>
-<span id="cb4-84"><a href="#cb4-84"></a>        <span class="ot">"</span><span class="st">minimal_html(string)</span><span class="ot">"</span></span>
-<span id="cb4-85"><a href="#cb4-85"></a>          <span class="cf">for</span> testing on literal HTML</span>
-<span id="cb4-86"><a href="#cb4-86"></a>      Selecting</span>
-<span id="cb4-87"><a href="#cb4-87"></a>        <span class="ot">"</span><span class="st">html_element(x, css)</span><span class="ot">"</span></span>
-<span id="cb4-88"><a href="#cb4-88"></a>          <span class="ot">"</span><span class="st">first match · always single</span><span class="ot">"</span></span>
-<span id="cb4-89"><a href="#cb4-89"></a>          NA <span class="cf">if</span> <span class="fu">no</span> match</span>
-<span id="cb4-90"><a href="#cb4-90"></a>        <span class="ot">"</span><span class="st">html_elements(x, css)</span><span class="ot">"</span></span>
-<span id="cb4-91"><a href="#cb4-91"></a>          <span class="ot">"</span><span class="st">all matches · vector of nodes</span><span class="ot">"</span></span>
-<span id="cb4-92"><a href="#cb4-92"></a>      Extracting</span>
-<span id="cb4-93"><a href="#cb4-93"></a>        <span class="ot">"</span><span class="st">html_text2()</span><span class="ot">"</span></span>
-<span id="cb4-94"><a href="#cb4-94"></a>          <span class="ot">"</span><span class="st">plain text · respects whitespace</span><span class="ot">"</span></span>
-<span id="cb4-95"><a href="#cb4-95"></a>          like browser display</span>
-<span id="cb4-96"><a href="#cb4-96"></a>        <span class="ot">"</span><span class="st">html_text()</span><span class="ot">"</span></span>
-<span id="cb4-97"><a href="#cb4-97"></a>          <span class="ot">"</span><span class="st">raw text · keeps junk whitespace</span><span class="ot">"</span></span>
-<span id="cb4-98"><a href="#cb4-98"></a>          rarely what you want</span>
-<span id="cb4-99"><a href="#cb4-99"></a>        <span class="ot">"</span><span class="st">html_attr(x, \"name\")</span><span class="ot">"</span></span>
-<span id="cb4-100"><a href="#cb4-100"></a>          attribute value as string</span>
-<span id="cb4-101"><a href="#cb4-101"></a>          may need parse_number etc.</span>
-<span id="cb4-102"><a href="#cb4-102"></a>        <span class="ot">"</span><span class="st">html_table()</span><span class="ot">"</span></span>
-<span id="cb4-103"><a href="#cb4-103"></a>          <span class="ot">"</span><span class="st">HTML table → data frame</span><span class="ot">"</span></span>
-<span id="cb4-104"><a href="#cb4-104"></a>          <span class="ot">"</span><span class="st">one call · done</span><span class="ot">"</span></span>
-<span id="cb4-105"><a href="#cb4-105"></a>    The observation pattern</span>
-<span id="cb4-106"><a href="#cb4-106"></a>      <span class="ot">"</span><span class="st">Wrong way · directly extract each variable</span><span class="ot">"</span></span>
-<span id="cb4-107"><a href="#cb4-107"></a>        <span class="ot">"</span><span class="st">names &lt;- html_elements(\"b\") · text2</span><span class="ot">"</span></span>
-<span id="cb4-108"><a href="#cb4-108"></a>        <span class="ot">"</span><span class="st">species &lt;- html_elements(\"i\") · text2</span><span class="ot">"</span></span>
-<span id="cb4-109"><a href="#cb4-109"></a>        <span class="ot">"</span><span class="st">weights &lt;- html_elements(\".weight\") · text2</span><span class="ot">"</span></span>
-<span id="cb4-110"><a href="#cb4-110"></a>        <span class="ot">"</span><span class="st">problem · different lengths · misaligned</span><span class="ot">"</span></span>
-<span id="cb4-111"><a href="#cb4-111"></a>      <span class="ot">"</span><span class="st">Right way · select rows then variables</span><span class="ot">"</span></span>
-<span id="cb4-112"><a href="#cb4-112"></a>        <span class="ot">"</span><span class="st">rows &lt;- html_elements(x, \"li\")</span><span class="ot">"</span></span>
-<span id="cb4-113"><a href="#cb4-113"></a>        <span class="ot">"</span><span class="st">names &lt;- rows %&gt;% html_element(\"b\") %&gt;% text2</span><span class="ot">"</span></span>
-<span id="cb4-114"><a href="#cb4-114"></a>        <span class="ot">"</span><span class="st">species &lt;- rows %&gt;% html_element(\"i\") %&gt;% text2</span><span class="ot">"</span></span>
-<span id="cb4-115"><a href="#cb4-115"></a>        <span class="ot">"</span><span class="st">weights &lt;- rows %&gt;% html_element(\".weight\") %&gt;% text2</span><span class="ot">"</span></span>
-<span id="cb4-116"><a href="#cb4-116"></a>        <span class="ot">"</span><span class="st">property · same length · NA fills missing</span><span class="ot">"</span></span>
-<span id="cb4-117"><a href="#cb4-117"></a>      Why</span>
-<span id="cb4-118"><a href="#cb4-118"></a>        <span class="ot">"</span><span class="st">html_elements outside · selects observation rows</span><span class="ot">"</span></span>
-<span id="cb4-119"><a href="#cb4-119"></a>        <span class="ot">"</span><span class="st">html_element inside · returns one or NA per row</span><span class="ot">"</span></span>
-<span id="cb4-120"><a href="#cb4-120"></a>        guarantees alignment</span>
-<span id="cb4-121"><a href="#cb4-121"></a>    Iteration over pages</span>
-<span id="cb4-122"><a href="#cb4-122"></a>      Pagination patterns</span>
-<span id="cb4-123"><a href="#cb4-123"></a>        <span class="ot">"</span><span class="st">URL with ?page=N · increment</span><span class="ot">"</span></span>
-<span id="cb4-124"><a href="#cb4-124"></a>        <span class="ot">"</span><span class="st">URL with /page/N/ · path increment</span><span class="ot">"</span></span>
-<span id="cb4-125"><a href="#cb4-125"></a>        <span class="ot">"</span><span class="st">next link in HTML · follow</span><span class="ot">"</span></span>
-<span id="cb4-126"><a href="#cb4-126"></a>      Map shape</span>
-<span id="cb4-127"><a href="#cb4-127"></a>        <span class="ot">"</span><span class="st">urls &lt;- str_glue base ?page= 1:N</span><span class="ot">"</span></span>
-<span id="cb4-128"><a href="#cb4-128"></a>        <span class="ot">"</span><span class="st">urls %&gt;% map(read_html) %&gt;% map(scrape_fn) %&gt;% list_rbind</span><span class="ot">"</span></span>
-<span id="cb4-129"><a href="#cb4-129"></a>        ICA <span class="dv">11</span> territory</span>
-<span id="cb4-130"><a href="#cb4-130"></a>      Politeness</span>
-<span id="cb4-131"><a href="#cb4-131"></a>        <span class="ot">"</span><span class="st">rate limiting · Sys.sleep(1)</span><span class="ot">"</span></span>
-<span id="cb4-132"><a href="#cb4-132"></a>        <span class="ot">"</span><span class="st">identify yourself · User-Agent</span><span class="ot">"</span></span>
-<span id="cb4-133"><a href="#cb4-133"></a>        respect robots.txt</span>
-<span id="cb4-134"><a href="#cb4-134"></a>        <span class="ot">"</span><span class="st">cache locally · don't re-scrape</span><span class="ot">"</span></span>
-<span id="cb4-135"><a href="#cb4-135"></a>    Edge cases</span>
-<span id="cb4-136"><a href="#cb4-136"></a>      <span class="ot">"</span><span class="st">Dynamic content · JS rendering</span><span class="ot">"</span></span>
-<span id="cb4-137"><a href="#cb4-137"></a>        rvest reads server-side HTML only</span>
-<span id="cb4-138"><a href="#cb4-138"></a>        <span class="ot">"</span><span class="st">for JS-rendered pages · use chromote or RSelenium</span><span class="ot">"</span></span>
-<span id="cb4-139"><a href="#cb4-139"></a>      Login walls</span>
-<span id="cb4-140"><a href="#cb4-140"></a>        <span class="ot">"</span><span class="st">rvest_session · maintain cookies</span><span class="ot">"</span></span>
-<span id="cb4-141"><a href="#cb4-141"></a>        post form data</span>
-<span id="cb4-142"><a href="#cb4-142"></a>      Inconsistent structure</span>
-<span id="cb4-143"><a href="#cb4-143"></a>        <span class="ot">"</span><span class="st">some pages have field · some don't</span><span class="ot">"</span></span>
-<span id="cb4-144"><a href="#cb4-144"></a>        <span class="ot">"</span><span class="st">html_element returns NA · keeps alignment</span><span class="ot">"</span></span>
-<span id="cb4-145"><a href="#cb4-145"></a>        post-process to clean</span>
-<span id="cb4-146"><a href="#cb4-146"></a>      <span class="ot">"</span><span class="st">Encoding · whitespace</span><span class="ot">"</span></span>
-<span id="cb4-147"><a href="#cb4-147"></a>        html_text2 vs html_text</span>
-<span id="cb4-148"><a href="#cb4-148"></a>        <span class="ot">"</span><span class="st">str_squish · collapse whitespace</span><span class="ot">"</span></span>
-<span id="cb4-149"><a href="#cb4-149"></a>        <span class="ot">"</span><span class="st">str_trim · drop leading/trailing</span><span class="ot">"</span></span>
-<span id="cb4-150"><a href="#cb4-150"></a><span class="in">```</span></span>
-<span id="cb4-151"><a href="#cb4-151"></a></span>
-<span id="cb4-152"><a href="#cb4-152"></a><span class="fu">## Three concepts the vignette quietly hinges on</span></span>
-<span id="cb4-153"><a href="#cb4-153"></a></span>
-<span id="cb4-154"><a href="#cb4-154"></a>**The observation pattern is what keeps your data frame aligned.** This is the single most important pattern in <span class="in">`rvest`</span>, and the one new scrapers most commonly miss. If you call <span class="in">`html_elements("b")`</span>, <span class="in">`html_elements("i")`</span>, <span class="in">`html_elements(".weight")`</span> directly on the page, you'll get vectors of *different lengths* whenever any observation is missing one of those fields — and there's no safe way to align them back. The fix: first select the *observation rows* with `html_elements()` (e.g., the `&lt;li&gt;` for each Star Wars character), then extract each *variable* from each row with <span class="in">`html_element()`</span> (singular) — which returns <span class="in">`NA`</span> when no match is found, preserving alignment. The whole <span class="in">`rvest`</span> API is designed around this two-level pattern. Internalize it and most scraping bugs disappear.</span>
-<span id="cb4-155"><a href="#cb4-155"></a></span>
-<span id="cb4-156"><a href="#cb4-156"></a>**`html_text2()` mimics what the browser shows; `html_text()` returns raw character soup.** HTML ignores whitespace in source code and uses element structure to render text. <span class="in">`html_text()`</span> returns the source with all its newlines, tabs, and indentation preserved — ugly and rarely what you want. <span class="in">`html_text2()`</span> reconstructs what the rendered page would *look* like: paragraphs separated by blank lines, no leading whitespace, sentences joined sensibly. The default reach should always be <span class="in">`html_text2()`</span>. The only time <span class="in">`html_text()`</span> is correct is when you specifically want to preserve raw whitespace (which is almost never).</span>
-<span id="cb4-157"><a href="#cb4-157"></a></span>
-<span id="cb4-158"><a href="#cb4-158"></a>**Attributes are how the data not visible on screen gets carried.** When scraping links from a list, the visible text might be the article title — but the URL you actually want is in the <span class="in">`href`</span> attribute of the <span class="in">`&lt;a&gt;`</span> tag. <span class="in">`html_attr(node, "href")`</span> is how you get it. Same with images (<span class="in">`src`</span>), data attributes (<span class="in">`data-id`</span>, <span class="in">`data-price`</span>), and form inputs (<span class="in">`value`</span>). Always check what's in the attribute as well as what's in the text — half of the useful data on a typical page is in attributes, not in visible content.</span>
-<span id="cb4-159"><a href="#cb4-159"></a></span>
-<span id="cb4-160"><a href="#cb4-160"></a><span class="fu">## A small reference for CSS selectors</span></span>
-<span id="cb4-161"><a href="#cb4-161"></a></span>
-<span id="cb4-162"><a href="#cb4-162"></a>The selector forms ranked by frequency in real scraping work:</span>
-<span id="cb4-163"><a href="#cb4-163"></a></span>
-<span id="cb4-164"><a href="#cb4-164"></a><span class="pp">|</span> Selector <span class="pp">|</span> Matches <span class="pp">|</span> Example use <span class="pp">|</span></span>
-<span id="cb4-165"><a href="#cb4-165"></a><span class="pp">|----------|---------|-------------|</span></span>
-<span id="cb4-166"><a href="#cb4-166"></a><span class="pp">|</span> <span class="in">`tag`</span> <span class="pp">|</span> All elements with that tag <span class="pp">|</span> <span class="in">`p`</span>, <span class="in">`a`</span>, <span class="in">`td`</span> <span class="pp">|</span></span>
-<span id="cb4-167"><a href="#cb4-167"></a><span class="pp">|</span> <span class="in">`.class`</span> <span class="pp">|</span> Elements with that class <span class="pp">|</span> <span class="in">`.product-name`</span>, <span class="in">`.price`</span> <span class="pp">|</span></span>
-<span id="cb4-168"><a href="#cb4-168"></a><span class="pp">|</span> <span class="in">`#id`</span> <span class="pp">|</span> The unique element with that id <span class="pp">|</span> <span class="in">`#main-content`</span> <span class="pp">|</span></span>
-<span id="cb4-169"><a href="#cb4-169"></a><span class="pp">|</span> <span class="in">`tag.class`</span> <span class="pp">|</span> Tag *with* that class <span class="pp">|</span> <span class="in">`a.external`</span>, <span class="in">`div.card`</span> <span class="pp">|</span></span>
-<span id="cb4-170"><a href="#cb4-170"></a><span class="pp">|</span> <span class="in">`parent child`</span> <span class="pp">|</span> Descendant (any depth) <span class="pp">|</span> <span class="in">`ul li`</span>, <span class="in">`.card a`</span> <span class="pp">|</span></span>
-<span id="cb4-171"><a href="#cb4-171"></a><span class="pp">|</span> <span class="in">`parent &gt; child`</span> <span class="pp">|</span> Direct child only <span class="pp">|</span> <span class="in">`ul &gt; li`</span>, <span class="in">`nav &gt; a`</span> <span class="pp">|</span></span>
-<span id="cb4-172"><a href="#cb4-172"></a><span class="pp">|</span> <span class="in">`[attr]`</span> / <span class="in">`[attr=value]`</span> <span class="pp">|</span> Attribute presence / equality <span class="pp">|</span> <span class="in">`[href]`</span>, <span class="in">`[data-type=card]`</span> <span class="pp">|</span></span>
-<span id="cb4-173"><a href="#cb4-173"></a><span class="pp">|</span> <span class="in">`[attr^=value]`</span> <span class="pp">|</span> Attribute starts with <span class="pp">|</span> <span class="in">`[href^=https]`</span> <span class="pp">|</span></span>
-<span id="cb4-174"><a href="#cb4-174"></a><span class="pp">|</span> <span class="in">`:first-child`</span> / <span class="in">`:nth-child(n)`</span> <span class="pp">|</span> Positional <span class="pp">|</span> <span class="in">`li:nth-child(odd)`</span> <span class="pp">|</span></span>
-<span id="cb4-175"><a href="#cb4-175"></a><span class="pp">|</span> <span class="in">`selector1, selector2`</span> <span class="pp">|</span> Either of these (union) <span class="pp">|</span> <span class="in">`h2, h3`</span> <span class="pp">|</span></span>
-<span id="cb4-176"><a href="#cb4-176"></a></span>
-<span id="cb4-177"><a href="#cb4-177"></a>For most scraping tasks, the first four are sufficient. The rest are tools you reach for when the page's structure is hostile.</span>
-<span id="cb4-178"><a href="#cb4-178"></a></span>
-<span id="cb4-179"><a href="#cb4-179"></a><span class="fu">## Two patterns worth memorizing</span></span>
-<span id="cb4-180"><a href="#cb4-180"></a></span>
-<span id="cb4-181"><a href="#cb4-181"></a>**The complete scrape-one-page function.** Generalized from the <span class="in">`rvest`</span> Star Wars example:</span>
-<span id="cb4-182"><a href="#cb4-182"></a></span>
-<span id="cb4-183"><a href="#cb4-183"></a><span class="in">```r</span></span>
-<span id="cb4-184"><a href="#cb4-184"></a>scrape_page <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
-<span id="cb4-185"><a href="#cb4-185"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
-<span id="cb4-186"><a href="#cb4-186"></a>  rows <span class="ot">&lt;-</span> page <span class="sc">|&gt;</span> <span class="fu">html_elements</span>(<span class="st">"li.character"</span>)  <span class="co"># observation selector</span></span>
-<span id="cb4-187"><a href="#cb4-187"></a></span>
-<span id="cb4-188"><a href="#cb4-188"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb4-189"><a href="#cb4-189"></a>    <span class="at">name    =</span> rows <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"b"</span>)        <span class="sc">|&gt;</span> <span class="fu">html_text2</span>(),</span>
-<span id="cb4-190"><a href="#cb4-190"></a>    <span class="at">species =</span> rows <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"i"</span>)        <span class="sc">|&gt;</span> <span class="fu">html_text2</span>(),</span>
-<span id="cb4-191"><a href="#cb4-191"></a>    <span class="at">weight  =</span> rows <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">".weight"</span>)  <span class="sc">|&gt;</span> <span class="fu">html_text2</span>() <span class="sc">|&gt;</span> <span class="fu">parse_number</span>(),</span>
-<span id="cb4-192"><a href="#cb4-192"></a>    <span class="at">profile =</span> rows <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"a"</span>)        <span class="sc">|&gt;</span> <span class="fu">html_attr</span>(<span class="st">"href"</span>)</span>
-<span id="cb4-193"><a href="#cb4-193"></a>  )</span>
-<span id="cb4-194"><a href="#cb4-194"></a>}</span>
-<span id="cb4-195"><a href="#cb4-195"></a><span class="in">```</span></span>
-<span id="cb4-196"><a href="#cb4-196"></a></span>
-<span id="cb4-197"><a href="#cb4-197"></a>The shape: read → select rows → tibble of per-variable extractions. Every variable is one column-line; every line is the same length because <span class="in">`html_element`</span> (singular) returns NA on miss.</span>
-<span id="cb4-198"><a href="#cb4-198"></a></span>
-<span id="cb4-199"><a href="#cb4-199"></a>**The paginated scrape.** Same shape as the API pagination from ICA 14, but with <span class="in">`read_html`</span> instead of <span class="in">`fromJSON`</span>:</span>
-<span id="cb4-200"><a href="#cb4-200"></a></span>
-<span id="cb4-201"><a href="#cb4-201"></a><span class="in">```r</span></span>
-<span id="cb4-202"><a href="#cb4-202"></a>urls <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(<span class="st">"https://example.com/items?page={1:21}"</span>)</span>
-<span id="cb4-203"><a href="#cb4-203"></a></span>
-<span id="cb4-204"><a href="#cb4-204"></a>all_items <span class="ot">&lt;-</span> urls <span class="sc">|&gt;</span></span>
-<span id="cb4-205"><a href="#cb4-205"></a>  <span class="fu">map</span>(scrape_page) <span class="sc">|&gt;</span>          <span class="co"># one tibble per page</span></span>
-<span id="cb4-206"><a href="#cb4-206"></a>  <span class="fu">list_rbind</span>()                 <span class="co"># bind into one</span></span>
-<span id="cb4-207"><a href="#cb4-207"></a><span class="in">```</span></span>
-<span id="cb4-208"><a href="#cb4-208"></a></span>
-<span id="cb4-209"><a href="#cb4-209"></a>Add <span class="in">`Sys.sleep(0.5)`</span> inside <span class="in">`scrape_page`</span> if the site rate-limits or if politeness matters.</span>
-<span id="cb4-210"><a href="#cb4-210"></a></span>
-<span id="cb4-211"><a href="#cb4-211"></a><span class="fu">## Why this comes after APIs</span></span>
-<span id="cb4-212"><a href="#cb4-212"></a></span>
-<span id="cb4-213"><a href="#cb4-213"></a>ICAs 13–14 taught the structured case: a documented endpoint, a JSON contract, parameters that the maintainer has agreed to support. ICA 15 teaches the unstructured case: no contract, you read the HTML the page rendered for human eyes and address into it via styling hooks the developers happened to use. The skill ordering matters because once you've internalized JSON paths and URL parameters, CSS selectors feel familiar — they're just a different addressing language for a different data shape. The iteration patterns (<span class="in">`map`</span> over pages, bind with <span class="in">`list_rbind`</span>) are identical to the API case; only the per-page extraction logic changes.</span>
-<span id="cb4-214"><a href="#cb4-214"></a></span>
-<span id="cb4-215"><a href="#cb4-215"></a><span class="fu">## A note on what this enables</span></span>
-<span id="cb4-216"><a href="#cb4-216"></a></span>
-<span id="cb4-217"><a href="#cb4-217"></a>HW08 P1 is exactly this pattern. cheese.com has 21 alphabetical pages, each listing 100 cheeses (the last has 46) — <span class="in">`map(1:21, scrape_page) |&gt; list_rbind()`</span> produced the 2046-row index. The detail-page version takes each cheese's URL (extracted from <span class="in">`&lt;a href&gt;`</span>), follows it, and pulls the milk / country / family / type / flavor fields by <span class="in">`.summary-points`</span> class — same observation pattern, just one row per page instead of many. The same template will scrape essentially any catalog-style website: paginated index → detail pages → bind. The vocabulary <span class="in">`rvest`</span> gives you is the toolkit; recognizing the catalog-detail pattern is what makes a scraping task tractable in 30 lines instead of 300.</span>
-<span id="cb4-218"><a href="#cb4-218"></a></span>
-<span id="cb4-219"><a href="#cb4-219"></a><span class="fu">## A note on legality and politeness</span></span>
-<span id="cb4-220"><a href="#cb4-220"></a></span>
-<span id="cb4-221"><a href="#cb4-221"></a>Scraping is legal in the US for publicly accessible pages (Van Buren v. United States, 2021), but ethical scraping is its own discipline. Three rules of thumb: (1) check <span class="in">`robots.txt`</span> and respect Disallow rules; (2) rate-limit yourself even when not asked — a <span class="in">`Sys.sleep(0.5)`</span> between requests costs nothing and keeps you off the maintainer's radar; (3) cache locally and never re-scrape what you already have. Most scraping problems with hosting providers come not from scraping itself but from scraping *aggressively* — hammering a small site at full speed will get your IP banned and may break their server. The <span class="in">`rvest`</span> vignette doesn't dwell on this, but it's part of the practice.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="an">title:</span><span class="co"> "PCL · ICA 15 — Web Scraping"</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="an">author:</span><span class="co"> "Zhijun He (何智骏)"</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="an">format:</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">  html:</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">    toc: true</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">---</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="fu">## Pre-class learning map</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a>ICA 15 introduces web scraping with **rvest** — extracting structured data from HTML pages when no API exists. The mindmap below organizes the prep around the rvest workflow, CSS selector basics, politeness norms, and the decision rule for when scraping is the right tool versus when an API would be better.</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="in">```{mermaid}</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>%<span class="dt">%</span>{init: {<span class="ot">"</span><span class="st">theme</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">base</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">themeVariables</span><span class="ot">"</span>: {<span class="ot">"</span><span class="st">primaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">primaryTextColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#fff</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">primaryBorderColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#1a5cb0</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">lineColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#6c757d</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">secondaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#e9ecef</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">tertiaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#f8f9fa</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">fontFamily</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">Inter, sans-serif</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">fontSize</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">14px</span><span class="ot">"</span>}}}%%</span>
+<span id="cb3-17"><a href="#cb3-17"></a>mindmap</span>
+<span id="cb3-18"><a href="#cb3-18"></a>  root((ICA <span class="dv">15</span> Web Scraping))</span>
+<span id="cb3-19"><a href="#cb3-19"></a>    rvest workflow</span>
+<span id="cb3-20"><a href="#cb3-20"></a>      <span class="ot">"</span><span class="st">read_html · download</span><span class="ot">"</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>      <span class="ot">"</span><span class="st">html_elements · select</span><span class="ot">"</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>      <span class="ot">"</span><span class="st">html_text2 · extract</span><span class="ot">"</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>    CSS selectors</span>
+<span id="cb3-24"><a href="#cb3-24"></a>      <span class="ot">"</span><span class="st">tag · class · id</span><span class="ot">"</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a>      <span class="ot">"</span><span class="st">descendant combinators</span><span class="ot">"</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a>    Politeness</span>
+<span id="cb3-27"><a href="#cb3-27"></a>      <span class="ot">"</span><span class="st">robots.txt · rate limit</span><span class="ot">"</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>      <span class="ot">"</span><span class="st">User-Agent header</span><span class="ot">"</span></span>
+<span id="cb3-29"><a href="#cb3-29"></a>    API vs scrape</span>
+<span id="cb3-30"><a href="#cb3-30"></a>      <span class="ot">"</span><span class="st">API exists → use it</span><span class="ot">"</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a>      <span class="ot">"</span><span class="st">scraping is fragile</span><span class="ot">"</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="in">```</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="fu">## Three concepts the chapter quietly hinges on</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a></span>
+<span id="cb3-36"><a href="#cb3-36"></a>**Scraping is reverse-engineering, not parsing.** When you call <span class="in">`read_html("https://example.com")`</span>, you get back the HTML the server *sent to your browser* — which may differ from what the browser *actually rendered* if the page uses JavaScript to load data after the initial response. For static sites, rvest is straightforward; for JS-heavy sites, the data you want may not be in <span class="in">`read_html()`</span>'s output at all, and you'd need a tool like RSelenium or chromote that runs a real browser. The clue: if <span class="in">`html_elements()`</span> returns empty when you can clearly see the data in your browser, the page is JS-rendered.</span>
+<span id="cb3-37"><a href="#cb3-37"></a></span>
+<span id="cb3-38"><a href="#cb3-38"></a>**CSS selectors are the contract between you and the page's HTML structure.** A selector like <span class="in">`.post-title h2`</span> tells rvest: "find every element with class <span class="in">`post-title`</span>, then find every <span class="in">`h2`</span> inside those." This works as long as the page's HTML structure stays the same — but the moment the site redesigns, your selector breaks. This is the core fragility of scraping: there's no contract, no API version, no deprecation warning. The page just changes and your code silently returns empty results or wrong data. Defensive scraping checks the result count: if <span class="in">`html_elements(".post-title")`</span> returned 50 yesterday and 0 today, something changed.</span>
+<span id="cb3-39"><a href="#cb3-39"></a></span>
+<span id="cb3-40"><a href="#cb3-40"></a>**Politeness is both ethical and practical.** Rate-limiting your scraper (<span class="in">`Sys.sleep(1)`</span> between requests) protects the site from your traffic and protects you from being IP-banned. Setting a <span class="in">`User-Agent`</span> header that identifies you (e.g., <span class="in">`"Zhijun He's research scraper, contact: zhe@macalester.edu"`</span>) lets the site admin reach out instead of blocking. Reading <span class="in">`robots.txt`</span> (e.g., <span class="in">`https://example.com/robots.txt`</span>) tells you which paths the site explicitly disallows. Respecting these isn't optional courtesy — it's how the open web stays scrapeable for everyone.</span>
+<span id="cb3-41"><a href="#cb3-41"></a></span>
+<span id="cb3-42"><a href="#cb3-42"></a><span class="fu">## A small reference for rvest verbs</span></span>
+<span id="cb3-43"><a href="#cb3-43"></a></span>
+<span id="cb3-44"><a href="#cb3-44"></a><span class="pp">|</span> Verb <span class="pp">|</span> What it does <span class="pp">|</span></span>
+<span id="cb3-45"><a href="#cb3-45"></a><span class="pp">|------|--------------|</span></span>
+<span id="cb3-46"><a href="#cb3-46"></a><span class="pp">|</span> <span class="in">`read_html(url)`</span> <span class="pp">|</span> Download and parse the page <span class="pp">|</span></span>
+<span id="cb3-47"><a href="#cb3-47"></a><span class="pp">|</span> <span class="in">`html_elements(css)`</span> <span class="pp">|</span> Select all matching elements (vector) <span class="pp">|</span></span>
+<span id="cb3-48"><a href="#cb3-48"></a><span class="pp">|</span> <span class="in">`html_element(css)`</span> <span class="pp">|</span> Select first match (single element) <span class="pp">|</span></span>
+<span id="cb3-49"><a href="#cb3-49"></a><span class="pp">|</span> <span class="in">`html_text2()`</span> <span class="pp">|</span> Extract clean text, normalize whitespace <span class="pp">|</span></span>
+<span id="cb3-50"><a href="#cb3-50"></a><span class="pp">|</span> <span class="in">`html_attr("href")`</span> <span class="pp">|</span> Extract attribute value <span class="pp">|</span></span>
+<span id="cb3-51"><a href="#cb3-51"></a><span class="pp">|</span> <span class="in">`html_table()`</span> <span class="pp">|</span> Parse <span class="in">`&lt;table&gt;`</span> directly to data frame <span class="pp">|</span></span>
+<span id="cb3-52"><a href="#cb3-52"></a></span>
+<span id="cb3-53"><a href="#cb3-53"></a><span class="fu">## A code pattern for scraping multiple pages</span></span>
+<span id="cb3-54"><a href="#cb3-54"></a></span>
+<span id="cb3-55"><a href="#cb3-55"></a><span class="in">```r</span></span>
+<span id="cb3-56"><a href="#cb3-56"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb3-57"><a href="#cb3-57"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb3-58"><a href="#cb3-58"></a></span>
+<span id="cb3-59"><a href="#cb3-59"></a>scrape_one <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
+<span id="cb3-60"><a href="#cb3-60"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)  <span class="co"># politeness</span></span>
+<span id="cb3-61"><a href="#cb3-61"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb3-62"><a href="#cb3-62"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb3-63"><a href="#cb3-63"></a>    <span class="at">title =</span> page <span class="sc">|&gt;</span> <span class="fu">html_elements</span>(<span class="st">".title"</span>) <span class="sc">|&gt;</span> <span class="fu">html_text2</span>(),</span>
+<span id="cb3-64"><a href="#cb3-64"></a>    <span class="at">date  =</span> page <span class="sc">|&gt;</span> <span class="fu">html_elements</span>(<span class="st">".date"</span>)  <span class="sc">|&gt;</span> <span class="fu">html_text2</span>()</span>
+<span id="cb3-65"><a href="#cb3-65"></a>  )</span>
+<span id="cb3-66"><a href="#cb3-66"></a>}</span>
+<span id="cb3-67"><a href="#cb3-67"></a></span>
+<span id="cb3-68"><a href="#cb3-68"></a>urls <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://example.com/page/"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb3-69"><a href="#cb3-69"></a>results <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(urls, scrape_one)</span>
+<span id="cb3-70"><a href="#cb3-70"></a><span class="in">```</span></span>
+<span id="cb3-71"><a href="#cb3-71"></a></span>
+<span id="cb3-72"><a href="#cb3-72"></a>The shape: define a function that scrapes one page, sleep between calls, map over a list of URLs, bind results into a tidy frame. This pattern works for any paginated source.</span>
+<span id="cb3-73"><a href="#cb3-73"></a></span>
+<span id="cb3-74"><a href="#cb3-74"></a><span class="fu">## Why this comes after APIs</span></span>
+<span id="cb3-75"><a href="#cb3-75"></a></span>
+<span id="cb3-76"><a href="#cb3-76"></a>ICAs 13-14 taught APIs — clean, structured, contracted ways to get data. ICA 15 teaches scraping — what you do when no API exists. The order matters: APIs first means scraping is positioned as the *fallback*, not the default. Always check if an API exists before scraping; the maintenance burden of scraping (selectors break, sites redesign, rate limits change) is high enough that API access is almost always worth using when available.</span>
+<span id="cb3-77"><a href="#cb3-77"></a></span>
+<span id="cb3-78"><a href="#cb3-78"></a><span class="fu">## A note on what this enables</span></span>
+<span id="cb3-79"><a href="#cb3-79"></a></span>
+<span id="cb3-80"><a href="#cb3-80"></a>HW07's Mia Museum data was a JSON dump (effectively API output). HW08's cheese.com data was scraping — no API, just HTML pages. The contrast is the point: same goal (get structured data), different tools, dramatically different maintenance profiles. Scraping is powerful but fragile; treating it as the last resort, not the first instinct, is the rule that keeps your data pipeline maintainable.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

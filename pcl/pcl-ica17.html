@@ -132,7 +132,7 @@ cookieconsent.run({
 </script> 
   
 <style>html{ scroll-behavior: smooth; }</style>
-<meta name="mermaid-theme" content="dark">
+<meta name="mermaid-theme" content="default">
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
@@ -755,279 +755,91 @@ cookieconsent.run({
 <div class="cell" data-layout-align="default">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 17 Effective Viz))</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    Why storytelling</span>
-<span id="cb1-4"><a href="#cb1-4"></a>      Decisions are emotional</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        "Damasio's prefrontal cortex study"</span>
-<span id="cb1-6"><a href="#cb1-6"></a>        emotion required for decision</span>
-<span id="cb1-7"><a href="#cb1-7"></a>        pure logic stalls</span>
-<span id="cb1-8"><a href="#cb1-8"></a>      "Memory · 63% remember stories vs 5% statistics"</span>
-<span id="cb1-9"><a href="#cb1-9"></a>      "Persuasion · story brochure 2× donations"</span>
-<span id="cb1-10"><a href="#cb1-10"></a>      "Engagement · story suspends disbelief"</span>
-<span id="cb1-11"><a href="#cb1-11"></a>      Three elements together</span>
-<span id="cb1-12"><a href="#cb1-12"></a>        "Data · the substance"</span>
-<span id="cb1-13"><a href="#cb1-13"></a>        "Visuals · enlighten · reveal patterns"</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        "Narrative · explain why it matters"</span>
-<span id="cb1-15"><a href="#cb1-15"></a>        "any one alone · weaker"</span>
-<span id="cb1-16"><a href="#cb1-16"></a>    The six design guidelines</span>
-<span id="cb1-17"><a href="#cb1-17"></a>      "1 · High data density"</span>
-<span id="cb1-18"><a href="#cb1-18"></a>        "Tufte · data-to-ink ratio"</span>
-<span id="cb1-19"><a href="#cb1-19"></a>        remove redundant ink</span>
-<span id="cb1-20"><a href="#cb1-20"></a>          "gridlines · backgrounds · borders"</span>
-<span id="cb1-21"><a href="#cb1-21"></a>          "3D effects · ornament"</span>
-<span id="cb1-22"><a href="#cb1-22"></a>        ggplot moves</span>
-<span id="cb1-23"><a href="#cb1-23"></a>          "theme_minimal · theme_bw · theme_few · theme_tufte"</span>
-<span id="cb1-24"><a href="#cb1-24"></a>          remove unnecessary geoms</span>
-<span id="cb1-25"><a href="#cb1-25"></a>          "single dot · not full bar · for simple counts"</span>
-<span id="cb1-26"><a href="#cb1-26"></a>      "2 · Clear meaningful labels"</span>
-<span id="cb1-27"><a href="#cb1-27"></a>        ggplot moves</span>
-<span id="cb1-28"><a href="#cb1-28"></a>          "xlab · ylab · labs(title, subtitle)"</span>
-<span id="cb1-29"><a href="#cb1-29"></a>          "coord_flip · for long category labels"</span>
-<span id="cb1-30"><a href="#cb1-30"></a>          "scales · scales::comma · scales::percent"</span>
-<span id="cb1-31"><a href="#cb1-31"></a>          "fct_recode · before plotting"</span>
-<span id="cb1-32"><a href="#cb1-32"></a>        avoid abbreviations in publishing</span>
-<span id="cb1-33"><a href="#cb1-33"></a>        "include units · \"Weight (kg)\""</span>
-<span id="cb1-34"><a href="#cb1-34"></a>      "3 · Useful references"</span>
-<span id="cb1-35"><a href="#cb1-35"></a>        what counts as reference</span>
-<span id="cb1-36"><a href="#cb1-36"></a>          historical baseline</span>
-<span id="cb1-37"><a href="#cb1-37"></a>          "smoothed trend · geom_smooth"</span>
-<span id="cb1-38"><a href="#cb1-38"></a>          "horizontal line · geom_hline"</span>
-<span id="cb1-39"><a href="#cb1-39"></a>          "shaded normal range · geom_ribbon"</span>
-<span id="cb1-40"><a href="#cb1-40"></a>        ggplot moves</span>
-<span id="cb1-41"><a href="#cb1-41"></a>          "add references first · so under data"</span>
-<span id="cb1-42"><a href="#cb1-42"></a>          "color · gray · alpha for transparency"</span>
-<span id="cb1-43"><a href="#cb1-43"></a>          "linetype · dashed · dotted"</span>
-<span id="cb1-44"><a href="#cb1-44"></a>          "se = TRUE · 95% CI band"</span>
-<span id="cb1-45"><a href="#cb1-45"></a>      "4 · Highlight interesting aspects"</span>
-<span id="cb1-46"><a href="#cb1-46"></a>        what to highlight</span>
-<span id="cb1-47"><a href="#cb1-47"></a>          outliers</span>
-<span id="cb1-48"><a href="#cb1-48"></a>          period of interest</span>
-<span id="cb1-49"><a href="#cb1-49"></a>          named individuals</span>
-<span id="cb1-50"><a href="#cb1-50"></a>          comparison group</span>
-<span id="cb1-51"><a href="#cb1-51"></a>        ggplot moves</span>
-<span id="cb1-52"><a href="#cb1-52"></a>          "geom_text · geom_label with subset data"</span>
-<span id="cb1-53"><a href="#cb1-53"></a>          color or size aesthetic mapped to flag</span>
-<span id="cb1-54"><a href="#cb1-54"></a>          new dataframe in geom call</span>
-<span id="cb1-55"><a href="#cb1-55"></a>          "vjust · hjust · \"inward\""</span>
-<span id="cb1-56"><a href="#cb1-56"></a>      "5 · Small multiples"</span>
-<span id="cb1-57"><a href="#cb1-57"></a>        "same scales · easy to compare"</span>
-<span id="cb1-58"><a href="#cb1-58"></a>        less repeated annotation</span>
-<span id="cb1-59"><a href="#cb1-59"></a>        ggplot moves</span>
-<span id="cb1-60"><a href="#cb1-60"></a>          "facet_wrap · one var · wrap rows"</span>
-<span id="cb1-61"><a href="#cb1-61"></a>          "facet_grid · row var · col var"</span>
-<span id="cb1-62"><a href="#cb1-62"></a>          "scales · \"free_x\" · \"free_y\" · \"free\""</span>
-<span id="cb1-63"><a href="#cb1-63"></a>          "factor levels · order panels meaningfully"</span>
-<span id="cb1-64"><a href="#cb1-64"></a>      "6 · Meaningful order"</span>
-<span id="cb1-65"><a href="#cb1-65"></a>        "default · alphabetical · usually wrong"</span>
-<span id="cb1-66"><a href="#cb1-66"></a>        order by</span>
-<span id="cb1-67"><a href="#cb1-67"></a>          "rank · arrange + factor"</span>
-<span id="cb1-68"><a href="#cb1-68"></a>          "forcats · fct_reorder · by another var"</span>
-<span id="cb1-69"><a href="#cb1-69"></a>          "fct_infreq · by frequency"</span>
-<span id="cb1-70"><a href="#cb1-70"></a>          "fct_lump · top-n + Other"</span>
-<span id="cb1-71"><a href="#cb1-71"></a>    "Scales · the precision layer"</span>
-<span id="cb1-72"><a href="#cb1-72"></a>      Naming convention</span>
-<span id="cb1-73"><a href="#cb1-73"></a>        "scale_[aes]_[type]"</span>
-<span id="cb1-74"><a href="#cb1-74"></a>        scale_x_continuous</span>
-<span id="cb1-75"><a href="#cb1-75"></a>        scale_y_log10</span>
-<span id="cb1-76"><a href="#cb1-76"></a>        scale_color_brewer</span>
-<span id="cb1-77"><a href="#cb1-77"></a>        scale_fill_viridis_c</span>
-<span id="cb1-78"><a href="#cb1-78"></a>      Common args</span>
-<span id="cb1-79"><a href="#cb1-79"></a>        "name · axis or legend label"</span>
-<span id="cb1-80"><a href="#cb1-80"></a>        "breaks · tick locations"</span>
-<span id="cb1-81"><a href="#cb1-81"></a>        "labels · tick text"</span>
-<span id="cb1-82"><a href="#cb1-82"></a>        "limits · axis range"</span>
-<span id="cb1-83"><a href="#cb1-83"></a>      Date scales</span>
-<span id="cb1-84"><a href="#cb1-84"></a>        scale_x_date</span>
-<span id="cb1-85"><a href="#cb1-85"></a>        "date_labels · \"%b %Y\""</span>
-<span id="cb1-86"><a href="#cb1-86"></a>        "date_breaks · \"1 month\""</span>
-<span id="cb1-87"><a href="#cb1-87"></a>    "Color · the aesthetic with strongest pull"</span>
-<span id="cb1-88"><a href="#cb1-88"></a>      Palettes by data type</span>
-<span id="cb1-89"><a href="#cb1-89"></a>        "sequential · ordered numeric · low to high"</span>
-<span id="cb1-90"><a href="#cb1-90"></a>        "diverging · numeric with meaningful midpoint"</span>
-<span id="cb1-91"><a href="#cb1-91"></a>        "qualitative · unordered categories"</span>
-<span id="cb1-92"><a href="#cb1-92"></a>      ColorBrewer palettes</span>
-<span id="cb1-93"><a href="#cb1-93"></a>        "Set1 · Dark2 · Pastel · Accent"</span>
-<span id="cb1-94"><a href="#cb1-94"></a>        "scale_color_brewer(palette = \"Set1\")"</span>
-<span id="cb1-95"><a href="#cb1-95"></a>      "Viridis · perceptually uniform"</span>
-<span id="cb1-96"><a href="#cb1-96"></a>        "magma · inferno · plasma · viridis"</span>
-<span id="cb1-97"><a href="#cb1-97"></a>        all colorblind-safe</span>
-<span id="cb1-98"><a href="#cb1-98"></a>        all greyscale-readable</span>
-<span id="cb1-99"><a href="#cb1-99"></a>      Manual</span>
-<span id="cb1-100"><a href="#cb1-100"></a>        "scale_color_manual(values = c(...))"</span>
-<span id="cb1-101"><a href="#cb1-101"></a>        named vector for stable mapping</span>
-<span id="cb1-102"><a href="#cb1-102"></a>      Color vs fill</span>
-<span id="cb1-103"><a href="#cb1-103"></a>        "color · borders · lines · point edges"</span>
-<span id="cb1-104"><a href="#cb1-104"></a>        "fill · interiors of polygons · bars"</span>
-<span id="cb1-105"><a href="#cb1-105"></a>        "most common bug · using wrong one"</span>
-<span id="cb1-106"><a href="#cb1-106"></a>      Accessibility</span>
-<span id="cb1-107"><a href="#cb1-107"></a>        avoid red-green for color-blind</span>
-<span id="cb1-108"><a href="#cb1-108"></a>        "redundant encoding · color + shape"</span>
-<span id="cb1-109"><a href="#cb1-109"></a>        sufficient contrast</span>
-<span id="cb1-110"><a href="#cb1-110"></a>    "Themes · the aesthetic preset"</span>
-<span id="cb1-111"><a href="#cb1-111"></a>      Built into ggplot2</span>
-<span id="cb1-112"><a href="#cb1-112"></a>        "theme_gray · default"</span>
-<span id="cb1-113"><a href="#cb1-113"></a>        "theme_bw · classic"</span>
-<span id="cb1-114"><a href="#cb1-114"></a>        "theme_minimal · less ink"</span>
-<span id="cb1-115"><a href="#cb1-115"></a>        "theme_classic · publication"</span>
-<span id="cb1-116"><a href="#cb1-116"></a>        "theme_void · no scaffolding"</span>
-<span id="cb1-117"><a href="#cb1-117"></a>      ggthemes package</span>
-<span id="cb1-118"><a href="#cb1-118"></a>        "theme_few · Stephen Few principles"</span>
-<span id="cb1-119"><a href="#cb1-119"></a>        "theme_tufte · Tufte minimalism"</span>
-<span id="cb1-120"><a href="#cb1-120"></a>        "theme_economist · publication style"</span>
-<span id="cb1-121"><a href="#cb1-121"></a>      "theme() · for fine-grained tweaks"</span>
-<span id="cb1-122"><a href="#cb1-122"></a>        "panel · grid · text · legend"</span>
-<span id="cb1-123"><a href="#cb1-123"></a>    The story arc behind a plot</span>
-<span id="cb1-124"><a href="#cb1-124"></a>      Open</span>
-<span id="cb1-125"><a href="#cb1-125"></a>        what is the question</span>
-<span id="cb1-126"><a href="#cb1-126"></a>        why should I care</span>
-<span id="cb1-127"><a href="#cb1-127"></a>      Develop</span>
-<span id="cb1-128"><a href="#cb1-128"></a>        "show context · reference"</span>
-<span id="cb1-129"><a href="#cb1-129"></a>        guide attention</span>
-<span id="cb1-130"><a href="#cb1-130"></a>        make pattern legible</span>
-<span id="cb1-131"><a href="#cb1-131"></a>      Resolve</span>
-<span id="cb1-132"><a href="#cb1-132"></a>        what is the takeaway</span>
-<span id="cb1-133"><a href="#cb1-133"></a>        what should change</span>
-<span id="cb1-134"><a href="#cb1-134"></a>        title or annotation as conclusion</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>%%{init: {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  "theme": "base",</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  "themeVariables": {</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    "primaryColor": "#2780E3",</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    "primaryTextColor": "#ffffff",</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    "primaryBorderColor": "#1a5cb0",</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    "lineColor": "#6c757d",</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    "secondaryColor": "#e9ecef",</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    "tertiaryColor": "#f8f9fa",</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    "mainBkg": "#2780E3",</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    "secondBkg": "#dee2e6",</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    "tertiaryBkg": "#ffffff",</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    "fontFamily": "Inter, system-ui, sans-serif",</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    "fontSize": "14px",</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    "textColor": "#212529"</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  }</span>
+<span id="cb1-17"><a href="#cb1-17"></a>}}%%</span>
+<span id="cb1-18"><a href="#cb1-18"></a>mindmap</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  root((ICA 17 Effective Viz))</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    Why storytelling</span>
+<span id="cb1-21"><a href="#cb1-21"></a>      "decisions are emotional · not just logical"</span>
+<span id="cb1-22"><a href="#cb1-22"></a>      "memory · 63% remember stories vs 5% stats"</span>
+<span id="cb1-23"><a href="#cb1-23"></a>      "data + visuals + narrative · together"""</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    Six guidelines</span>
+<span id="cb1-25"><a href="#cb1-25"></a>      "1 · high data-to-ink ratio"</span>
+<span id="cb1-26"><a href="#cb1-26"></a>      "2 · clear meaningful labels"</span>
+<span id="cb1-27"><a href="#cb1-27"></a>      "3 · useful references"</span>
+<span id="cb1-28"><a href="#cb1-28"></a>      "4 · highlight interesting aspects"</span>
+<span id="cb1-29"><a href="#cb1-29"></a>      "5 · small multiples"</span>
+<span id="cb1-30"><a href="#cb1-30"></a>      "6 · meaningful order"</span>
+<span id="cb1-31"><a href="#cb1-31"></a>    Color · the strongest aesthetic</span>
+<span id="cb1-32"><a href="#cb1-32"></a>      "qualitative · for unordered categories"</span>
+<span id="cb1-33"><a href="#cb1-33"></a>      "sequential · for ordered numeric"</span>
+<span id="cb1-34"><a href="#cb1-34"></a>      "diverging · for centered numeric"</span>
+<span id="cb1-35"><a href="#cb1-35"></a>      "viridis · perceptually uniform · colorblind-safe"</span>
+<span id="cb1-36"><a href="#cb1-36"></a>    Themes</span>
+<span id="cb1-37"><a href="#cb1-37"></a>      "theme_minimal · less ink"</span>
+<span id="cb1-38"><a href="#cb1-38"></a>      "theme_few · Stephen Few principles"</span>
+<span id="cb1-39"><a href="#cb1-39"></a>      "theme_tufte · Tufte minimalism"</span>
+<span id="cb1-40"><a href="#cb1-40"></a>      "theme() · for fine-grained tweaks"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">mindmap
+<pre class="mermaid mermaid-js">%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#2780E3",
+    "primaryTextColor": "#ffffff",
+    "primaryBorderColor": "#1a5cb0",
+    "lineColor": "#6c757d",
+    "secondaryColor": "#e9ecef",
+    "tertiaryColor": "#f8f9fa",
+    "mainBkg": "#2780E3",
+    "secondBkg": "#dee2e6",
+    "tertiaryBkg": "#ffffff",
+    "fontFamily": "Inter, system-ui, sans-serif",
+    "fontSize": "14px",
+    "textColor": "#212529"
+  }
+}}%%
+mindmap
   root((ICA 17 Effective Viz))
     Why storytelling
-      Decisions are emotional
-        "Damasio's prefrontal cortex study"
-        emotion required for decision
-        pure logic stalls
-      "Memory · 63% remember stories vs 5% statistics"
-      "Persuasion · story brochure 2× donations"
-      "Engagement · story suspends disbelief"
-      Three elements together
-        "Data · the substance"
-        "Visuals · enlighten · reveal patterns"
-        "Narrative · explain why it matters"
-        "any one alone · weaker"
-    The six design guidelines
-      "1 · High data density"
-        "Tufte · data-to-ink ratio"
-        remove redundant ink
-          "gridlines · backgrounds · borders"
-          "3D effects · ornament"
-        ggplot moves
-          "theme_minimal · theme_bw · theme_few · theme_tufte"
-          remove unnecessary geoms
-          "single dot · not full bar · for simple counts"
-      "2 · Clear meaningful labels"
-        ggplot moves
-          "xlab · ylab · labs(title, subtitle)"
-          "coord_flip · for long category labels"
-          "scales · scales::comma · scales::percent"
-          "fct_recode · before plotting"
-        avoid abbreviations in publishing
-        "include units · \"Weight (kg)\""
-      "3 · Useful references"
-        what counts as reference
-          historical baseline
-          "smoothed trend · geom_smooth"
-          "horizontal line · geom_hline"
-          "shaded normal range · geom_ribbon"
-        ggplot moves
-          "add references first · so under data"
-          "color · gray · alpha for transparency"
-          "linetype · dashed · dotted"
-          "se = TRUE · 95% CI band"
-      "4 · Highlight interesting aspects"
-        what to highlight
-          outliers
-          period of interest
-          named individuals
-          comparison group
-        ggplot moves
-          "geom_text · geom_label with subset data"
-          color or size aesthetic mapped to flag
-          new dataframe in geom call
-          "vjust · hjust · \"inward\""
-      "5 · Small multiples"
-        "same scales · easy to compare"
-        less repeated annotation
-        ggplot moves
-          "facet_wrap · one var · wrap rows"
-          "facet_grid · row var · col var"
-          "scales · \"free_x\" · \"free_y\" · \"free\""
-          "factor levels · order panels meaningfully"
-      "6 · Meaningful order"
-        "default · alphabetical · usually wrong"
-        order by
-          "rank · arrange + factor"
-          "forcats · fct_reorder · by another var"
-          "fct_infreq · by frequency"
-          "fct_lump · top-n + Other"
-    "Scales · the precision layer"
-      Naming convention
-        "scale_[aes]_[type]"
-        scale_x_continuous
-        scale_y_log10
-        scale_color_brewer
-        scale_fill_viridis_c
-      Common args
-        "name · axis or legend label"
-        "breaks · tick locations"
-        "labels · tick text"
-        "limits · axis range"
-      Date scales
-        scale_x_date
-        "date_labels · \"%b %Y\""
-        "date_breaks · \"1 month\""
-    "Color · the aesthetic with strongest pull"
-      Palettes by data type
-        "sequential · ordered numeric · low to high"
-        "diverging · numeric with meaningful midpoint"
-        "qualitative · unordered categories"
-      ColorBrewer palettes
-        "Set1 · Dark2 · Pastel · Accent"
-        "scale_color_brewer(palette = \"Set1\")"
-      "Viridis · perceptually uniform"
-        "magma · inferno · plasma · viridis"
-        all colorblind-safe
-        all greyscale-readable
-      Manual
-        "scale_color_manual(values = c(...))"
-        named vector for stable mapping
-      Color vs fill
-        "color · borders · lines · point edges"
-        "fill · interiors of polygons · bars"
-        "most common bug · using wrong one"
-      Accessibility
-        avoid red-green for color-blind
-        "redundant encoding · color + shape"
-        sufficient contrast
-    "Themes · the aesthetic preset"
-      Built into ggplot2
-        "theme_gray · default"
-        "theme_bw · classic"
-        "theme_minimal · less ink"
-        "theme_classic · publication"
-        "theme_void · no scaffolding"
-      ggthemes package
-        "theme_few · Stephen Few principles"
-        "theme_tufte · Tufte minimalism"
-        "theme_economist · publication style"
+      "decisions are emotional · not just logical"
+      "memory · 63% remember stories vs 5% stats"
+      "data + visuals + narrative · together"""
+    Six guidelines
+      "1 · high data-to-ink ratio"
+      "2 · clear meaningful labels"
+      "3 · useful references"
+      "4 · highlight interesting aspects"
+      "5 · small multiples"
+      "6 · meaningful order"
+    Color · the strongest aesthetic
+      "qualitative · for unordered categories"
+      "sequential · for ordered numeric"
+      "diverging · for centered numeric"
+      "viridis · perceptually uniform · colorblind-safe"
+    Themes
+      "theme_minimal · less ink"
+      "theme_few · Stephen Few principles"
+      "theme_tufte · Tufte minimalism"
       "theme() · for fine-grained tweaks"
-        "panel · grid · text · legend"
-    The story arc behind a plot
-      Open
-        what is the question
-        why should I care
-      Develop
-        "show context · reference"
-        guide attention
-        make pattern legible
-      Resolve
-        what is the takeaway
-        what should change
-        title or annotation as conclusion
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1622,210 +1434,116 @@ cookieconsent.run({
 <span id="cb4-11"><a href="#cb4-11"></a>ICA 17 marks the moment in STAT 212 when viz stops being about **how to draw** and starts being about **how to communicate**. ICA 03 introduced the grammar of `ggplot2` — the syntax of layered plots. ICA 17 introduces the principles that decide *whether the plot succeeds* — whether someone reading it leaves with the insight you intended. Two readings split the cognitive load: Brent Dykes's *Data Storytelling* makes the **why** argument — that data alone, however accurate, doesn't change minds; only data + visuals + narrative does, because decisions are mediated by emotion as well as logic. Peng's *Customizing ggplot2 Plots* gives the **how** — six concrete design guidelines (data density, labels, references, highlighting, small multiples, meaningful order) that translate Tufte/Few/Wainer's writing into ggplot2 idioms you can apply directly. The mindmap organizes the prep around storytelling structure, the six design rules, and the ggplot2 mechanisms that implement each rule.</span>
 <span id="cb4-12"><a href="#cb4-12"></a></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="in">```{mermaid}</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a>mindmap</span>
-<span id="cb4-17"><a href="#cb4-17"></a>  root((ICA <span class="dv">17</span> Effective Viz))</span>
-<span id="cb4-18"><a href="#cb4-18"></a>    Why storytelling</span>
-<span id="cb4-19"><a href="#cb4-19"></a>      Decisions are emotional</span>
-<span id="cb4-20"><a href="#cb4-20"></a>        <span class="ot">"</span><span class="st">Damasio's prefrontal cortex study</span><span class="ot">"</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a>        emotion required <span class="cf">for</span> decision</span>
-<span id="cb4-22"><a href="#cb4-22"></a>        pure logic stalls</span>
-<span id="cb4-23"><a href="#cb4-23"></a>      <span class="ot">"</span><span class="st">Memory · 63% remember stories vs 5% statistics</span><span class="ot">"</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a>      <span class="ot">"</span><span class="st">Persuasion · story brochure 2× donations</span><span class="ot">"</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a>      <span class="ot">"</span><span class="st">Engagement · story suspends disbelief</span><span class="ot">"</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a>      Three elements together</span>
-<span id="cb4-27"><a href="#cb4-27"></a>        <span class="ot">"</span><span class="st">Data · the substance</span><span class="ot">"</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a>        <span class="ot">"</span><span class="st">Visuals · enlighten · reveal patterns</span><span class="ot">"</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a>        <span class="ot">"</span><span class="st">Narrative · explain why it matters</span><span class="ot">"</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a>        <span class="ot">"</span><span class="st">any one alone · weaker</span><span class="ot">"</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a>    The six design guidelines</span>
-<span id="cb4-32"><a href="#cb4-32"></a>      <span class="ot">"</span><span class="st">1 · High data density</span><span class="ot">"</span></span>
-<span id="cb4-33"><a href="#cb4-33"></a>        <span class="ot">"</span><span class="st">Tufte · data-to-ink ratio</span><span class="ot">"</span></span>
-<span id="cb4-34"><a href="#cb4-34"></a>        remove redundant ink</span>
-<span id="cb4-35"><a href="#cb4-35"></a>          <span class="ot">"</span><span class="st">gridlines · backgrounds · borders</span><span class="ot">"</span></span>
-<span id="cb4-36"><a href="#cb4-36"></a>          <span class="ot">"</span><span class="st">3D effects · ornament</span><span class="ot">"</span></span>
-<span id="cb4-37"><a href="#cb4-37"></a>        ggplot moves</span>
-<span id="cb4-38"><a href="#cb4-38"></a>          <span class="ot">"</span><span class="st">theme_minimal · theme_bw · theme_few · theme_tufte</span><span class="ot">"</span></span>
-<span id="cb4-39"><a href="#cb4-39"></a>          remove unnecessary geoms</span>
-<span id="cb4-40"><a href="#cb4-40"></a>          <span class="ot">"</span><span class="st">single dot · not full bar · for simple counts</span><span class="ot">"</span></span>
-<span id="cb4-41"><a href="#cb4-41"></a>      <span class="ot">"</span><span class="st">2 · Clear meaningful labels</span><span class="ot">"</span></span>
-<span id="cb4-42"><a href="#cb4-42"></a>        ggplot moves</span>
-<span id="cb4-43"><a href="#cb4-43"></a>          <span class="ot">"</span><span class="st">xlab · ylab · labs(title, subtitle)</span><span class="ot">"</span></span>
-<span id="cb4-44"><a href="#cb4-44"></a>          <span class="ot">"</span><span class="st">coord_flip · for long category labels</span><span class="ot">"</span></span>
-<span id="cb4-45"><a href="#cb4-45"></a>          <span class="ot">"</span><span class="st">scales · scales::comma · scales::percent</span><span class="ot">"</span></span>
-<span id="cb4-46"><a href="#cb4-46"></a>          <span class="ot">"</span><span class="st">fct_recode · before plotting</span><span class="ot">"</span></span>
-<span id="cb4-47"><a href="#cb4-47"></a>        avoid abbreviations in publishing</span>
-<span id="cb4-48"><a href="#cb4-48"></a>        <span class="ot">"</span><span class="st">include units · \"Weight (kg)\"</span><span class="ot">"</span></span>
-<span id="cb4-49"><a href="#cb4-49"></a>      <span class="ot">"</span><span class="st">3 · Useful references</span><span class="ot">"</span></span>
-<span id="cb4-50"><a href="#cb4-50"></a>        what counts as reference</span>
-<span id="cb4-51"><a href="#cb4-51"></a>          historical baseline</span>
-<span id="cb4-52"><a href="#cb4-52"></a>          <span class="ot">"</span><span class="st">smoothed trend · geom_smooth</span><span class="ot">"</span></span>
-<span id="cb4-53"><a href="#cb4-53"></a>          <span class="ot">"</span><span class="st">horizontal line · geom_hline</span><span class="ot">"</span></span>
-<span id="cb4-54"><a href="#cb4-54"></a>          <span class="ot">"</span><span class="st">shaded normal range · geom_ribbon</span><span class="ot">"</span></span>
-<span id="cb4-55"><a href="#cb4-55"></a>        ggplot moves</span>
-<span id="cb4-56"><a href="#cb4-56"></a>          <span class="ot">"</span><span class="st">add references first · so under data</span><span class="ot">"</span></span>
-<span id="cb4-57"><a href="#cb4-57"></a>          <span class="ot">"</span><span class="st">color · gray · alpha for transparency</span><span class="ot">"</span></span>
-<span id="cb4-58"><a href="#cb4-58"></a>          <span class="ot">"</span><span class="st">linetype · dashed · dotted</span><span class="ot">"</span></span>
-<span id="cb4-59"><a href="#cb4-59"></a>          <span class="ot">"</span><span class="st">se = TRUE · 95% CI band</span><span class="ot">"</span></span>
-<span id="cb4-60"><a href="#cb4-60"></a>      <span class="ot">"</span><span class="st">4 · Highlight interesting aspects</span><span class="ot">"</span></span>
-<span id="cb4-61"><a href="#cb4-61"></a>        what to highlight</span>
-<span id="cb4-62"><a href="#cb4-62"></a>          outliers</span>
-<span id="cb4-63"><a href="#cb4-63"></a>          period of interest</span>
-<span id="cb4-64"><a href="#cb4-64"></a>          named individuals</span>
-<span id="cb4-65"><a href="#cb4-65"></a>          comparison group</span>
-<span id="cb4-66"><a href="#cb4-66"></a>        ggplot moves</span>
-<span id="cb4-67"><a href="#cb4-67"></a>          <span class="ot">"</span><span class="st">geom_text · geom_label with subset data</span><span class="ot">"</span></span>
-<span id="cb4-68"><a href="#cb4-68"></a>          color <span class="ot">or</span> size aesthetic mapped to flag</span>
-<span id="cb4-69"><a href="#cb4-69"></a>          new dataframe in geom call</span>
-<span id="cb4-70"><a href="#cb4-70"></a>          <span class="ot">"</span><span class="st">vjust · hjust · \"inward\"</span><span class="ot">"</span></span>
-<span id="cb4-71"><a href="#cb4-71"></a>      <span class="ot">"</span><span class="st">5 · Small multiples</span><span class="ot">"</span></span>
-<span id="cb4-72"><a href="#cb4-72"></a>        <span class="ot">"</span><span class="st">same scales · easy to compare</span><span class="ot">"</span></span>
-<span id="cb4-73"><a href="#cb4-73"></a>        <span class="kw">less</span> repeated annotation</span>
-<span id="cb4-74"><a href="#cb4-74"></a>        ggplot moves</span>
-<span id="cb4-75"><a href="#cb4-75"></a>          <span class="ot">"</span><span class="st">facet_wrap · one var · wrap rows</span><span class="ot">"</span></span>
-<span id="cb4-76"><a href="#cb4-76"></a>          <span class="ot">"</span><span class="st">facet_grid · row var · col var</span><span class="ot">"</span></span>
-<span id="cb4-77"><a href="#cb4-77"></a>          <span class="ot">"</span><span class="st">scales · \"free_x\" · \"free_y\" · \"free\"</span><span class="ot">"</span></span>
-<span id="cb4-78"><a href="#cb4-78"></a>          <span class="ot">"</span><span class="st">factor levels · order panels meaningfully</span><span class="ot">"</span></span>
-<span id="cb4-79"><a href="#cb4-79"></a>      <span class="ot">"</span><span class="st">6 · Meaningful order</span><span class="ot">"</span></span>
-<span id="cb4-80"><a href="#cb4-80"></a>        <span class="ot">"</span><span class="st">default · alphabetical · usually wrong</span><span class="ot">"</span></span>
-<span id="cb4-81"><a href="#cb4-81"></a>        order by</span>
-<span id="cb4-82"><a href="#cb4-82"></a>          <span class="ot">"</span><span class="st">rank · arrange + factor</span><span class="ot">"</span></span>
-<span id="cb4-83"><a href="#cb4-83"></a>          <span class="ot">"</span><span class="st">forcats · fct_reorder · by another var</span><span class="ot">"</span></span>
-<span id="cb4-84"><a href="#cb4-84"></a>          <span class="ot">"</span><span class="st">fct_infreq · by frequency</span><span class="ot">"</span></span>
-<span id="cb4-85"><a href="#cb4-85"></a>          <span class="ot">"</span><span class="st">fct_lump · top-n + Other</span><span class="ot">"</span></span>
-<span id="cb4-86"><a href="#cb4-86"></a>    <span class="ot">"</span><span class="st">Scales · the precision layer</span><span class="ot">"</span></span>
-<span id="cb4-87"><a href="#cb4-87"></a>      Naming convention</span>
-<span id="cb4-88"><a href="#cb4-88"></a>        <span class="ot">"</span><span class="st">scale_[aes]_[type]</span><span class="ot">"</span></span>
-<span id="cb4-89"><a href="#cb4-89"></a>        scale_x_continuous</span>
-<span id="cb4-90"><a href="#cb4-90"></a>        scale_y_log10</span>
-<span id="cb4-91"><a href="#cb4-91"></a>        scale_color_brewer</span>
-<span id="cb4-92"><a href="#cb4-92"></a>        scale_fill_viridis_c</span>
-<span id="cb4-93"><a href="#cb4-93"></a>      Common args</span>
-<span id="cb4-94"><a href="#cb4-94"></a>        <span class="ot">"</span><span class="st">name · axis or legend label</span><span class="ot">"</span></span>
-<span id="cb4-95"><a href="#cb4-95"></a>        <span class="ot">"</span><span class="st">breaks · tick locations</span><span class="ot">"</span></span>
-<span id="cb4-96"><a href="#cb4-96"></a>        <span class="ot">"</span><span class="st">labels · tick text</span><span class="ot">"</span></span>
-<span id="cb4-97"><a href="#cb4-97"></a>        <span class="ot">"</span><span class="st">limits · axis range</span><span class="ot">"</span></span>
-<span id="cb4-98"><a href="#cb4-98"></a>      Date scales</span>
-<span id="cb4-99"><a href="#cb4-99"></a>        scale_x_date</span>
-<span id="cb4-100"><a href="#cb4-100"></a>        <span class="ot">"</span><span class="st">date_labels · \"</span><span class="dt">%b</span><span class="st"> </span><span class="dt">%Y</span><span class="st">\"</span><span class="ot">"</span></span>
-<span id="cb4-101"><a href="#cb4-101"></a>        <span class="ot">"</span><span class="st">date_breaks · \"1 month\"</span><span class="ot">"</span></span>
-<span id="cb4-102"><a href="#cb4-102"></a>    <span class="ot">"</span><span class="st">Color · the aesthetic with strongest pull</span><span class="ot">"</span></span>
-<span id="cb4-103"><a href="#cb4-103"></a>      Palettes by data type</span>
-<span id="cb4-104"><a href="#cb4-104"></a>        <span class="ot">"</span><span class="st">sequential · ordered numeric · low to high</span><span class="ot">"</span></span>
-<span id="cb4-105"><a href="#cb4-105"></a>        <span class="ot">"</span><span class="st">diverging · numeric with meaningful midpoint</span><span class="ot">"</span></span>
-<span id="cb4-106"><a href="#cb4-106"></a>        <span class="ot">"</span><span class="st">qualitative · unordered categories</span><span class="ot">"</span></span>
-<span id="cb4-107"><a href="#cb4-107"></a>      ColorBrewer palettes</span>
-<span id="cb4-108"><a href="#cb4-108"></a>        <span class="ot">"</span><span class="st">Set1 · Dark2 · Pastel · Accent</span><span class="ot">"</span></span>
-<span id="cb4-109"><a href="#cb4-109"></a>        <span class="ot">"</span><span class="st">scale_color_brewer(palette = \"Set1\")</span><span class="ot">"</span></span>
-<span id="cb4-110"><a href="#cb4-110"></a>      <span class="ot">"</span><span class="st">Viridis · perceptually uniform</span><span class="ot">"</span></span>
-<span id="cb4-111"><a href="#cb4-111"></a>        <span class="ot">"</span><span class="st">magma · inferno · plasma · viridis</span><span class="ot">"</span></span>
-<span id="cb4-112"><a href="#cb4-112"></a>        all colorblind-safe</span>
-<span id="cb4-113"><a href="#cb4-113"></a>        all greyscale-readable</span>
-<span id="cb4-114"><a href="#cb4-114"></a>      Manual</span>
-<span id="cb4-115"><a href="#cb4-115"></a>        <span class="ot">"</span><span class="st">scale_color_manual(values = c(...))</span><span class="ot">"</span></span>
-<span id="cb4-116"><a href="#cb4-116"></a>        named vector <span class="cf">for</span> stable mapping</span>
-<span id="cb4-117"><a href="#cb4-117"></a>      Color vs fill</span>
-<span id="cb4-118"><a href="#cb4-118"></a>        <span class="ot">"</span><span class="st">color · borders · lines · point edges</span><span class="ot">"</span></span>
-<span id="cb4-119"><a href="#cb4-119"></a>        <span class="ot">"</span><span class="st">fill · interiors of polygons · bars</span><span class="ot">"</span></span>
-<span id="cb4-120"><a href="#cb4-120"></a>        <span class="ot">"</span><span class="st">most common bug · using wrong one</span><span class="ot">"</span></span>
-<span id="cb4-121"><a href="#cb4-121"></a>      Accessibility</span>
-<span id="cb4-122"><a href="#cb4-122"></a>        avoid red-green <span class="cf">for</span> color-blind</span>
-<span id="cb4-123"><a href="#cb4-123"></a>        <span class="ot">"</span><span class="st">redundant encoding · color + shape</span><span class="ot">"</span></span>
-<span id="cb4-124"><a href="#cb4-124"></a>        sufficient contrast</span>
-<span id="cb4-125"><a href="#cb4-125"></a>    <span class="ot">"</span><span class="st">Themes · the aesthetic preset</span><span class="ot">"</span></span>
-<span id="cb4-126"><a href="#cb4-126"></a>      Built into ggplot2</span>
-<span id="cb4-127"><a href="#cb4-127"></a>        <span class="ot">"</span><span class="st">theme_gray · default</span><span class="ot">"</span></span>
-<span id="cb4-128"><a href="#cb4-128"></a>        <span class="ot">"</span><span class="st">theme_bw · classic</span><span class="ot">"</span></span>
-<span id="cb4-129"><a href="#cb4-129"></a>        <span class="ot">"</span><span class="st">theme_minimal · less ink</span><span class="ot">"</span></span>
-<span id="cb4-130"><a href="#cb4-130"></a>        <span class="ot">"</span><span class="st">theme_classic · publication</span><span class="ot">"</span></span>
-<span id="cb4-131"><a href="#cb4-131"></a>        <span class="ot">"</span><span class="st">theme_void · no scaffolding</span><span class="ot">"</span></span>
-<span id="cb4-132"><a href="#cb4-132"></a>      ggthemes <span class="kw">package</span></span>
-<span id="cb4-133"><a href="#cb4-133"></a>        <span class="ot">"</span><span class="st">theme_few · Stephen Few principles</span><span class="ot">"</span></span>
-<span id="cb4-134"><a href="#cb4-134"></a>        <span class="ot">"</span><span class="st">theme_tufte · Tufte minimalism</span><span class="ot">"</span></span>
-<span id="cb4-135"><a href="#cb4-135"></a>        <span class="ot">"</span><span class="st">theme_economist · publication style</span><span class="ot">"</span></span>
-<span id="cb4-136"><a href="#cb4-136"></a>      <span class="ot">"</span><span class="st">theme() · for fine-grained tweaks</span><span class="ot">"</span></span>
-<span id="cb4-137"><a href="#cb4-137"></a>        <span class="ot">"</span><span class="st">panel · grid · text · legend</span><span class="ot">"</span></span>
-<span id="cb4-138"><a href="#cb4-138"></a>    The story arc behind a plot</span>
-<span id="cb4-139"><a href="#cb4-139"></a>      Open</span>
-<span id="cb4-140"><a href="#cb4-140"></a>        what is the question</span>
-<span id="cb4-141"><a href="#cb4-141"></a>        why should I care</span>
-<span id="cb4-142"><a href="#cb4-142"></a>      Develop</span>
-<span id="cb4-143"><a href="#cb4-143"></a>        <span class="ot">"</span><span class="st">show context · reference</span><span class="ot">"</span></span>
-<span id="cb4-144"><a href="#cb4-144"></a>        guide attention</span>
-<span id="cb4-145"><a href="#cb4-145"></a>        make pattern legible</span>
-<span id="cb4-146"><a href="#cb4-146"></a>      Resolve</span>
-<span id="cb4-147"><a href="#cb4-147"></a>        what is the takeaway</span>
-<span id="cb4-148"><a href="#cb4-148"></a>        what should change</span>
-<span id="cb4-149"><a href="#cb4-149"></a>        title <span class="ot">or</span> annotation as conclusion</span>
-<span id="cb4-150"><a href="#cb4-150"></a><span class="in">```</span></span>
-<span id="cb4-151"><a href="#cb4-151"></a></span>
-<span id="cb4-152"><a href="#cb4-152"></a><span class="fu">## Three concepts these readings quietly hinge on</span></span>
-<span id="cb4-153"><a href="#cb4-153"></a></span>
-<span id="cb4-154"><a href="#cb4-154"></a>**A statistic informs; a story persuades.** Dykes's most cited point is that brain scans of statistics versus stories show *different patterns of activation*: statistics light up Broca's and Wernicke's (language processing only), while stories light up additional motor, sensory, and emotional regions. The implication for data work: a finding that is statistically valid but narratively flat will be remembered, recalled, and acted on far less than one that is identical in numbers but shaped into "a small farmer in rural Mali..." rather than "12.3% of children..." This isn't manipulation — it's recognition that human cognition is dual-process, and a chart that engages only the analytical channel leaves the persuasive channel on the table. Every plot you make has a narrative dimension whether you intend one or not; the question is whether you've chosen what it says.</span>
-<span id="cb4-155"><a href="#cb4-155"></a></span>
-<span id="cb4-156"><a href="#cb4-156"></a>**Data-to-ink ratio is the meta-rule that contains most others.** Tufte's principle — every drop of ink should be carrying information — is the geometric core of Peng's six guidelines. Lower data-to-ink: gridded backgrounds, 3D effects, redundant legends, gradient bars where a dot would do. Higher data-to-ink: minimal theme, single annotated reference line, faceted small multiples without per-panel scaffolding. Peng demonstrates this with the side-by-side Chicago mortality plots: same data, but the right-hand version (line + minimalist theme) communicates the heat-wave spike instantly while the left-hand version (filled area + colored background + gridlines) buries the signal under decoration. When you're making a plot and uncertain what to add, the right move is usually subtraction.</span>
-<span id="cb4-157"><a href="#cb4-157"></a></span>
-<span id="cb4-158"><a href="#cb4-158"></a>**Color is the aesthetic with the most communicative power and the most common misuse.** Three failure modes recur in student work: (1) using a *qualitative* palette for *ordered* data — Set1 for income brackets — which destroys the ordering by mapping it to perceptually unordered hues; (2) using a *sequential* palette for *unordered* data — viridis for political party — which suggests an ordering that doesn't exist; (3) confusing <span class="in">`color`</span> with <span class="in">`fill`</span> — <span class="in">`color`</span> is the edge of an element, <span class="in">`fill`</span> is the interior, and <span class="in">`geom_point`</span> mostly responds to <span class="in">`color`</span> while <span class="in">`geom_bar`</span> mostly responds to <span class="in">`fill`</span>, so a misapplied scale function silently does nothing. The recovery: pick palette family by data type (qualitative / sequential / diverging), prefer viridis for sequential (it's perceptually uniform and colorblind-safe), and double-encode (color + shape, color + label) for accessibility.</span>
-<span id="cb4-159"><a href="#cb4-159"></a></span>
-<span id="cb4-160"><a href="#cb4-160"></a><span class="fu">## A small reference for the six guidelines</span></span>
-<span id="cb4-161"><a href="#cb4-161"></a></span>
-<span id="cb4-162"><a href="#cb4-162"></a>Each guideline paired with the ggplot2 mechanisms that implement it:</span>
-<span id="cb4-163"><a href="#cb4-163"></a></span>
-<span id="cb4-164"><a href="#cb4-164"></a><span class="pp">|</span> Guideline <span class="pp">|</span> Primary mechanisms <span class="pp">|</span></span>
-<span id="cb4-165"><a href="#cb4-165"></a><span class="pp">|-----------|--------------------|</span></span>
-<span id="cb4-166"><a href="#cb4-166"></a><span class="pp">|</span> 1. High data density <span class="pp">|</span> <span class="in">`theme_minimal`</span> / <span class="in">`theme_few`</span> / <span class="in">`theme_tufte`</span>, drop gridlines, prefer dots over bars where appropriate <span class="pp">|</span></span>
-<span id="cb4-167"><a href="#cb4-167"></a><span class="pp">|</span> 2. Clear labels <span class="pp">|</span> <span class="in">`labs()`</span>, <span class="in">`xlab()`</span> / <span class="in">`ylab()`</span>, <span class="in">`coord_flip()`</span>, <span class="in">`scales::comma`</span>, <span class="in">`fct_recode`</span> <span class="pp">|</span></span>
-<span id="cb4-168"><a href="#cb4-168"></a><span class="pp">|</span> 3. Useful references <span class="pp">|</span> <span class="in">`geom_smooth`</span>, <span class="in">`geom_hline`</span> / <span class="in">`geom_vline`</span>, <span class="in">`geom_ribbon`</span> for normal range, alpha + gray <span class="pp">|</span></span>
-<span id="cb4-169"><a href="#cb4-169"></a><span class="pp">|</span> 4. Highlighting <span class="pp">|</span> <span class="in">`geom_text`</span> / <span class="in">`geom_label`</span> with subsetted data, <span class="in">`aes(color = flag)`</span>, named subsets <span class="pp">|</span></span>
-<span id="cb4-170"><a href="#cb4-170"></a><span class="pp">|</span> 5. Small multiples <span class="pp">|</span> <span class="in">`facet_wrap`</span> (one var), <span class="in">`facet_grid`</span> (two vars), <span class="in">`scales = "free_y"`</span>, ordered factor levels <span class="pp">|</span></span>
-<span id="cb4-171"><a href="#cb4-171"></a><span class="pp">|</span> 6. Meaningful order <span class="pp">|</span> <span class="in">`forcats::fct_reorder`</span>, <span class="in">`fct_infreq`</span>, <span class="in">`arrange + factor(levels = unique(.))`</span> pattern <span class="pp">|</span></span>
-<span id="cb4-172"><a href="#cb4-172"></a></span>
-<span id="cb4-173"><a href="#cb4-173"></a><span class="fu">## Two patterns worth memorizing</span></span>
-<span id="cb4-174"><a href="#cb4-174"></a></span>
-<span id="cb4-175"><a href="#cb4-175"></a>**The "highlight a subset" pattern.** Generalized from Peng's noteworthy-players example:</span>
-<span id="cb4-176"><a href="#cb4-176"></a></span>
-<span id="cb4-177"><a href="#cb4-177"></a><span class="in">```r</span></span>
-<span id="cb4-178"><a href="#cb4-178"></a>noteworthy <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
-<span id="cb4-179"><a href="#cb4-179"></a>  <span class="fu">filter</span>(value <span class="sc">&gt;</span> threshold) <span class="sc">|&gt;</span></span>
-<span id="cb4-180"><a href="#cb4-180"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">paste</span>(name, value, <span class="at">sep =</span> <span class="st">": "</span>))</span>
-<span id="cb4-181"><a href="#cb4-181"></a></span>
-<span id="cb4-182"><a href="#cb4-182"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb4-183"><a href="#cb4-183"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">color =</span> <span class="st">"gray60"</span>) <span class="sc">+</span>              <span class="co"># background</span></span>
-<span id="cb4-184"><a href="#cb4-184"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> noteworthy, <span class="at">color =</span> <span class="st">"firebrick"</span>,        <span class="co"># highlight</span></span>
-<span id="cb4-185"><a href="#cb4-185"></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb4-186"><a href="#cb4-186"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> noteworthy, <span class="fu">aes</span>(<span class="at">label =</span> label),          <span class="co"># label</span></span>
-<span id="cb4-187"><a href="#cb4-187"></a>            <span class="at">vjust =</span> <span class="st">"inward"</span>, <span class="at">hjust =</span> <span class="st">"inward"</span>,</span>
-<span id="cb4-188"><a href="#cb4-188"></a>            <span class="at">color =</span> <span class="st">"firebrick"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb4-189"><a href="#cb4-189"></a>  <span class="fu">theme_few</span>()</span>
-<span id="cb4-190"><a href="#cb4-190"></a><span class="in">```</span></span>
-<span id="cb4-191"><a href="#cb4-191"></a></span>
-<span id="cb4-192"><a href="#cb4-192"></a>The structural move: **two layers, two datasets**. The full data forms a quiet background; the subset of interest gets stronger color, larger size, and a text label. The <span class="in">`vjust = "inward"`</span> and <span class="in">`hjust = "inward"`</span> keep labels inside the plot bounds without manual positioning.</span>
-<span id="cb4-193"><a href="#cb4-193"></a></span>
-<span id="cb4-194"><a href="#cb4-194"></a>**The "order by another variable" pattern.** Useful any time the categorical axis is alphabetically meaningless:</span>
-<span id="cb4-195"><a href="#cb4-195"></a></span>
-<span id="cb4-196"><a href="#cb4-196"></a><span class="in">```r</span></span>
-<span id="cb4-197"><a href="#cb4-197"></a>data <span class="sc">|&gt;</span></span>
-<span id="cb4-198"><a href="#cb4-198"></a>  <span class="fu">group_by</span>(category) <span class="sc">|&gt;</span></span>
-<span id="cb4-199"><a href="#cb4-199"></a>  <span class="fu">summarize</span>(<span class="at">metric =</span> <span class="fu">mean</span>(value)) <span class="sc">|&gt;</span></span>
-<span id="cb4-200"><a href="#cb4-200"></a>  <span class="fu">arrange</span>(metric) <span class="sc">|&gt;</span></span>
-<span id="cb4-201"><a href="#cb4-201"></a>  <span class="fu">mutate</span>(<span class="at">category =</span> <span class="fu">factor</span>(category, <span class="at">levels =</span> <span class="fu">unique</span>(category))) <span class="sc">|&gt;</span></span>
-<span id="cb4-202"><a href="#cb4-202"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> metric, <span class="at">y =</span> category)) <span class="sc">+</span></span>
-<span id="cb4-203"><a href="#cb4-203"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb4-204"><a href="#cb4-204"></a>  <span class="fu">theme_few</span>()</span>
-<span id="cb4-205"><a href="#cb4-205"></a><span class="in">```</span></span>
-<span id="cb4-206"><a href="#cb4-206"></a></span>
-<span id="cb4-207"><a href="#cb4-207"></a>The <span class="in">`arrange |&gt; mutate(factor(levels = unique(.)))`</span> idiom forces ggplot's natural axis order to follow the metric. <span class="in">`forcats::fct_reorder(category, metric)`</span> does the same thing in one line and is the more idiomatic choice when the data is already in the form you need.</span>
-<span id="cb4-208"><a href="#cb4-208"></a></span>
-<span id="cb4-209"><a href="#cb4-209"></a><span class="fu">## The lift from grammar to design</span></span>
-<span id="cb4-210"><a href="#cb4-210"></a></span>
-<span id="cb4-211"><a href="#cb4-211"></a>ICA 03 (R4DS Ch1) was about being able to make any plot at all — knowing which <span class="in">`geom_`</span> to call, where <span class="in">`aes()`</span> goes, how facets work. ICA 17 is about making plots that communicate. The difference is the difference between writing a grammatical sentence and writing a sentence that lands. The same data, the same <span class="in">`geom_`</span>, the same facet — applied with attention to data-to-ink, references, and ordering — turns a chart that's technically correct into one that's actually read. Peng's chapter is essentially a translation manual between the two layers: each design rule has a small set of ggplot2 mechanisms that implement it, so the gap between "I know what I want" and "I know what to type" is small.</span>
-<span id="cb4-212"><a href="#cb4-212"></a></span>
-<span id="cb4-213"><a href="#cb4-213"></a><span class="fu">## Why this comes after wrangling, iteration, and acquisition</span></span>
-<span id="cb4-214"><a href="#cb4-214"></a></span>
-<span id="cb4-215"><a href="#cb4-215"></a>ICA 17 is where the course's threads converge. By this point you can wrangle (ICAs 06-08), iterate (ICAs 11-12), acquire from APIs / scrape / SQL (ICAs 13-16). The natural next question is: *given that you can produce any chart you want from any source, how do you produce one that's worth showing?* The answer is design discipline — not artistry, but a small set of rules consistently applied. Tufte / Few / Wainer have written entire books on this; ICA 17's prep distills the actionable subset.</span>
-<span id="cb4-216"><a href="#cb4-216"></a></span>
-<span id="cb4-217"><a href="#cb4-217"></a><span class="fu">## A note on the larger argument</span></span>
-<span id="cb4-218"><a href="#cb4-218"></a></span>
-<span id="cb4-219"><a href="#cb4-219"></a>Dykes's article opens with Hal Varian's 2009 prediction — *"the ability to take data, to be able to understand it, to process it, to extract value from it, to visualize it, to communicate it, that's going to be a hugely important skill in the next decades."* Reading this 17 years later, the prediction is uncontroversial: every data-related job posting now lists communication. What's still contested is *how to teach* it. ICA 17 takes a position: communication isn't a soft skill bolted onto technical work, it's a craft with rules — data-to-ink ratio, reference framing, ordered comparison, visual hierarchy, narrative arc — that can be learned the same way function design or SQL queries can. The Forbes article is the philosophy; Peng's chapter is the syllabus.</span>
+<span id="cb4-16"><a href="#cb4-16"></a>%<span class="dt">%</span>{init: {</span>
+<span id="cb4-17"><a href="#cb4-17"></a>  <span class="ot">"</span><span class="st">theme</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">base</span><span class="ot">"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18"></a>  <span class="ot">"</span><span class="st">themeVariables</span><span class="ot">"</span>: {</span>
+<span id="cb4-19"><a href="#cb4-19"></a>    <span class="ot">"</span><span class="st">primaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20"></a>    <span class="ot">"</span><span class="st">primaryTextColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21"></a>    <span class="ot">"</span><span class="st">primaryBorderColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#1a5cb0</span><span class="ot">"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22"></a>    <span class="ot">"</span><span class="st">lineColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#6c757d</span><span class="ot">"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23"></a>    <span class="ot">"</span><span class="st">secondaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#e9ecef</span><span class="ot">"</span>,</span>
+<span id="cb4-24"><a href="#cb4-24"></a>    <span class="ot">"</span><span class="st">tertiaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#f8f9fa</span><span class="ot">"</span>,</span>
+<span id="cb4-25"><a href="#cb4-25"></a>    <span class="ot">"</span><span class="st">mainBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb4-26"><a href="#cb4-26"></a>    <span class="ot">"</span><span class="st">secondBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#dee2e6</span><span class="ot">"</span>,</span>
+<span id="cb4-27"><a href="#cb4-27"></a>    <span class="ot">"</span><span class="st">tertiaryBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb4-28"><a href="#cb4-28"></a>    <span class="ot">"</span><span class="st">fontFamily</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">Inter, system-ui, sans-serif</span><span class="ot">"</span>,</span>
+<span id="cb4-29"><a href="#cb4-29"></a>    <span class="ot">"</span><span class="st">fontSize</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">14px</span><span class="ot">"</span>,</span>
+<span id="cb4-30"><a href="#cb4-30"></a>    <span class="ot">"</span><span class="st">textColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#212529</span><span class="ot">"</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a>  }</span>
+<span id="cb4-32"><a href="#cb4-32"></a>}}%%</span>
+<span id="cb4-33"><a href="#cb4-33"></a>mindmap</span>
+<span id="cb4-34"><a href="#cb4-34"></a>  root((ICA <span class="dv">17</span> Effective Viz))</span>
+<span id="cb4-35"><a href="#cb4-35"></a>    Why storytelling</span>
+<span id="cb4-36"><a href="#cb4-36"></a>      <span class="ot">"</span><span class="st">decisions are emotional · not just logical</span><span class="ot">"</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a>      <span class="ot">"</span><span class="st">memory · 63% remember stories vs 5% stats</span><span class="ot">"</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a>      <span class="ot">"</span><span class="st">data + visuals + narrative · together</span><span class="ot">"""</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a>    Six guidelines</span>
+<span id="cb4-40"><a href="#cb4-40"></a>      <span class="ot">"</span><span class="st">1 · high data-to-ink ratio</span><span class="ot">"</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a>      <span class="ot">"</span><span class="st">2 · clear meaningful labels</span><span class="ot">"</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a>      <span class="ot">"</span><span class="st">3 · useful references</span><span class="ot">"</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a>      <span class="ot">"</span><span class="st">4 · highlight interesting aspects</span><span class="ot">"</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a>      <span class="ot">"</span><span class="st">5 · small multiples</span><span class="ot">"</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a>      <span class="ot">"</span><span class="st">6 · meaningful order</span><span class="ot">"</span></span>
+<span id="cb4-46"><a href="#cb4-46"></a>    Color · the strongest aesthetic</span>
+<span id="cb4-47"><a href="#cb4-47"></a>      <span class="ot">"</span><span class="st">qualitative · for unordered categories</span><span class="ot">"</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a>      <span class="ot">"</span><span class="st">sequential · for ordered numeric</span><span class="ot">"</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a>      <span class="ot">"</span><span class="st">diverging · for centered numeric</span><span class="ot">"</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a>      <span class="ot">"</span><span class="st">viridis · perceptually uniform · colorblind-safe</span><span class="ot">"</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a>    Themes</span>
+<span id="cb4-52"><a href="#cb4-52"></a>      <span class="ot">"</span><span class="st">theme_minimal · less ink</span><span class="ot">"</span></span>
+<span id="cb4-53"><a href="#cb4-53"></a>      <span class="ot">"</span><span class="st">theme_few · Stephen Few principles</span><span class="ot">"</span></span>
+<span id="cb4-54"><a href="#cb4-54"></a>      <span class="ot">"</span><span class="st">theme_tufte · Tufte minimalism</span><span class="ot">"</span></span>
+<span id="cb4-55"><a href="#cb4-55"></a>      <span class="ot">"</span><span class="st">theme() · for fine-grained tweaks</span><span class="ot">"</span></span>
+<span id="cb4-56"><a href="#cb4-56"></a><span class="in">```</span></span>
+<span id="cb4-57"><a href="#cb4-57"></a></span>
+<span id="cb4-58"><a href="#cb4-58"></a><span class="fu">## Three concepts these readings quietly hinge on</span></span>
+<span id="cb4-59"><a href="#cb4-59"></a></span>
+<span id="cb4-60"><a href="#cb4-60"></a>**A statistic informs; a story persuades.** Dykes's most cited point is that brain scans of statistics versus stories show *different patterns of activation*: statistics light up Broca's and Wernicke's (language processing only), while stories light up additional motor, sensory, and emotional regions. The implication for data work: a finding that is statistically valid but narratively flat will be remembered, recalled, and acted on far less than one that is identical in numbers but shaped into "a small farmer in rural Mali..." rather than "12.3% of children..." This isn't manipulation — it's recognition that human cognition is dual-process, and a chart that engages only the analytical channel leaves the persuasive channel on the table. Every plot you make has a narrative dimension whether you intend one or not; the question is whether you've chosen what it says.</span>
+<span id="cb4-61"><a href="#cb4-61"></a></span>
+<span id="cb4-62"><a href="#cb4-62"></a>**Data-to-ink ratio is the meta-rule that contains most others.** Tufte's principle — every drop of ink should be carrying information — is the geometric core of Peng's six guidelines. Lower data-to-ink: gridded backgrounds, 3D effects, redundant legends, gradient bars where a dot would do. Higher data-to-ink: minimal theme, single annotated reference line, faceted small multiples without per-panel scaffolding. Peng demonstrates this with the side-by-side Chicago mortality plots: same data, but the right-hand version (line + minimalist theme) communicates the heat-wave spike instantly while the left-hand version (filled area + colored background + gridlines) buries the signal under decoration. When you're making a plot and uncertain what to add, the right move is usually subtraction.</span>
+<span id="cb4-63"><a href="#cb4-63"></a></span>
+<span id="cb4-64"><a href="#cb4-64"></a>**Color is the aesthetic with the most communicative power and the most common misuse.** Three failure modes recur in student work: (1) using a *qualitative* palette for *ordered* data — Set1 for income brackets — which destroys the ordering by mapping it to perceptually unordered hues; (2) using a *sequential* palette for *unordered* data — viridis for political party — which suggests an ordering that doesn't exist; (3) confusing <span class="in">`color`</span> with <span class="in">`fill`</span> — <span class="in">`color`</span> is the edge of an element, <span class="in">`fill`</span> is the interior, and <span class="in">`geom_point`</span> mostly responds to <span class="in">`color`</span> while <span class="in">`geom_bar`</span> mostly responds to <span class="in">`fill`</span>, so a misapplied scale function silently does nothing. The recovery: pick palette family by data type (qualitative / sequential / diverging), prefer viridis for sequential (it's perceptually uniform and colorblind-safe), and double-encode (color + shape, color + label) for accessibility.</span>
+<span id="cb4-65"><a href="#cb4-65"></a></span>
+<span id="cb4-66"><a href="#cb4-66"></a><span class="fu">## A small reference for the six guidelines</span></span>
+<span id="cb4-67"><a href="#cb4-67"></a></span>
+<span id="cb4-68"><a href="#cb4-68"></a>Each guideline paired with the ggplot2 mechanisms that implement it:</span>
+<span id="cb4-69"><a href="#cb4-69"></a></span>
+<span id="cb4-70"><a href="#cb4-70"></a><span class="pp">|</span> Guideline <span class="pp">|</span> Primary mechanisms <span class="pp">|</span></span>
+<span id="cb4-71"><a href="#cb4-71"></a><span class="pp">|-----------|--------------------|</span></span>
+<span id="cb4-72"><a href="#cb4-72"></a><span class="pp">|</span> 1. High data density <span class="pp">|</span> <span class="in">`theme_minimal`</span> / <span class="in">`theme_few`</span> / <span class="in">`theme_tufte`</span>, drop gridlines, prefer dots over bars where appropriate <span class="pp">|</span></span>
+<span id="cb4-73"><a href="#cb4-73"></a><span class="pp">|</span> 2. Clear labels <span class="pp">|</span> <span class="in">`labs()`</span>, <span class="in">`xlab()`</span> / <span class="in">`ylab()`</span>, <span class="in">`coord_flip()`</span>, <span class="in">`scales::comma`</span>, <span class="in">`fct_recode`</span> <span class="pp">|</span></span>
+<span id="cb4-74"><a href="#cb4-74"></a><span class="pp">|</span> 3. Useful references <span class="pp">|</span> <span class="in">`geom_smooth`</span>, <span class="in">`geom_hline`</span> / <span class="in">`geom_vline`</span>, <span class="in">`geom_ribbon`</span> for normal range, alpha + gray <span class="pp">|</span></span>
+<span id="cb4-75"><a href="#cb4-75"></a><span class="pp">|</span> 4. Highlighting <span class="pp">|</span> <span class="in">`geom_text`</span> / <span class="in">`geom_label`</span> with subsetted data, <span class="in">`aes(color = flag)`</span>, named subsets <span class="pp">|</span></span>
+<span id="cb4-76"><a href="#cb4-76"></a><span class="pp">|</span> 5. Small multiples <span class="pp">|</span> <span class="in">`facet_wrap`</span> (one var), <span class="in">`facet_grid`</span> (two vars), <span class="in">`scales = "free_y"`</span>, ordered factor levels <span class="pp">|</span></span>
+<span id="cb4-77"><a href="#cb4-77"></a><span class="pp">|</span> 6. Meaningful order <span class="pp">|</span> <span class="in">`forcats::fct_reorder`</span>, <span class="in">`fct_infreq`</span>, <span class="in">`arrange + factor(levels = unique(.))`</span> pattern <span class="pp">|</span></span>
+<span id="cb4-78"><a href="#cb4-78"></a></span>
+<span id="cb4-79"><a href="#cb4-79"></a><span class="fu">## Two patterns worth memorizing</span></span>
+<span id="cb4-80"><a href="#cb4-80"></a></span>
+<span id="cb4-81"><a href="#cb4-81"></a>**The "highlight a subset" pattern.** Generalized from Peng's noteworthy-players example:</span>
+<span id="cb4-82"><a href="#cb4-82"></a></span>
+<span id="cb4-83"><a href="#cb4-83"></a><span class="in">```r</span></span>
+<span id="cb4-84"><a href="#cb4-84"></a>noteworthy <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb4-85"><a href="#cb4-85"></a>  <span class="fu">filter</span>(value <span class="sc">&gt;</span> threshold) <span class="sc">|&gt;</span></span>
+<span id="cb4-86"><a href="#cb4-86"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">paste</span>(name, value, <span class="at">sep =</span> <span class="st">": "</span>))</span>
+<span id="cb4-87"><a href="#cb4-87"></a></span>
+<span id="cb4-88"><a href="#cb4-88"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb4-89"><a href="#cb4-89"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">color =</span> <span class="st">"gray60"</span>) <span class="sc">+</span>              <span class="co"># background</span></span>
+<span id="cb4-90"><a href="#cb4-90"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> noteworthy, <span class="at">color =</span> <span class="st">"firebrick"</span>,        <span class="co"># highlight</span></span>
+<span id="cb4-91"><a href="#cb4-91"></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb4-92"><a href="#cb4-92"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> noteworthy, <span class="fu">aes</span>(<span class="at">label =</span> label),          <span class="co"># label</span></span>
+<span id="cb4-93"><a href="#cb4-93"></a>            <span class="at">vjust =</span> <span class="st">"inward"</span>, <span class="at">hjust =</span> <span class="st">"inward"</span>,</span>
+<span id="cb4-94"><a href="#cb4-94"></a>            <span class="at">color =</span> <span class="st">"firebrick"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb4-95"><a href="#cb4-95"></a>  <span class="fu">theme_few</span>()</span>
+<span id="cb4-96"><a href="#cb4-96"></a><span class="in">```</span></span>
+<span id="cb4-97"><a href="#cb4-97"></a></span>
+<span id="cb4-98"><a href="#cb4-98"></a>The structural move: **two layers, two datasets**. The full data forms a quiet background; the subset of interest gets stronger color, larger size, and a text label. The <span class="in">`vjust = "inward"`</span> and <span class="in">`hjust = "inward"`</span> keep labels inside the plot bounds without manual positioning.</span>
+<span id="cb4-99"><a href="#cb4-99"></a></span>
+<span id="cb4-100"><a href="#cb4-100"></a>**The "order by another variable" pattern.** Useful any time the categorical axis is alphabetically meaningless:</span>
+<span id="cb4-101"><a href="#cb4-101"></a></span>
+<span id="cb4-102"><a href="#cb4-102"></a><span class="in">```r</span></span>
+<span id="cb4-103"><a href="#cb4-103"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb4-104"><a href="#cb4-104"></a>  <span class="fu">group_by</span>(category) <span class="sc">|&gt;</span></span>
+<span id="cb4-105"><a href="#cb4-105"></a>  <span class="fu">summarize</span>(<span class="at">metric =</span> <span class="fu">mean</span>(value)) <span class="sc">|&gt;</span></span>
+<span id="cb4-106"><a href="#cb4-106"></a>  <span class="fu">arrange</span>(metric) <span class="sc">|&gt;</span></span>
+<span id="cb4-107"><a href="#cb4-107"></a>  <span class="fu">mutate</span>(<span class="at">category =</span> <span class="fu">factor</span>(category, <span class="at">levels =</span> <span class="fu">unique</span>(category))) <span class="sc">|&gt;</span></span>
+<span id="cb4-108"><a href="#cb4-108"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> metric, <span class="at">y =</span> category)) <span class="sc">+</span></span>
+<span id="cb4-109"><a href="#cb4-109"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-110"><a href="#cb4-110"></a>  <span class="fu">theme_few</span>()</span>
+<span id="cb4-111"><a href="#cb4-111"></a><span class="in">```</span></span>
+<span id="cb4-112"><a href="#cb4-112"></a></span>
+<span id="cb4-113"><a href="#cb4-113"></a>The <span class="in">`arrange |&gt; mutate(factor(levels = unique(.)))`</span> idiom forces ggplot's natural axis order to follow the metric. <span class="in">`forcats::fct_reorder(category, metric)`</span> does the same thing in one line and is the more idiomatic choice when the data is already in the form you need.</span>
+<span id="cb4-114"><a href="#cb4-114"></a></span>
+<span id="cb4-115"><a href="#cb4-115"></a><span class="fu">## The lift from grammar to design</span></span>
+<span id="cb4-116"><a href="#cb4-116"></a></span>
+<span id="cb4-117"><a href="#cb4-117"></a>ICA 03 (R4DS Ch1) was about being able to make any plot at all — knowing which <span class="in">`geom_`</span> to call, where <span class="in">`aes()`</span> goes, how facets work. ICA 17 is about making plots that communicate. The difference is the difference between writing a grammatical sentence and writing a sentence that lands. The same data, the same <span class="in">`geom_`</span>, the same facet — applied with attention to data-to-ink, references, and ordering — turns a chart that's technically correct into one that's actually read. Peng's chapter is essentially a translation manual between the two layers: each design rule has a small set of ggplot2 mechanisms that implement it, so the gap between "I know what I want" and "I know what to type" is small.</span>
+<span id="cb4-118"><a href="#cb4-118"></a></span>
+<span id="cb4-119"><a href="#cb4-119"></a><span class="fu">## Why this comes after wrangling, iteration, and acquisition</span></span>
+<span id="cb4-120"><a href="#cb4-120"></a></span>
+<span id="cb4-121"><a href="#cb4-121"></a>ICA 17 is where the course's threads converge. By this point you can wrangle (ICAs 06-08), iterate (ICAs 11-12), acquire from APIs / scrape / SQL (ICAs 13-16). The natural next question is: *given that you can produce any chart you want from any source, how do you produce one that's worth showing?* The answer is design discipline — not artistry, but a small set of rules consistently applied. Tufte / Few / Wainer have written entire books on this; ICA 17's prep distills the actionable subset.</span>
+<span id="cb4-122"><a href="#cb4-122"></a></span>
+<span id="cb4-123"><a href="#cb4-123"></a><span class="fu">## A note on the larger argument</span></span>
+<span id="cb4-124"><a href="#cb4-124"></a></span>
+<span id="cb4-125"><a href="#cb4-125"></a>Dykes's article opens with Hal Varian's 2009 prediction — *"the ability to take data, to be able to understand it, to process it, to extract value from it, to visualize it, to communicate it, that's going to be a hugely important skill in the next decades."* Reading this 17 years later, the prediction is uncontroversial: every data-related job posting now lists communication. What's still contested is *how to teach* it. ICA 17 takes a position: communication isn't a soft skill bolted onto technical work, it's a craft with rules — data-to-ink ratio, reference framing, ordered comparison, visual hierarchy, narrative arc — that can be learned the same way function design or SQL queries can. The Forbes article is the philosophy; Peng's chapter is the syllabus.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

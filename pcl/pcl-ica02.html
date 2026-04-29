@@ -132,7 +132,7 @@ cookieconsent.run({
 </script> 
   
 <style>html{ scroll-behavior: smooth; }</style>
-<meta name="mermaid-theme" content="dark">
+<meta name="mermaid-theme" content="default">
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
@@ -752,161 +752,85 @@ cookieconsent.run({
 <div class="cell" data-layout-align="default">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 02 Review))</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    File Organization</span>
-<span id="cb1-4"><a href="#cb1-4"></a>      Project skeleton</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        "code · src"</span>
-<span id="cb1-6"><a href="#cb1-6"></a>          "wa · scratch work area"</span>
-<span id="cb1-7"><a href="#cb1-7"></a>        data</span>
-<span id="cb1-8"><a href="#cb1-8"></a>          "raw · originals untouched"</span>
-<span id="cb1-9"><a href="#cb1-9"></a>            "source.txt · provenance"</span>
-<span id="cb1-10"><a href="#cb1-10"></a>          "processed · cleaned outputs"</span>
-<span id="cb1-11"><a href="#cb1-11"></a>        results</span>
-<span id="cb1-12"><a href="#cb1-12"></a>          "figures · tables · interactive"</span>
-<span id="cb1-13"><a href="#cb1-13"></a>      Course folder layout</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        "course_work / stat212"</span>
-<span id="cb1-15"><a href="#cb1-15"></a>          class_activities</span>
-<span id="cb1-16"><a href="#cb1-16"></a>          homework</span>
-<span id="cb1-17"><a href="#cb1-17"></a>          project</span>
-<span id="cb1-18"><a href="#cb1-18"></a>        clone repos as siblings</span>
-<span id="cb1-19"><a href="#cb1-19"></a>          never nest one inside another</span>
-<span id="cb1-20"><a href="#cb1-20"></a>      Paths</span>
-<span id="cb1-21"><a href="#cb1-21"></a>        Absolute</span>
-<span id="cb1-22"><a href="#cb1-22"></a>          starts at root</span>
-<span id="cb1-23"><a href="#cb1-23"></a>          breaks on other machines</span>
-<span id="cb1-24"><a href="#cb1-24"></a>          avoid for shared code</span>
-<span id="cb1-25"><a href="#cb1-25"></a>        Relative</span>
-<span id="cb1-26"><a href="#cb1-26"></a>          starts at working directory</span>
-<span id="cb1-27"><a href="#cb1-27"></a>          "./ current"</span>
-<span id="cb1-28"><a href="#cb1-28"></a>          "../ parent"</span>
-<span id="cb1-29"><a href="#cb1-29"></a>          web URLs are exception</span>
-<span id="cb1-30"><a href="#cb1-30"></a>    "Git &amp; GitHub"</span>
-<span id="cb1-31"><a href="#cb1-31"></a>      Vocabulary</span>
-<span id="cb1-32"><a href="#cb1-32"></a>        "Repository · tracked folder"</span>
-<span id="cb1-33"><a href="#cb1-33"></a>        "Add · stage changes"</span>
-<span id="cb1-34"><a href="#cb1-34"></a>        "Commit · timestamped snapshot"</span>
-<span id="cb1-35"><a href="#cb1-35"></a>        "Push · send to remote"</span>
-<span id="cb1-36"><a href="#cb1-36"></a>        "Pull · fetch from remote"</span>
-<span id="cb1-37"><a href="#cb1-37"></a>      Workflow</span>
-<span id="cb1-38"><a href="#cb1-38"></a>        "edit → add → commit → push"</span>
-<span id="cb1-39"><a href="#cb1-39"></a>        pull before edit if collaborating</span>
-<span id="cb1-40"><a href="#cb1-40"></a>      Collaboration</span>
-<span id="cb1-41"><a href="#cb1-41"></a>        merge conflict</span>
-<span id="cb1-42"><a href="#cb1-42"></a>          two edits to same line</span>
-<span id="cb1-43"><a href="#cb1-43"></a>          markers in file</span>
-<span id="cb1-44"><a href="#cb1-44"></a>            "&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD"</span>
-<span id="cb1-45"><a href="#cb1-45"></a>            "======="</span>
-<span id="cb1-46"><a href="#cb1-46"></a>            "&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch"</span>
-<span id="cb1-47"><a href="#cb1-47"></a>          "resolve · save · commit · push"</span>
-<span id="cb1-48"><a href="#cb1-48"></a>      Tooling</span>
-<span id="cb1-49"><a href="#cb1-49"></a>        "GitHub Desktop · GUI"</span>
-<span id="cb1-50"><a href="#cb1-50"></a>        "GitHub Classroom · starter repos"</span>
-<span id="cb1-51"><a href="#cb1-51"></a>        "Copilot · LLM completion"</span>
-<span id="cb1-52"><a href="#cb1-52"></a>    Keyboard Shortcuts</span>
-<span id="cb1-53"><a href="#cb1-53"></a>      Cursor navigation</span>
-<span id="cb1-54"><a href="#cb1-54"></a>        word level</span>
-<span id="cb1-55"><a href="#cb1-55"></a>          "Mac Option · Win Ctrl"</span>
-<span id="cb1-56"><a href="#cb1-56"></a>        line level</span>
-<span id="cb1-57"><a href="#cb1-57"></a>          "Mac Cmd · Win Alt"</span>
-<span id="cb1-58"><a href="#cb1-58"></a>        Shift to select</span>
-<span id="cb1-59"><a href="#cb1-59"></a>      Editing</span>
-<span id="cb1-60"><a href="#cb1-60"></a>        "Backspace · delete left"</span>
-<span id="cb1-61"><a href="#cb1-61"></a>        "Delete · delete right"</span>
-<span id="cb1-62"><a href="#cb1-62"></a>        combined with nav keys</span>
-<span id="cb1-63"><a href="#cb1-63"></a>      RStudio source</span>
-<span id="cb1-64"><a href="#cb1-64"></a>        "Cmd Option I · code chunk"</span>
-<span id="cb1-65"><a href="#cb1-65"></a>        "Cmd Shift M · pipe |&gt;"</span>
-<span id="cb1-66"><a href="#cb1-66"></a>        "Option · or Alt - · assignment"</span>
-<span id="cb1-67"><a href="#cb1-67"></a>        "Cmd Return · run line"</span>
-<span id="cb1-68"><a href="#cb1-68"></a>        "Cmd Shift Return · run chunk"</span>
-<span id="cb1-69"><a href="#cb1-69"></a>        "Cmd Shift C · toggle comment"</span>
-<span id="cb1-70"><a href="#cb1-70"></a>      RStudio console</span>
-<span id="cb1-71"><a href="#cb1-71"></a>        "Up · cycle history"</span>
-<span id="cb1-72"><a href="#cb1-72"></a>        "Esc · interrupt"</span>
-<span id="cb1-73"><a href="#cb1-73"></a>        "?fn · help"</span>
-<span id="cb1-74"><a href="#cb1-74"></a>      Discoverability</span>
-<span id="cb1-75"><a href="#cb1-75"></a>        "Cmd Shift K · all shortcuts"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>%%{init: {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  "theme": "base",</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  "themeVariables": {</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    "primaryColor": "#2780E3",</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    "primaryTextColor": "#ffffff",</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    "primaryBorderColor": "#1a5cb0",</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    "lineColor": "#6c757d",</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    "secondaryColor": "#e9ecef",</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    "tertiaryColor": "#f8f9fa",</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    "mainBkg": "#2780E3",</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    "secondBkg": "#dee2e6",</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    "tertiaryBkg": "#ffffff",</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    "fontFamily": "Inter, system-ui, sans-serif",</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    "fontSize": "14px",</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    "textColor": "#212529"</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  }</span>
+<span id="cb1-17"><a href="#cb1-17"></a>}}%%</span>
+<span id="cb1-18"><a href="#cb1-18"></a>mindmap</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  root((ICA 02 Review))</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    File organization</span>
+<span id="cb1-21"><a href="#cb1-21"></a>      "one project · one folder"</span>
+<span id="cb1-22"><a href="#cb1-22"></a>      "data · code · output separated"</span>
+<span id="cb1-23"><a href="#cb1-23"></a>      "no spaces in filenames"</span>
+<span id="cb1-24"><a href="#cb1-24"></a>      "relative paths only"</span>
+<span id="cb1-25"><a href="#cb1-25"></a>    Git basics</span>
+<span id="cb1-26"><a href="#cb1-26"></a>      "stage · commit · push"</span>
+<span id="cb1-27"><a href="#cb1-27"></a>      "pull before push"</span>
+<span id="cb1-28"><a href="#cb1-28"></a>      "main branch is the truth"</span>
+<span id="cb1-29"><a href="#cb1-29"></a>      "commit small · commit often"</span>
+<span id="cb1-30"><a href="#cb1-30"></a>    Keyboard productivity</span>
+<span id="cb1-31"><a href="#cb1-31"></a>      "Cmd+Enter · run line"</span>
+<span id="cb1-32"><a href="#cb1-32"></a>      "Cmd+Shift+M · pipe |&gt;"</span>
+<span id="cb1-33"><a href="#cb1-33"></a>      "Cmd+Option+I · new chunk"</span>
+<span id="cb1-34"><a href="#cb1-34"></a>      "Tab · autocomplete everything"</span>
+<span id="cb1-35"><a href="#cb1-35"></a>    Why this comes early</span>
+<span id="cb1-36"><a href="#cb1-36"></a>      "habits compound across 14 weeks"</span>
+<span id="cb1-37"><a href="#cb1-37"></a>      "later debugging becomes manageable"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">mindmap
+<pre class="mermaid mermaid-js">%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#2780E3",
+    "primaryTextColor": "#ffffff",
+    "primaryBorderColor": "#1a5cb0",
+    "lineColor": "#6c757d",
+    "secondaryColor": "#e9ecef",
+    "tertiaryColor": "#f8f9fa",
+    "mainBkg": "#2780E3",
+    "secondBkg": "#dee2e6",
+    "tertiaryBkg": "#ffffff",
+    "fontFamily": "Inter, system-ui, sans-serif",
+    "fontSize": "14px",
+    "textColor": "#212529"
+  }
+}}%%
+mindmap
   root((ICA 02 Review))
-    File Organization
-      Project skeleton
-        "code · src"
-          "wa · scratch work area"
-        data
-          "raw · originals untouched"
-            "source.txt · provenance"
-          "processed · cleaned outputs"
-        results
-          "figures · tables · interactive"
-      Course folder layout
-        "course_work / stat212"
-          class_activities
-          homework
-          project
-        clone repos as siblings
-          never nest one inside another
-      Paths
-        Absolute
-          starts at root
-          breaks on other machines
-          avoid for shared code
-        Relative
-          starts at working directory
-          "./ current"
-          "../ parent"
-          web URLs are exception
-    "Git &amp; GitHub"
-      Vocabulary
-        "Repository · tracked folder"
-        "Add · stage changes"
-        "Commit · timestamped snapshot"
-        "Push · send to remote"
-        "Pull · fetch from remote"
-      Workflow
-        "edit → add → commit → push"
-        pull before edit if collaborating
-      Collaboration
-        merge conflict
-          two edits to same line
-          markers in file
-            "&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD"
-            "======="
-            "&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch"
-          "resolve · save · commit · push"
-      Tooling
-        "GitHub Desktop · GUI"
-        "GitHub Classroom · starter repos"
-        "Copilot · LLM completion"
-    Keyboard Shortcuts
-      Cursor navigation
-        word level
-          "Mac Option · Win Ctrl"
-        line level
-          "Mac Cmd · Win Alt"
-        Shift to select
-      Editing
-        "Backspace · delete left"
-        "Delete · delete right"
-        combined with nav keys
-      RStudio source
-        "Cmd Option I · code chunk"
-        "Cmd Shift M · pipe |&gt;"
-        "Option · or Alt - · assignment"
-        "Cmd Return · run line"
-        "Cmd Shift Return · run chunk"
-        "Cmd Shift C · toggle comment"
-      RStudio console
-        "Up · cycle history"
-        "Esc · interrupt"
-        "?fn · help"
-      Discoverability
-        "Cmd Shift K · all shortcuts"
+    File organization
+      "one project · one folder"
+      "data · code · output separated"
+      "no spaces in filenames"
+      "relative paths only"
+    Git basics
+      "stage · commit · push"
+      "pull before push"
+      "main branch is the truth"
+      "commit small · commit often"
+    Keyboard productivity
+      "Cmd+Enter · run line"
+      "Cmd+Shift+M · pipe |&gt;"
+      "Cmd+Option+I · new chunk"
+      "Tab · autocomplete everything"
+    Why this comes early
+      "habits compound across 14 weeks"
+      "later debugging becomes manageable"
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1435,104 +1359,66 @@ cookieconsent.run({
 <span id="cb2-11"><a href="#cb2-11"></a>ICA 02's three readings cover what looks like three separate topics — file organization, Git/GitHub, and keyboard shortcuts — but they share one underlying question: **how do you keep state legible across time and across collaborators?** File organization makes the *spatial* structure of a project legible; Git makes the *temporal* history legible; keyboard shortcuts make *your own intent* legible to the editor without breaking flow. The mindmap below picks out the load-bearing concepts from each, not the exhaustive list.</span>
 <span id="cb2-12"><a href="#cb2-12"></a></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="in">```{mermaid}</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a>mindmap</span>
-<span id="cb2-17"><a href="#cb2-17"></a>  root((ICA <span class="bn">02</span> Review))</span>
-<span id="cb2-18"><a href="#cb2-18"></a>    File Organization</span>
-<span id="cb2-19"><a href="#cb2-19"></a>      Project skeleton</span>
-<span id="cb2-20"><a href="#cb2-20"></a>        <span class="ot">"</span><span class="st">code · src</span><span class="ot">"</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a>          <span class="ot">"</span><span class="st">wa · scratch work area</span><span class="ot">"</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a>        data</span>
-<span id="cb2-23"><a href="#cb2-23"></a>          <span class="ot">"</span><span class="st">raw · originals untouched</span><span class="ot">"</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a>            <span class="ot">"</span><span class="st">source.txt · provenance</span><span class="ot">"</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a>          <span class="ot">"</span><span class="st">processed · cleaned outputs</span><span class="ot">"</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a>        results</span>
-<span id="cb2-27"><a href="#cb2-27"></a>          <span class="ot">"</span><span class="st">figures · tables · interactive</span><span class="ot">"</span></span>
-<span id="cb2-28"><a href="#cb2-28"></a>      Course folder layout</span>
-<span id="cb2-29"><a href="#cb2-29"></a>        <span class="ot">"</span><span class="st">course_work / stat212</span><span class="ot">"</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a>          class_activities</span>
-<span id="cb2-31"><a href="#cb2-31"></a>          homework</span>
-<span id="cb2-32"><a href="#cb2-32"></a>          project</span>
-<span id="cb2-33"><a href="#cb2-33"></a>        clone repos as siblings</span>
-<span id="cb2-34"><a href="#cb2-34"></a>          never nest one inside another</span>
-<span id="cb2-35"><a href="#cb2-35"></a>      Paths</span>
-<span id="cb2-36"><a href="#cb2-36"></a>        Absolute</span>
-<span id="cb2-37"><a href="#cb2-37"></a>          starts at root</span>
-<span id="cb2-38"><a href="#cb2-38"></a>          breaks on other machines</span>
-<span id="cb2-39"><a href="#cb2-39"></a>          avoid <span class="cf">for</span> shared code</span>
-<span id="cb2-40"><a href="#cb2-40"></a>        Relative</span>
-<span id="cb2-41"><a href="#cb2-41"></a>          starts at working directory</span>
-<span id="cb2-42"><a href="#cb2-42"></a>          <span class="ot">"</span><span class="st">./ current</span><span class="ot">"</span></span>
-<span id="cb2-43"><a href="#cb2-43"></a>          <span class="ot">"</span><span class="st">../ parent</span><span class="ot">"</span></span>
-<span id="cb2-44"><a href="#cb2-44"></a>          web URLs are exception</span>
-<span id="cb2-45"><a href="#cb2-45"></a>    <span class="ot">"</span><span class="st">Git &amp; GitHub</span><span class="ot">"</span></span>
-<span id="cb2-46"><a href="#cb2-46"></a>      Vocabulary</span>
-<span id="cb2-47"><a href="#cb2-47"></a>        <span class="ot">"</span><span class="st">Repository · tracked folder</span><span class="ot">"</span></span>
-<span id="cb2-48"><a href="#cb2-48"></a>        <span class="ot">"</span><span class="st">Add · stage changes</span><span class="ot">"</span></span>
-<span id="cb2-49"><a href="#cb2-49"></a>        <span class="ot">"</span><span class="st">Commit · timestamped snapshot</span><span class="ot">"</span></span>
-<span id="cb2-50"><a href="#cb2-50"></a>        <span class="ot">"</span><span class="st">Push · send to remote</span><span class="ot">"</span></span>
-<span id="cb2-51"><a href="#cb2-51"></a>        <span class="ot">"</span><span class="st">Pull · fetch from remote</span><span class="ot">"</span></span>
-<span id="cb2-52"><a href="#cb2-52"></a>      Workflow</span>
-<span id="cb2-53"><a href="#cb2-53"></a>        <span class="ot">"</span><span class="st">edit → add → commit → push</span><span class="ot">"</span></span>
-<span id="cb2-54"><a href="#cb2-54"></a>        pull before edit <span class="cf">if</span> collaborating</span>
-<span id="cb2-55"><a href="#cb2-55"></a>      Collaboration</span>
-<span id="cb2-56"><a href="#cb2-56"></a>        merge conflict</span>
-<span id="cb2-57"><a href="#cb2-57"></a>          two edits to same line</span>
-<span id="cb2-58"><a href="#cb2-58"></a>          markers in file</span>
-<span id="cb2-59"><a href="#cb2-59"></a>            <span class="ot">"</span><span class="st">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><span class="ot">"</span></span>
-<span id="cb2-60"><a href="#cb2-60"></a>            <span class="ot">"</span><span class="st">=======</span><span class="ot">"</span></span>
-<span id="cb2-61"><a href="#cb2-61"></a>            <span class="ot">"</span><span class="st">&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch</span><span class="ot">"</span></span>
-<span id="cb2-62"><a href="#cb2-62"></a>          <span class="ot">"</span><span class="st">resolve · save · commit · push</span><span class="ot">"</span></span>
-<span id="cb2-63"><a href="#cb2-63"></a>      Tooling</span>
-<span id="cb2-64"><a href="#cb2-64"></a>        <span class="ot">"</span><span class="st">GitHub Desktop · GUI</span><span class="ot">"</span></span>
-<span id="cb2-65"><a href="#cb2-65"></a>        <span class="ot">"</span><span class="st">GitHub Classroom · starter repos</span><span class="ot">"</span></span>
-<span id="cb2-66"><a href="#cb2-66"></a>        <span class="ot">"</span><span class="st">Copilot · LLM completion</span><span class="ot">"</span></span>
-<span id="cb2-67"><a href="#cb2-67"></a>    Keyboard Shortcuts</span>
-<span id="cb2-68"><a href="#cb2-68"></a>      Cursor navigation</span>
-<span id="cb2-69"><a href="#cb2-69"></a>        word level</span>
-<span id="cb2-70"><a href="#cb2-70"></a>          <span class="ot">"</span><span class="st">Mac Option · Win Ctrl</span><span class="ot">"</span></span>
-<span id="cb2-71"><a href="#cb2-71"></a>        line level</span>
-<span id="cb2-72"><a href="#cb2-72"></a>          <span class="ot">"</span><span class="st">Mac Cmd · Win Alt</span><span class="ot">"</span></span>
-<span id="cb2-73"><a href="#cb2-73"></a>        Shift to <span class="fu">select</span></span>
-<span id="cb2-74"><a href="#cb2-74"></a>      Editing</span>
-<span id="cb2-75"><a href="#cb2-75"></a>        <span class="ot">"</span><span class="st">Backspace · delete left</span><span class="ot">"</span></span>
-<span id="cb2-76"><a href="#cb2-76"></a>        <span class="ot">"</span><span class="st">Delete · delete right</span><span class="ot">"</span></span>
-<span id="cb2-77"><a href="#cb2-77"></a>        combined with nav <span class="fu">keys</span></span>
-<span id="cb2-78"><a href="#cb2-78"></a>      RStudio source</span>
-<span id="cb2-79"><a href="#cb2-79"></a>        <span class="ot">"</span><span class="st">Cmd Option I · code chunk</span><span class="ot">"</span></span>
-<span id="cb2-80"><a href="#cb2-80"></a>        <span class="ot">"</span><span class="st">Cmd Shift M · pipe |&gt;</span><span class="ot">"</span></span>
-<span id="cb2-81"><a href="#cb2-81"></a>        <span class="ot">"</span><span class="st">Option · or Alt - · assignment</span><span class="ot">"</span></span>
-<span id="cb2-82"><a href="#cb2-82"></a>        <span class="ot">"</span><span class="st">Cmd Return · run line</span><span class="ot">"</span></span>
-<span id="cb2-83"><a href="#cb2-83"></a>        <span class="ot">"</span><span class="st">Cmd Shift Return · run chunk</span><span class="ot">"</span></span>
-<span id="cb2-84"><a href="#cb2-84"></a>        <span class="ot">"</span><span class="st">Cmd Shift C · toggle comment</span><span class="ot">"</span></span>
-<span id="cb2-85"><a href="#cb2-85"></a>      RStudio console</span>
-<span id="cb2-86"><a href="#cb2-86"></a>        <span class="ot">"</span><span class="st">Up · cycle history</span><span class="ot">"</span></span>
-<span id="cb2-87"><a href="#cb2-87"></a>        <span class="ot">"</span><span class="st">Esc · interrupt</span><span class="ot">"</span></span>
-<span id="cb2-88"><a href="#cb2-88"></a>        <span class="ot">"</span><span class="st">?fn · help</span><span class="ot">"</span></span>
-<span id="cb2-89"><a href="#cb2-89"></a>      Discoverability</span>
-<span id="cb2-90"><a href="#cb2-90"></a>        <span class="ot">"</span><span class="st">Cmd Shift K · all shortcuts</span><span class="ot">"</span></span>
-<span id="cb2-91"><a href="#cb2-91"></a><span class="in">```</span></span>
-<span id="cb2-92"><a href="#cb2-92"></a></span>
-<span id="cb2-93"><a href="#cb2-93"></a><span class="fu">## Three threads worth pulling</span></span>
-<span id="cb2-94"><a href="#cb2-94"></a></span>
-<span id="cb2-95"><a href="#cb2-95"></a>**Why raw data must stay untouched.** The discipline of "never edit a raw file" is what makes results reproducible. If <span class="in">`population.csv`</span> is the original from the source and <span class="in">`population-cleaned.csv`</span> is the output of <span class="in">`population-process.qmd`</span>, anyone can re-run the script and reproduce the cleaned file. The moment you edit <span class="in">`population.csv`</span> directly — even just to fix a typo — the lineage breaks and "what did this come from" stops being answerable. The <span class="in">`data/raw/`</span> + <span class="in">`data/processed/`</span> split is the file-system embodiment of this principle.</span>
-<span id="cb2-96"><a href="#cb2-96"></a></span>
-<span id="cb2-97"><a href="#cb2-97"></a>**Why relative paths beat absolute paths.** <span class="in">`~/Desktop/STAT212/...`</span> works on my machine and breaks on yours; <span class="in">`./data/file.csv`</span> works on both, because it's defined with respect to the project root rather than the user. The same logic that makes Git portable across machines makes relative paths portable. Web URLs are the only exception — they're already universal.</span>
-<span id="cb2-98"><a href="#cb2-98"></a></span>
-<span id="cb2-99"><a href="#cb2-99"></a>**Why merge conflicts aren't bugs but features.** A merge conflict is Git refusing to silently overwrite one collaborator's work with another's. The conflict markers (<span class="in">`&lt;&lt;&lt;&lt;&lt;&lt;&lt;`</span> / <span class="in">`=======`</span> / <span class="in">`&gt;&gt;&gt;&gt;&gt;&gt;&gt;`</span>) are Git saying "I can't decide which version is right; you have to." Resolving a conflict is a tiny act of editorial judgment — looking at both versions, deciding which to keep (or merging them by hand), then committing the resolution. Annoying in the moment, but vastly better than the alternative of losing work.</span>
-<span id="cb2-100"><a href="#cb2-100"></a></span>
-<span id="cb2-101"><a href="#cb2-101"></a><span class="fu">## Quick keyboard wins</span></span>
-<span id="cb2-102"><a href="#cb2-102"></a></span>
-<span id="cb2-103"><a href="#cb2-103"></a>The shortcuts that pay off fastest in everyday RStudio work, ranked by how often they fire:</span>
-<span id="cb2-104"><a href="#cb2-104"></a></span>
-<span id="cb2-105"><a href="#cb2-105"></a><span class="ss">- </span>**`Cmd Return`** — run current line. Replaces "click in line, click Run button."</span>
-<span id="cb2-106"><a href="#cb2-106"></a><span class="ss">- </span>**`Cmd Option I`** — insert code chunk. Replaces typing ` ``<span class="in">`{r} `</span> and the closing fence by hand.</span>
-<span id="cb2-107"><a href="#cb2-107"></a><span class="ss">- </span>**`Cmd Shift M`** — pipe <span class="in">`|&gt;`</span>. The pipe is the most-typed three-character sequence in tidyverse code; this shortcut alone saves real time.</span>
-<span id="cb2-108"><a href="#cb2-108"></a><span class="ss">- </span>**`Cmd Shift C`** — toggle comment on selected lines. Indispensable for "let me try this without that block running."</span>
-<span id="cb2-109"><a href="#cb2-109"></a><span class="ss">- </span>**`Cmd Shift K`** — cheat sheet for all other shortcuts.</span>
-<span id="cb2-110"><a href="#cb2-110"></a></span>
-<span id="cb2-111"><a href="#cb2-111"></a><span class="fu">## Portfolio inspection</span></span>
-<span id="cb2-112"><a href="#cb2-112"></a></span>
-<span id="cb2-113"><a href="#cb2-113"></a>The fourth piece of ICA-02 prep is opening my portfolio GitHub repo and noting how files are organized. The structure follows the conventions in the file-organization reading: a top-level Quarto book project (<span class="in">`_quarto.yml`</span>, <span class="in">`index.qmd`</span>, <span class="in">`404.qmd`</span>) with chapter directories (<span class="in">`pv/`</span>, <span class="in">`tt/`</span>, <span class="in">`pcl/`</span>, <span class="in">`ica/`</span>, <span class="in">`extra/`</span>) as siblings, plus <span class="in">`assets/`</span> and <span class="in">`style/`</span> for shared resources, and <span class="in">`docs/`</span> as the rendered output. No nested repos, no raw data lives next to code, paths inside <span class="in">`_quarto.yml`</span> are all relative — the design follows the principles the readings argue for.</span>
+<span id="cb2-16"><a href="#cb2-16"></a>%<span class="dt">%</span>{init: {</span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="ot">"</span><span class="st">theme</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">base</span><span class="ot">"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="ot">"</span><span class="st">themeVariables</span><span class="ot">"</span>: {</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    <span class="ot">"</span><span class="st">primaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    <span class="ot">"</span><span class="st">primaryTextColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="ot">"</span><span class="st">primaryBorderColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#1a5cb0</span><span class="ot">"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="ot">"</span><span class="st">lineColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#6c757d</span><span class="ot">"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="ot">"</span><span class="st">secondaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#e9ecef</span><span class="ot">"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="ot">"</span><span class="st">tertiaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#f8f9fa</span><span class="ot">"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    <span class="ot">"</span><span class="st">mainBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26"></a>    <span class="ot">"</span><span class="st">secondBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#dee2e6</span><span class="ot">"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="ot">"</span><span class="st">tertiaryBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28"></a>    <span class="ot">"</span><span class="st">fontFamily</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">Inter, system-ui, sans-serif</span><span class="ot">"</span>,</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    <span class="ot">"</span><span class="st">fontSize</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">14px</span><span class="ot">"</span>,</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    <span class="ot">"</span><span class="st">textColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#212529</span><span class="ot">"</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a>  }</span>
+<span id="cb2-32"><a href="#cb2-32"></a>}}%%</span>
+<span id="cb2-33"><a href="#cb2-33"></a>mindmap</span>
+<span id="cb2-34"><a href="#cb2-34"></a>  root((ICA <span class="bn">02</span> Review))</span>
+<span id="cb2-35"><a href="#cb2-35"></a>    File organization</span>
+<span id="cb2-36"><a href="#cb2-36"></a>      <span class="ot">"</span><span class="st">one project · one folder</span><span class="ot">"</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a>      <span class="ot">"</span><span class="st">data · code · output separated</span><span class="ot">"</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a>      <span class="ot">"</span><span class="st">no spaces in filenames</span><span class="ot">"</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>      <span class="ot">"</span><span class="st">relative paths only</span><span class="ot">"</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a>    Git basics</span>
+<span id="cb2-41"><a href="#cb2-41"></a>      <span class="ot">"</span><span class="st">stage · commit · push</span><span class="ot">"</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a>      <span class="ot">"</span><span class="st">pull before push</span><span class="ot">"</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a>      <span class="ot">"</span><span class="st">main branch is the truth</span><span class="ot">"</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a>      <span class="ot">"</span><span class="st">commit small · commit often</span><span class="ot">"</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a>    Keyboard productivity</span>
+<span id="cb2-46"><a href="#cb2-46"></a>      <span class="ot">"</span><span class="st">Cmd+Enter · run line</span><span class="ot">"</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a>      <span class="ot">"</span><span class="st">Cmd+Shift+M · pipe |&gt;</span><span class="ot">"</span></span>
+<span id="cb2-48"><a href="#cb2-48"></a>      <span class="ot">"</span><span class="st">Cmd+Option+I · new chunk</span><span class="ot">"</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a>      <span class="ot">"</span><span class="st">Tab · autocomplete everything</span><span class="ot">"</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a>    Why this comes early</span>
+<span id="cb2-51"><a href="#cb2-51"></a>      <span class="ot">"</span><span class="st">habits compound across 14 weeks</span><span class="ot">"</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a>      <span class="ot">"</span><span class="st">later debugging becomes manageable</span><span class="ot">"</span></span>
+<span id="cb2-53"><a href="#cb2-53"></a><span class="in">```</span></span>
+<span id="cb2-54"><a href="#cb2-54"></a></span>
+<span id="cb2-55"><a href="#cb2-55"></a><span class="fu">## Three threads worth pulling</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a></span>
+<span id="cb2-57"><a href="#cb2-57"></a>**Why raw data must stay untouched.** The discipline of "never edit a raw file" is what makes results reproducible. If <span class="in">`population.csv`</span> is the original from the source and <span class="in">`population-cleaned.csv`</span> is the output of <span class="in">`population-process.qmd`</span>, anyone can re-run the script and reproduce the cleaned file. The moment you edit <span class="in">`population.csv`</span> directly — even just to fix a typo — the lineage breaks and "what did this come from" stops being answerable. The <span class="in">`data/raw/`</span> + <span class="in">`data/processed/`</span> split is the file-system embodiment of this principle.</span>
+<span id="cb2-58"><a href="#cb2-58"></a></span>
+<span id="cb2-59"><a href="#cb2-59"></a>**Why relative paths beat absolute paths.** <span class="in">`~/Desktop/STAT212/...`</span> works on my machine and breaks on yours; <span class="in">`./data/file.csv`</span> works on both, because it's defined with respect to the project root rather than the user. The same logic that makes Git portable across machines makes relative paths portable. Web URLs are the only exception — they're already universal.</span>
+<span id="cb2-60"><a href="#cb2-60"></a></span>
+<span id="cb2-61"><a href="#cb2-61"></a>**Why merge conflicts aren't bugs but features.** A merge conflict is Git refusing to silently overwrite one collaborator's work with another's. The conflict markers (<span class="in">`&lt;&lt;&lt;&lt;&lt;&lt;&lt;`</span> / <span class="in">`=======`</span> / <span class="in">`&gt;&gt;&gt;&gt;&gt;&gt;&gt;`</span>) are Git saying "I can't decide which version is right; you have to." Resolving a conflict is a tiny act of editorial judgment — looking at both versions, deciding which to keep (or merging them by hand), then committing the resolution. Annoying in the moment, but vastly better than the alternative of losing work.</span>
+<span id="cb2-62"><a href="#cb2-62"></a></span>
+<span id="cb2-63"><a href="#cb2-63"></a><span class="fu">## Quick keyboard wins</span></span>
+<span id="cb2-64"><a href="#cb2-64"></a></span>
+<span id="cb2-65"><a href="#cb2-65"></a>The shortcuts that pay off fastest in everyday RStudio work, ranked by how often they fire:</span>
+<span id="cb2-66"><a href="#cb2-66"></a></span>
+<span id="cb2-67"><a href="#cb2-67"></a><span class="ss">- </span>**`Cmd Return`** — run current line. Replaces "click in line, click Run button."</span>
+<span id="cb2-68"><a href="#cb2-68"></a><span class="ss">- </span>**`Cmd Option I`** — insert code chunk. Replaces typing ` ``<span class="in">`{r} `</span> and the closing fence by hand.</span>
+<span id="cb2-69"><a href="#cb2-69"></a><span class="ss">- </span>**`Cmd Shift M`** — pipe <span class="in">`|&gt;`</span>. The pipe is the most-typed three-character sequence in tidyverse code; this shortcut alone saves real time.</span>
+<span id="cb2-70"><a href="#cb2-70"></a><span class="ss">- </span>**`Cmd Shift C`** — toggle comment on selected lines. Indispensable for "let me try this without that block running."</span>
+<span id="cb2-71"><a href="#cb2-71"></a><span class="ss">- </span>**`Cmd Shift K`** — cheat sheet for all other shortcuts.</span>
+<span id="cb2-72"><a href="#cb2-72"></a></span>
+<span id="cb2-73"><a href="#cb2-73"></a><span class="fu">## Portfolio inspection</span></span>
+<span id="cb2-74"><a href="#cb2-74"></a></span>
+<span id="cb2-75"><a href="#cb2-75"></a>The fourth piece of ICA-02 prep is opening my portfolio GitHub repo and noting how files are organized. The structure follows the conventions in the file-organization reading: a top-level Quarto book project (<span class="in">`_quarto.yml`</span>, <span class="in">`index.qmd`</span>, <span class="in">`404.qmd`</span>) with chapter directories (<span class="in">`pv/`</span>, <span class="in">`tt/`</span>, <span class="in">`pcl/`</span>, <span class="in">`ica/`</span>, <span class="in">`extra/`</span>) as siblings, plus <span class="in">`assets/`</span> and <span class="in">`style/`</span> for shared resources, and <span class="in">`docs/`</span> as the rendered output. No nested repos, no raw data lives next to code, paths inside <span class="in">`_quarto.yml`</span> are all relative — the design follows the principles the readings argue for.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

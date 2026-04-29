@@ -132,7 +132,7 @@ cookieconsent.run({
 </script> 
   
 <style>html{ scroll-behavior: smooth; }</style>
-<meta name="mermaid-theme" content="dark">
+<meta name="mermaid-theme" content="default">
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
@@ -753,211 +753,87 @@ cookieconsent.run({
 <div class="cell" data-layout-align="default">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 09 Functions))</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    When to write one</span>
-<span id="cb1-4"><a href="#cb1-4"></a>      Rule of three</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        "copy-pasted twice · suspicious"</span>
-<span id="cb1-6"><a href="#cb1-6"></a>        "third time · refactor to function"</span>
-<span id="cb1-7"><a href="#cb1-7"></a>      Reasons</span>
-<span id="cb1-8"><a href="#cb1-8"></a>        "clarity · name says what it does"</span>
-<span id="cb1-9"><a href="#cb1-9"></a>        "consistency · one place to fix bugs"</span>
-<span id="cb1-10"><a href="#cb1-10"></a>        "composability · use in pipes &amp; maps"</span>
-<span id="cb1-11"><a href="#cb1-11"></a>        "scope · isolate variables"</span>
-<span id="cb1-12"><a href="#cb1-12"></a>    Three function flavors</span>
-<span id="cb1-13"><a href="#cb1-13"></a>      Vector functions</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        "take vectors · return vectors"</span>
-<span id="cb1-15"><a href="#cb1-15"></a>        most common</span>
-<span id="cb1-16"><a href="#cb1-16"></a>        examples</span>
-<span id="cb1-17"><a href="#cb1-17"></a>          "mean · sd · stringr · forcats"</span>
-<span id="cb1-18"><a href="#cb1-18"></a>      Data frame functions</span>
-<span id="cb1-19"><a href="#cb1-19"></a>        first arg is a tibble</span>
-<span id="cb1-20"><a href="#cb1-20"></a>        return a tibble</span>
-<span id="cb1-21"><a href="#cb1-21"></a>        often pipe-friendly</span>
-<span id="cb1-22"><a href="#cb1-22"></a>        tidy evaluation needed</span>
-<span id="cb1-23"><a href="#cb1-23"></a>          "curly-curly · {{ var }}"</span>
-<span id="cb1-24"><a href="#cb1-24"></a>          embracing for column names</span>
-<span id="cb1-25"><a href="#cb1-25"></a>      Plot functions</span>
-<span id="cb1-26"><a href="#cb1-26"></a>        return a ggplot object</span>
-<span id="cb1-27"><a href="#cb1-27"></a>        wrap complex viz logic</span>
-<span id="cb1-28"><a href="#cb1-28"></a>        same tidy-eval issues</span>
-<span id="cb1-29"><a href="#cb1-29"></a>    Anatomy of a function</span>
-<span id="cb1-30"><a href="#cb1-30"></a>      Signature</span>
-<span id="cb1-31"><a href="#cb1-31"></a>        "function(arg1, arg2, ...)"</span>
-<span id="cb1-32"><a href="#cb1-32"></a>        formals</span>
-<span id="cb1-33"><a href="#cb1-33"></a>      Defaults</span>
-<span id="cb1-34"><a href="#cb1-34"></a>        "arg = \"value\""</span>
-<span id="cb1-35"><a href="#cb1-35"></a>        used when caller omits</span>
-<span id="cb1-36"><a href="#cb1-36"></a>      Body</span>
-<span id="cb1-37"><a href="#cb1-37"></a>        between the braces</span>
-<span id="cb1-38"><a href="#cb1-38"></a>        last evaluated expression</span>
-<span id="cb1-39"><a href="#cb1-39"></a>        is returned automatically</span>
-<span id="cb1-40"><a href="#cb1-40"></a>      Explicit return</span>
-<span id="cb1-41"><a href="#cb1-41"></a>        "return(x) · early exit"</span>
-<span id="cb1-42"><a href="#cb1-42"></a>        not idiomatic for last line</span>
-<span id="cb1-43"><a href="#cb1-43"></a>    Naming</span>
-<span id="cb1-44"><a href="#cb1-44"></a>      "Verbs · do_something"</span>
-<span id="cb1-45"><a href="#cb1-45"></a>        not nouns</span>
-<span id="cb1-46"><a href="#cb1-46"></a>      "Snake case · use_underscores"</span>
-<span id="cb1-47"><a href="#cb1-47"></a>      "Descriptive · scale_x_log10"</span>
-<span id="cb1-48"><a href="#cb1-48"></a>        not s_l_10</span>
-<span id="cb1-49"><a href="#cb1-49"></a>      "Consistent · prefix family"</span>
-<span id="cb1-50"><a href="#cb1-50"></a>        "str_* · fct_* · st_*"</span>
-<span id="cb1-51"><a href="#cb1-51"></a>      Avoid built-in names</span>
-<span id="cb1-52"><a href="#cb1-52"></a>        "c · t · sum · mean"</span>
-<span id="cb1-53"><a href="#cb1-53"></a>    Argument design</span>
-<span id="cb1-54"><a href="#cb1-54"></a>      Order</span>
-<span id="cb1-55"><a href="#cb1-55"></a>        "data first · for piping"</span>
-<span id="cb1-56"><a href="#cb1-56"></a>        details after</span>
-<span id="cb1-57"><a href="#cb1-57"></a>      Required vs optional</span>
-<span id="cb1-58"><a href="#cb1-58"></a>        "required · no default"</span>
-<span id="cb1-59"><a href="#cb1-59"></a>        "optional · has default"</span>
-<span id="cb1-60"><a href="#cb1-60"></a>      "... · dots"</span>
-<span id="cb1-61"><a href="#cb1-61"></a>        pass through to inner fn</span>
-<span id="cb1-62"><a href="#cb1-62"></a>        catch extra args silently</span>
-<span id="cb1-63"><a href="#cb1-63"></a>    "Control flow · Peng 13.1"</span>
-<span id="cb1-64"><a href="#cb1-64"></a>      "if(cond) { ... }"</span>
-<span id="cb1-65"><a href="#cb1-65"></a>        no else needed</span>
-<span id="cb1-66"><a href="#cb1-66"></a>      "if · else"</span>
-<span id="cb1-67"><a href="#cb1-67"></a>        binary branch</span>
-<span id="cb1-68"><a href="#cb1-68"></a>      "if · else if · else"</span>
-<span id="cb1-69"><a href="#cb1-69"></a>        multi-way branch</span>
-<span id="cb1-70"><a href="#cb1-70"></a>      Expression form</span>
-<span id="cb1-71"><a href="#cb1-71"></a>        "y &lt;- if (cond) 10 else 0"</span>
-<span id="cb1-72"><a href="#cb1-72"></a>        if returns a value</span>
-<span id="cb1-73"><a href="#cb1-73"></a>      What goes in cond</span>
-<span id="cb1-74"><a href="#cb1-74"></a>        single TRUE or FALSE</span>
-<span id="cb1-75"><a href="#cb1-75"></a>        not a vector</span>
-<span id="cb1-76"><a href="#cb1-76"></a>        "for vectors · use if_else"</span>
-<span id="cb1-77"><a href="#cb1-77"></a>    "Scope &amp; environments"</span>
-<span id="cb1-78"><a href="#cb1-78"></a>      Local vs global</span>
-<span id="cb1-79"><a href="#cb1-79"></a>        function body</span>
-<span id="cb1-80"><a href="#cb1-80"></a>          new environment</span>
-<span id="cb1-81"><a href="#cb1-81"></a>          "variables here · disappear after"</span>
-<span id="cb1-82"><a href="#cb1-82"></a>        global</span>
-<span id="cb1-83"><a href="#cb1-83"></a>          your console workspace</span>
-<span id="cb1-84"><a href="#cb1-84"></a>      Lexical scoping</span>
-<span id="cb1-85"><a href="#cb1-85"></a>        if name not in local</span>
-<span id="cb1-86"><a href="#cb1-86"></a>        "look in parent · then global"</span>
-<span id="cb1-87"><a href="#cb1-87"></a>      Side effects</span>
-<span id="cb1-88"><a href="#cb1-88"></a>        "printing · plotting · writing files"</span>
-<span id="cb1-89"><a href="#cb1-89"></a>        function still returns invisible</span>
-<span id="cb1-90"><a href="#cb1-90"></a>    "Testing &amp; debugging"</span>
-<span id="cb1-91"><a href="#cb1-91"></a>      Edge cases to try</span>
-<span id="cb1-92"><a href="#cb1-92"></a>        "empty input · length 0"</span>
-<span id="cb1-93"><a href="#cb1-93"></a>        single element</span>
-<span id="cb1-94"><a href="#cb1-94"></a>        all NA</span>
-<span id="cb1-95"><a href="#cb1-95"></a>        wrong type</span>
-<span id="cb1-96"><a href="#cb1-96"></a>      Tools</span>
-<span id="cb1-97"><a href="#cb1-97"></a>        "browser() · pause execution"</span>
-<span id="cb1-98"><a href="#cb1-98"></a>        "debug() · debug fn"</span>
-<span id="cb1-99"><a href="#cb1-99"></a>        "traceback() · after error"</span>
-<span id="cb1-100"><a href="#cb1-100"></a>        "print() · poor man's debug"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>%%{init: {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  "theme": "base",</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  "themeVariables": {</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    "primaryColor": "#2780E3",</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    "primaryTextColor": "#ffffff",</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    "primaryBorderColor": "#1a5cb0",</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    "lineColor": "#6c757d",</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    "secondaryColor": "#e9ecef",</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    "tertiaryColor": "#f8f9fa",</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    "mainBkg": "#2780E3",</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    "secondBkg": "#dee2e6",</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    "tertiaryBkg": "#ffffff",</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    "fontFamily": "Inter, system-ui, sans-serif",</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    "fontSize": "14px",</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    "textColor": "#212529"</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  }</span>
+<span id="cb1-17"><a href="#cb1-17"></a>}}%%</span>
+<span id="cb1-18"><a href="#cb1-18"></a>mindmap</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  root((ICA 09 Functions))</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    When to write one</span>
+<span id="cb1-21"><a href="#cb1-21"></a>      "copy-paste happened twice"</span>
+<span id="cb1-22"><a href="#cb1-22"></a>      "a pipeline reappears with variation"</span>
+<span id="cb1-23"><a href="#cb1-23"></a>      "name needs to capture intent"</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    Anatomy</span>
+<span id="cb1-25"><a href="#cb1-25"></a>      "name &lt;- function(args) { body }"</span>
+<span id="cb1-26"><a href="#cb1-26"></a>      "last expression is return value"</span>
+<span id="cb1-27"><a href="#cb1-27"></a>      "return() reserved for early exit"</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    Control flow</span>
+<span id="cb1-29"><a href="#cb1-29"></a>      "if (cond) { ... } else { ... }"</span>
+<span id="cb1-30"><a href="#cb1-30"></a>      "if_else() for vectors · not if"</span>
+<span id="cb1-31"><a href="#cb1-31"></a>      "case_when() for many branches"</span>
+<span id="cb1-32"><a href="#cb1-32"></a>    Scoping</span>
+<span id="cb1-33"><a href="#cb1-33"></a>      "vars inside don't leak out"</span>
+<span id="cb1-34"><a href="#cb1-34"></a>      "vars outside leak in · lexical scope"</span>
+<span id="cb1-35"><a href="#cb1-35"></a>      "pass everything as arg · defensive"</span>
+<span id="cb1-36"><a href="#cb1-36"></a>    Testing</span>
+<span id="cb1-37"><a href="#cb1-37"></a>      "edge cases · empty · NA · negative"</span>
+<span id="cb1-38"><a href="#cb1-38"></a>      "stopifnot() for guard clauses"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">mindmap
+<pre class="mermaid mermaid-js">%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#2780E3",
+    "primaryTextColor": "#ffffff",
+    "primaryBorderColor": "#1a5cb0",
+    "lineColor": "#6c757d",
+    "secondaryColor": "#e9ecef",
+    "tertiaryColor": "#f8f9fa",
+    "mainBkg": "#2780E3",
+    "secondBkg": "#dee2e6",
+    "tertiaryBkg": "#ffffff",
+    "fontFamily": "Inter, system-ui, sans-serif",
+    "fontSize": "14px",
+    "textColor": "#212529"
+  }
+}}%%
+mindmap
   root((ICA 09 Functions))
     When to write one
-      Rule of three
-        "copy-pasted twice · suspicious"
-        "third time · refactor to function"
-      Reasons
-        "clarity · name says what it does"
-        "consistency · one place to fix bugs"
-        "composability · use in pipes &amp; maps"
-        "scope · isolate variables"
-    Three function flavors
-      Vector functions
-        "take vectors · return vectors"
-        most common
-        examples
-          "mean · sd · stringr · forcats"
-      Data frame functions
-        first arg is a tibble
-        return a tibble
-        often pipe-friendly
-        tidy evaluation needed
-          "curly-curly · {{ var }}"
-          embracing for column names
-      Plot functions
-        return a ggplot object
-        wrap complex viz logic
-        same tidy-eval issues
-    Anatomy of a function
-      Signature
-        "function(arg1, arg2, ...)"
-        formals
-      Defaults
-        "arg = \"value\""
-        used when caller omits
-      Body
-        between the braces
-        last evaluated expression
-        is returned automatically
-      Explicit return
-        "return(x) · early exit"
-        not idiomatic for last line
-    Naming
-      "Verbs · do_something"
-        not nouns
-      "Snake case · use_underscores"
-      "Descriptive · scale_x_log10"
-        not s_l_10
-      "Consistent · prefix family"
-        "str_* · fct_* · st_*"
-      Avoid built-in names
-        "c · t · sum · mean"
-    Argument design
-      Order
-        "data first · for piping"
-        details after
-      Required vs optional
-        "required · no default"
-        "optional · has default"
-      "... · dots"
-        pass through to inner fn
-        catch extra args silently
-    "Control flow · Peng 13.1"
-      "if(cond) { ... }"
-        no else needed
-      "if · else"
-        binary branch
-      "if · else if · else"
-        multi-way branch
-      Expression form
-        "y &lt;- if (cond) 10 else 0"
-        if returns a value
-      What goes in cond
-        single TRUE or FALSE
-        not a vector
-        "for vectors · use if_else"
-    "Scope &amp; environments"
-      Local vs global
-        function body
-          new environment
-          "variables here · disappear after"
-        global
-          your console workspace
-      Lexical scoping
-        if name not in local
-        "look in parent · then global"
-      Side effects
-        "printing · plotting · writing files"
-        function still returns invisible
-    "Testing &amp; debugging"
-      Edge cases to try
-        "empty input · length 0"
-        single element
-        all NA
-        wrong type
-      Tools
-        "browser() · pause execution"
-        "debug() · debug fn"
-        "traceback() · after error"
-        "print() · poor man's debug"
+      "copy-paste happened twice"
+      "a pipeline reappears with variation"
+      "name needs to capture intent"
+    Anatomy
+      "name &lt;- function(args) { body }"
+      "last expression is return value"
+      "return() reserved for early exit"
+    Control flow
+      "if (cond) { ... } else { ... }"
+      "if_else() for vectors · not if"
+      "case_when() for many branches"
+    Scoping
+      "vars inside don't leak out"
+      "vars outside leak in · lexical scope"
+      "pass everything as arg · defensive"
+    Testing
+      "edge cases · empty · NA · negative"
+      "stopifnot() for guard clauses"
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1532,137 +1408,75 @@ cookieconsent.run({
 <span id="cb2-11"><a href="#cb2-11"></a>R4DS Chapter 25 and Peng's Section 13.1 together answer one question: **when you find yourself copy-pasting code with small variations, how do you turn that pattern into a reusable function?** R4DS gives the design philosophy (when to write one, how to name and structure it, what the three function flavors are); Peng's 13.1 supplies the missing piece — the <span class="in">`if`</span>/<span class="in">`else`</span> control logic that almost every function body needs to branch on its inputs. The mindmap below organizes both readings around the lifecycle of a function: *recognize the pattern → name it → write the signature → write the body with control flow → test it on edge cases.*</span>
 <span id="cb2-12"><a href="#cb2-12"></a></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="in">```{mermaid}</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a>mindmap</span>
-<span id="cb2-17"><a href="#cb2-17"></a>  root((ICA <span class="dv">0</span>9 Functions))</span>
-<span id="cb2-18"><a href="#cb2-18"></a>    When to <span class="fu">write</span> one</span>
-<span id="cb2-19"><a href="#cb2-19"></a>      Rule of three</span>
-<span id="cb2-20"><a href="#cb2-20"></a>        <span class="ot">"</span><span class="st">copy-pasted twice · suspicious</span><span class="ot">"</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a>        <span class="ot">"</span><span class="st">third time · refactor to function</span><span class="ot">"</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a>      Reasons</span>
-<span id="cb2-23"><a href="#cb2-23"></a>        <span class="ot">"</span><span class="st">clarity · name says what it does</span><span class="ot">"</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a>        <span class="ot">"</span><span class="st">consistency · one place to fix bugs</span><span class="ot">"</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a>        <span class="ot">"</span><span class="st">composability · use in pipes &amp; maps</span><span class="ot">"</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a>        <span class="ot">"</span><span class="st">scope · isolate variables</span><span class="ot">"</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a>    Three function flavors</span>
-<span id="cb2-28"><a href="#cb2-28"></a>      Vector functions</span>
-<span id="cb2-29"><a href="#cb2-29"></a>        <span class="ot">"</span><span class="st">take vectors · return vectors</span><span class="ot">"</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a>        most common</span>
-<span id="cb2-31"><a href="#cb2-31"></a>        examples</span>
-<span id="cb2-32"><a href="#cb2-32"></a>          <span class="ot">"</span><span class="st">mean · sd · stringr · forcats</span><span class="ot">"</span></span>
-<span id="cb2-33"><a href="#cb2-33"></a>      Data frame functions</span>
-<span id="cb2-34"><a href="#cb2-34"></a>        first arg is a tibble</span>
-<span id="cb2-35"><a href="#cb2-35"></a>        <span class="cf">return</span> a tibble</span>
-<span id="cb2-36"><a href="#cb2-36"></a>        often <span class="fu">pipe</span>-friendly</span>
-<span id="cb2-37"><a href="#cb2-37"></a>        tidy evaluation needed</span>
-<span id="cb2-38"><a href="#cb2-38"></a>          <span class="ot">"</span><span class="st">curly-curly · {{ var }}</span><span class="ot">"</span></span>
-<span id="cb2-39"><a href="#cb2-39"></a>          embracing <span class="cf">for</span> column names</span>
-<span id="cb2-40"><a href="#cb2-40"></a>      Plot functions</span>
-<span id="cb2-41"><a href="#cb2-41"></a>        <span class="cf">return</span> a ggplot object</span>
-<span id="cb2-42"><a href="#cb2-42"></a>        wrap complex viz logic</span>
-<span id="cb2-43"><a href="#cb2-43"></a>        same tidy-<span class="fu">eval</span> issues</span>
-<span id="cb2-44"><a href="#cb2-44"></a>    Anatomy of a function</span>
-<span id="cb2-45"><a href="#cb2-45"></a>      Signature</span>
-<span id="cb2-46"><a href="#cb2-46"></a>        <span class="ot">"</span><span class="st">function(arg1, arg2, ...)</span><span class="ot">"</span></span>
-<span id="cb2-47"><a href="#cb2-47"></a>        formals</span>
-<span id="cb2-48"><a href="#cb2-48"></a>      Defaults</span>
-<span id="cb2-49"><a href="#cb2-49"></a>        <span class="ot">"</span><span class="st">arg = \"value\"</span><span class="ot">"</span></span>
-<span id="cb2-50"><a href="#cb2-50"></a>        used <span class="cf">when</span> <span class="fu">caller</span> omits</span>
-<span id="cb2-51"><a href="#cb2-51"></a>      Body</span>
-<span id="cb2-52"><a href="#cb2-52"></a>        between the braces</span>
-<span id="cb2-53"><a href="#cb2-53"></a>        <span class="cf">last</span> evaluated expression</span>
-<span id="cb2-54"><a href="#cb2-54"></a>        is returned automatically</span>
-<span id="cb2-55"><a href="#cb2-55"></a>      Explicit <span class="cf">return</span></span>
-<span id="cb2-56"><a href="#cb2-56"></a>        <span class="ot">"</span><span class="st">return(x) · early exit</span><span class="ot">"</span></span>
-<span id="cb2-57"><a href="#cb2-57"></a>        <span class="ot">not</span> idiomatic <span class="cf">for</span> <span class="cf">last</span> line</span>
-<span id="cb2-58"><a href="#cb2-58"></a>    Naming</span>
-<span id="cb2-59"><a href="#cb2-59"></a>      <span class="ot">"</span><span class="st">Verbs · do_something</span><span class="ot">"</span></span>
-<span id="cb2-60"><a href="#cb2-60"></a>        <span class="ot">not</span> nouns</span>
-<span id="cb2-61"><a href="#cb2-61"></a>      <span class="ot">"</span><span class="st">Snake case · use_underscores</span><span class="ot">"</span></span>
-<span id="cb2-62"><a href="#cb2-62"></a>      <span class="ot">"</span><span class="st">Descriptive · scale_x_log10</span><span class="ot">"</span></span>
-<span id="cb2-63"><a href="#cb2-63"></a>        <span class="ot">not</span> s_l_10</span>
-<span id="cb2-64"><a href="#cb2-64"></a>      <span class="ot">"</span><span class="st">Consistent · prefix family</span><span class="ot">"</span></span>
-<span id="cb2-65"><a href="#cb2-65"></a>        <span class="ot">"</span><span class="st">str_* · fct_* · st_*</span><span class="ot">"</span></span>
-<span id="cb2-66"><a href="#cb2-66"></a>      Avoid built-in names</span>
-<span id="cb2-67"><a href="#cb2-67"></a>        <span class="ot">"</span><span class="st">c · t · sum · mean</span><span class="ot">"</span></span>
-<span id="cb2-68"><a href="#cb2-68"></a>    Argument design</span>
-<span id="cb2-69"><a href="#cb2-69"></a>      Order</span>
-<span id="cb2-70"><a href="#cb2-70"></a>        <span class="ot">"</span><span class="st">data first · for piping</span><span class="ot">"</span></span>
-<span id="cb2-71"><a href="#cb2-71"></a>        details after</span>
-<span id="cb2-72"><a href="#cb2-72"></a>      Required vs optional</span>
-<span id="cb2-73"><a href="#cb2-73"></a>        <span class="ot">"</span><span class="st">required · no default</span><span class="ot">"</span></span>
-<span id="cb2-74"><a href="#cb2-74"></a>        <span class="ot">"</span><span class="st">optional · has default</span><span class="ot">"</span></span>
-<span id="cb2-75"><a href="#cb2-75"></a>      <span class="ot">"</span><span class="st">... · dots</span><span class="ot">"</span></span>
-<span id="cb2-76"><a href="#cb2-76"></a>        pass through to inner fn</span>
-<span id="cb2-77"><a href="#cb2-77"></a>        catch extra args silently</span>
-<span id="cb2-78"><a href="#cb2-78"></a>    <span class="ot">"</span><span class="st">Control flow · Peng 13.1</span><span class="ot">"</span></span>
-<span id="cb2-79"><a href="#cb2-79"></a>      <span class="ot">"</span><span class="st">if(cond) { ... }</span><span class="ot">"</span></span>
-<span id="cb2-80"><a href="#cb2-80"></a>        <span class="fu">no</span> <span class="cf">else</span> needed</span>
-<span id="cb2-81"><a href="#cb2-81"></a>      <span class="ot">"</span><span class="st">if · else</span><span class="ot">"</span></span>
-<span id="cb2-82"><a href="#cb2-82"></a>        binary branch</span>
-<span id="cb2-83"><a href="#cb2-83"></a>      <span class="ot">"</span><span class="st">if · else if · else</span><span class="ot">"</span></span>
-<span id="cb2-84"><a href="#cb2-84"></a>        multi-way branch</span>
-<span id="cb2-85"><a href="#cb2-85"></a>      Expression form</span>
-<span id="cb2-86"><a href="#cb2-86"></a>        <span class="ot">"</span><span class="st">y &lt;- if (cond) 10 else 0</span><span class="ot">"</span></span>
-<span id="cb2-87"><a href="#cb2-87"></a>        <span class="cf">if</span> returns a value</span>
-<span id="cb2-88"><a href="#cb2-88"></a>      What goes in cond</span>
-<span id="cb2-89"><a href="#cb2-89"></a>        single TRUE <span class="ot">or</span> FALSE</span>
-<span id="cb2-90"><a href="#cb2-90"></a>        <span class="ot">not</span> a vector</span>
-<span id="cb2-91"><a href="#cb2-91"></a>        <span class="ot">"</span><span class="st">for vectors · use if_else</span><span class="ot">"</span></span>
-<span id="cb2-92"><a href="#cb2-92"></a>    <span class="ot">"</span><span class="st">Scope &amp; environments</span><span class="ot">"</span></span>
-<span id="cb2-93"><a href="#cb2-93"></a>      Local vs global</span>
-<span id="cb2-94"><a href="#cb2-94"></a>        function body</span>
-<span id="cb2-95"><a href="#cb2-95"></a>          new environment</span>
-<span id="cb2-96"><a href="#cb2-96"></a>          <span class="ot">"</span><span class="st">variables here · disappear after</span><span class="ot">"</span></span>
-<span id="cb2-97"><a href="#cb2-97"></a>        global</span>
-<span id="cb2-98"><a href="#cb2-98"></a>          your console workspace</span>
-<span id="cb2-99"><a href="#cb2-99"></a>      Lexical scoping</span>
-<span id="cb2-100"><a href="#cb2-100"></a>        <span class="cf">if</span> name <span class="ot">not</span> in <span class="kw">local</span></span>
-<span id="cb2-101"><a href="#cb2-101"></a>        <span class="ot">"</span><span class="st">look in parent · then global</span><span class="ot">"</span></span>
-<span id="cb2-102"><a href="#cb2-102"></a>      Side effects</span>
-<span id="cb2-103"><a href="#cb2-103"></a>        <span class="ot">"</span><span class="st">printing · plotting · writing files</span><span class="ot">"</span></span>
-<span id="cb2-104"><a href="#cb2-104"></a>        function still returns invisible</span>
-<span id="cb2-105"><a href="#cb2-105"></a>    <span class="ot">"</span><span class="st">Testing &amp; debugging</span><span class="ot">"</span></span>
-<span id="cb2-106"><a href="#cb2-106"></a>      Edge cases to try</span>
-<span id="cb2-107"><a href="#cb2-107"></a>        <span class="ot">"</span><span class="st">empty input · length 0</span><span class="ot">"</span></span>
-<span id="cb2-108"><a href="#cb2-108"></a>        single element</span>
-<span id="cb2-109"><a href="#cb2-109"></a>        all NA</span>
-<span id="cb2-110"><a href="#cb2-110"></a>        wrong type</span>
-<span id="cb2-111"><a href="#cb2-111"></a>      Tools</span>
-<span id="cb2-112"><a href="#cb2-112"></a>        <span class="ot">"</span><span class="st">browser() · pause execution</span><span class="ot">"</span></span>
-<span id="cb2-113"><a href="#cb2-113"></a>        <span class="ot">"</span><span class="st">debug() · debug fn</span><span class="ot">"</span></span>
-<span id="cb2-114"><a href="#cb2-114"></a>        <span class="ot">"</span><span class="st">traceback() · after error</span><span class="ot">"</span></span>
-<span id="cb2-115"><a href="#cb2-115"></a>        <span class="ot">"</span><span class="st">print() · poor man's debug</span><span class="ot">"</span></span>
-<span id="cb2-116"><a href="#cb2-116"></a><span class="in">```</span></span>
-<span id="cb2-117"><a href="#cb2-117"></a></span>
-<span id="cb2-118"><a href="#cb2-118"></a><span class="fu">## Three concepts these readings quietly hinge on</span></span>
-<span id="cb2-119"><a href="#cb2-119"></a></span>
-<span id="cb2-120"><a href="#cb2-120"></a>**A function's last expression is its return value, automatically.** R doesn't require <span class="in">`return(x)`</span> at the end of a function — whatever expression is last in the body is what gets returned. <span class="in">`return()`</span> is reserved for *early exit*, when you want to bail out of the function before reaching the end. Idiomatic R style uses implicit return for the normal path and explicit <span class="in">`return()`</span> only for guard clauses (<span class="in">`if (is.na(x)) return(NA)`</span> at the top). Newcomers from Python or JavaScript often write <span class="in">`return(result)`</span> on the last line out of habit; it works, but it's noise.</span>
-<span id="cb2-121"><a href="#cb2-121"></a></span>
-<span id="cb2-122"><a href="#cb2-122"></a>**`if` takes a single `TRUE`/`FALSE`; `if_else()` (or `case_when()`) takes a vector.** This is the most common control-flow confusion in R. Inside a function with scalar logic — "if the input is missing, do X" — use <span class="in">`if (is.na(x)) ...`</span>. Inside a <span class="in">`mutate()`</span> where you're branching on a column — "for each row, if the value is positive, do Y" — use <span class="in">`if_else(col &gt; 0, ...)`</span>. Mixing them up gives one of two errors: <span class="in">`if`</span> complains about a vector condition, or <span class="in">`if_else()`</span> silently treats your scalar as a length-1 vector and surprises you with the result. Peng 13.1 covers <span class="in">`if`</span>; the dplyr equivalents are the vector versions.</span>
-<span id="cb2-123"><a href="#cb2-123"></a></span>
-<span id="cb2-124"><a href="#cb2-124"></a>**Variables inside a function don't leak out, but variables outside *do* leak in.** This is *lexical scoping*. If a function references a name it didn't define, R looks for that name in the enclosing scope (typically your global workspace). This is convenient — you can use packages without passing them in — but it's also dangerous: a function that accidentally relies on a global variable will work in your console and silently break for someone else. Defensive practice: a function should take *everything it depends on* as an argument (data, columns, parameters), not reach into the global environment for them.</span>
-<span id="cb2-125"><a href="#cb2-125"></a></span>
-<span id="cb2-126"><a href="#cb2-126"></a><span class="fu">## A small decision tree for function design</span></span>
-<span id="cb2-127"><a href="#cb2-127"></a></span>
-<span id="cb2-128"><a href="#cb2-128"></a><span class="pp">|</span> Question <span class="pp">|</span> Default move <span class="pp">|</span></span>
-<span id="cb2-129"><a href="#cb2-129"></a><span class="pp">|----------|--------------|</span></span>
-<span id="cb2-130"><a href="#cb2-130"></a><span class="pp">|</span> Does this code repeat with small variations? <span class="pp">|</span> Refactor into a function <span class="pp">|</span></span>
-<span id="cb2-131"><a href="#cb2-131"></a><span class="pp">|</span> What goes in front of the parens? <span class="pp">|</span> A *verb* in snake_case, distinct from base R names <span class="pp">|</span></span>
-<span id="cb2-132"><a href="#cb2-132"></a><span class="pp">|</span> First argument? <span class="pp">|</span> The data — so the function pipes well <span class="pp">|</span></span>
-<span id="cb2-133"><a href="#cb2-133"></a><span class="pp">|</span> What kind of function is this? <span class="pp">|</span> Vector (returns vector), data frame (returns tibble), plot (returns ggplot) <span class="pp">|</span></span>
-<span id="cb2-134"><a href="#cb2-134"></a><span class="pp">|</span> Does it take column names from a tibble? <span class="pp">|</span> Use <span class="in">`{ col }`</span> for tidy-eval embracing <span class="pp">|</span></span>
-<span id="cb2-135"><a href="#cb2-135"></a><span class="pp">|</span> Should it have side effects? <span class="pp">|</span> Avoid if possible — pure functions compose better <span class="pp">|</span></span>
-<span id="cb2-136"><a href="#cb2-136"></a><span class="pp">|</span> What edge cases to test? <span class="pp">|</span> Empty input, single element, all NA, wrong type <span class="pp">|</span></span>
-<span id="cb2-137"><a href="#cb2-137"></a><span class="pp">|</span> Branching on scalar input? <span class="pp">|</span> <span class="in">`if`</span>/<span class="in">`else if`</span>/<span class="in">`else`</span> <span class="pp">|</span></span>
-<span id="cb2-138"><a href="#cb2-138"></a><span class="pp">|</span> Branching on a vector inside <span class="in">`mutate()`</span>? <span class="pp">|</span> <span class="in">`if_else()`</span> or <span class="in">`case_when()`</span> <span class="pp">|</span></span>
-<span id="cb2-139"><a href="#cb2-139"></a></span>
-<span id="cb2-140"><a href="#cb2-140"></a><span class="fu">## Why this comes after wrangling</span></span>
-<span id="cb2-141"><a href="#cb2-141"></a></span>
-<span id="cb2-142"><a href="#cb2-142"></a>ICA 09 sits at the inflection point of STAT 212. Up to ICA 08, everything has been *use* of existing tools — call `mutate()`, call `geom_point()`, call `left_join()`. From ICA 09 onward, you're *making* tools. The skills compose: a wrangling pipeline you'd otherwise repeat across 5 datasets becomes a single function called 5 times. A plot specification you'd otherwise duplicate across 10 facets becomes a function returning a ggplot. This is the move from "user of dplyr" to "extender of dplyr" — and it's also the prerequisite for ICAs 11-12 (loops and iteration), where you'll apply functions across collections.</span>
-<span id="cb2-143"><a href="#cb2-143"></a></span>
-<span id="cb2-144"><a href="#cb2-144"></a><span class="fu">## Why if-else gets its own reading</span></span>
-<span id="cb2-145"><a href="#cb2-145"></a></span>
-<span id="cb2-146"><a href="#cb2-146"></a>Peng 13.1 is short but central. Almost every nontrivial function has at least one <span class="in">`if`</span> — to handle a missing argument, to branch on data type, to short-circuit on edge cases. R4DS Ch25 assumes you know <span class="in">`if`</span>/<span class="in">`else`</span> and focuses on function design; Peng fills in the syntax and scoping rules. Worth flagging: R's <span class="in">`if`</span> is an *expression*, not just a *statement* — meaning <span class="in">`y &lt;- if (cond) 10 else 0`</span> is valid and idiomatic, where languages like Python require a separate ternary syntax (<span class="in">`y = 10 if cond else 0`</span>). Treating <span class="in">`if`</span> as an expression makes function bodies cleaner: assignments at the top, conditional logic in the middle, the result naturally falling out at the bottom.</span>
+<span id="cb2-16"><a href="#cb2-16"></a>%<span class="dt">%</span>{init: {</span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="ot">"</span><span class="st">theme</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">base</span><span class="ot">"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="ot">"</span><span class="st">themeVariables</span><span class="ot">"</span>: {</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    <span class="ot">"</span><span class="st">primaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    <span class="ot">"</span><span class="st">primaryTextColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="ot">"</span><span class="st">primaryBorderColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#1a5cb0</span><span class="ot">"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="ot">"</span><span class="st">lineColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#6c757d</span><span class="ot">"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="ot">"</span><span class="st">secondaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#e9ecef</span><span class="ot">"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="ot">"</span><span class="st">tertiaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#f8f9fa</span><span class="ot">"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    <span class="ot">"</span><span class="st">mainBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26"></a>    <span class="ot">"</span><span class="st">secondBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#dee2e6</span><span class="ot">"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="ot">"</span><span class="st">tertiaryBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28"></a>    <span class="ot">"</span><span class="st">fontFamily</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">Inter, system-ui, sans-serif</span><span class="ot">"</span>,</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    <span class="ot">"</span><span class="st">fontSize</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">14px</span><span class="ot">"</span>,</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    <span class="ot">"</span><span class="st">textColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#212529</span><span class="ot">"</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a>  }</span>
+<span id="cb2-32"><a href="#cb2-32"></a>}}%%</span>
+<span id="cb2-33"><a href="#cb2-33"></a>mindmap</span>
+<span id="cb2-34"><a href="#cb2-34"></a>  root((ICA <span class="dv">0</span>9 Functions))</span>
+<span id="cb2-35"><a href="#cb2-35"></a>    When to <span class="fu">write</span> one</span>
+<span id="cb2-36"><a href="#cb2-36"></a>      <span class="ot">"</span><span class="st">copy-paste happened twice</span><span class="ot">"</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a>      <span class="ot">"</span><span class="st">a pipeline reappears with variation</span><span class="ot">"</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a>      <span class="ot">"</span><span class="st">name needs to capture intent</span><span class="ot">"</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>    Anatomy</span>
+<span id="cb2-40"><a href="#cb2-40"></a>      <span class="ot">"</span><span class="st">name &lt;- function(args) { body }</span><span class="ot">"</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>      <span class="ot">"</span><span class="st">last expression is return value</span><span class="ot">"</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a>      <span class="ot">"</span><span class="st">return() reserved for early exit</span><span class="ot">"</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a>    Control flow</span>
+<span id="cb2-44"><a href="#cb2-44"></a>      <span class="ot">"</span><span class="st">if (cond) { ... } else { ... }</span><span class="ot">"</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a>      <span class="ot">"</span><span class="st">if_else() for vectors · not if</span><span class="ot">"</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a>      <span class="ot">"</span><span class="st">case_when() for many branches</span><span class="ot">"</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a>    Scoping</span>
+<span id="cb2-48"><a href="#cb2-48"></a>      <span class="ot">"</span><span class="st">vars inside don't leak out</span><span class="ot">"</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a>      <span class="ot">"</span><span class="st">vars outside leak in · lexical scope</span><span class="ot">"</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a>      <span class="ot">"</span><span class="st">pass everything as arg · defensive</span><span class="ot">"</span></span>
+<span id="cb2-51"><a href="#cb2-51"></a>    Testing</span>
+<span id="cb2-52"><a href="#cb2-52"></a>      <span class="ot">"</span><span class="st">edge cases · empty · NA · negative</span><span class="ot">"</span></span>
+<span id="cb2-53"><a href="#cb2-53"></a>      <span class="ot">"</span><span class="st">stopifnot() for guard clauses</span><span class="ot">"</span></span>
+<span id="cb2-54"><a href="#cb2-54"></a><span class="in">```</span></span>
+<span id="cb2-55"><a href="#cb2-55"></a></span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="fu">## Three concepts these readings quietly hinge on</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a></span>
+<span id="cb2-58"><a href="#cb2-58"></a>**A function's last expression is its return value, automatically.** R doesn't require <span class="in">`return(x)`</span> at the end of a function — whatever expression is last in the body is what gets returned. <span class="in">`return()`</span> is reserved for *early exit*, when you want to bail out of the function before reaching the end. Idiomatic R style uses implicit return for the normal path and explicit <span class="in">`return()`</span> only for guard clauses (<span class="in">`if (is.na(x)) return(NA)`</span> at the top). Newcomers from Python or JavaScript often write <span class="in">`return(result)`</span> on the last line out of habit; it works, but it's noise.</span>
+<span id="cb2-59"><a href="#cb2-59"></a></span>
+<span id="cb2-60"><a href="#cb2-60"></a>**`if` takes a single `TRUE`/`FALSE`; `if_else()` (or `case_when()`) takes a vector.** This is the most common control-flow confusion in R. Inside a function with scalar logic — "if the input is missing, do X" — use <span class="in">`if (is.na(x)) ...`</span>. Inside a <span class="in">`mutate()`</span> where you're branching on a column — "for each row, if the value is positive, do Y" — use <span class="in">`if_else(col &gt; 0, ...)`</span>. Mixing them up gives one of two errors: <span class="in">`if`</span> complains about a vector condition, or <span class="in">`if_else()`</span> silently treats your scalar as a length-1 vector and surprises you with the result. Peng 13.1 covers <span class="in">`if`</span>; the dplyr equivalents are the vector versions.</span>
+<span id="cb2-61"><a href="#cb2-61"></a></span>
+<span id="cb2-62"><a href="#cb2-62"></a>**Variables inside a function don't leak out, but variables outside *do* leak in.** This is *lexical scoping*. If a function references a name it didn't define, R looks for that name in the enclosing scope (typically your global workspace). This is convenient — you can use packages without passing them in — but it's also dangerous: a function that accidentally relies on a global variable will work in your console and silently break for someone else. Defensive practice: a function should take *everything it depends on* as an argument (data, columns, parameters), not reach into the global environment for them.</span>
+<span id="cb2-63"><a href="#cb2-63"></a></span>
+<span id="cb2-64"><a href="#cb2-64"></a><span class="fu">## A small decision tree for function design</span></span>
+<span id="cb2-65"><a href="#cb2-65"></a></span>
+<span id="cb2-66"><a href="#cb2-66"></a><span class="pp">|</span> Question <span class="pp">|</span> Default move <span class="pp">|</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a><span class="pp">|----------|--------------|</span></span>
+<span id="cb2-68"><a href="#cb2-68"></a><span class="pp">|</span> Does this code repeat with small variations? <span class="pp">|</span> Refactor into a function <span class="pp">|</span></span>
+<span id="cb2-69"><a href="#cb2-69"></a><span class="pp">|</span> What goes in front of the parens? <span class="pp">|</span> A *verb* in snake_case, distinct from base R names <span class="pp">|</span></span>
+<span id="cb2-70"><a href="#cb2-70"></a><span class="pp">|</span> First argument? <span class="pp">|</span> The data — so the function pipes well <span class="pp">|</span></span>
+<span id="cb2-71"><a href="#cb2-71"></a><span class="pp">|</span> What kind of function is this? <span class="pp">|</span> Vector (returns vector), data frame (returns tibble), plot (returns ggplot) <span class="pp">|</span></span>
+<span id="cb2-72"><a href="#cb2-72"></a><span class="pp">|</span> Does it take column names from a tibble? <span class="pp">|</span> Use <span class="in">`{ col }`</span> for tidy-eval embracing <span class="pp">|</span></span>
+<span id="cb2-73"><a href="#cb2-73"></a><span class="pp">|</span> Should it have side effects? <span class="pp">|</span> Avoid if possible — pure functions compose better <span class="pp">|</span></span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="pp">|</span> What edge cases to test? <span class="pp">|</span> Empty input, single element, all NA, wrong type <span class="pp">|</span></span>
+<span id="cb2-75"><a href="#cb2-75"></a><span class="pp">|</span> Branching on scalar input? <span class="pp">|</span> <span class="in">`if`</span>/<span class="in">`else if`</span>/<span class="in">`else`</span> <span class="pp">|</span></span>
+<span id="cb2-76"><a href="#cb2-76"></a><span class="pp">|</span> Branching on a vector inside <span class="in">`mutate()`</span>? <span class="pp">|</span> <span class="in">`if_else()`</span> or <span class="in">`case_when()`</span> <span class="pp">|</span></span>
+<span id="cb2-77"><a href="#cb2-77"></a></span>
+<span id="cb2-78"><a href="#cb2-78"></a><span class="fu">## Why this comes after wrangling</span></span>
+<span id="cb2-79"><a href="#cb2-79"></a></span>
+<span id="cb2-80"><a href="#cb2-80"></a>ICA 09 sits at the inflection point of STAT 212. Up to ICA 08, everything has been *use* of existing tools — call `mutate()`, call `geom_point()`, call `left_join()`. From ICA 09 onward, you're *making* tools. The skills compose: a wrangling pipeline you'd otherwise repeat across 5 datasets becomes a single function called 5 times. A plot specification you'd otherwise duplicate across 10 facets becomes a function returning a ggplot. This is the move from "user of dplyr" to "extender of dplyr" — and it's also the prerequisite for ICAs 11-12 (loops and iteration), where you'll apply functions across collections.</span>
+<span id="cb2-81"><a href="#cb2-81"></a></span>
+<span id="cb2-82"><a href="#cb2-82"></a><span class="fu">## Why if-else gets its own reading</span></span>
+<span id="cb2-83"><a href="#cb2-83"></a></span>
+<span id="cb2-84"><a href="#cb2-84"></a>Peng 13.1 is short but central. Almost every nontrivial function has at least one <span class="in">`if`</span> — to handle a missing argument, to branch on data type, to short-circuit on edge cases. R4DS Ch25 assumes you know <span class="in">`if`</span>/<span class="in">`else`</span> and focuses on function design; Peng fills in the syntax and scoping rules. Worth flagging: R's <span class="in">`if`</span> is an *expression*, not just a *statement* — meaning <span class="in">`y &lt;- if (cond) 10 else 0`</span> is valid and idiomatic, where languages like Python require a separate ternary syntax (<span class="in">`y = 10 if cond else 0`</span>). Treating <span class="in">`if`</span> as an expression makes function bodies cleaner: assignments at the top, conditional logic in the middle, the result naturally falling out at the bottom.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

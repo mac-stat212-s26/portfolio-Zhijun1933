@@ -132,7 +132,7 @@ cookieconsent.run({
 </script> 
   
 <style>html{ scroll-behavior: smooth; }</style>
-<meta name="mermaid-theme" content="dark">
+<meta name="mermaid-theme" content="default">
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
@@ -752,211 +752,89 @@ cookieconsent.run({
 <div class="cell" data-layout-align="default">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>mindmap</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  root((ICA 06 Wrangling I))</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    "Logical vectors · Ch 12"</span>
-<span id="cb1-4"><a href="#cb1-4"></a>      Comparisons</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        "== · != · &lt; · &gt; · &lt;= · &gt;="</span>
-<span id="cb1-6"><a href="#cb1-6"></a>        "beware == on floats"</span>
-<span id="cb1-7"><a href="#cb1-7"></a>          "near() for tolerance"</span>
-<span id="cb1-8"><a href="#cb1-8"></a>      Boolean ops</span>
-<span id="cb1-9"><a href="#cb1-9"></a>        "&amp; · and"</span>
-<span id="cb1-10"><a href="#cb1-10"></a>        "\"|\" · or"</span>
-<span id="cb1-11"><a href="#cb1-11"></a>        "\"!\" · not"</span>
-<span id="cb1-12"><a href="#cb1-12"></a>        "xor · exclusive or"</span>
-<span id="cb1-13"><a href="#cb1-13"></a>      "Missing &amp; logic"</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        "NA &amp; FALSE = FALSE"</span>
-<span id="cb1-15"><a href="#cb1-15"></a>        "NA \"|\" TRUE = TRUE"</span>
-<span id="cb1-16"><a href="#cb1-16"></a>        "is.na() · explicit check"</span>
-<span id="cb1-17"><a href="#cb1-17"></a>      Summaries</span>
-<span id="cb1-18"><a href="#cb1-18"></a>        "any() · sum &gt; 0"</span>
-<span id="cb1-19"><a href="#cb1-19"></a>        "all() · sum == n"</span>
-<span id="cb1-20"><a href="#cb1-20"></a>        "sum(x) · count of TRUE"</span>
-<span id="cb1-21"><a href="#cb1-21"></a>        "mean(x) · proportion TRUE"</span>
-<span id="cb1-22"><a href="#cb1-22"></a>      Conditionals</span>
-<span id="cb1-23"><a href="#cb1-23"></a>        "if_else()"</span>
-<span id="cb1-24"><a href="#cb1-24"></a>          "two outcomes · type stable"</span>
-<span id="cb1-25"><a href="#cb1-25"></a>        "case_when()"</span>
-<span id="cb1-26"><a href="#cb1-26"></a>          multiple outcomes</span>
-<span id="cb1-27"><a href="#cb1-27"></a>          first match wins</span>
-<span id="cb1-28"><a href="#cb1-28"></a>          .default for fallthrough</span>
-<span id="cb1-29"><a href="#cb1-29"></a>    "Numbers · Ch 13"</span>
-<span id="cb1-30"><a href="#cb1-30"></a>      Making numbers</span>
-<span id="cb1-31"><a href="#cb1-31"></a>        "readr parse · parse_double · parse_number"</span>
-<span id="cb1-32"><a href="#cb1-32"></a>        "as.numeric · base R coerce"</span>
-<span id="cb1-33"><a href="#cb1-33"></a>      Counts</span>
-<span id="cb1-34"><a href="#cb1-34"></a>        "count(x) · single column"</span>
-<span id="cb1-35"><a href="#cb1-35"></a>        "n() · inside summarize"</span>
-<span id="cb1-36"><a href="#cb1-36"></a>        "n_distinct() · unique count"</span>
-<span id="cb1-37"><a href="#cb1-37"></a>      Transformations</span>
-<span id="cb1-38"><a href="#cb1-38"></a>        "log · log2 · log10"</span>
-<span id="cb1-39"><a href="#cb1-39"></a>        "round · floor · ceiling"</span>
-<span id="cb1-40"><a href="#cb1-40"></a>        "cumulative · cumsum · cummax"</span>
-<span id="cb1-41"><a href="#cb1-41"></a>        "ranks · min_rank · dense_rank"</span>
-<span id="cb1-42"><a href="#cb1-42"></a>        "offset · lag · lead"</span>
-<span id="cb1-43"><a href="#cb1-43"></a>      Summaries</span>
-<span id="cb1-44"><a href="#cb1-44"></a>        "center · mean · median"</span>
-<span id="cb1-45"><a href="#cb1-45"></a>        "spread · sd · IQR · var"</span>
-<span id="cb1-46"><a href="#cb1-46"></a>        "quantile · min · max"</span>
-<span id="cb1-47"><a href="#cb1-47"></a>      Numeric pitfalls</span>
-<span id="cb1-48"><a href="#cb1-48"></a>        floating point</span>
-<span id="cb1-49"><a href="#cb1-49"></a>        integer overflow</span>
-<span id="cb1-50"><a href="#cb1-50"></a>        NA propagation</span>
-<span id="cb1-51"><a href="#cb1-51"></a>          "mean(x, na.rm = TRUE)"</span>
-<span id="cb1-52"><a href="#cb1-52"></a>    "Factors · Ch 16"</span>
-<span id="cb1-53"><a href="#cb1-53"></a>      Why factors not strings</span>
-<span id="cb1-54"><a href="#cb1-54"></a>        explicit level set</span>
-<span id="cb1-55"><a href="#cb1-55"></a>        non-alphabetic ordering</span>
-<span id="cb1-56"><a href="#cb1-56"></a>        memory efficient</span>
-<span id="cb1-57"><a href="#cb1-57"></a>      Creating</span>
-<span id="cb1-58"><a href="#cb1-58"></a>        "factor(x, levels = ...)"</span>
-<span id="cb1-59"><a href="#cb1-59"></a>        forcats family</span>
-<span id="cb1-60"><a href="#cb1-60"></a>      Reordering</span>
-<span id="cb1-61"><a href="#cb1-61"></a>        "fct_reorder · by another var"</span>
-<span id="cb1-62"><a href="#cb1-62"></a>        "fct_infreq · by frequency"</span>
-<span id="cb1-63"><a href="#cb1-63"></a>        "fct_relevel · manual"</span>
-<span id="cb1-64"><a href="#cb1-64"></a>        "fct_rev · reverse"</span>
-<span id="cb1-65"><a href="#cb1-65"></a>      Renaming</span>
-<span id="cb1-66"><a href="#cb1-66"></a>        "fct_recode · rename levels"</span>
-<span id="cb1-67"><a href="#cb1-67"></a>        "fct_collapse · merge groups"</span>
-<span id="cb1-68"><a href="#cb1-68"></a>        "fct_lump · top-n + Other"</span>
-<span id="cb1-69"><a href="#cb1-69"></a>      Ordered factors</span>
-<span id="cb1-70"><a href="#cb1-70"></a>        ordinal data</span>
-<span id="cb1-71"><a href="#cb1-71"></a>          "low &lt; med &lt; high"</span>
-<span id="cb1-72"><a href="#cb1-72"></a>        "factor(..., ordered = TRUE)"</span>
-<span id="cb1-73"><a href="#cb1-73"></a>    "Dates &amp; times · Ch 17"</span>
-<span id="cb1-74"><a href="#cb1-74"></a>      Three types</span>
-<span id="cb1-75"><a href="#cb1-75"></a>        Date</span>
-<span id="cb1-76"><a href="#cb1-76"></a>          calendar day</span>
-<span id="cb1-77"><a href="#cb1-77"></a>        "date-time · POSIXct"</span>
-<span id="cb1-78"><a href="#cb1-78"></a>          instant in time</span>
-<span id="cb1-79"><a href="#cb1-79"></a>        "time · hms"</span>
-<span id="cb1-80"><a href="#cb1-80"></a>      Creating</span>
-<span id="cb1-81"><a href="#cb1-81"></a>        from strings</span>
-<span id="cb1-82"><a href="#cb1-82"></a>          "ymd · mdy · dmy"</span>
-<span id="cb1-83"><a href="#cb1-83"></a>          ymd_hms</span>
-<span id="cb1-84"><a href="#cb1-84"></a>        from components</span>
-<span id="cb1-85"><a href="#cb1-85"></a>          "make_date · make_datetime"</span>
-<span id="cb1-86"><a href="#cb1-86"></a>        from existing</span>
-<span id="cb1-87"><a href="#cb1-87"></a>          "as_date · as_datetime"</span>
-<span id="cb1-88"><a href="#cb1-88"></a>      Extracting components</span>
-<span id="cb1-89"><a href="#cb1-89"></a>        "year · month · day"</span>
-<span id="cb1-90"><a href="#cb1-90"></a>        "wday · weekday"</span>
-<span id="cb1-91"><a href="#cb1-91"></a>        "hour · minute · second"</span>
-<span id="cb1-92"><a href="#cb1-92"></a>      Time spans</span>
-<span id="cb1-93"><a href="#cb1-93"></a>        "durations · exact seconds"</span>
-<span id="cb1-94"><a href="#cb1-94"></a>        "periods · human-aware months · years"</span>
-<span id="cb1-95"><a href="#cb1-95"></a>        "intervals · explicit start + end"</span>
-<span id="cb1-96"><a href="#cb1-96"></a>      Time zones</span>
-<span id="cb1-97"><a href="#cb1-97"></a>        UTC default</span>
-<span id="cb1-98"><a href="#cb1-98"></a>        force_tz vs with_tz</span>
-<span id="cb1-99"><a href="#cb1-99"></a>          force changes label</span>
-<span id="cb1-100"><a href="#cb1-100"></a>          with changes display</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>%%{init: {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  "theme": "base",</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  "themeVariables": {</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    "primaryColor": "#2780E3",</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    "primaryTextColor": "#ffffff",</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    "primaryBorderColor": "#1a5cb0",</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    "lineColor": "#6c757d",</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    "secondaryColor": "#e9ecef",</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    "tertiaryColor": "#f8f9fa",</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    "mainBkg": "#2780E3",</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    "secondBkg": "#dee2e6",</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    "tertiaryBkg": "#ffffff",</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    "fontFamily": "Inter, system-ui, sans-serif",</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    "fontSize": "14px",</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    "textColor": "#212529"</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  }</span>
+<span id="cb1-17"><a href="#cb1-17"></a>}}%%</span>
+<span id="cb1-18"><a href="#cb1-18"></a>mindmap</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  root((ICA 06 Wrangling I))</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    Type-specific toolkits</span>
+<span id="cb1-21"><a href="#cb1-21"></a>      "logical · &amp; · | · !"</span>
+<span id="cb1-22"><a href="#cb1-22"></a>      "numeric · arithmetic · summary fns"</span>
+<span id="cb1-23"><a href="#cb1-23"></a>      "string · stringr verbs"</span>
+<span id="cb1-24"><a href="#cb1-24"></a>      "date · lubridate"</span>
+<span id="cb1-25"><a href="#cb1-25"></a>      "factor · forcats"</span>
+<span id="cb1-26"><a href="#cb1-26"></a>    Logical &amp; numeric</span>
+<span id="cb1-27"><a href="#cb1-27"></a>      "near() not =="</span>
+<span id="cb1-28"><a href="#cb1-28"></a>      "between() for ranges"</span>
+<span id="cb1-29"><a href="#cb1-29"></a>      "if_else() not ifelse()"</span>
+<span id="cb1-30"><a href="#cb1-30"></a>    Strings</span>
+<span id="cb1-31"><a href="#cb1-31"></a>      "str_detect · str_replace · str_extract"</span>
+<span id="cb1-32"><a href="#cb1-32"></a>      "stringr verbs are vectorized"</span>
+<span id="cb1-33"><a href="#cb1-33"></a>    Dates</span>
+<span id="cb1-34"><a href="#cb1-34"></a>      "ymd() ymd_hms() · parse"</span>
+<span id="cb1-35"><a href="#cb1-35"></a>      "year() month() wday() · extract"</span>
+<span id="cb1-36"><a href="#cb1-36"></a>      "tz attribute · matters"</span>
+<span id="cb1-37"><a href="#cb1-37"></a>    Factors</span>
+<span id="cb1-38"><a href="#cb1-38"></a>      "fct_relevel · fct_reorder · fct_lump"</span>
+<span id="cb1-39"><a href="#cb1-39"></a>      "for plotting order"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">mindmap
+<pre class="mermaid mermaid-js">%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#2780E3",
+    "primaryTextColor": "#ffffff",
+    "primaryBorderColor": "#1a5cb0",
+    "lineColor": "#6c757d",
+    "secondaryColor": "#e9ecef",
+    "tertiaryColor": "#f8f9fa",
+    "mainBkg": "#2780E3",
+    "secondBkg": "#dee2e6",
+    "tertiaryBkg": "#ffffff",
+    "fontFamily": "Inter, system-ui, sans-serif",
+    "fontSize": "14px",
+    "textColor": "#212529"
+  }
+}}%%
+mindmap
   root((ICA 06 Wrangling I))
-    "Logical vectors · Ch 12"
-      Comparisons
-        "== · != · &lt; · &gt; · &lt;= · &gt;="
-        "beware == on floats"
-          "near() for tolerance"
-      Boolean ops
-        "&amp; · and"
-        "\"|\" · or"
-        "\"!\" · not"
-        "xor · exclusive or"
-      "Missing &amp; logic"
-        "NA &amp; FALSE = FALSE"
-        "NA \"|\" TRUE = TRUE"
-        "is.na() · explicit check"
-      Summaries
-        "any() · sum &gt; 0"
-        "all() · sum == n"
-        "sum(x) · count of TRUE"
-        "mean(x) · proportion TRUE"
-      Conditionals
-        "if_else()"
-          "two outcomes · type stable"
-        "case_when()"
-          multiple outcomes
-          first match wins
-          .default for fallthrough
-    "Numbers · Ch 13"
-      Making numbers
-        "readr parse · parse_double · parse_number"
-        "as.numeric · base R coerce"
-      Counts
-        "count(x) · single column"
-        "n() · inside summarize"
-        "n_distinct() · unique count"
-      Transformations
-        "log · log2 · log10"
-        "round · floor · ceiling"
-        "cumulative · cumsum · cummax"
-        "ranks · min_rank · dense_rank"
-        "offset · lag · lead"
-      Summaries
-        "center · mean · median"
-        "spread · sd · IQR · var"
-        "quantile · min · max"
-      Numeric pitfalls
-        floating point
-        integer overflow
-        NA propagation
-          "mean(x, na.rm = TRUE)"
-    "Factors · Ch 16"
-      Why factors not strings
-        explicit level set
-        non-alphabetic ordering
-        memory efficient
-      Creating
-        "factor(x, levels = ...)"
-        forcats family
-      Reordering
-        "fct_reorder · by another var"
-        "fct_infreq · by frequency"
-        "fct_relevel · manual"
-        "fct_rev · reverse"
-      Renaming
-        "fct_recode · rename levels"
-        "fct_collapse · merge groups"
-        "fct_lump · top-n + Other"
-      Ordered factors
-        ordinal data
-          "low &lt; med &lt; high"
-        "factor(..., ordered = TRUE)"
-    "Dates &amp; times · Ch 17"
-      Three types
-        Date
-          calendar day
-        "date-time · POSIXct"
-          instant in time
-        "time · hms"
-      Creating
-        from strings
-          "ymd · mdy · dmy"
-          ymd_hms
-        from components
-          "make_date · make_datetime"
-        from existing
-          "as_date · as_datetime"
-      Extracting components
-        "year · month · day"
-        "wday · weekday"
-        "hour · minute · second"
-      Time spans
-        "durations · exact seconds"
-        "periods · human-aware months · years"
-        "intervals · explicit start + end"
-      Time zones
-        UTC default
-        force_tz vs with_tz
-          force changes label
-          with changes display
+    Type-specific toolkits
+      "logical · &amp; · | · !"
+      "numeric · arithmetic · summary fns"
+      "string · stringr verbs"
+      "date · lubridate"
+      "factor · forcats"
+    Logical &amp; numeric
+      "near() not =="
+      "between() for ranges"
+      "if_else() not ifelse()"
+    Strings
+      "str_detect · str_replace · str_extract"
+      "stringr verbs are vectorized"
+    Dates
+      "ymd() ymd_hms() · parse"
+      "year() month() wday() · extract"
+      "tz attribute · matters"
+    Factors
+      "fct_relevel · fct_reorder · fct_lump"
+      "for plotting order"
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1510,141 +1388,80 @@ cookieconsent.run({
 <span id="cb3-11"><a href="#cb3-11"></a>R4DS Chapters 12, 13, 16, and 17 don't introduce new dplyr verbs — they introduce **type-specific toolkits** for the four atomic vector classes you'll spend most of your wrangling life on: **logicals, numbers, factors, dates**. The grammar from Ch1 (<span class="in">`mutate`</span>, <span class="in">`filter`</span>, <span class="in">`summarize`</span>) stays the same; what changes is the *function library you reach for inside* each verb depending on what type the column is. The mindmap organizes these four chapters as four parallel toolkits, each answering "what do I do when the column is *this* type?"</span>
 <span id="cb3-12"><a href="#cb3-12"></a></span>
 <span id="cb3-15"><a href="#cb3-15"></a><span class="in">```{mermaid}</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a>mindmap</span>
-<span id="cb3-17"><a href="#cb3-17"></a>  root((ICA <span class="bn">06</span> Wrangling I))</span>
-<span id="cb3-18"><a href="#cb3-18"></a>    <span class="ot">"</span><span class="st">Logical vectors · Ch 12</span><span class="ot">"</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a>      Comparisons</span>
-<span id="cb3-20"><a href="#cb3-20"></a>        <span class="ot">"</span><span class="st">== · != · &lt; · &gt; · &lt;= · &gt;=</span><span class="ot">"</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a>        <span class="ot">"</span><span class="st">beware == on floats</span><span class="ot">"</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a>          <span class="ot">"</span><span class="st">near() for tolerance</span><span class="ot">"</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a>      Boolean ops</span>
-<span id="cb3-24"><a href="#cb3-24"></a>        <span class="ot">"</span><span class="st">&amp; · and</span><span class="ot">"</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a>        <span class="ot">"</span><span class="st">\"|\" · or</span><span class="ot">"</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a>        <span class="ot">"</span><span class="st">\"!\" · not</span><span class="ot">"</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a>        <span class="ot">"</span><span class="st">xor · exclusive or</span><span class="ot">"</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a>      <span class="ot">"</span><span class="st">Missing &amp; logic</span><span class="ot">"</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a>        <span class="ot">"</span><span class="st">NA &amp; FALSE = FALSE</span><span class="ot">"</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a>        <span class="ot">"</span><span class="st">NA \"|\" TRUE = TRUE</span><span class="ot">"</span></span>
-<span id="cb3-31"><a href="#cb3-31"></a>        <span class="ot">"</span><span class="st">is.na() · explicit check</span><span class="ot">"</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a>      Summaries</span>
-<span id="cb3-33"><a href="#cb3-33"></a>        <span class="ot">"</span><span class="st">any() · sum &gt; 0</span><span class="ot">"</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a>        <span class="ot">"</span><span class="st">all() · sum == n</span><span class="ot">"</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a>        <span class="ot">"</span><span class="st">sum(x) · count of TRUE</span><span class="ot">"</span></span>
-<span id="cb3-36"><a href="#cb3-36"></a>        <span class="ot">"</span><span class="st">mean(x) · proportion TRUE</span><span class="ot">"</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a>      Conditionals</span>
-<span id="cb3-38"><a href="#cb3-38"></a>        <span class="ot">"</span><span class="st">if_else()</span><span class="ot">"</span></span>
-<span id="cb3-39"><a href="#cb3-39"></a>          <span class="ot">"</span><span class="st">two outcomes · type stable</span><span class="ot">"</span></span>
-<span id="cb3-40"><a href="#cb3-40"></a>        <span class="ot">"</span><span class="st">case_when()</span><span class="ot">"</span></span>
-<span id="cb3-41"><a href="#cb3-41"></a>          multiple outcomes</span>
-<span id="cb3-42"><a href="#cb3-42"></a>          first match wins</span>
-<span id="cb3-43"><a href="#cb3-43"></a>          .<span class="cf">default</span> <span class="cf">for</span> fallthrough</span>
-<span id="cb3-44"><a href="#cb3-44"></a>    <span class="ot">"</span><span class="st">Numbers · Ch 13</span><span class="ot">"</span></span>
-<span id="cb3-45"><a href="#cb3-45"></a>      Making numbers</span>
-<span id="cb3-46"><a href="#cb3-46"></a>        <span class="ot">"</span><span class="st">readr parse · parse_double · parse_number</span><span class="ot">"</span></span>
-<span id="cb3-47"><a href="#cb3-47"></a>        <span class="ot">"</span><span class="st">as.numeric · base R coerce</span><span class="ot">"</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a>      Counts</span>
-<span id="cb3-49"><a href="#cb3-49"></a>        <span class="ot">"</span><span class="st">count(x) · single column</span><span class="ot">"</span></span>
-<span id="cb3-50"><a href="#cb3-50"></a>        <span class="ot">"</span><span class="st">n() · inside summarize</span><span class="ot">"</span></span>
-<span id="cb3-51"><a href="#cb3-51"></a>        <span class="ot">"</span><span class="st">n_distinct() · unique count</span><span class="ot">"</span></span>
-<span id="cb3-52"><a href="#cb3-52"></a>      Transformations</span>
-<span id="cb3-53"><a href="#cb3-53"></a>        <span class="ot">"</span><span class="st">log · log2 · log10</span><span class="ot">"</span></span>
-<span id="cb3-54"><a href="#cb3-54"></a>        <span class="ot">"</span><span class="st">round · floor · ceiling</span><span class="ot">"</span></span>
-<span id="cb3-55"><a href="#cb3-55"></a>        <span class="ot">"</span><span class="st">cumulative · cumsum · cummax</span><span class="ot">"</span></span>
-<span id="cb3-56"><a href="#cb3-56"></a>        <span class="ot">"</span><span class="st">ranks · min_rank · dense_rank</span><span class="ot">"</span></span>
-<span id="cb3-57"><a href="#cb3-57"></a>        <span class="ot">"</span><span class="st">offset · lag · lead</span><span class="ot">"</span></span>
-<span id="cb3-58"><a href="#cb3-58"></a>      Summaries</span>
-<span id="cb3-59"><a href="#cb3-59"></a>        <span class="ot">"</span><span class="st">center · mean · median</span><span class="ot">"</span></span>
-<span id="cb3-60"><a href="#cb3-60"></a>        <span class="ot">"</span><span class="st">spread · sd · IQR · var</span><span class="ot">"</span></span>
-<span id="cb3-61"><a href="#cb3-61"></a>        <span class="ot">"</span><span class="st">quantile · min · max</span><span class="ot">"</span></span>
-<span id="cb3-62"><a href="#cb3-62"></a>      Numeric pitfalls</span>
-<span id="cb3-63"><a href="#cb3-63"></a>        floating point</span>
-<span id="cb3-64"><a href="#cb3-64"></a>        <span class="kw">integer</span> overflow</span>
-<span id="cb3-65"><a href="#cb3-65"></a>        NA propagation</span>
-<span id="cb3-66"><a href="#cb3-66"></a>          <span class="ot">"</span><span class="st">mean(x, na.rm = TRUE)</span><span class="ot">"</span></span>
-<span id="cb3-67"><a href="#cb3-67"></a>    <span class="ot">"</span><span class="st">Factors · Ch 16</span><span class="ot">"</span></span>
-<span id="cb3-68"><a href="#cb3-68"></a>      Why factors <span class="ot">not</span> strings</span>
-<span id="cb3-69"><a href="#cb3-69"></a>        explicit level set</span>
-<span id="cb3-70"><a href="#cb3-70"></a>        non-alphabetic ordering</span>
-<span id="cb3-71"><a href="#cb3-71"></a>        memory efficient</span>
-<span id="cb3-72"><a href="#cb3-72"></a>      Creating</span>
-<span id="cb3-73"><a href="#cb3-73"></a>        <span class="ot">"</span><span class="st">factor(x, levels = ...)</span><span class="ot">"</span></span>
-<span id="cb3-74"><a href="#cb3-74"></a>        forcats family</span>
-<span id="cb3-75"><a href="#cb3-75"></a>      Reordering</span>
-<span id="cb3-76"><a href="#cb3-76"></a>        <span class="ot">"</span><span class="st">fct_reorder · by another var</span><span class="ot">"</span></span>
-<span id="cb3-77"><a href="#cb3-77"></a>        <span class="ot">"</span><span class="st">fct_infreq · by frequency</span><span class="ot">"</span></span>
-<span id="cb3-78"><a href="#cb3-78"></a>        <span class="ot">"</span><span class="st">fct_relevel · manual</span><span class="ot">"</span></span>
-<span id="cb3-79"><a href="#cb3-79"></a>        <span class="ot">"</span><span class="st">fct_rev · reverse</span><span class="ot">"</span></span>
-<span id="cb3-80"><a href="#cb3-80"></a>      Renaming</span>
-<span id="cb3-81"><a href="#cb3-81"></a>        <span class="ot">"</span><span class="st">fct_recode · rename levels</span><span class="ot">"</span></span>
-<span id="cb3-82"><a href="#cb3-82"></a>        <span class="ot">"</span><span class="st">fct_collapse · merge groups</span><span class="ot">"</span></span>
-<span id="cb3-83"><a href="#cb3-83"></a>        <span class="ot">"</span><span class="st">fct_lump · top-n + Other</span><span class="ot">"</span></span>
-<span id="cb3-84"><a href="#cb3-84"></a>      Ordered factors</span>
-<span id="cb3-85"><a href="#cb3-85"></a>        ordinal data</span>
-<span id="cb3-86"><a href="#cb3-86"></a>          <span class="ot">"</span><span class="st">low &lt; med &lt; high</span><span class="ot">"</span></span>
-<span id="cb3-87"><a href="#cb3-87"></a>        <span class="ot">"</span><span class="st">factor(..., ordered = TRUE)</span><span class="ot">"</span></span>
-<span id="cb3-88"><a href="#cb3-88"></a>    <span class="ot">"</span><span class="st">Dates &amp; times · Ch 17</span><span class="ot">"</span></span>
-<span id="cb3-89"><a href="#cb3-89"></a>      Three types</span>
-<span id="cb3-90"><a href="#cb3-90"></a>        Date</span>
-<span id="cb3-91"><a href="#cb3-91"></a>          calendar day</span>
-<span id="cb3-92"><a href="#cb3-92"></a>        <span class="ot">"</span><span class="st">date-time · POSIXct</span><span class="ot">"</span></span>
-<span id="cb3-93"><a href="#cb3-93"></a>          instant in <span class="fu">time</span></span>
-<span id="cb3-94"><a href="#cb3-94"></a>        <span class="ot">"</span><span class="st">time · hms</span><span class="ot">"</span></span>
-<span id="cb3-95"><a href="#cb3-95"></a>      Creating</span>
-<span id="cb3-96"><a href="#cb3-96"></a>        from strings</span>
-<span id="cb3-97"><a href="#cb3-97"></a>          <span class="ot">"</span><span class="st">ymd · mdy · dmy</span><span class="ot">"</span></span>
-<span id="cb3-98"><a href="#cb3-98"></a>          ymd_hms</span>
-<span id="cb3-99"><a href="#cb3-99"></a>        from components</span>
-<span id="cb3-100"><a href="#cb3-100"></a>          <span class="ot">"</span><span class="st">make_date · make_datetime</span><span class="ot">"</span></span>
-<span id="cb3-101"><a href="#cb3-101"></a>        from existing</span>
-<span id="cb3-102"><a href="#cb3-102"></a>          <span class="ot">"</span><span class="st">as_date · as_datetime</span><span class="ot">"</span></span>
-<span id="cb3-103"><a href="#cb3-103"></a>      Extracting components</span>
-<span id="cb3-104"><a href="#cb3-104"></a>        <span class="ot">"</span><span class="st">year · month · day</span><span class="ot">"</span></span>
-<span id="cb3-105"><a href="#cb3-105"></a>        <span class="ot">"</span><span class="st">wday · weekday</span><span class="ot">"</span></span>
-<span id="cb3-106"><a href="#cb3-106"></a>        <span class="ot">"</span><span class="st">hour · minute · second</span><span class="ot">"</span></span>
-<span id="cb3-107"><a href="#cb3-107"></a>      Time spans</span>
-<span id="cb3-108"><a href="#cb3-108"></a>        <span class="ot">"</span><span class="st">durations · exact seconds</span><span class="ot">"</span></span>
-<span id="cb3-109"><a href="#cb3-109"></a>        <span class="ot">"</span><span class="st">periods · human-aware months · years</span><span class="ot">"</span></span>
-<span id="cb3-110"><a href="#cb3-110"></a>        <span class="ot">"</span><span class="st">intervals · explicit start + end</span><span class="ot">"</span></span>
-<span id="cb3-111"><a href="#cb3-111"></a>      Time zones</span>
-<span id="cb3-112"><a href="#cb3-112"></a>        UTC <span class="cf">default</span></span>
-<span id="cb3-113"><a href="#cb3-113"></a>        force_tz vs with_tz</span>
-<span id="cb3-114"><a href="#cb3-114"></a>          force changes label</span>
-<span id="cb3-115"><a href="#cb3-115"></a>          with changes display</span>
-<span id="cb3-116"><a href="#cb3-116"></a><span class="in">```</span></span>
-<span id="cb3-117"><a href="#cb3-117"></a></span>
-<span id="cb3-118"><a href="#cb3-118"></a><span class="fu">## Three concepts these chapters quietly hinge on</span></span>
-<span id="cb3-119"><a href="#cb3-119"></a></span>
-<span id="cb3-120"><a href="#cb3-120"></a>**`==` is treacherous on floats; `near()` is what you actually want.** The classic gotcha: <span class="in">`sqrt(2)^2 == 2`</span> returns <span class="in">`FALSE`</span> in R because floating-point arithmetic introduces tiny rounding errors. The right pattern is <span class="in">`near(sqrt(2)^2, 2)`</span> which checks equality within tolerance. R4DS Ch12 mentions this in passing but it's the source of countless silent filter bugs — <span class="in">`filter(df, value == 0.1)`</span> may drop rows where the value is <span class="in">`0.09999999999999998`</span>. The general rule: use <span class="in">`==`</span> only on integers, characters, and factors; use <span class="in">`near()`</span> on doubles.</span>
-<span id="cb3-121"><a href="#cb3-121"></a></span>
-<span id="cb3-122"><a href="#cb3-122"></a>**Factors aren't just labeled strings — they're strings with a *predetermined level set*.** This matters in two places: (1) ggplot uses factor levels as the x-axis order, so <span class="in">`fct_reorder(species, body_mass)`</span> is how you sort a bar chart by something other than alphabetical; (2) <span class="in">`case_when()`</span> with factor outputs needs all branches to return the same factor with the same levels, or you get <span class="in">`NA`</span> for unmatched levels. The <span class="in">`forcats`</span> package exists because manipulating levels (reorder, rename, collapse, lump) is much more common than people expect, and base R's tools for it are awkward.</span>
-<span id="cb3-123"><a href="#cb3-123"></a></span>
-<span id="cb3-124"><a href="#cb3-124"></a>**`NA` in logical operations follows three-valued logic, and the rules aren't intuitive.** <span class="in">`NA &amp; FALSE`</span> is <span class="in">`FALSE`</span> (because regardless of what <span class="in">`NA`</span> actually is, ANDing with <span class="in">`FALSE`</span> gives <span class="in">`FALSE`</span>). But <span class="in">`NA &amp; TRUE`</span> is <span class="in">`NA`</span> (because if <span class="in">`NA`</span> is <span class="in">`FALSE`</span>, the answer is <span class="in">`FALSE`</span>; if <span class="in">`NA`</span> is <span class="in">`TRUE`</span>, the answer is <span class="in">`TRUE`</span> — we can't decide). Same logic for <span class="in">`OR`</span>: <span class="in">`NA | TRUE`</span> is <span class="in">`TRUE`</span> (always true), but <span class="in">`NA | FALSE`</span> is <span class="in">`NA`</span>. This is *Kleene logic*, not a bug. The takeaway: filtering with <span class="in">`is.na()`</span> is explicit and safe; comparisons that produce <span class="in">`NA`</span> get silently dropped by <span class="in">`filter()`</span> because <span class="in">`filter()`</span> treats <span class="in">`NA`</span> as "not TRUE."</span>
-<span id="cb3-125"><a href="#cb3-125"></a></span>
-<span id="cb3-126"><a href="#cb3-126"></a><span class="fu">## The unifying move</span></span>
-<span id="cb3-127"><a href="#cb3-127"></a></span>
-<span id="cb3-128"><a href="#cb3-128"></a>All four chapters teach the same shape: a <span class="in">`mutate()`</span> or <span class="in">`filter()`</span> or <span class="in">`summarize()`</span> call where the *value* of the verb's argument is a type-specific function. The skeleton is always:</span>
-<span id="cb3-129"><a href="#cb3-129"></a></span>
-<span id="cb3-130"><a href="#cb3-130"></a><span class="in">```r</span></span>
-<span id="cb3-131"><a href="#cb3-131"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb3-132"><a href="#cb3-132"></a>  <span class="fu">mutate</span>(<span class="at">new_col =</span> <span class="fu">TYPE_SPECIFIC_FN</span>(old_col)) <span class="sc">|&gt;</span></span>
-<span id="cb3-133"><a href="#cb3-133"></a>  <span class="fu">filter</span>(<span class="fu">LOGICAL_FN</span>(some_col)) <span class="sc">|&gt;</span></span>
-<span id="cb3-134"><a href="#cb3-134"></a>  <span class="fu">summarize</span>(<span class="at">stat =</span> <span class="fu">NUMERIC_SUMMARY</span>(some_col), <span class="at">.by =</span> group_col)</span>
-<span id="cb3-135"><a href="#cb3-135"></a><span class="in">```</span></span>
-<span id="cb3-136"><a href="#cb3-136"></a></span>
-<span id="cb3-137"><a href="#cb3-137"></a>What changes between chapters is which <span class="in">`TYPE_SPECIFIC_FN`</span> you reach for:</span>
-<span id="cb3-138"><a href="#cb3-138"></a></span>
-<span id="cb3-139"><a href="#cb3-139"></a><span class="pp">|</span> Column type <span class="pp">|</span> Common toolkit <span class="pp">|</span></span>
-<span id="cb3-140"><a href="#cb3-140"></a><span class="pp">|-------------|----------------|</span></span>
-<span id="cb3-141"><a href="#cb3-141"></a><span class="pp">|</span> Logical <span class="pp">|</span> <span class="in">`if_else`</span>, <span class="in">`case_when`</span>, <span class="in">`any`</span>, <span class="in">`all`</span> <span class="pp">|</span></span>
-<span id="cb3-142"><a href="#cb3-142"></a><span class="pp">|</span> Numeric <span class="pp">|</span> <span class="in">`round`</span>, <span class="in">`lag`</span>, <span class="in">`cumsum`</span>, <span class="in">`min_rank`</span> <span class="pp">|</span></span>
-<span id="cb3-143"><a href="#cb3-143"></a><span class="pp">|</span> Factor <span class="pp">|</span> <span class="in">`fct_reorder`</span>, <span class="in">`fct_lump`</span>, <span class="in">`fct_recode`</span> <span class="pp">|</span></span>
-<span id="cb3-144"><a href="#cb3-144"></a><span class="pp">|</span> Date/time <span class="pp">|</span> <span class="in">`year`</span>, <span class="in">`wday`</span>, <span class="in">`month`</span>, <span class="in">`floor_date`</span> <span class="pp">|</span></span>
-<span id="cb3-145"><a href="#cb3-145"></a></span>
-<span id="cb3-146"><a href="#cb3-146"></a>The dplyr verbs are the spine; the type-specific functions are the muscle.</span>
-<span id="cb3-147"><a href="#cb3-147"></a></span>
-<span id="cb3-148"><a href="#cb3-148"></a><span class="fu">## Why this comes before joins and pivots</span></span>
-<span id="cb3-149"><a href="#cb3-149"></a></span>
-<span id="cb3-150"><a href="#cb3-150"></a>ICA 06 is "Adv Wrangling I" — and by week 6 of STAT 212, the grammar from Ch1 + the basic wrangling verbs from Ch3-5 are already in muscle memory. What was missing was the toolkit for handling specific column types cleanly: how to bin a numeric variable, how to reorder a factor for plotting, how to extract day-of-week from a date column to detect weekly patterns. These four chapters fill in that gap, which makes the next steps (joins, pivots, missing data) workable on real-world data — where columns aren't always nicely numeric and dates don't parse themselves.</span>
+<span id="cb3-16"><a href="#cb3-16"></a>%<span class="dt">%</span>{init: {</span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="ot">"</span><span class="st">theme</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">base</span><span class="ot">"</span>,</span>
+<span id="cb3-18"><a href="#cb3-18"></a>  <span class="ot">"</span><span class="st">themeVariables</span><span class="ot">"</span>: {</span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="ot">"</span><span class="st">primaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="ot">"</span><span class="st">primaryTextColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="ot">"</span><span class="st">primaryBorderColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#1a5cb0</span><span class="ot">"</span>,</span>
+<span id="cb3-22"><a href="#cb3-22"></a>    <span class="ot">"</span><span class="st">lineColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#6c757d</span><span class="ot">"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23"></a>    <span class="ot">"</span><span class="st">secondaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#e9ecef</span><span class="ot">"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24"></a>    <span class="ot">"</span><span class="st">tertiaryColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#f8f9fa</span><span class="ot">"</span>,</span>
+<span id="cb3-25"><a href="#cb3-25"></a>    <span class="ot">"</span><span class="st">mainBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#2780E3</span><span class="ot">"</span>,</span>
+<span id="cb3-26"><a href="#cb3-26"></a>    <span class="ot">"</span><span class="st">secondBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#dee2e6</span><span class="ot">"</span>,</span>
+<span id="cb3-27"><a href="#cb3-27"></a>    <span class="ot">"</span><span class="st">tertiaryBkg</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#ffffff</span><span class="ot">"</span>,</span>
+<span id="cb3-28"><a href="#cb3-28"></a>    <span class="ot">"</span><span class="st">fontFamily</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">Inter, system-ui, sans-serif</span><span class="ot">"</span>,</span>
+<span id="cb3-29"><a href="#cb3-29"></a>    <span class="ot">"</span><span class="st">fontSize</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">14px</span><span class="ot">"</span>,</span>
+<span id="cb3-30"><a href="#cb3-30"></a>    <span class="ot">"</span><span class="st">textColor</span><span class="ot">"</span>: <span class="ot">"</span><span class="st">#212529</span><span class="ot">"</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a>  }</span>
+<span id="cb3-32"><a href="#cb3-32"></a>}}%%</span>
+<span id="cb3-33"><a href="#cb3-33"></a>mindmap</span>
+<span id="cb3-34"><a href="#cb3-34"></a>  root((ICA <span class="bn">06</span> Wrangling I))</span>
+<span id="cb3-35"><a href="#cb3-35"></a>    Type-specific toolkits</span>
+<span id="cb3-36"><a href="#cb3-36"></a>      <span class="ot">"</span><span class="st">logical · &amp; · | · !</span><span class="ot">"</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a>      <span class="ot">"</span><span class="st">numeric · arithmetic · summary fns</span><span class="ot">"</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a>      <span class="ot">"</span><span class="st">string · stringr verbs</span><span class="ot">"</span></span>
+<span id="cb3-39"><a href="#cb3-39"></a>      <span class="ot">"</span><span class="st">date · lubridate</span><span class="ot">"</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a>      <span class="ot">"</span><span class="st">factor · forcats</span><span class="ot">"</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a>    Logical &amp; numeric</span>
+<span id="cb3-42"><a href="#cb3-42"></a>      <span class="ot">"</span><span class="st">near() not ==</span><span class="ot">"</span></span>
+<span id="cb3-43"><a href="#cb3-43"></a>      <span class="ot">"</span><span class="st">between() for ranges</span><span class="ot">"</span></span>
+<span id="cb3-44"><a href="#cb3-44"></a>      <span class="ot">"</span><span class="st">if_else() not ifelse()</span><span class="ot">"</span></span>
+<span id="cb3-45"><a href="#cb3-45"></a>    Strings</span>
+<span id="cb3-46"><a href="#cb3-46"></a>      <span class="ot">"</span><span class="st">str_detect · str_replace · str_extract</span><span class="ot">"</span></span>
+<span id="cb3-47"><a href="#cb3-47"></a>      <span class="ot">"</span><span class="st">stringr verbs are vectorized</span><span class="ot">"</span></span>
+<span id="cb3-48"><a href="#cb3-48"></a>    Dates</span>
+<span id="cb3-49"><a href="#cb3-49"></a>      <span class="ot">"</span><span class="st">ymd() ymd_hms() · parse</span><span class="ot">"</span></span>
+<span id="cb3-50"><a href="#cb3-50"></a>      <span class="ot">"</span><span class="st">year() month() wday() · extract</span><span class="ot">"</span></span>
+<span id="cb3-51"><a href="#cb3-51"></a>      <span class="ot">"</span><span class="st">tz attribute · matters</span><span class="ot">"</span></span>
+<span id="cb3-52"><a href="#cb3-52"></a>    Factors</span>
+<span id="cb3-53"><a href="#cb3-53"></a>      <span class="ot">"</span><span class="st">fct_relevel · fct_reorder · fct_lump</span><span class="ot">"</span></span>
+<span id="cb3-54"><a href="#cb3-54"></a>      <span class="ot">"</span><span class="st">for plotting order</span><span class="ot">"</span></span>
+<span id="cb3-55"><a href="#cb3-55"></a><span class="in">```</span></span>
+<span id="cb3-56"><a href="#cb3-56"></a></span>
+<span id="cb3-57"><a href="#cb3-57"></a><span class="fu">## Three concepts these chapters quietly hinge on</span></span>
+<span id="cb3-58"><a href="#cb3-58"></a></span>
+<span id="cb3-59"><a href="#cb3-59"></a>**`==` is treacherous on floats; `near()` is what you actually want.** The classic gotcha: <span class="in">`sqrt(2)^2 == 2`</span> returns <span class="in">`FALSE`</span> in R because floating-point arithmetic introduces tiny rounding errors. The right pattern is <span class="in">`near(sqrt(2)^2, 2)`</span> which checks equality within tolerance. R4DS Ch12 mentions this in passing but it's the source of countless silent filter bugs — <span class="in">`filter(df, value == 0.1)`</span> may drop rows where the value is <span class="in">`0.09999999999999998`</span>. The general rule: use <span class="in">`==`</span> only on integers, characters, and factors; use <span class="in">`near()`</span> on doubles.</span>
+<span id="cb3-60"><a href="#cb3-60"></a></span>
+<span id="cb3-61"><a href="#cb3-61"></a>**Factors aren't just labeled strings — they're strings with a *predetermined level set*.** This matters in two places: (1) ggplot uses factor levels as the x-axis order, so <span class="in">`fct_reorder(species, body_mass)`</span> is how you sort a bar chart by something other than alphabetical; (2) <span class="in">`case_when()`</span> with factor outputs needs all branches to return the same factor with the same levels, or you get <span class="in">`NA`</span> for unmatched levels. The <span class="in">`forcats`</span> package exists because manipulating levels (reorder, rename, collapse, lump) is much more common than people expect, and base R's tools for it are awkward.</span>
+<span id="cb3-62"><a href="#cb3-62"></a></span>
+<span id="cb3-63"><a href="#cb3-63"></a>**`NA` in logical operations follows three-valued logic, and the rules aren't intuitive.** <span class="in">`NA &amp; FALSE`</span> is <span class="in">`FALSE`</span> (because regardless of what <span class="in">`NA`</span> actually is, ANDing with <span class="in">`FALSE`</span> gives <span class="in">`FALSE`</span>). But <span class="in">`NA &amp; TRUE`</span> is <span class="in">`NA`</span> (because if <span class="in">`NA`</span> is <span class="in">`FALSE`</span>, the answer is <span class="in">`FALSE`</span>; if <span class="in">`NA`</span> is <span class="in">`TRUE`</span>, the answer is <span class="in">`TRUE`</span> — we can't decide). Same logic for <span class="in">`OR`</span>: <span class="in">`NA | TRUE`</span> is <span class="in">`TRUE`</span> (always true), but <span class="in">`NA | FALSE`</span> is <span class="in">`NA`</span>. This is *Kleene logic*, not a bug. The takeaway: filtering with <span class="in">`is.na()`</span> is explicit and safe; comparisons that produce <span class="in">`NA`</span> get silently dropped by <span class="in">`filter()`</span> because <span class="in">`filter()`</span> treats <span class="in">`NA`</span> as "not TRUE."</span>
+<span id="cb3-64"><a href="#cb3-64"></a></span>
+<span id="cb3-65"><a href="#cb3-65"></a><span class="fu">## The unifying move</span></span>
+<span id="cb3-66"><a href="#cb3-66"></a></span>
+<span id="cb3-67"><a href="#cb3-67"></a>All four chapters teach the same shape: a <span class="in">`mutate()`</span> or <span class="in">`filter()`</span> or <span class="in">`summarize()`</span> call where the *value* of the verb's argument is a type-specific function. The skeleton is always:</span>
+<span id="cb3-68"><a href="#cb3-68"></a></span>
+<span id="cb3-69"><a href="#cb3-69"></a><span class="in">```r</span></span>
+<span id="cb3-70"><a href="#cb3-70"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb3-71"><a href="#cb3-71"></a>  <span class="fu">mutate</span>(<span class="at">new_col =</span> <span class="fu">TYPE_SPECIFIC_FN</span>(old_col)) <span class="sc">|&gt;</span></span>
+<span id="cb3-72"><a href="#cb3-72"></a>  <span class="fu">filter</span>(<span class="fu">LOGICAL_FN</span>(some_col)) <span class="sc">|&gt;</span></span>
+<span id="cb3-73"><a href="#cb3-73"></a>  <span class="fu">summarize</span>(<span class="at">stat =</span> <span class="fu">NUMERIC_SUMMARY</span>(some_col), <span class="at">.by =</span> group_col)</span>
+<span id="cb3-74"><a href="#cb3-74"></a><span class="in">```</span></span>
+<span id="cb3-75"><a href="#cb3-75"></a></span>
+<span id="cb3-76"><a href="#cb3-76"></a>What changes between chapters is which <span class="in">`TYPE_SPECIFIC_FN`</span> you reach for:</span>
+<span id="cb3-77"><a href="#cb3-77"></a></span>
+<span id="cb3-78"><a href="#cb3-78"></a><span class="pp">|</span> Column type <span class="pp">|</span> Common toolkit <span class="pp">|</span></span>
+<span id="cb3-79"><a href="#cb3-79"></a><span class="pp">|-------------|----------------|</span></span>
+<span id="cb3-80"><a href="#cb3-80"></a><span class="pp">|</span> Logical <span class="pp">|</span> <span class="in">`if_else`</span>, <span class="in">`case_when`</span>, <span class="in">`any`</span>, <span class="in">`all`</span> <span class="pp">|</span></span>
+<span id="cb3-81"><a href="#cb3-81"></a><span class="pp">|</span> Numeric <span class="pp">|</span> <span class="in">`round`</span>, <span class="in">`lag`</span>, <span class="in">`cumsum`</span>, <span class="in">`min_rank`</span> <span class="pp">|</span></span>
+<span id="cb3-82"><a href="#cb3-82"></a><span class="pp">|</span> Factor <span class="pp">|</span> <span class="in">`fct_reorder`</span>, <span class="in">`fct_lump`</span>, <span class="in">`fct_recode`</span> <span class="pp">|</span></span>
+<span id="cb3-83"><a href="#cb3-83"></a><span class="pp">|</span> Date/time <span class="pp">|</span> <span class="in">`year`</span>, <span class="in">`wday`</span>, <span class="in">`month`</span>, <span class="in">`floor_date`</span> <span class="pp">|</span></span>
+<span id="cb3-84"><a href="#cb3-84"></a></span>
+<span id="cb3-85"><a href="#cb3-85"></a>The dplyr verbs are the spine; the type-specific functions are the muscle.</span>
+<span id="cb3-86"><a href="#cb3-86"></a></span>
+<span id="cb3-87"><a href="#cb3-87"></a><span class="fu">## Why this comes before joins and pivots</span></span>
+<span id="cb3-88"><a href="#cb3-88"></a></span>
+<span id="cb3-89"><a href="#cb3-89"></a>ICA 06 is "Adv Wrangling I" — and by week 6 of STAT 212, the grammar from Ch1 + the basic wrangling verbs from Ch3-5 are already in muscle memory. What was missing was the toolkit for handling specific column types cleanly: how to bin a numeric variable, how to reorder a factor for plotting, how to extract day-of-week from a date column to detect weekly patterns. These four chapters fill in that gap, which makes the next steps (joins, pivots, missing data) workable on real-world data — where columns aren't always nicely numeric and dates don't parse themselves.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
