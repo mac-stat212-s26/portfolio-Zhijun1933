@@ -758,9 +758,9 @@ Backtrace:
 <pre><code># A tibble: 3 × 3
   expression    median mem_alloc
   &lt;bch:expr&gt;  &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 grow_vector   63.9ms   191.3MB
-2 preallocate    789µs    48.8KB
-3 vectorized    41.2ns        0B</code></pre>
+1 grow_vector   78.6ms   191.3MB
+2 preallocate  844.8µs    48.8KB
+3 vectorized    20.5ns        0B</code></pre>
 </div>
 </div>
 <p>Growing a vector with <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> inside a loop is ~100× slower than pre-allocating and ~1,000× slower than the vectorized form. The <code>mem_alloc</code> column explains why: every <code>c(x, i)</code> allocates a fresh vector one element longer, so total allocation scales quadratically with the iteration count.</p>

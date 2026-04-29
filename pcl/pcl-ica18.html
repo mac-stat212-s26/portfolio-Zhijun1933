@@ -903,19 +903,19 @@ mindmap
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Bad: the headline is hidden behind a tooltip</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="fu">plot_ly</span>(data, ...) <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">add_markers</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">add_text</span>(<span class="at">text =</span> <span class="st">""</span>)          <span class="co"># nothing visible by default</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">add_text</span>(<span class="at">text =</span> <span class="st">")          # nothing visible by default</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># Good: headline annotated on the static layer; interaction adds detail</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> important_flag)) <span class="sc">+</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> highlights,</span>
-<span id="cb2-10"><a href="#cb2-10"></a>            <span class="fu">aes</span>(<span class="at">label =</span> label),</span>
-<span id="cb2-11"><a href="#cb2-11"></a>            <span class="at">color =</span> <span class="st">"firebrick"</span>) <span class="sc">+</span>                 <span class="co"># visible without click</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">labs</span>(</span>
-<span id="cb2-13"><a href="#cb2-13"></a>    <span class="at">title =</span> <span class="st">"Headline conclusion in plain text"</span>,</span>
-<span id="cb2-14"><a href="#cb2-14"></a>    <span class="at">subtitle =</span> <span class="st">"Source data and detail available on hover"</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a>  plotly<span class="sc">::</span><span class="fu">ggplotly</span>()                                <span class="co"># interactivity layered on</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="st"># Good: headline annotated on the static layer; interaction adds detail</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="st">ggplot(data, aes(x, y)) +</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="st">  geom_point(aes(color = important_flag)) +</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="st">  geom_text(data = highlights,</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="st">            aes(label = label),</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="st">            color = "</span>firebrick<span class="st">") +                 # visible without click</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="st">  labs(</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="st">    title = "</span>Headline conclusion <span class="cf">in</span> plain text<span class="st">",</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="st">    subtitle = "</span>Source data and detail available on hover<span class="st">"</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="st">  ) |&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="st">  plotly::ggplotly()                                # interactivity layered on</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The static version of an interactive should still tell the story. Interaction adds depth, never the substance.</p>
 <p><strong>The personalize-first pattern.</strong> When interactivity is justified, hook the reader by starting from <em>their</em> data:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># OECD pattern: detect or ask, default to user's region</span></span>
@@ -1512,50 +1512,50 @@ mindmap
 <span id="cb4-84"><a href="#cb4-84"></a><span class="co"># Bad: the headline is hidden behind a tooltip</span></span>
 <span id="cb4-85"><a href="#cb4-85"></a><span class="fu">plot_ly</span>(data, ...) <span class="sc">|&gt;</span></span>
 <span id="cb4-86"><a href="#cb4-86"></a>  <span class="fu">add_markers</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-87"><a href="#cb4-87"></a>  <span class="fu">add_text</span>(<span class="at">text =</span> <span class="st">""</span>)          <span class="co"># nothing visible by default</span></span>
+<span id="cb4-87"><a href="#cb4-87"></a>  <span class="fu">add_text</span>(<span class="at">text =</span> <span class="st">")          # nothing visible by default</span></span>
 <span id="cb4-88"><a href="#cb4-88"></a></span>
-<span id="cb4-89"><a href="#cb4-89"></a><span class="co"># Good: headline annotated on the static layer; interaction adds detail</span></span>
-<span id="cb4-90"><a href="#cb4-90"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb4-91"><a href="#cb4-91"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> important_flag)) <span class="sc">+</span></span>
-<span id="cb4-92"><a href="#cb4-92"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> highlights,</span>
-<span id="cb4-93"><a href="#cb4-93"></a>            <span class="fu">aes</span>(<span class="at">label =</span> label),</span>
-<span id="cb4-94"><a href="#cb4-94"></a>            <span class="at">color =</span> <span class="st">"firebrick"</span>) <span class="sc">+</span>                 <span class="co"># visible without click</span></span>
-<span id="cb4-95"><a href="#cb4-95"></a>  <span class="fu">labs</span>(</span>
-<span id="cb4-96"><a href="#cb4-96"></a>    <span class="at">title =</span> <span class="st">"Headline conclusion in plain text"</span>,</span>
-<span id="cb4-97"><a href="#cb4-97"></a>    <span class="at">subtitle =</span> <span class="st">"Source data and detail available on hover"</span></span>
-<span id="cb4-98"><a href="#cb4-98"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb4-99"><a href="#cb4-99"></a>  plotly<span class="sc">::</span><span class="fu">ggplotly</span>()                                <span class="co"># interactivity layered on</span></span>
-<span id="cb4-100"><a href="#cb4-100"></a><span class="in">```</span></span>
+<span id="cb4-89"><a href="#cb4-89"></a><span class="st"># Good: headline annotated on the static layer; interaction adds detail</span></span>
+<span id="cb4-90"><a href="#cb4-90"></a><span class="st">ggplot(data, aes(x, y)) +</span></span>
+<span id="cb4-91"><a href="#cb4-91"></a><span class="st">  geom_point(aes(color = important_flag)) +</span></span>
+<span id="cb4-92"><a href="#cb4-92"></a><span class="st">  geom_text(data = highlights,</span></span>
+<span id="cb4-93"><a href="#cb4-93"></a><span class="st">            aes(label = label),</span></span>
+<span id="cb4-94"><a href="#cb4-94"></a><span class="st">            color = "</span>firebrick<span class="st">") +                 # visible without click</span></span>
+<span id="cb4-95"><a href="#cb4-95"></a><span class="st">  labs(</span></span>
+<span id="cb4-96"><a href="#cb4-96"></a><span class="st">    title = "</span>Headline conclusion <span class="cf">in</span> plain text<span class="st">",</span></span>
+<span id="cb4-97"><a href="#cb4-97"></a><span class="st">    subtitle = "</span>Source data and detail available on hover<span class="st">"</span></span>
+<span id="cb4-98"><a href="#cb4-98"></a><span class="st">  ) |&gt;</span></span>
+<span id="cb4-99"><a href="#cb4-99"></a><span class="st">  plotly::ggplotly()                                # interactivity layered on</span></span>
+<span id="cb4-100"><a href="#cb4-100"></a><span class="st">```</span></span>
 <span id="cb4-101"><a href="#cb4-101"></a></span>
-<span id="cb4-102"><a href="#cb4-102"></a>The static version of an interactive should still tell the story. Interaction adds depth, never the substance.</span>
+<span id="cb4-102"><a href="#cb4-102"></a><span class="st">The static version of an interactive should still tell the story. Interaction adds depth, never the substance.</span></span>
 <span id="cb4-103"><a href="#cb4-103"></a></span>
-<span id="cb4-104"><a href="#cb4-104"></a>**The personalize-first pattern.** When interactivity is justified, hook the reader by starting from *their* data:</span>
+<span id="cb4-104"><a href="#cb4-104"></a><span class="st">**The personalize-first pattern.** When interactivity is justified, hook the reader by starting from *their* data:</span></span>
 <span id="cb4-105"><a href="#cb4-105"></a></span>
-<span id="cb4-106"><a href="#cb4-106"></a><span class="in">```r</span></span>
-<span id="cb4-107"><a href="#cb4-107"></a><span class="co"># OECD pattern: detect or ask, default to user's region</span></span>
-<span id="cb4-108"><a href="#cb4-108"></a>user_region <span class="ot">&lt;-</span> <span class="fu">detect_or_default_region</span>()  <span class="co"># via geolocation or dropdown</span></span>
+<span id="cb4-106"><a href="#cb4-106"></a><span class="st">```r</span></span>
+<span id="cb4-107"><a href="#cb4-107"></a><span class="st"># OECD pattern: detect or ask, default to user's region</span></span>
+<span id="cb4-108"><a href="#cb4-108"></a><span class="st">user_region &lt;- detect_or_default_region()  # via geolocation or dropdown</span></span>
 <span id="cb4-109"><a href="#cb4-109"></a></span>
-<span id="cb4-110"><a href="#cb4-110"></a>oecd_data <span class="sc">|&gt;</span></span>
-<span id="cb4-111"><a href="#cb4-111"></a>  <span class="fu">filter</span>(region <span class="sc">==</span> user_region) <span class="sc">|&gt;</span></span>
-<span id="cb4-112"><a href="#cb4-112"></a>  <span class="fu">plot_initial_view</span>()                       <span class="co"># this is what they see first</span></span>
+<span id="cb4-110"><a href="#cb4-110"></a><span class="st">oecd_data |&gt;</span></span>
+<span id="cb4-111"><a href="#cb4-111"></a><span class="st">  filter(region == user_region) |&gt;</span></span>
+<span id="cb4-112"><a href="#cb4-112"></a><span class="st">  plot_initial_view()                       # this is what they see first</span></span>
 <span id="cb4-113"><a href="#cb4-113"></a></span>
-<span id="cb4-114"><a href="#cb4-114"></a><span class="co"># Then make exploration available</span></span>
-<span id="cb4-115"><a href="#cb4-115"></a><span class="fu">ui_for_changing_region</span>(<span class="at">default =</span> user_region)</span>
-<span id="cb4-116"><a href="#cb4-116"></a><span class="in">```</span></span>
+<span id="cb4-114"><a href="#cb4-114"></a><span class="st"># Then make exploration available</span></span>
+<span id="cb4-115"><a href="#cb4-115"></a><span class="st">ui_for_changing_region(default = user_region)</span></span>
+<span id="cb4-116"><a href="#cb4-116"></a><span class="st">```</span></span>
 <span id="cb4-117"><a href="#cb4-117"></a></span>
-<span id="cb4-118"><a href="#cb4-118"></a>The reader arrives in a chart that's already about them; agency to change the view is offered, not required. This converts the "why should I care" question before the reader can ask it.</span>
+<span id="cb4-118"><a href="#cb4-118"></a><span class="st">The reader arrives in a chart that's already about them; agency to change the view is offered, not required. This converts the "</span>why should I care<span class="st">" question before the reader can ask it.</span></span>
 <span id="cb4-119"><a href="#cb4-119"></a></span>
-<span id="cb4-120"><a href="#cb4-120"></a><span class="fu">## Why this comes after effective viz</span></span>
+<span id="cb4-120"><a href="#cb4-120"></a><span class="st">## Why this comes after effective viz</span></span>
 <span id="cb4-121"><a href="#cb4-121"></a></span>
-<span id="cb4-122"><a href="#cb4-122"></a>ICA 17 taught the design discipline of static charts — data-to-ink, references, highlighting, ordering, narrative arc. ICA 18 takes those principles and asks: which of them *change* when you add interaction? Some carry over directly (high data density, meaningful order), some get inverted (tooltips can violate "highlight one thing" because the user picks), and some become harder (small multiples in interactive context need careful onboarding). The progression reflects how the tools are actually built: `plotly::ggplotly()` adds interaction *on top of* a well-designed ggplot, so the static design discipline is the foundation, not the alternative.</span>
+<span id="cb4-122"><a href="#cb4-122"></a><span class="st">ICA 17 taught the design discipline of static charts — data-to-ink, references, highlighting, ordering, narrative arc. ICA 18 takes those principles and asks: which of them *change* when you add interaction? Some carry over directly (high data density, meaningful order), some get inverted (tooltips can violate "</span>highlight one thing<span class="st">" because the user picks), and some become harder (small multiples in interactive context need careful onboarding). The progression reflects how the tools are actually built: `plotly::ggplotly()` adds interaction *on top of* a well-designed ggplot, so the static design discipline is the foundation, not the alternative.</span></span>
 <span id="cb4-123"><a href="#cb4-123"></a></span>
-<span id="cb4-124"><a href="#cb4-124"></a><span class="fu">## A note on what this enables</span></span>
+<span id="cb4-124"><a href="#cb4-124"></a><span class="st">## A note on what this enables</span></span>
 <span id="cb4-125"><a href="#cb4-125"></a></span>
-<span id="cb4-126"><a href="#cb4-126"></a>The decision framework here directly shapes how I'll build the final TidyTuesday entries and any portfolio dashboards. For most TidyTuesday posts — single dataset, single weekly question, scrolling reader — static + annotation wins; the time investment in interactivity isn't repaid by the audience. For an exploratory piece (the CNPJ Lorenz analysis is a candidate) the interactive version might be justified — but only if the static version still carries the headline finding. The quiet rule both readings converge on: *interaction is for the second question, not the first*. Make sure the first question has a static answer.</span>
+<span id="cb4-126"><a href="#cb4-126"></a><span class="st">The decision framework here directly shapes how I'll build the final TidyTuesday entries and any portfolio dashboards. For most TidyTuesday posts — single dataset, single weekly question, scrolling reader — static + annotation wins; the time investment in interactivity isn't repaid by the audience. For an exploratory piece (the CNPJ Lorenz analysis is a candidate) the interactive version might be justified — but only if the static version still carries the headline finding. The quiet rule both readings converge on: *interaction is for the second question, not the first*. Make sure the first question has a static answer.</span></span>
 <span id="cb4-127"><a href="#cb4-127"></a></span>
-<span id="cb4-128"><a href="#cb4-128"></a><span class="fu">## Closing thought</span></span>
+<span id="cb4-128"><a href="#cb4-128"></a><span class="st">## Closing thought</span></span>
 <span id="cb4-129"><a href="#cb4-129"></a></span>
-<span id="cb4-130"><a href="#cb4-130"></a>The Baur essay's title — *The death of interactive infographics?* — is intentionally provocative. The honest answer is the one he gives: it depends. The maturation of the field means we're past the period when interaction was a virtue in itself, and into a period when it's a tool to be deployed only when its complexity is repaid by audience benefit. Knaflic's storytelling tradition isn't an alternative to interaction; it's the discipline that lets interaction serve a purpose when you do choose to add it. ICA 18's job is to internalize the question — *what does interaction earn here?* — and only build it when there's an answer.</span>
+<span id="cb4-130"><a href="#cb4-130"></a><span class="st">The Baur essay's title — *The death of interactive infographics?* — is intentionally provocative. The honest answer is the one he gives: it depends. The maturation of the field means we're past the period when interaction was a virtue in itself, and into a period when it's a tool to be deployed only when its complexity is repaid by audience benefit. Knaflic's storytelling tradition isn't an alternative to interaction; it's the discipline that lets interaction serve a purpose when you do choose to add it. ICA 18's job is to internalize the question — *what does interaction earn here?* — and only build it when there's an answer.</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
