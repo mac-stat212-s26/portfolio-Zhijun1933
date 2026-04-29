@@ -1,0 +1,239 @@
+---
+title: "The Resource Appetite of Edible Plants"
+subtitle: "TidyTuesday 2026 · Week 5 · Edible Plants Database"
+author: "Zhijun He"
+date: "2026-02-11"
+format:
+  html:
+    theme: flatly
+    toc: true
+    code-fold: true
+    code-summary: "Show code"
+    fig-align: center
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+
+library(tidyverse)
+library(scales)
+
+edible_plants <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-02-03/edible_plants.csv")
+```
+
+## Background
+
+The Edible Plant Database (EPD) catalogues 146 edible species from the GROW Observatory, a European citizen-science project on growing food. Each species is characterized by its sunlight, water, nutrient, and temperature requirements, along with cultivation class (e.g., Brassica, Legume, Cucurbit) and soil preferences. The database was designed to help growers answer practical questions such as "What can I plant now?" based on local conditions.
+
+For home gardeners, one of the most consequential planning decisions is understanding which plants are resource-intensive and which are low-maintenance. A plant's demand for sunlight, water, and nutrients are not independent: some species are "hungry" across all three dimensions while others are frugal. Knowing whether these resource demands tend to cluster---and which cultivation families are the most demanding---can help gardeners design beds that group compatible species together and allocate scarce inputs (especially water) more efficiently.
+
+## Motivation & Research Question
+
+Beginner gardeners often learn the hard way that planting a water-hungry cucumber next to drought-tolerant rosemary leads to trouble. Resource mismatches between neighboring plants are a leading cause of disappointing harvests in small gardens. If we could visualize how water, sunlight, and nutrient demands co-vary across plant families, gardeners could plan beds more intentionally.
+
+This analysis asks: **How do water, sunlight, and nutrient requirements jointly vary across cultivation groups in the Edible Plant Database, and which families are the most versus least resource-intensive overall?**
+
+## Data Preparation
+
+```{r}
+#| label: data-prep
+
+# Standardize the categorical variables
+plants_clean <- edible_plants |>
+  mutate(
+    # Normalize case inconsistencies
+    water = str_to_title(water),
+    sunlight = str_to_title(sunlight),
+    nutrients = str_to_title(nutrients),
+    # Simplify sunlight into ordered categories
+    sunlight_simple = case_when(
+      str_detect(sunlight, "Full Shade|Full Sun/Partial Shade/Full Shade") ~ "Any (incl. full shade)",
+      str_detect(sunlight, "Partial Shade") & !str_detect(sunlight, "Full Sun") ~ "Partial shade only",
+      str_detect(sunlight, "Full Sun/Partial Shade") ~ "Full sun / partial shade",
+      str_detect(sunlight, "Full Sun") ~ "Full sun only",
+      TRUE ~ sunlight
+    ),
+    # Collapse water to clean ordered factor
+    water_clean = case_when(
+      water %in% c("Very Low") ~ "Very Low",
+      water %in% c("Low") ~ "Low",
+      water %in% c("Medium") ~ "Medium",
+      water %in% c("High") ~ "High",
+      water %in% c("Very High") ~ "Very High",
+      TRUE ~ water
+    ),
+    # Collapse nutrients
+    nutrients_clean = case_when(
+      str_detect(nutrients, "Low") ~ "Low",
+      str_detect(nutrients, "Medium") ~ "Medium",
+      str_detect(nutrients, "High") ~ "High",
+      TRUE ~ nutrients
+    ),
+    # Merge Brassicas typo with Brassica; Solanum with Solanaceae
+    cultivation_clean = case_when(
+      cultivation %in% c("Brassica", "Brassicas") ~ "Brassica",
+      cultivation %in% c("Solanum") ~ "Solanaceae",
+      TRUE ~ cultivation
+    )
+  ) |>
+  # Assign numeric scores for resource intensity
+
+  mutate(
+    water_score = case_match(
+      water_clean,
+      "Very Low" ~ 1, "Low" ~ 2, "Medium" ~ 3, "High" ~ 4, "Very High" ~ 5
+    ),
+    sunlight_score = case_match(
+      sunlight_simple,
+      "Any (incl. full shade)" ~ 1,
+      "Partial shade only" ~ 2,
+      "Full sun / partial shade" ~ 3,
+      "Full sun only" ~ 4
+    ),
+    nutrient_score = case_match(
+      nutrients_clean,
+      "Low" ~ 1, "Medium" ~ 2, "High" ~ 3
+    )
+  )
+
+# Filter to cultivation groups with >= 3 species for meaningful comparison
+cult_counts <- plants_clean |> count(cultivation_clean) |> filter(n >= 3)
+plants_filtered <- plants_clean |> filter(cultivation_clean %in% cult_counts$cultivation_clean)
+```
+
+## Visualization 1: Water Demand Varies Sharply Across Cultivation Families
+
+```{r}
+#| label: viz1-water-by-cultivation
+#| fig-width: 9
+#| fig-height: 6
+
+# Order water levels
+water_order <- c("Very Low", "Low", "Medium", "High", "Very High")
+
+# Compute proportions within each cultivation group
+water_props <- plants_filtered |>
+  filter(!is.na(water_clean)) |>
+  mutate(water_clean = factor(water_clean, levels = water_order)) |>
+  count(cultivation_clean, water_clean, .drop = FALSE) |>
+  group_by(cultivation_clean) |>
+  mutate(
+    total = sum(n),
+    pct = n / total
+  ) |>
+  ungroup()
+
+# Order cultivation groups by median water score
+cult_order <- plants_filtered |>
+  filter(!is.na(water_score)) |>
+  group_by(cultivation_clean) |>
+  summarise(med_water = median(water_score, na.rm = TRUE)) |>
+  arrange(med_water) |>
+  pull(cultivation_clean)
+
+water_props <- water_props |>
+  mutate(cultivation_clean = factor(cultivation_clean, levels = cult_order))
+
+ggplot(water_props, aes(x = cultivation_clean, y = pct, fill = water_clean)) +
+  geom_col(position = "fill", width = 0.75, color = "white", linewidth = 0.3) +
+  scale_y_continuous(labels = percent_format(), expand = expansion(mult = c(0, 0.02))) +
+  scale_fill_manual(
+    values = c(
+      "Very Low" = "#fef0d9",
+      "Low"      = "#fdcc8a",
+      "Medium"   = "#fc8d59",
+      "High"     = "#e34a33",
+      "Very High" = "#b30000"
+    ),
+    name = "Water\nRequirement"
+  ) +
+  labs(
+    title = "Cucurbits and Salad greens are the thirstiest plant families",
+    subtitle = "Share of species at each water-requirement level, by cultivation group",
+    x = NULL,
+    y = "Share of species",
+    caption = "Source: Edible Plant Database (GROW Observatory) · TidyTuesday 2026 Wk 5 · Zhijun He · 2026-02-11"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey40", size = 11),
+    plot.caption = element_text(color = "grey50", size = 8, hjust = 0),
+    axis.text.x = element_text(angle = 30, hjust = 1),
+    legend.position = "right",
+    panel.grid.major.x = element_blank()
+  )
+```
+
+Cucurbits (squash, melons, cucumbers) and Salad greens stand out: every Salad species requires at least "High" water, and a majority of Cucurbits do as well. Lamiaceae (herbs like basil, mint, oregano) and Chenopodiaceae (spinach, chard) cluster almost entirely at "Medium" or "Low," making them far more forgiving in dry conditions. For a gardener in a drought-prone area, this chart suggests prioritizing herbs and leafy greens over melons and cucumbers.
+
+## Visualization 2: A Resource-Intensity Heatmap of Cultivation Families
+
+```{r}
+#| label: viz2-heatmap
+#| fig-width: 9
+#| fig-height: 5.5
+
+# Compute mean resource scores per cultivation group
+resource_summary <- plants_filtered |>
+  filter(!is.na(water_score), !is.na(sunlight_score), !is.na(nutrient_score)) |>
+  group_by(cultivation_clean) |>
+  summarise(
+    Water = mean(water_score, na.rm = TRUE),
+    Sunlight = mean(sunlight_score, na.rm = TRUE),
+    Nutrients = mean(nutrient_score, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) |>
+  # Compute overall intensity (mean of the three)
+  mutate(overall = (Water + Sunlight + Nutrients) / 3) |>
+  arrange(desc(overall))
+
+# Pivot long for heatmap
+resource_long <- resource_summary |>
+  select(cultivation_clean, Water, Sunlight, Nutrients) |>
+  pivot_longer(-cultivation_clean, names_to = "resource", values_to = "score") |>
+  mutate(
+    cultivation_clean = factor(
+      cultivation_clean,
+      levels = resource_summary |> arrange(overall) |> pull(cultivation_clean)
+    ),
+    resource = factor(resource, levels = c("Sunlight", "Water", "Nutrients"))
+  )
+
+ggplot(resource_long, aes(x = resource, y = cultivation_clean, fill = score)) +
+  geom_tile(color = "white", linewidth = 1) +
+  geom_text(
+    aes(label = round(score, 1)),
+    color = "white", fontface = "bold", size = 4.5
+  ) +
+  scale_fill_gradient2(
+    low = "#2c7bb6", mid = "#fdae61", high = "#d7191c",
+    midpoint = 2.5, limits = c(1, 4),
+    name = "Mean\ndemand\nscore"
+  ) +
+  labs(
+    title = "Cucurbits demand the most across all three resources; herbs demand the least",
+    subtitle = "Average resource-demand score (1 = lowest, 4–5 = highest) per cultivation family",
+    x = NULL, y = NULL,
+    caption = "Source: Edible Plant Database (GROW Observatory) · TidyTuesday 2026 Wk 5 · Zhijun He · 2026-02-11"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey40", size = 11),
+    plot.caption = element_text(color = "grey50", size = 8, hjust = 0),
+    panel.grid = element_blank(),
+    axis.text = element_text(size = 11)
+  )
+```
+
+The heatmap reveals that resource demands do tend to cluster together. Cucurbits are the most demanding family across all three dimensions: they need the most sunlight, the most water, and the most nutrients. Solanaceae (tomatoes, peppers, potatoes) and Salad greens are close behind. On the other end, Lamiaceae herbs (mint, oregano, basil) and Chenopodiaceae (spinach, chard) are consistently frugal---they are strong candidates for low-maintenance beds. Miscellaneous plants (a catch-all group that includes fruits, trees, and other species) sit in the middle, reflecting the group's heterogeneity.
+
+## Takeaway
+
+Resource demands across the three key inputs---sunlight, water, and nutrients---are positively correlated at the family level: plant groups that are hungry for one resource tend to be hungry for all three. For gardeners, this means grouping plants by cultivation family is a reasonable heuristic for resource compatibility. The practical lesson is simple: plant your cucumbers with your melons (and water them generously), and keep your herbs together in a drier, leaner bed.

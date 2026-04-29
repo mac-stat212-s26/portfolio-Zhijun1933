@@ -1,0 +1,297 @@
+---
+title: "Advanced Spatial Visualization: Minnesota Mapping"
+subtitle: "ICA 04 — Spatial Data with `sf`, Elevation Rasters, and Multi-Layer Maps"
+author: "Zhijun He"
+date: "2026-02-11"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    embed-resources: true
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+```
+
+## Data Story Critique
+
+**Source:** [USGS Drought Timeline Visualization](https://labs.waterdata.usgs.gov/visualizations/drought-timeline/index.html#/)
+
+**What is the data story?** The visualization tracks the spatial and temporal evolution of drought conditions across the United States, showing how drought intensity and coverage have changed over time at the county level.
+
+**What is effective?** The timeline scrubber allows users to animate drought progression, making temporal patterns intuitive. The color encoding for drought severity (D0–D4) follows a clear sequential palette, and the geographic granularity at the county level reveals regional patterns that state-level data would miss.
+
+**What could be improved?** The visualization could benefit from an accompanying line chart showing aggregate drought area over time, giving users a macro-level summary alongside the geographic detail. Adding the ability to click on a county for a local time series would also enhance exploratory analysis.
+
+## Setup
+
+```{r load-packages}
+# Load required packages
+library(tidyverse)
+library(sf)
+library(elevatr)
+library(terra)
+library(stars)
+library(tidycensus)
+library(USAboundaries)
+library(ggthemes)
+```
+
+## Reading Spatial Data
+
+```{r read-data}
+# Built-in North Carolina shapefile
+nc <- st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+
+# MN cities (population centers)
+mn_cities <- st_read("/Users/moonhalo/Documents/GitHub/portfolio-Zhijun1933-212/src/ica/04_adv_maps/data/shp_loc_pop_centers/city_and_township_population_centers.shp", quiet = TRUE)
+
+# MN water (lakes and rivers)
+mn_water <- st_read("/Users/moonhalo/Documents/GitHub/portfolio-Zhijun1933-212/src/ica/04_adv_maps/data/shp_water_lakes_rivers/LakesAndRivers.shp", quiet = TRUE)
+```
+
+### Checking Object Classes
+
+The `sf` package reads spatial data into a hybrid `sf` / `data.frame` object:
+
+```{r check-classes}
+class(nc)
+class(mn_cities)
+class(mn_water)
+```
+
+### Checking CRS
+
+```{r check-crs}
+st_crs(nc)
+```
+
+### Plotting NC in Original CRS (NAD27)
+
+```{r nc-plot-original}
+ggplot(nc) +
+  geom_sf() +
+  theme_classic() +
+  labs(title = "North Carolina Counties in NAD27 CRS")
+```
+
+## Changing the CRS
+
+Transforming to a South Carolina CRS to observe distortion:
+
+```{r nc-transform-sc}
+nc_transformed <- nc |> st_transform(crs = "EPSG:32133")
+st_crs(nc_transformed)
+
+ggplot(nc_transformed) +
+  geom_sf() +
+  theme_classic() +
+  labs(title = "North Carolina in EPSG:32133 (South Carolina State Plane)")
+```
+
+### Custom Function with Title Argument
+
+```{r transform-function}
+transform_and_plot <- function(spatial_obj, new_crs, title = "Transformed Map") {
+  spatial_obj |>
+    st_transform(crs = new_crs) |>
+    ggplot() +
+    geom_sf() +
+    theme_classic() +
+    labs(title = title)
+}
+```
+
+#### CRS 1: Alaska Albers (EPSG:3338) — Large-Scale Distortion
+
+```{r crs1}
+transform_and_plot(nc, new_crs = "EPSG:3338",
+                   title = "NC Projected in Alaska Albers (EPSG:3338)")
+```
+
+#### CRS 2: Web Mercator (EPSG:3857) — Common Web Map Projection
+
+```{r crs2}
+transform_and_plot(nc, new_crs = "EPSG:3857",
+                   title = "NC Projected in Web Mercator (EPSG:3857)")
+```
+
+**Verify your understanding:** If point location data were stored in a CRS different from NAD27, overlaying them directly on the NAD27 map would produce spatial misalignment — points would appear shifted from their true locations because the coordinate systems define position differently. We must first transform all layers to a common CRS using `st_transform()`.
+
+## Minnesota Map with Multiple Layers
+
+```{r install-usboundaries, eval=FALSE}
+install.packages("USAboundaries", repos = "https://ropensci.r-universe.dev", type = "source")
+install.packages("USAboundariesData", repos = "https://ropensci.r-universe.dev", type = "source")
+```
+```{r mn-counties}
+mn_counties <- USAboundaries::us_counties(resolution = "high", states = "Minnesota")
+
+# Fix duplicate column names
+names_counties <- names(mn_counties)
+names(mn_counties)[names_counties == "state_name"] <- c("state_name1", "state_name2")
+```
+
+### Unifying CRSs
+
+```{r check-crs-all}
+cat("mn_cities CRS:\n")
+st_crs(mn_cities)$input
+cat("\nmn_water CRS:\n")
+st_crs(mn_water)$input
+cat("\nmn_counties CRS:\n")
+st_crs(mn_counties)$input
+```
+
+```{r unify-crs}
+# Transform all datasets to match mn_cities CRS
+mn_counties <- mn_counties |> st_transform(crs = st_crs(mn_cities))
+mn_water <- mn_water |> st_transform(crs = st_crs(mn_cities))
+```
+
+### Counties + Cities
+
+```{r counties-cities}
+ggplot() +
+  geom_sf(data = mn_counties, fill = "white", color = "gray40") +
+  geom_sf(data = mn_cities, size = 0.3, color = "steelblue", alpha = 0.5) +
+  labs(title = "Minnesota City/Township Population Centers by County") +
+  ggthemes::theme_map()
+```
+
+### Customizing Colors: Large Cities by Population
+
+```{r cities-population}
+ggplot() +
+  geom_sf(data = mn_counties, fill = "white") +
+  geom_sf(
+    data = mn_cities |> filter(Population >= 10000),
+    mapping = aes(color = Population, size = Population)
+  ) +
+  scale_color_viridis_c() +
+  labs(title = "Minnesota Cities with Population ≥ 10,000") +
+  ggthemes::theme_map() +
+  theme(legend.position = "bottom")
+```
+
+**`scale_color_viridis_c()` notes:**
+
+The viridis scales are perceptually uniform, meaning they are readable in color, in greyscale, and by viewers with common forms of color blindness. The `_d()` variant handles discrete/categorical variables, `_c()` handles continuous variables, and `_b()` bins a continuous variable into a small number of discrete color steps.
+
+### Adding Elevation Raster Data
+
+```{r elevation-mn, results='hide'}
+elevation <- elevatr::get_elev_raster(mn_counties, z = 5, clip = "bbox")
+raster::crs(elevation) <- sf::st_crs(mn_counties)
+
+elev_df <- elevation |> terra::as.data.frame(xy = TRUE)
+colnames(elev_df) <- c("x", "y", "elevation")
+```
+
+```{r elevation-map}
+ggplot() +
+  geom_raster(data = elev_df, aes(x = x, y = y, fill = elevation)) +
+  scale_fill_gradient(low = "darkgreen", high = "white", guide = "none") +
+  geom_sf(data = mn_counties, fill = NA, color = "black") +
+  geom_sf(
+    data = mn_cities |> filter(Population >= 10000),
+    mapping = aes(color = Population, size = Population)
+  ) +
+  scale_color_viridis_c() +
+  labs(title = "Minnesota Elevation with Cities ≥ 10,000 Population") +
+  ggthemes::theme_map() +
+  theme(legend.position = "bottom")
+```
+
+### Zoom in to Twin Cities and Add Water
+
+```{r twin-cities-bbox}
+seven_countyarea <- mn_counties |>
+  filter(name %in% c("Anoka", "Hennepin", "Ramsey", "Dakota", "Carver", "Washington", "Scott")) |>
+  st_bbox()
+seven_countyarea
+```
+
+```{r twin-cities-elevation, results='hide'}
+elevation <- elevatr::get_elev_raster(
+  mn_counties |> st_crop(seven_countyarea), z = 9, clip = "bbox"
+)
+raster::crs(elevation) <- sf::st_crs(mn_counties)
+
+elev_df <- elevation |> terra::as.data.frame(xy = TRUE)
+colnames(elev_df) <- c("x", "y", "elevation")
+```
+
+```{r twin-cities-map}
+tc_map <- ggplot() +
+  geom_raster(data = elev_df, aes(x = x, y = y, fill = elevation)) +
+  geom_sf(data = mn_counties, fill = NA, color = "black") +
+  geom_sf(data = mn_water, fill = "lightsteelblue1", color = "lightsteelblue1") +
+  geom_sf(
+    data = mn_cities |> filter(Population >= 10000),
+    mapping = aes(color = Population, size = Population)
+  ) +
+  scale_color_viridis_c(option = "magma") +
+  scale_fill_gradient(low = "darkgreen", high = "white") +
+  coord_sf(
+    xlim = seven_countyarea[c("xmin", "xmax")],
+    ylim = seven_countyarea[c("ymin", "ymax")]
+  ) +
+  labs(title = "Twin Cities Metro: Elevation, Water, and Cities ≥ 10,000 Population") +
+  ggthemes::theme_map() +
+  theme(legend.position = "none")
+
+tc_map
+```
+
+### Saving the Map
+
+```{r save-map}
+png("/Users/moonhalo/Documents/GitHub/portfolio-Zhijun1933-212/src/ica/04_adv_maps/figures/tc_map_zoom.png", width = 800, height = 400)
+tc_map
+dev.off()
+```
+
+## Going Beyond: Twin Cities with Leaflet
+
+```{r leaflet-map}
+library(leaflet)
+
+mn_counties_leaf <- mn_counties |> st_transform(4326)
+mn_cities_leaf <- mn_cities |> st_transform(4326)
+
+cities_per_county <- st_join(mn_cities_leaf, mn_counties_leaf) |>
+  st_drop_geometry() |>
+  count(name)
+
+mn_counties_leaf |>
+  filter(name %in% c("Anoka", "Hennepin", "Ramsey", "Dakota", "Carver", "Washington", "Scott")) |>
+  left_join(cities_per_county) |>
+  leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolygons(
+    color = "#444444", weight = 1, smoothFactor = 0.5,
+    opacity = 1.0, fillOpacity = 0.5,
+    fillColor = ~colorQuantile("YlOrRd", n)(n),
+    highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE)
+  ) |>
+  addCircles(
+    data = mn_cities_leaf |>
+      filter(County %in% paste(
+        c("Anoka", "Hennepin", "Ramsey", "Dakota", "Carver", "Washington", "Scott"), "County"
+      )),
+    color = "#444444"
+  )
+```
+
+---
+
+*Zhijun He | Macalester College | `r Sys.Date()`*
