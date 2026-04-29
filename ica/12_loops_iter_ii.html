@@ -658,10 +658,10 @@ cookieconsent.run({
 <pre><code># A tibble: 4 × 3
   type                    median mem_alloc
   &lt;chr&gt;                 &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 for_loop_no_storage    72.17ms   191.2MB
-2 for_loop_with_storage 802.58µs    48.8KB
-3 purrr_map_int           3.94ms      46KB
-4 vectorized_seq_len     40.98ns        0B</code></pre>
+1 for_loop_no_storage    74.12ms   191.2MB
+2 for_loop_with_storage 817.54µs    48.8KB
+3 purrr_map_int           3.86ms      46KB
+4 vectorized_seq_len     81.96ns        0B</code></pre>
 </div>
 </div>
 <p>Reading across: <code>vectorized_seq_len</code> is the fastest and allocates the least memory; <code>for_loop_with_storage</code> is in the same ballpark as <code>purrr_map_int</code>; <code>for_loop_no_storage</code> is roughly two orders of magnitude slower and allocates dramatically more memory because every <code>c(x, i)</code> copies the entire growing vector. The <code>n_gc</code> (garbage-collection) column tells the same story from the memory-pressure side.</p>
